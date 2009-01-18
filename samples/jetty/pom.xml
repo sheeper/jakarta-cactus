@@ -64,7 +64,12 @@
 			<artifactId>cactus.samples.servlet</artifactId>
 			<version>${version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.cactus</groupId>
+			<artifactId>cactus.samples.servlet</artifactId>
+			<version>${version}</version>
+			<type>test-jar</type>
+		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>

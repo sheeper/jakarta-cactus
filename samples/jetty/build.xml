@@ -68,7 +68,7 @@
         <include name="*.jar"/>
       </fileset>
       <dirset dir="../servlet/target/">
-        <include name="classes"/>
+				<include name="test-classes"/>
       </dirset>
 		</path>
 		

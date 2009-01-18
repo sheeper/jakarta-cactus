@@ -1,0 +1,4 @@
+To run this example application you need first compiled
+and executed the servlet application. This is because we
+use the servlet application test-cases to run them here
+with Jetty!
