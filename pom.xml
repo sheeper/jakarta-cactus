@@ -482,7 +482,6 @@
 				<version>2.0-beta-5</version>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>${maven.compile.source}</source>
@@ -573,10 +572,11 @@
 					<reportFile>${project.build.directory}/${project.build.finalName}.rat</reportFile>
 					<excludes>
 						<exclude>**/target/**/*</exclude>
+						<exclude>**/install/**/*</exclude>		
 						<!--Exclude the descriptors since they are licenses themselves. -->
 						<exclude>**/descriptors/**/*</exclude>
 						<exclude>**/MANIFEST.MF</exclude>						
-						<exclude>**/HOWTO.txt</exclude>						
+						<exclude>**/HOWTO.txt</exclude>		
 						<exclude>ANNOUNCEMENT.txt</exclude>
 						<!-- Eclipse files -->
 						<exclude>**/.*</exclude>
