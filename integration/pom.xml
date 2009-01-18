@@ -45,7 +45,7 @@
 					<dependency>
 						<groupId>org.apache.cactus</groupId>
 						<artifactId>cactus.build.tools</artifactId>
-						<version>${version}</version>
+						<version>1.8.0</version>
 					</dependency>
 				</dependencies>
 				<configuration>
