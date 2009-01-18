@@ -66,7 +66,7 @@ public class TestCactifyEarMojo extends AbstractMojoTestCase
         } 
         catch (MojoExecutionException mex)
         {
-        	assertEquals("You need to specify [srcFile] for cactification!", mex.getMessage());
+        	assertEquals("You need to specify [srcFile] attribute for cactification!", mex.getMessage());
         }
     }
 }
