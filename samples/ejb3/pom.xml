@@ -17,12 +17,12 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.samples</artifactId>
-		<version>1.8.1-SNAPSHOT</version>
+		<version>1.8.1-rc1</version>
 	</parent>
 	<artifactId>cactus.samples.ejb3</artifactId>
 	<name>Cactus Ejb Samples - Parent Project</name>
@@ -144,7 +144,7 @@
 		  <plugin>
 				<groupId>org.apache.cactus</groupId>
 				<artifactId>cactus.integration.maven2</artifactId>
-				<version>1.8.1-SNAPSHOT</version>
+				<version>1.8.1-rc1</version>
 				<configuration>
 					<srcFile>target/${pom.artifactId}-${pom.version}-bin.ear</srcFile>
 					<destFile>${project.build.directory}/${pom.artifactId}-cactified.ear</destFile>
@@ -157,7 +157,7 @@
 								<mapping>/ServletRedirectorSecure</mapping>
 								<roles>test</roles>
 							</servletRedirector>
-							<servletRedirector/>
+							<servletRedirector />
 							<filterRedirector>
 								<name>FilterRedirector</name>
 								<mapping>/test/filterRedirector</mapping>

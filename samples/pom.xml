@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus</artifactId>
-		<version>1.8.1-SNAPSHOT</version>
+		<version>1.8.1-rc1</version>
 	</parent>
 	<artifactId>cactus.samples</artifactId>
 	<name>Cactus Samples - Parent Project</name>
