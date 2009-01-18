@@ -27,7 +27,7 @@
 	<artifactId>cactus.samples.servlet</artifactId>
 	<name>Cactus Servlet Samples</name>
 	<description>Cactus Servlet Sample Projects</description>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.cactus</groupId>
@@ -284,7 +284,29 @@
             *, test/*, WEB-INF/classes/**, WEB-INF/lib/standard*, WEB-INF/lib/jstl*, WEB-INF/lib/html*, WEB-INF/lib/http*
           </warSourceIncludes>
           <!--warSourceExcludes>*.jar</warSourceExcludes-->
-        </configuration>        
+        </configuration>
+				<executions>
+					<execution>
+						<id>create-cactus-war-archive</id>
+						<phase>test</phase>
+						<goals>
+							<goal>war</goal>
+						</goals>
+					</execution>
+				</executions>
+      </plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>create-cactus-jar-test-archive</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
       </plugin>
       <!-- 
       	We need the surefire not to fail the build when a test-failure occurs,
