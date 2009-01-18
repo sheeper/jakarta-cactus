@@ -62,7 +62,7 @@
           <tr>
             <td>addEjbReferences</td>
             <td>
-              Specifies if EJB references to all local EJB:s in the ear should be added to the cactus war. 
+              Specifies if EJB references to all local EJBs in the ear should be added to the cactus war. 
             </td>
             <td>No</td>
           </tr>

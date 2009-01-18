@@ -95,6 +95,7 @@
 				</item>
 				<item name="Maven2" href="integration/maven2/index.html" collapse="true">
 				  <item name="CactifyWar MOJO" href="integration/maven2/cactifywar.html"/>
+					<item name="CactifyEar MOJO" href="integration/maven2/cactifyear.html"/>
 				</item>
 				<item name="Jetty" href="integration/integration_jetty.html"/>
 				<item name="Various IDEs" href="integration/howto_ide.html"/>

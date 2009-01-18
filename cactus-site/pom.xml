@@ -53,7 +53,7 @@
 	<distributionManagement>
 			<site>
 				<id>cactus.apache.org</id>
-				<url>scp://people.apache.org/www/jakarta.apache.org/cactus/1.8.0</url>
+				<url>scp://people.apache.org/www/jakarta.apache.org/cactus/</url>
 			</site>
 	</distributionManagement>	
 	<mailingLists>
@@ -128,8 +128,8 @@
 			<name>Petar Tahchiev</name>
 			<id>ptahchiev</id>
 			<email>ptahchiev@apache.org</email>
-			<url>http://phamola.com/</url>
-			<organization>Phamola Inc.</organization>
+			<url>http://apache.org/</url>
+			<organization>Apache Software Foundation</organization>
 			<roles>
 				<role>Lead Developer</role>
 				<role>Release Manager</role>

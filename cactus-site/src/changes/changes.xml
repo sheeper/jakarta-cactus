@@ -83,24 +83,36 @@
       	changes page</a>.
       </p>
 
-			<release version="1.8" date="04 April 2008">
-				
-				<action dev="PTT" type="update">
-					The new Cactus web-site is officially launched. We have a new skin and the site is now build with the new Maven2 build	system.
-				</action>
-				<action dev="PTT" type="add">
-					Cactus is now integrated with Cargo.
-					So from now on <b>Cargo</b> is responsible for bringing up and shutting down the containers for
-					Cactus.
-				</action>
-				<action dev="PTT" type="update">
-					Cactus's build system is now moved to Maven.
-				</action>
-				<action dev="VMA" type="update">
-					Since version 1.7.1 of Cactus all changes are now recorded using
-					Apache's JIRA. The list of changes for an unreleased version is available in the 
-					JIRA roadmap report	and the released version changes in the JIRA changelog report.
-				</action>
+	  <release version="1.8.1" date="18 January 2009">
+	  	<action dev="PTT" type="update">
+			Some issues have been fixed on the JIRA. Consult with the JIRA report on exactly which ones
+			were fixed and what was the resolution.
+		</action>
+	  	<action dev="PTT" type="update">
+			Cactus documentation have been updated.
+		</action>
+		<action dev="PTT" type="add">
+			A cactus-maven2 plugin has been added for a better integration with Maven2. The plugin allows you to 
+			cactify your WAR and EAR applications.
+		</action>
+      </release>
+	  <release version="1.8" date="04 April 2008">
+		<action dev="PTT" type="update">
+			The new Cactus web-site is officially launched. We have a new skin and the site is now build with the new Maven2 build	system.
+		</action>
+		<action dev="PTT" type="add">
+			Cactus is now integrated with Cargo.
+			So from now on <b>Cargo</b> is responsible for bringing up and shutting down the containers for
+			Cactus.
+		</action>
+		<action dev="PTT" type="update">
+			Cactus's build system is now moved to Maven.
+		</action>
+		<action dev="VMA" type="update">
+			Since version 1.7.1 of Cactus all changes are now recorded using
+			Apache's JIRA. The list of changes for an unreleased version is available in the 
+			JIRA roadmap report	and the released version changes in the JIRA changelog report.
+		</action>
       </release>
       
       <release version="1.7" date="28 Jan 2005">
