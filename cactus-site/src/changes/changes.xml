@@ -88,6 +88,9 @@
 			Some issues have been fixed on the JIRA. Consult with the JIRA report on exactly which ones
 			were fixed and what was the resolution.
 		</action>
+		<action dev="PTT" type="add">
+			Added a sample application on how to test EJB3 applications.
+		</action>
 	  	<action dev="PTT" type="update">
 			Cactus documentation have been updated.
 		</action>
