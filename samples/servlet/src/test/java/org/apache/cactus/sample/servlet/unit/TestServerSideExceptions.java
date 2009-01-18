@@ -111,8 +111,8 @@ public class TestServerSideExceptions extends ServletTestCase
             {
                 assertEquals(ComparisonFailure.class.getName(), 
                     e.getWrappedClassName());
-                assertEquals("test comparison failure expected:<some...> "
-                    + "but was:<other...>", e.getMessage());
+                assertEquals("test comparison failure expected:<[some] value> " +
+                		"but was:<[other] value>", e.getMessage());
                 return;
             }
         }
@@ -144,7 +144,7 @@ public class TestServerSideExceptions extends ServletTestCase
                 return;
             }
         }
-
+ 
         throw new AssertionFailedError("Unexpected test ["
             + JUnitVersionHelper.getTestCaseName(this) + "]");
     }

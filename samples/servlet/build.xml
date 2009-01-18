@@ -197,9 +197,11 @@
 			</classpath>
 			<containerset>
 				<cargo containerId="${tomcat.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
+					<!--If you don't want cargo to download the container, just comment the bottom
+									 lines and specify a [home] parameter-->
 				 <zipUrlInstaller
-            installUrl="http://apache.speedbone.de/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip"
-            installDir="${target.dir}/${tomcat.container.id}"/>
+						installUrl="http://apache.speedbone.de/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.zip"
+						installDir="${basedir}/install"/>
 				<configuration>
 						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
 						<property name="cargo.logging" value="${cargo.logging}"/>
