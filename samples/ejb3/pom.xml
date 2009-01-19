@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.samples</artifactId>
-		<version>1.8.1-SNAPSHOT</version>
+		<version>1.8.1-rc2</version>
 	</parent>
 	<artifactId>cactus.samples.ejb3</artifactId>
 	<name>Cactus Ejb Samples - Parent Project</name>

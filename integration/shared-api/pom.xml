@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.integration</artifactId>
-		<version>1.8.1-SNAPSHOT</version>
+		<version>1.8.1-rc2</version>
 	</parent>
 	<artifactId>cactus.integration.shared.api</artifactId>
 	<name>Cactus Shared API for the integration </name>
