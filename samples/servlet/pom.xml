@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.samples</artifactId>
-		<version>1.8.1-rc1</version>
+		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cactus.samples.servlet</artifactId>
 	<name>Cactus Servlet Samples</name>
@@ -146,7 +146,7 @@
 	   <plugin>
         <groupId>org.apache.cactus</groupId>
         <artifactId>cactus.integration.maven2</artifactId>
-        <version>1.8.1-rc1</version>
+        <version>${version}</version>
         <configuration>
           <srcFile>${project.build.directory}/${pom.artifactId}-${pom.version}.war</srcFile>
           <destFile>${project.build.directory}/${pom.artifactId}-cactified.war</destFile>
