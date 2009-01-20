@@ -27,7 +27,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.TestCase;
 
 import org.codehaus.cargo.module.webapp.WebXmlVersion;
-import org.jdom.DefaultJDOMFactory;
 import org.jdom.DocType;
 
 /**
