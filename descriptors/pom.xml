@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.apache.cactus</groupId>
 	<artifactId>cactus.samples</artifactId>
-	<version>1.8.1-rc2</version>
+	<version>1.8.1-SNAPSHOT</version>
 	<name>Cactus Samples - Parent Project</name>
 	<description>Cactus Sample Projects</description>
 	<packaging>pom</packaging>
