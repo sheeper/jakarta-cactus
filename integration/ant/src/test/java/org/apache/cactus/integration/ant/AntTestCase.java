@@ -369,7 +369,7 @@ public abstract class AntTestCase extends TestCase implements BuildListener
         File testInputDir = new File(testInputDirProperty);
         assertTrue("The system property 'testinput.dir' must point to an "
             + "existing directory"
-            + ". Could not find directory: " + testInputDirProperty,
+            + ". Could not find directory: " + testInputDir.getAbsolutePath(),
             testInputDir.isDirectory());
         File buildFile = new File(testInputDir, theFileName);
         assertTrue("The test input " + theFileName + " does not exist",
