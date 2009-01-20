@@ -20,6 +20,7 @@ integration/eclipse/org.apache.cactus.eclipse.runner/target
 integration/eclipse/org.apache.cactus.eclipse.webapp/target
 integration/eclipse/target
 integration/maven/target
+integration/maven2/target
 integration/shared-api/target
 integration/target
 samples/target
