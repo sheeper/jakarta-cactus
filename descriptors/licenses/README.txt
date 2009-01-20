@@ -1,7 +1,7 @@
 This directory contains the union of all the licenses used by the
 Cactus and third party software.
 
-ServletAPI - Common Development And Distribution License (CDDL) Version 1.0
+ServletAPI - Apache 2.0
 AspectJ - Mozilla 1.1
 HttpUnit - HttpUnit specific license
 Jetty - Apache 2.0
