@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.apache.cactus</groupId>
 		<artifactId>cactus.core.framework</artifactId>
-		<version>1.8.1-SNAPSHOT</version>
+		<version>1.8.1</version>
 	</parent>
 	<artifactId>cactus.core.framework.uberjars</artifactId>
 	<name>Cactus Uberjars - Parent Project</name>
