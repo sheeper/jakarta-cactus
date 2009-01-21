@@ -25,7 +25,7 @@
 		<version>1.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cactus.core.framework.uberjars</artifactId>
-	<name>Cactus Uberjars - Parent Projcet</name>
+	<name>Cactus Uberjars - Parent Project</name>
 	<packaging>pom</packaging>
 	<modules>
 		<module>javaEE-12-uberjar</module>
