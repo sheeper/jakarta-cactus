@@ -97,7 +97,7 @@
 						<systemProperties>
 							<property>
 								<name>testinput.dir</name>
-								<value>src/test-input</value>
+								<value>${basedir}/src/test-input</value>
 							</property>
 						</systemProperties>
 					</configuration>
