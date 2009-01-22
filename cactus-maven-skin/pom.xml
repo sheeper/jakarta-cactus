@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.cactus</groupId>
     <artifactId>cactus.maven.skin</artifactId>
-    <version>1.8.1-rc3</version>
+    <version>1.8.2-SNAPSHOT</version>
     <name>Cactus Site Skin</name>
     <description>Cactus Maven2 Site Skin</description>
     <packaging>jar</packaging>
     <parent>
         <groupId>org.apache.cactus</groupId>
         <artifactId>cactus</artifactId>
-        <version>1.8.1-rc3</version>
+        <version>1.8.2-SNAPSHOT</version>
     </parent>
 </project>
