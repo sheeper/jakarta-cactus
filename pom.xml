@@ -524,9 +524,6 @@
 				<configuration>
 					<!-- This element will be overriden by children -->
 					<tagBase>https://svn.apache.org/repos/asf/jakarta/cactus/tags/</tagBase>
-					<useReleaseProfile>false</useReleaseProfile>
-					<goals>deploy</goals>
-					<arguments>-Prelease</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
