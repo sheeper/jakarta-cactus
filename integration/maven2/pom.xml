@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.cactus</groupId>
         <artifactId>cactus.integration</artifactId>
-        <version>1.8.2-SNAPSHOT</version>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>cactus.integration.maven2</artifactId>
     <name>Cactus Integration Maven2 - Plugin Project</name>
