@@ -45,7 +45,7 @@ public class TestHttpUnitIntegration extends ServletTestCase
     }
 
     /**
-     * Verify that HttpUnit integration works
+     * Verify that HttpUnit integration works.
      *
      * @param theResponse the response from the server side.
      * 

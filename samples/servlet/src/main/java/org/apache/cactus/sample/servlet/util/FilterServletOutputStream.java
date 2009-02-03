@@ -42,7 +42,7 @@ import javax.servlet.ServletOutputStream;
 public class FilterServletOutputStream extends ServletOutputStream
 {
     /**
-     * The stream where all the data will get written to
+     * The stream where all the data will get written to.
      */
     private DataOutputStream stream;
 

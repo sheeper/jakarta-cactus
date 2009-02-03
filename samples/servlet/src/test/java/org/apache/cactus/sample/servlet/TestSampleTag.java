@@ -33,7 +33,7 @@ import org.apache.cactus.WebResponse;
 public class TestSampleTag extends JspTestCase
 {
     /**
-     * Our tag instance to unit test
+     * Our tag instance to unit test.
      */
     private SampleTag tag;
 
@@ -147,7 +147,7 @@ public class TestSampleTag extends JspTestCase
 
     /**
      * Checks if the tag will signal that page processing should stop if
-     * stopPage is set to "true"
+     * stopPage is set to "true".
      * 
      * @exception Exception if the test fails for an unexpected reason
      */

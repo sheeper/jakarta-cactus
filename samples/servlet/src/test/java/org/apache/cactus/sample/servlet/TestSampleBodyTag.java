@@ -34,7 +34,7 @@ import org.apache.cactus.WebResponse;
 public class TestSampleBodyTag extends JspTestCase
 {
     /**
-     * Our tag instance being unit tested
+     * Our tag instance being unit tested.
      */
     private SampleBodyTag tag;
 

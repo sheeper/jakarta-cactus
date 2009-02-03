@@ -31,7 +31,7 @@ import org.apache.cactus.WebRequest;
 public class TestCookie extends ServletTestCase
 {
     /**
-     * Verify that special characters in cookies are not URL encoded
+     * Verify that special characters in cookies are not URL encoded.
      *
      * @param theRequest the request object that serves to initialize the
      *                   HTTP connection to the server redirector.
@@ -44,7 +44,7 @@ public class TestCookie extends ServletTestCase
     }
 
     /**
-     * Verify that special characters in cookies are not encoded
+     * Verify that special characters in cookies are not encoded.
      */
     public void testCookieEncoding()
     {

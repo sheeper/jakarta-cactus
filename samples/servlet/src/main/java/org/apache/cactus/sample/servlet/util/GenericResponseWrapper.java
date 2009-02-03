@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class GenericResponseWrapper extends HttpServletResponseWrapper
 {
     /**
-     * Holder for the output data
+     * Holder for the output data.
      */
     private ByteArrayOutputStream output;
 

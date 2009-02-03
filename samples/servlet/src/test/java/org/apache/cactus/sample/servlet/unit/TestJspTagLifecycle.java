@@ -44,7 +44,7 @@ import org.apache.taglibs.standard.tag.el.core.WhenTag;
  * <p>
  *   The lifecycle helper is tested here by testing the core tags of the 
  *   reference implementation of the JSP standard tag library (JSTL), available
- *   at <a href="http://jakarta.apache.org/taglibs/">.
+ *   at <a href="http://jakarta.apache.org/taglibs/">http://jakarta.apache.org/taglibs/</a>.
  * </p>
  * 
  * @version $Id: TestJspTagLifecycle.java 238816 2004-02-29 16:36:46Z vmassol $

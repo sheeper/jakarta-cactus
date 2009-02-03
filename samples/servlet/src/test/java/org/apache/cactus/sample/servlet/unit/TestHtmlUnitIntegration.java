@@ -46,7 +46,7 @@ public class TestHtmlUnitIntegration extends ServletTestCase
     }
 
     /**
-     * Verify that HttpUnit integration works
+     * Verify that HttpUnit integration works.
      *
      * @param theResponse the response from the server side.
      * 
@@ -98,10 +98,11 @@ public class TestHtmlUnitIntegration extends ServletTestCase
     /**
      * Verify that we can initialize the <code>SampleServlet</code> and
      * assert it in endXXX().
-     *
-     * @param theResponse the response from the server side.
+     * 
+     * @throws Exception in case an error occurs
      */
-    public void testSampleServletResponse() throws Exception {
+    public void testSampleServletResponse() throws Exception 
+    {
         SampleServlet servlet = new SampleServlet();
         servlet.doGet(request, response);
     }
@@ -111,11 +112,14 @@ public class TestHtmlUnitIntegration extends ServletTestCase
      *
      * @param theResponse the response from the server side.
      * 
-     * @exception IOException on test failure
+     * @throws Exception on test failure
      */
-    public void endSampleServletResponse(com.gargoylesoftware.htmlunit.WebResponse 
-    		theResponse) throws Exception {
-        assertEquals("<html><head/><body>A GET request</body></html>", theResponse.getContentAsString());
+    public void endSampleServletResponse(
+            com.gargoylesoftware.htmlunit.WebResponse theResponse) 
+    throws Exception 
+    {
+        assertEquals("<html><head/><body>A GET request</body></html>", 
+                theResponse.getContentAsString());
     }
 
 }
