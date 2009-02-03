@@ -47,7 +47,8 @@ public final class TestWarArchive extends TestCase
     public void testContainsClassInWebinfClasses() throws Exception
     {
         WarArchive war = new DefaultWarArchive(getTestInput(
-            "org/apache/cactus/integration/ant/deployment/containsclass.war").getAbsolutePath());
+            "org/apache/cactus/integration/ant/deployment/containsclass.war")
+            .getAbsolutePath());
         assertTrue(war.containsClass("test.Test"));
     }
 
@@ -75,7 +76,8 @@ public final class TestWarArchive extends TestCase
     public void testContainsClassEmpty() throws Exception
     {
         WarArchive war = new DefaultWarArchive(getTestInput(
-            "org/apache/cactus/integration/ant/deployment/empty.war").getAbsolutePath());
+            "org/apache/cactus/integration/ant/deployment/empty.war")
+            .getAbsolutePath());
         assertTrue(!war.containsClass("test.Test"));
     }
 

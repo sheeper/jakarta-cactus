@@ -236,7 +236,6 @@ public final class TestCactifyWarTask extends AntTestCase
      */
     public void testDefaultRedirectors23Doctype() throws Exception
     {
-    	
         executeTestTarget();
 
         File destFile = getProject().resolveFile("target/work/destfile.war");
@@ -289,7 +288,6 @@ public final class TestCactifyWarTask extends AntTestCase
      */
     public void testDefaultRedirectorsNewWar23() throws Exception
     {
-    	
         executeTestTarget();
 
         File destFile = getProject().resolveFile("target/work/destfile.war");
@@ -468,30 +466,30 @@ public final class TestCactifyWarTask extends AntTestCase
         assertTrue(WebXmlUtils.hasSecurityRole(webXml, "test"));
         assertTrue(WebXmlUtils.hasSecurityRole(webXml, "cactus"));
         assertTrue(WebXmlUtils.hasSecurityConstraint(webXml,
-        	"/ServletRedirectorSecure"));
+            "/ServletRedirectorSecure"));
         org.jdom.Element securityConstraintElement =
-            (org.jdom.Element)WebXmlUtils.getSecurityConstraint(webXml, 
+            (org.jdom.Element) WebXmlUtils.getSecurityConstraint (webXml, 
             "/ServletRedirectorSecure");
         assertNotNull(securityConstraintElement);
         Element authConstraintElement = (Element)
-            ((SecurityConstraint)securityConstraintElement).getChildren(
+            ((SecurityConstraint) securityConstraintElement).getChildren(
                 "auth-constraint").get(0);
         assertNotNull(authConstraintElement);
         List roleNameElements =
             authConstraintElement.getChildren("role-name");
         assertEquals(2, roleNameElements.size());
         assertEquals("test",
-        		((Element) roleNameElements.get(0)).getValue());
+                ((Element) roleNameElements.get(0)).getValue());
         assertEquals("cactus",
-        		((Element) roleNameElements.get(1)).getValue());
+                ((Element) roleNameElements.get(1)).getValue());
         Iterator loginConfigElements =
             webXml.getElements(WebXmlType.LOGIN_CONFIG);
         assertTrue(loginConfigElements.hasNext());
         Element loginConfigElement = (Element) loginConfigElements.next();
-        Element authMethodElement = (Element)loginConfigElement.getChildren(
-        	"auth-method").get(0);
+        Element authMethodElement = (Element) loginConfigElement.getChildren(
+            "auth-method").get(0);
         assertEquals("BASIC",
-            ((Element)authMethodElement).getValue());
+            ((Element) authMethodElement).getValue());
     }
 
     /**
@@ -552,33 +550,34 @@ public final class TestCactifyWarTask extends AntTestCase
         
         List nl = e.getChildren("ejb-ref-name");
         Element f = (Element) nl.get(0);
-        assertEquals("MyEjb", ((Element)f).getValue());
+        assertEquals("MyEjb", ((Element) f).getValue());
         nl = e.getChildren("ejb-ref-type");
         f = (Element) nl.get(0);
-        assertEquals("Session", ((Element)f).getValue());
+        assertEquals("Session", ((Element) f).getValue());
         nl = e.getChildren("local-home");
         f = (Element) nl.get(0);
-        assertEquals("com.wombat.MyEjbHome", ((Element)f).getValue());
+        assertEquals("com.wombat.MyEjbHome", ((Element) f).getValue());
         nl = e.getChildren("local");
         f = (Element) nl.get(0);
-        assertEquals("com.wombat.MyEjb", ((Element)f).getValue());
+        assertEquals("com.wombat.MyEjb", ((Element) f).getValue());
         
         // test weblogic.xml
         
         Iterator iter = webXml.getVendorDescriptors();
         WeblogicXml weblogicXml = null;
-        while(iter.hasNext()) {
-        	weblogicXml = (WeblogicXml) iter.next();
+        while (iter.hasNext())
+        {
+            weblogicXml = (WeblogicXml) iter.next();
         }
         
         i = weblogicXml.getElements(WeblogicXmlTag.EJB_REFERENCE_DESCRIPTION);
         e = (Element) i.next();
         nl = e.getChildren("ejb-ref-name");
         f = (Element) nl.get(0);
-        assertEquals("MyEjb", ((Element)f).getValue());
+        assertEquals("MyEjb", ((Element) f).getValue());
         nl = e.getChildren("jndi-name");
         f = (Element) nl.get(0);
-        assertEquals("/wombat/MyEjb", ((Element)f).getValue());
+        assertEquals("/wombat/MyEjb", ((Element) f).getValue());
     }
     
     // Private Methods ---------------------------------------------------------
@@ -597,7 +596,7 @@ public final class TestCactifyWarTask extends AntTestCase
         String theFilterName, String theMapping)
     {
         Iterator names = WebXmlUtils.getFilterNamesForClass(theWebXml, 
-        	theFilterClass);
+            theFilterClass);
 
         // Look for the definition that matches the JSP servlet name
         boolean found = false; 
@@ -638,7 +637,7 @@ public final class TestCactifyWarTask extends AntTestCase
         String theJspName, String theMapping)
     {
         Iterator names = WebXmlUtils.getServletNamesForJspFile(theWebXml,
-        	theJspFile);
+            theJspFile);
 
         // Look for the definition that matches the JSP servlet name
         boolean found = false; 
@@ -679,7 +678,7 @@ public final class TestCactifyWarTask extends AntTestCase
         String theServletName, String theMapping)
     {
         Iterator names = WebXmlUtils.getServletNamesForClass(theWebXml,
-        	theServletClass);
+            theServletClass);
         
         // Look for the definition that matches the servlet name
         boolean found = false; 

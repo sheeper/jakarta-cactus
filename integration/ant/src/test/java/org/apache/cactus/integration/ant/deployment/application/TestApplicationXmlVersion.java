@@ -20,7 +20,6 @@
  */
 package org.apache.cactus.integration.ant.deployment.application;
 
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -29,7 +28,6 @@ import junit.framework.TestCase;
 import org.codehaus.cargo.module.application.ApplicationXmlVersion;
 import org.jdom.DocType;
 import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.DocumentType;
 
 /**
  * Unit tests for {@link ApplicationXmlVersion}.
@@ -143,7 +141,7 @@ public final class TestApplicationXmlVersion extends TestCase
     public void testValueOfDocType12() throws Exception
     {
         DocType docType = new DocType("application",
-        		ApplicationXmlVersion.V1_2.getPublicId(),
+            ApplicationXmlVersion.V1_2.getPublicId(),
                 ApplicationXmlVersion.V1_2.getSystemId());
         assertEquals(ApplicationXmlVersion.V1_2,
             ApplicationXmlVersion.valueOf(docType));
@@ -158,7 +156,7 @@ public final class TestApplicationXmlVersion extends TestCase
     public void testValueOfDocType13() throws Exception
     {
         DocType docType = new DocType("application",
-        		ApplicationXmlVersion.V1_3.getPublicId(),
+            ApplicationXmlVersion.V1_3.getPublicId(),
                 ApplicationXmlVersion.V1_3.getSystemId());
         assertEquals(ApplicationXmlVersion.V1_3,
             ApplicationXmlVersion.valueOf(docType));

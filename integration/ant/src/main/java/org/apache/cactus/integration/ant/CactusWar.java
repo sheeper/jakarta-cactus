@@ -110,10 +110,10 @@ public class CactusWar
     
     /**
      * Setter method for the destination file.
-     * @param destFile
+     * @param theDestFile to set
      */
-    public void setDestFile(File destFile)
+    public void setDestFile(File theDestFile)
     {
-        this.destFile = destFile;
+        this.destFile = theDestFile;
     }
 }

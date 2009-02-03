@@ -186,7 +186,8 @@ public class CactifyWarTask extends War
             }
             catch (JDOMException e)
             {
-                throw new BuildException("Unable to get the original exception", e);
+                throw new BuildException("Unable to get the original exception",
+                        e);
             }
         }
         if (this.srcFile == null || webXml == null)
@@ -224,7 +225,7 @@ public class CactifyWarTask extends War
         }
         setWebxml(tmpWebXml);
 
-        if(includeCactusJars)
+        if (includeCactusJars)
         {
             addCactusJars();
         }
@@ -332,12 +333,12 @@ public class CactifyWarTask extends War
      * Sets whether the cactus jars should be included or not.
      * If not set, the jars are included by default.
      *
-     * @param includeCactusJars <code>true</code> if cactus jars should be included,
-     * <code>false</code> otherwise.
+     * @param hasIncludeCactusJars <code>true</code> if cactus jars 
+     * should be included, <code>false</code> otherwise.
      */
-    public final void setIncludeCactusJars(boolean includeCactusJars)
+    public final void setIncludeCactusJars(boolean hasIncludeCactusJars)
     {
-        this.includeCactusJars = includeCactusJars;
+        this.includeCactusJars = hasIncludeCactusJars;
     }
 
 
@@ -645,17 +646,19 @@ public class CactifyWarTask extends War
      *
      * @return <code>java.lang.String</code>
      */
-    public String getContext() {
+    public String getContext() 
+    {
         return context;
     }
 
     /**
      * Sets the context.
      *
-     * @param context
+     * @param theContext to set
      */
-    public void setContext(String context) {
-        this.context = context;
+    public void setContext(String theContext) 
+    {
+        this.context = theContext;
     }
 
 

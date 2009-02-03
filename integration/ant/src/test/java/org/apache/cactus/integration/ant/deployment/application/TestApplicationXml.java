@@ -32,7 +32,6 @@ import junit.framework.TestCase;
 
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.ApplicationXmlIo;
-import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -109,7 +108,8 @@ public final class TestApplicationXml extends TestCase
             + "    <java>javaclient.jar</java>"
             + "  </module>"
             + "</application>";
-        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertTrue("No web modules defined", !webUris.hasNext());
     }
@@ -131,7 +131,8 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertEquals("webmodule.jar", webUris.next());
         assertTrue(!webUris.hasNext());
@@ -166,7 +167,8 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         Iterator webUris = applicationXml.getWebModuleUris();
         assertEquals("webmodule1.jar", webUris.next());
         assertEquals("webmodule2.jar", webUris.next());
@@ -188,7 +190,8 @@ public final class TestApplicationXml extends TestCase
             + "    <java>javaclient.jar</java>"
             + "  </module>"
             + "</application>";
-        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         try
         {
             applicationXml.getWebModuleContextRoot("webmodule.jar");
@@ -216,7 +219,8 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         assertEquals("/webmodule",
             applicationXml.getWebModuleContextRoot("webmodule.jar"));
     }
@@ -249,7 +253,8 @@ public final class TestApplicationXml extends TestCase
             + "    </web>"
             + "  </module>"
             + "</application>";
-        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(new ByteArrayInputStream(xml.getBytes()),null);
+        ApplicationXml applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         assertEquals("/webmodule1",
             applicationXml.getWebModuleContextRoot("webmodule1.jar"));
         assertEquals("/webmodule2",

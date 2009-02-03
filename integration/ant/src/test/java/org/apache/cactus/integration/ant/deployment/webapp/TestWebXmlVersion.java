@@ -117,7 +117,7 @@ public final class TestWebXmlVersion extends TestCase
     public void testValueOfUnknownDocType() throws Exception
     {
         DocType docType = new DocType("web-app",
-        		"foo", "bar");
+                "foo", "bar");
         assertNull(WebXmlVersion.valueOf(docType));
     }
 
@@ -130,7 +130,7 @@ public final class TestWebXmlVersion extends TestCase
     public void testValueOfDocType22() throws Exception
     {
         DocType docType = new DocType("web-app",
-                WebXmlVersion.V2_2.getPublicId(), WebXmlVersion.V2_2.getSystemId());
+            WebXmlVersion.V2_2.getPublicId(), WebXmlVersion.V2_2.getSystemId());
         assertEquals(WebXmlVersion.V2_2, WebXmlVersion.valueOf(docType));
     }
 
@@ -143,7 +143,7 @@ public final class TestWebXmlVersion extends TestCase
     public void testValueOfDocType23() throws Exception
     {
         DocType docType = new DocType("web-app",
-                WebXmlVersion.V2_3.getPublicId(), WebXmlVersion.V2_3.getSystemId());
+            WebXmlVersion.V2_3.getPublicId(), WebXmlVersion.V2_3.getSystemId());
         assertEquals(WebXmlVersion.V2_3, WebXmlVersion.valueOf(docType));
     }
 

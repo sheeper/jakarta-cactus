@@ -113,7 +113,8 @@ public final class TestWebXml extends TestCase
             + "PUBLIC '-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN' "
             + "'http://java.sun.com/j2ee/dtds/web-app_2.2.dtd'>"
             + "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         assertEquals(WebXmlVersion.V2_2, webXml.getVersion());
     }
     
@@ -128,7 +129,8 @@ public final class TestWebXml extends TestCase
             + "PUBLIC '-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN' "
             + "'http://java.sun.com/dtd/web-app_2_3.dtd'>"
             + "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertEquals(WebXmlVersion.V2_3, webXml.getVersion());
     }
     
@@ -147,11 +149,13 @@ public final class TestWebXml extends TestCase
         WebXml webXml = null;
         try 
         {
-        	webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        	fail("Problem in parsing");
-        } catch(CargoException fex)
+            webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+            fail("Problem in parsing");
+        } 
+        catch (CargoException fex)
         {
-        	//expected
+            //expected
         }
         
         //assertNull(webXml.getVersion());
@@ -166,7 +170,8 @@ public final class TestWebXml extends TestCase
     public void testGetVersionWithoutDoctype() throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertNull(webXml.getVersion());
     }
     
@@ -180,10 +185,11 @@ public final class TestWebXml extends TestCase
     public void testHasFilterWithNullName() throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         try
         {
-            WebXmlUtils.hasFilter(webXml,null);
+            WebXmlUtils.hasFilter(webXml, null);
             fail("Expected NullPointerException");
         }
         catch (NullPointerException npe)
@@ -207,9 +213,10 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass1</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        assertTrue(WebXmlUtils.hasFilter(webXml,"f1"));
-        assertTrue(!WebXmlUtils.hasFilter(webXml,"f2"));
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        assertTrue(WebXmlUtils.hasFilter(webXml, "f1"));
+        assertTrue(!WebXmlUtils.hasFilter(webXml, "f2"));
     }
 
     /**
@@ -234,11 +241,12 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass3</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        assertTrue(WebXmlUtils.hasFilter(webXml,"f1"));
-        assertTrue(WebXmlUtils.hasFilter(webXml,"f2"));
-        assertTrue(WebXmlUtils.hasFilter(webXml,"f3"));
-        assertTrue(!WebXmlUtils.hasFilter(webXml,"f4"));
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+            xml.getBytes()), null);
+        assertTrue(WebXmlUtils.hasFilter(webXml, "f1"));
+        assertTrue(WebXmlUtils.hasFilter(webXml, "f2"));
+        assertTrue(WebXmlUtils.hasFilter(webXml, "f3"));
+        assertTrue(!WebXmlUtils.hasFilter(webXml, "f4"));
     }
 
     /**
@@ -255,7 +263,8 @@ public final class TestWebXml extends TestCase
 //            + "    <filter-class>fclass1</filter-class>".trim()
 //            + "  </filter>".trim()
 //            + "</web-app>";
-//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+//            xml.getBytes()), null);
 //        org.jdom.Element jServletElement = WebXmlUtils.getFilter(webXml, "f1");
 //        org.w3c.dom.Element servletElement = convertToDOM(jServletElement);
 //        
@@ -292,7 +301,8 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass3</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         Iterator filterNames = WebXmlUtils.getFilterNames(webXml);
         assertEquals("f1", filterNames.next());
         assertEquals("f2", filterNames.next());
@@ -315,8 +325,10 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>f1class</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator filterNames = WebXmlUtils.getFilterNamesForClass(webXml, "f1class");
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        Iterator filterNames = WebXmlUtils.getFilterNamesForClass(
+                webXml, "f1class");
         assertEquals("f1", filterNames.next());
         assertTrue(!filterNames.hasNext());
     }
@@ -344,8 +356,10 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>f1class</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator filterNames = WebXmlUtils.getFilterNamesForClass(webXml, "f1class");
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        Iterator filterNames = WebXmlUtils.getFilterNamesForClass(webXml, 
+                "f1class");
         assertEquals("f1", filterNames.next());
         assertEquals("f3", filterNames.next());
         assertTrue(!filterNames.hasNext());
@@ -364,8 +378,9 @@ public final class TestWebXml extends TestCase
             + "    <url-pattern>/f1mapping</url-pattern>"
             + "  </filter-mapping>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator filterMappings = WebXmlUtils.getFilterMappings(webXml,"f1");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        Iterator filterMappings = WebXmlUtils.getFilterMappings(webXml, "f1");
         assertEquals("/f1mapping", filterMappings.next());
         assertTrue(!filterMappings.hasNext());
     }
@@ -392,11 +407,16 @@ public final class TestWebXml extends TestCase
             + "    <url-pattern>/f1mapping3</url-pattern>"
             + "  </filter-mapping>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator filterMappings = WebXmlUtils.getFilterMappingElements(webXml,"f1");
-        assertEquals("/f1mapping1", ((FilterMapping)filterMappings.next()).getUrlPattern());
-        assertEquals("/f1mapping2", ((FilterMapping)filterMappings.next()).getUrlPattern());
-        assertEquals("/f1mapping3", ((FilterMapping)filterMappings.next()).getUrlPattern());
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        Iterator filterMappings = WebXmlUtils.getFilterMappingElements(webXml,
+                "f1");
+        assertEquals("/f1mapping1", ((FilterMapping) 
+                filterMappings.next()).getUrlPattern());
+        assertEquals("/f1mapping2", ((FilterMapping) 
+                filterMappings.next()).getUrlPattern());
+        assertEquals("/f1mapping3", ((FilterMapping) 
+                filterMappings.next()).getUrlPattern());
         assertTrue(!filterMappings.hasNext());
     }
     
@@ -417,8 +437,9 @@ public final class TestWebXml extends TestCase
             + "    <url-pattern>/f1mapping</url-pattern>"
             + "  </filter-mapping>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator filterMappings = WebXmlUtils.getFilterMappings(webXml,"f1");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        Iterator filterMappings = WebXmlUtils.getFilterMappings(webXml, "f1");
         assertEquals("/f1mapping", filterMappings.next());
         assertTrue(!filterMappings.hasNext());
     }
@@ -432,9 +453,10 @@ public final class TestWebXml extends TestCase
     public void testAddContextParamToEmptyDocument() throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+               xml.getBytes()), null);
         WebXmlUtils.addContextParam(webXml, "param", "value");
-        assertTrue(WebXmlUtils.hasContextParam(webXml,"param"));
+        assertTrue(WebXmlUtils.hasContextParam(webXml, "param"));
     }
     
     /**
@@ -446,7 +468,8 @@ public final class TestWebXml extends TestCase
     public void testAddFilterToEmptyDocument() throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+               new ByteArrayInputStream(xml.getBytes()), null);
         WebXmlUtils.addFilter(webXml, "f1", "f1class");
         assertTrue(WebXmlUtils.hasFilter(webXml, "f1"));
     }
@@ -466,7 +489,8 @@ public final class TestWebXml extends TestCase
             + "    <param-value>value1</param-value>"
             + "  </context-param>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         WebXmlUtils.addContextParam(webXml, "param2", "value2");
         assertTrue(WebXmlUtils.hasContextParam(webXml, "param1"));
         assertTrue(WebXmlUtils.hasContextParam(webXml, "param2"));
@@ -486,7 +510,8 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass1</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         WebXmlUtils.addFilter(webXml, "f2", "f2class");
         assertTrue(WebXmlUtils.hasFilter(webXml, "f1"));
         assertTrue(WebXmlUtils.hasFilter(webXml, "f2"));
@@ -508,10 +533,11 @@ public final class TestWebXml extends TestCase
             + "    <param-value>value</param-value>"
             + "  </context-param>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         try
         {
-        	WebXmlUtils.addContextParam(webXml, "param", "value");
+            WebXmlUtils.addContextParam(webXml, "param", "value");
             fail("Expected IllegalStateException");
         }
         catch (IllegalStateException ise)
@@ -534,7 +560,8 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass1</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         try
         {
             WebXmlUtils.addFilter(webXml, "f1", "f1class");
@@ -560,8 +587,10 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass1</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param1", "f1param1value");
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param1", 
+                "f1param1value");
         Iterator initParams = WebXmlUtils.getFilterInitParamNames(webXml, "f1");
         
         assertEquals("f1param1", initParams.next());
@@ -582,11 +611,15 @@ public final class TestWebXml extends TestCase
             + "    <filter-class>fclass1</filter-class>"
             + "  </filter>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param1", "f1param1value");
-        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param2", "f1param2value");
-        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param3", "f1param3value");
-        Iterator initParams = WebXmlUtils.getFilterInitParamNames(webXml,"f1");
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param1", 
+                "f1param1value");
+        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param2", 
+                "f1param2value");
+        WebXmlUtils.addFilterInitParam(webXml, "f1", "f1param3", 
+                "f1param3value");
+        Iterator initParams = WebXmlUtils.getFilterInitParamNames(webXml, "f1");
         assertEquals("f1param1", initParams.next());
         assertEquals("f1param2", initParams.next());
         assertEquals("f1param3", initParams.next());
@@ -603,7 +636,8 @@ public final class TestWebXml extends TestCase
     {
         String xml = "<web-app>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.addServlet(webXml, "f1", "f1class");
         assertTrue(WebXmlUtils.hasServlet(webXml, "f1"));
     }
@@ -617,7 +651,8 @@ public final class TestWebXml extends TestCase
     public void testHasServletWithNullName() throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         try
         {
             WebXmlUtils.hasServlet(webXml, null);
@@ -644,9 +679,10 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(WebXmlUtils.hasServlet(webXml, "s1"));
-        assertTrue(!WebXmlUtils.hasServlet(webXml,"s2"));
+        assertTrue(!WebXmlUtils.hasServlet(webXml, "s2"));
     }
 
     /**
@@ -671,11 +707,12 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass3</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        assertTrue(WebXmlUtils.hasServlet(webXml,"s1"));
-        assertTrue(WebXmlUtils.hasServlet(webXml,"s2"));
-        assertTrue(WebXmlUtils.hasServlet(webXml,"s3"));
-        assertTrue(!WebXmlUtils.hasServlet(webXml,"s4"));
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        assertTrue(WebXmlUtils.hasServlet(webXml, "s1"));
+        assertTrue(WebXmlUtils.hasServlet(webXml, "s2"));
+        assertTrue(WebXmlUtils.hasServlet(webXml, "s3"));
+        assertTrue(!WebXmlUtils.hasServlet(webXml, "s4"));
     }
 
     /**
@@ -692,8 +729,10 @@ public final class TestWebXml extends TestCase
 //            + "    <servlet-class>sclass1</servlet-class>".trim()
 //            + "  </servlet>".trim()
 //            + "</web-app>";
-//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-//        org.jdom.Element jServletElement = (Element)WebXmlUtils.getServlet(webXml, "s1");
+//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+//            xml.getBytes()), null);
+//        org.jdom.Element jServletElement = (Element)WebXmlUtils.getServlet(
+//            webXml, "s1");
 //        org.w3c.dom.Element servletElement = convertToDOM(jServletElement);
 //        
 //        assertNotNull(servletElement);
@@ -730,7 +769,8 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass3</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         Iterator servletNames = WebXmlUtils.getServletNames(webXml);
         assertEquals("s1", servletNames.next());
         assertEquals("s2", servletNames.next());
@@ -753,8 +793,10 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>s1class</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator servletNames = WebXmlUtils.getServletNamesForClass(webXml, "s1class");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        Iterator servletNames = WebXmlUtils.getServletNamesForClass(webXml,
+                "s1class");
         assertEquals("s1", servletNames.next());
         assertTrue(!servletNames.hasNext());
     }
@@ -783,8 +825,10 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator servletNames = WebXmlUtils.getServletNamesForClass(webXml, "sclass1");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        Iterator servletNames = WebXmlUtils.getServletNamesForClass(webXml, 
+                "sclass1");
         assertEquals("s1", servletNames.next());
         assertEquals("s3", servletNames.next());
         assertTrue(!servletNames.hasNext());
@@ -806,8 +850,10 @@ public final class TestWebXml extends TestCase
             + "    <jsp-file>/s1.jsp</jsp-file>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator servletNames = WebXmlUtils.getServletNamesForJspFile(webXml, "/s1.jsp");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        Iterator servletNames = WebXmlUtils.getServletNamesForJspFile(webXml, 
+                "/s1.jsp");
         assertEquals("s1", servletNames.next());
         assertTrue(!servletNames.hasNext());
     }
@@ -836,8 +882,10 @@ public final class TestWebXml extends TestCase
             + "    <jsp-file>/s3.jsp</jsp-file>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        Iterator servletNames = WebXmlUtils.getServletNamesForJspFile(webXml, "/s3.jsp");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        Iterator servletNames = WebXmlUtils.getServletNamesForJspFile(webXml,
+                "/s3.jsp");
         assertEquals("s3", servletNames.next());
         assertTrue(!servletNames.hasNext());
     }
@@ -856,7 +904,8 @@ public final class TestWebXml extends TestCase
             + "    <url-pattern>/s1mapping</url-pattern>"
             + "  </servlet-mapping>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
         Iterator servletMappings = WebXmlUtils.getServletMappings(webXml, "s1");
         assertEquals("/s1mapping", servletMappings.next());
         assertTrue(!servletMappings.hasNext());
@@ -884,7 +933,8 @@ public final class TestWebXml extends TestCase
             + "    <url-pattern>/s1mapping3</url-pattern>"
             + "  </servlet-mapping>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         Iterator servletMappings = WebXmlUtils.getServletMappings(webXml, "s1");
         assertEquals("/s1mapping1", servletMappings.next());
         assertEquals("/s1mapping2", servletMappings.next());
@@ -900,7 +950,8 @@ public final class TestWebXml extends TestCase
     public void testAddServletToEmptyDocument() throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.addServlet(webXml, "s1", "s1class");
         assertTrue(WebXmlUtils.hasServlet(webXml, "s1"));
     }
@@ -919,10 +970,11 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.addServlet(webXml, "s2", "s2class");
-        assertTrue(WebXmlUtils.hasServlet(webXml,"s1"));
-        assertTrue(WebXmlUtils.hasServlet(webXml,"s2"));
+        assertTrue(WebXmlUtils.hasServlet(webXml, "s1"));
+        assertTrue(WebXmlUtils.hasServlet(webXml, "s2"));
     }
 
     /**
@@ -939,7 +991,8 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         try
         {
             WebXmlUtils.addServlet(webXml, "s1", "s1class");
@@ -965,9 +1018,12 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param1", "s1param1value");
-        Iterator initParams = WebXmlUtils.getServletInitParamNames(webXml, "s1");
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param1",
+                "s1param1value");
+        Iterator initParams = WebXmlUtils.getServletInitParamNames(webXml,
+                "s1");
         assertEquals("s1param1", initParams.next());
         assertTrue(!initParams.hasNext());
     }
@@ -986,11 +1042,16 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param1", "s1param1value");
-        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param2", "s1param2value");
-        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param3", "s1param3value");
-        Iterator initParams = WebXmlUtils.getServletInitParamNames(webXml, "s1");
+        WebXml webXml = WebXmlIo.parseWebXml(
+                new ByteArrayInputStream(xml.getBytes()), null);
+        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param1",
+                "s1param1value");
+        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param2",
+                "s1param2value");
+        WebXmlUtils.addServletInitParam(webXml, "s1", "s1param3",
+                "s1param3value");
+        Iterator initParams = WebXmlUtils.getServletInitParamNames(webXml,
+                "s1");
         assertEquals("s1param1", initParams.next());
         assertEquals("s1param2", initParams.next());
         assertEquals("s1param3", initParams.next());
@@ -1007,7 +1068,8 @@ public final class TestWebXml extends TestCase
     {
         String xml = "<web-app>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.addServlet(webXml, "s1", "s1class");
         assertTrue(WebXmlUtils.hasServlet(webXml, "s1"));
     }
@@ -1022,7 +1084,8 @@ public final class TestWebXml extends TestCase
     {
         String xml = "<web-app>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.addJspFile(webXml, "s1", "s1.jsp");
         assertTrue(WebXmlUtils.hasServlet(webXml, "s1"));
     }
@@ -1037,8 +1100,10 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
-        WebXmlUtils.addSecurityConstraint(webXml, "wrn", "/url", Collections.EMPTY_LIST);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
+        WebXmlUtils.addSecurityConstraint(webXml, "wrn", "/url", 
+                Collections.EMPTY_LIST);
         assertTrue(WebXmlUtils.hasSecurityConstraint(webXml, "/url"));
     }
 
@@ -1087,7 +1152,8 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(!WebXmlUtils.hasLoginConfig(webXml));
     }
 
@@ -1105,7 +1171,8 @@ public final class TestWebXml extends TestCase
             + "    <auth-method>BASIC</auth-method>"
             + "  </login-config>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                 xml.getBytes()), null);
         assertTrue(WebXmlUtils.hasLoginConfig(webXml));
     }
 
@@ -1122,7 +1189,8 @@ public final class TestWebXml extends TestCase
             + "    <auth-method>BASIC</auth-method>"
             + "  </login-config>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertEquals("BASIC", WebXmlUtils.getLoginConfigAuthMethod(webXml));
     }
 
@@ -1135,7 +1203,8 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.setLoginConfig(webXml, "BASIC", "Test Realm");
         assertTrue(WebXmlUtils.hasLoginConfig(webXml));
         assertEquals("BASIC", WebXmlUtils.getLoginConfigAuthMethod(webXml));
@@ -1154,7 +1223,8 @@ public final class TestWebXml extends TestCase
         + "    <auth-method>DIGEST</auth-method>"
         + "  </login-config>"
         + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.setLoginConfig(webXml, "BASIC", "Test Realm");
         assertTrue(WebXmlUtils.hasLoginConfig(webXml));
         assertEquals("BASIC", WebXmlUtils.getLoginConfigAuthMethod(webXml));
@@ -1170,7 +1240,8 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(!WebXmlUtils.hasSecurityConstraint(webXml, "/TestUrl"));
     }
 
@@ -1191,10 +1262,11 @@ public final class TestWebXml extends TestCase
             + "    </web-resource-collection>"
             + "  </security-constraint>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(WebXmlUtils.hasSecurityConstraint(webXml, "/url1"));
         Element securityConstraintElement =
-           (Element)WebXmlUtils.getSecurityConstraint(webXml, "/url1");
+           (Element) WebXmlUtils.getSecurityConstraint(webXml, "/url1");
         assertNotNull(securityConstraintElement);
     }
 
@@ -1227,7 +1299,8 @@ public final class TestWebXml extends TestCase
             + "    </web-resource-collection>"
             + "  </security-constraint>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(WebXmlUtils.hasSecurityConstraint(webXml, "/url1"));
         assertTrue(WebXmlUtils.hasSecurityConstraint(webXml, "/url2"));
         assertTrue(WebXmlUtils.hasSecurityConstraint(webXml, "/url3"));
@@ -1249,7 +1322,8 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(!webXml.getElements(WebXmlType.LOGIN_CONFIG).hasNext());
     }
 
@@ -1262,7 +1336,8 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app><login-config/></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(webXml.getElements(WebXmlType.LOGIN_CONFIG).hasNext());
     }
 
@@ -1276,7 +1351,8 @@ public final class TestWebXml extends TestCase
         throws Exception
     {
         String xml = "<web-app></web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         assertTrue(!WebXmlUtils.hasSecurityRole(webXml, "someRole"));
         assertTrue(!WebXmlUtils.getSecurityRoleNames(webXml).hasNext());
     }
@@ -1388,9 +1464,11 @@ public final class TestWebXml extends TestCase
 //            + "    <servlet-class>s1class</servlet-class>".trim()
 //            + "  </servlet>".trim()
 //            + "</web-app>";
-//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+//            xml.getBytes()), null);
 //        WebXmlUtils.addFilter(webXml, "f1", "f1class");
-//        org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+//        org.w3c.dom.Document doc = builder.parse(
+//            new ByteArrayInputStream(xml.getBytes()));
 //        System.out.println("!@!@!@!@!@!@!@!@@!"+doc.getTextContent());
 //        NodeList order = doc.getDocumentElement().getChildNodes();
 //        assertEquals("filter", order.item(0).getNodeName());
@@ -1413,9 +1491,11 @@ public final class TestWebXml extends TestCase
 //            + "    <servlet-class>s1class</servlet-class>".trim()
 //            + "  </servlet>".trim()
 //            + "</web-app>";
-//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+//            xml.getBytes()), null);
 //        WebXmlUtils.addFilter(webXml, "f1", "f1class");
-//        org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+//        org.w3c.dom.Document doc = builder.parse(
+//            new ByteArrayInputStream(xml.getBytes()));
 //        NodeList order = doc.getDocumentElement().getChildNodes();
 //        assertEquals("filter", order.item(0).getNodeName());
 //        assertEquals("#comment", order.item(1).getNodeName());
@@ -1435,9 +1515,11 @@ public final class TestWebXml extends TestCase
 //            + "    <filter-class>f1class</filter-class>".trim()
 //            + "  </filter>".trim()
 //            + "</web-app>";
-//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+//            xml.getBytes()), null);
 //        WebXmlUtils.addServlet(webXml, "s1", "s1class");
-//        org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+//        org.w3c.dom.Document doc = builder.parse(
+//            new ByteArrayInputStream(xml.getBytes()));
 //        NodeList order = doc.getDocumentElement().getChildNodes();
 //        assertEquals("filter", order.item(0).getNodeName());
 //        assertEquals("servlet", order.item(1).getNodeName());
@@ -1459,9 +1541,11 @@ public final class TestWebXml extends TestCase
 //            + "    <filter-class>f1class</filter-class>".trim()
 //            + "  </filter>".trim()
 //            + "</web-app>";
-//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+//        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+//            xml.getBytes()), null);
 //        WebXmlUtils.addServlet(webXml, "s1", "s1class");
-//        org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+//        org.w3c.dom.Document doc = builder.parse(
+//            new ByteArrayInputStream(xml.getBytes()));
 //        NodeList order = doc.getDocumentElement().getChildNodes();
 //        assertEquals("#comment", order.item(0).getNodeName());
 //        assertEquals("filter", order.item(1).getNodeName());
@@ -1484,7 +1568,8 @@ public final class TestWebXml extends TestCase
             + "    </run-as>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         String roleName = WebXmlUtils.getServletRunAsRoleName(webXml, "s1");
         assertEquals("r1", roleName);
     }
@@ -1502,7 +1587,8 @@ public final class TestWebXml extends TestCase
             + "    <servlet-class>sclass1</servlet-class>"
             + "  </servlet>"
             + "</web-app>";
-        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(xml.getBytes()), null);
+        WebXml webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+                xml.getBytes()), null);
         WebXmlUtils.addServletRunAsRoleName(webXml, "s1", "r1");
         String roleName = WebXmlUtils.getServletRunAsRoleName(webXml, "s1");
         assertEquals("r1", roleName);
@@ -1525,7 +1611,8 @@ public final class TestWebXml extends TestCase
 //        Element contextParamElement = 
 //            theDocument.createElement("context-param");
 //        Element paramNameElement = theDocument.createElement("param-name");
-//        paramNameElement.appendChild(theDocument.createTextNode(theParamName));
+//        paramNameElement.appendChild(theDocument
+//            .createTextNode(theParamName));
 //        contextParamElement.appendChild(paramNameElement);
 //        Element paramValueElement = theDocument.createElement("param-value");
 //        paramValueElement.appendChild(
@@ -1551,7 +1638,8 @@ public final class TestWebXml extends TestCase
 //        filterNameElement.appendChild(
 //            theDocument.createTextNode(theFilterName));
 //        filterElement.appendChild(filterNameElement);
-//        Element filterClassElement = theDocument.createElement("filter-class");
+//        Element filterClassElement = theDocument.createElement(
+//            "filter-class");
 //        filterClassElement.appendChild(
 //            theDocument.createTextNode(theFilterClass));
 //        filterElement.appendChild(filterClassElement);
@@ -1575,25 +1663,28 @@ public final class TestWebXml extends TestCase
 //        filterNameElement.appendChild(
 //            theDocument.createTextNode(theServletName));
 //        filterElement.appendChild(filterNameElement);
-//        Element filterClassElement = theDocument.createElement("servlet-class");
+//        Element filterClassElement = theDocument
+//            .createElement("servlet-class");
 //        filterClassElement.appendChild(
 //            theDocument.createTextNode(theServletClass));
 //        filterElement.appendChild(filterClassElement);
 //        return filterElement;
 //    }
     
-//    public org.w3c.dom.Document convertToDOM(org.jdom.Document jdomDocument) throws JDOMException
+//    public org.w3c.dom.Document convertToDOM(org.jdom.Document jdomDocument) 
+//    throws JDOMException
 //    {
-//    	DOMOutputter outputter = new DOMOutputter();
-//    	return outputter.output(jdomDocument);
-//    	
+//        DOMOutputter outputter = new DOMOutputter();
+//        return outputter.output(jdomDocument);
+//    
 //    }
 //    
-//    public org.w3c.dom.Element convertToDOM(org.jdom.Element jdomElement) throws JDOMException
+//    public org.w3c.dom.Element convertToDOM(org.jdom.Element jdomElement) 
+//    throws JDOMException
 //    {
-//    	org.w3c.dom.Document document = convertToDOM(jdomElement.getDocument());
-//    	return document.getElementById(jdomElement.getName());
-//    	
+//        org.w3c.dom.Document document = convertToDOM(
+//            jdomElement.getDocument());
+//        return document.getElementById(jdomElement.getName());
 //    }
     
 }

@@ -27,8 +27,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import junit.framework.TestCase;
-
 import org.apache.cactus.integration.api.deployable.EarParser;
 import org.apache.tools.ant.BuildException;
 import org.codehaus.cargo.module.application.ApplicationXml;
@@ -48,24 +46,24 @@ import org.xml.sax.SAXException;
 public final class TestEarParser extends MockObjectTestCase
 {   
     /**
-     * This is the actual content of the application.xml
+     * This is the actual content of the application.xml.
      */
     private String webXml = 
-    	"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-		+ "<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD"
-		+ " J2EE Application 1.2//EN\" "
-		+ "\"http://java.sun.com/j2ee/dtds/application_1_2.dtd\">"
-		+ "<application>"
-		+ "  <display-name>EJB ear</display-name>"
-		+ "  <module>"
-		+ "    <web>"
-		+ "      <web-uri>test.war</web-uri>"
-		+ "      <context-root>/testcontext</context-root>"
-		+ "    </web>"
-		+ "  </module>"
-		+ "</application>";
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+        + "<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD"
+        + " J2EE Application 1.2//EN\" "
+        + "\"http://java.sun.com/j2ee/dtds/application_1_2.dtd\">"
+        + "<application>"
+        + "  <display-name>EJB ear</display-name>"
+        + "  <module>"
+        + "    <web>"
+        + "      <web-uri>test.war</web-uri>"
+        + "      <context-root>/testcontext</context-root>"
+        + "    </web>"
+        + "  </module>"
+        + "</application>";
     /**
-     * This is the document we use to store the application.xml
+     * This is the document we use to store the application.xml.
      */
     private Document document = null;
     
@@ -102,35 +100,47 @@ public final class TestEarParser extends MockObjectTestCase
         factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(false);
-    	try {
-    		builder = factory.newDocumentBuilder();
-    		document = builder.parse(new ByteArrayInputStream(
-    			webXml.getBytes()));
-    	} catch (SAXException e) {
-			// This should never happen;
-		} catch (IOException e) {
-			// This should never happen;
-		} catch (ParserConfigurationException e) {
-			//This shouldn't happen;
-			e.printStackTrace();
-		}
-		
-    	try {
-			applicationXml = ApplicationXmlIo.parseApplicationXml(
-				new ByteArrayInputStream(webXml.getBytes()),null);
-		} catch (IOException e) {
-			// Catch  the IO exception.
-			e.printStackTrace();
-		} catch (JDOMException e) {
-			// Catch the DOM exception.
-			e.printStackTrace();
-		}
+        try 
+        {
+            builder = factory.newDocumentBuilder();
+            document = builder.parse(new ByteArrayInputStream(
+                webXml.getBytes()));
+        } 
+        catch (SAXException e) 
+        {
+            // This should never happen;
+        } 
+        catch (IOException e) 
+        {
+            // This should never happen;
+        } 
+        catch (ParserConfigurationException e) 
+        {
+            //This shouldn't happen;
+            e.printStackTrace();
+        }
+
+        try
+        {
+            applicationXml = ApplicationXmlIo.parseApplicationXml(
+                new ByteArrayInputStream(webXml.getBytes()), null);
+        } 
+        catch (IOException e) 
+        {
+            // Catch  the IO exception.
+            e.printStackTrace();
+        } 
+        catch (JDOMException e) 
+        {
+            // Catch the DOM exception.
+            e.printStackTrace();
+        }
 
         mockArchive = new Mock(EarArchive.class);
         archive = (EarArchive) mockArchive.proxy();
         
-        mockArchive.expects( atLeastOnce() ).method( "getApplicationXml" )
-        	.will( returnValue(applicationXml) );
+        mockArchive.expects(atLeastOnce()).method("getApplicationXml")
+            .will(returnValue(applicationXml));
         //mockArchive.expectAndReturn("getApplicationXml", applicationXml); 
     }
 
@@ -158,18 +168,18 @@ public final class TestEarParser extends MockObjectTestCase
         throws Exception
     {
         webXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-			+ "<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD "
-			+ "J2EE Application 1.2//EN\" "
-			+ "\"http://java.sun.com/j2ee/dtds/application_1_2.dtd\">"
-			+ "<application>"
-			+ "  <display-name>EJB ear</display-name>"
-			+ "  <module>"
-			+ "    <web>"
-			+ "      <web-uri>test.war</web-uri>"
-			+ "      <context-root></context-root>"
-			+ "    </web>"
-			+ "  </module>"
-			+ "</application>";
+            + "<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD "
+            + "J2EE Application 1.2//EN\" "
+            + "\"http://java.sun.com/j2ee/dtds/application_1_2.dtd\">"
+            + "<application>"
+            + "  <display-name>EJB ear</display-name>"
+            + "  <module>"
+            + "    <web>"
+            + "      <web-uri>test.war</web-uri>"
+            + "      <context-root></context-root>"
+            + "    </web>"
+            + "  </module>"
+            + "</application>";
         
         setUp();
         try
