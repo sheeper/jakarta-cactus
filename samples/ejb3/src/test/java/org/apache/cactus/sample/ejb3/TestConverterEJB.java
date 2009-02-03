@@ -24,8 +24,6 @@ import java.util.Properties;
 
 import javax.naming.InitialContext;
 
-import junit.framework.TestCase;
-
 import org.apache.cactus.ServletTestCase;
 
 /**
@@ -36,7 +34,7 @@ import org.apache.cactus.ServletTestCase;
 public class TestConverterEJB extends ServletTestCase
 {
     /**
-     * Class under test
+     * Class under test.
      */
     //private Converter converter;
     private IConvertLocal converter;
@@ -55,7 +53,8 @@ public class TestConverterEJB extends ServletTestCase
         InitialContext ctx = new InitialContext(properties);
         
         
-        converter = (IConvertLocal) ctx.lookup("cactus.samples.ejb3-cactified/"+ConverterBean.class.getSimpleName()+"/local");
+        converter = (IConvertLocal) ctx.lookup("cactus.samples.ejb3-cactified/"
+                + ConverterBean.class.getSimpleName() + "/local");
         
         //ConverterHome home = (ConverterHome) PortableRemoteObject.narrow(
         //    ctx.lookup("Converter"), ConverterHome.class);

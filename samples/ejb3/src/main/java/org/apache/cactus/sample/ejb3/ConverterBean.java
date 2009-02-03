@@ -30,7 +30,8 @@ import org.apache.cactus.sample.ejb3.IConvertLocal;
  * @version $Id: ConverterBean.java 238816 2008-06-31 16:36:46Z ptahchiev $
  */
 @Stateless
-public class ConverterBean implements IConvertLocal {
+public class ConverterBean implements IConvertLocal 
+{
 
     /* (non-Javadoc)
      * @see org.apache.cactus.sample.ejb3.IConvertLocal#convert(double)

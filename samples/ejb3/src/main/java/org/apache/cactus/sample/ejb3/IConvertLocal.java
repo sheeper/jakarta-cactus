@@ -25,7 +25,7 @@ import java.io.Serializable;
 import javax.ejb.Local;
 
 /**
- * Sample EJB local interface
+ * Sample EJB local interface.
  *
  * @version $Id: IConverterLocal.java 238816 2008-06-31 16:36:46Z ptahchiev $
  */
@@ -35,9 +35,8 @@ public interface IConvertLocal extends Serializable
     /**
      * A method declaration to convert yen to dollars.
      * 
-     * @param theYenAmount
-     * @return
+     * @param theYenAmount to convert
+     * @return the converted ammount
      */
     public double convert(double theYenAmount);
-
 }
