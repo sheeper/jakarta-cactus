@@ -23,6 +23,8 @@ package org.apache.cactus.maven2.mojos;
 /**
  * We extend the <code>ServletRedirector</code> so that we can define custom
  * redirector definitions in the <code>pom.xml</code>. 
+ * 
+ * @version $Id: ServletRedirector.java 238816 2004-02-29 16:36:46Z ptahchiev$
  */
 public class ServletRedirector 
 extends org.apache.cactus.integration.api.cactify.ServletRedirector 

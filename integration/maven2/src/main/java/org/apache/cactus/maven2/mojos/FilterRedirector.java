@@ -23,6 +23,8 @@ package org.apache.cactus.maven2.mojos;
 /**
  * We extend the <code>FilterRedirector</code> so that we can define custom
  * redirector definitions in the <code>pom.xml</code>. 
+ * 
+ * @version $Id: FilterRedirector.java 238816 2004-02-29 16:36:46Z ptahchiev$
  */
 public class FilterRedirector 
 extends org.apache.cactus.integration.api.cactify.FilterRedirector 

@@ -22,6 +22,8 @@ package org.apache.cactus.maven2.mojos;
 /**
  * We extend the <code>org.codehaus.cargo.module.ejb.EjbDef</code> so that we 
  * can define custom ejbRefs in our <code>pom.xml</code>. 
+ * 
+ * @version $Id: EjbRef.java 238816 2004-02-29 16:36:46Z ptahchiev$
  */
 public class EjbRef extends org.codehaus.cargo.module.ejb.EjbDef 
 { }

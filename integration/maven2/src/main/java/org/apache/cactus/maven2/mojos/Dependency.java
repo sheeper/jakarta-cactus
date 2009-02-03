@@ -27,9 +27,9 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
 /**
- * 
  * Dependency that we use for the lib folder add-on's.
- *
+ * 
+ * @version $Id: Dependency.java 238816 2004-02-29 16:36:46Z ptahchiev$
  */
 public class Dependency 
 extends org.codehaus.cargo.maven2.configuration.Dependency 

@@ -84,7 +84,7 @@ public class CactifyWarMojo extends AbstractMojo
      * @parameter
      */
     private String context;
-	
+
     /**
      * Get some non-crypto-grade randomness from various places.
      */
@@ -252,11 +252,12 @@ public class CactifyWarMojo extends AbstractMojo
     
     /**
      * The "main" method of the mojo.
+     * 
      * @throws MojoExecutionException in case an error occurs.
      * @throws MojoFailureException in case a failure occurs.
      */
     public void execute() throws MojoExecutionException, MojoFailureException
-	{
+    {
         if (this.srcFile != null) 
         {
             getLog().info("Analyzing war: " + this.srcFile.getAbsolutePath());
@@ -347,10 +348,10 @@ public class CactifyWarMojo extends AbstractMojo
 
             if (testClasses != null) 
             {
-	            //Add the classes.
-	            warArchiver.addClasses(new File(testClasses.getDirectory()), 
-	            								testClasses.getIncludesArray(),
-	            								testClasses.getExcludesArray());
+                //Add the classes.
+                warArchiver.addClasses(new File(testClasses.getDirectory()), 
+                                                testClasses.getIncludesArray(),
+                                                testClasses.getExcludesArray());
             }
 
             //Now add all of the additional lib files.
@@ -364,7 +365,7 @@ public class CactifyWarMojo extends AbstractMojo
             
             try 
             {
-                if(this.srcFile != null)
+                if (this.srcFile != null)
                 {
                     AssemblyFileUtils.unpack(this.srcFile, tempLocation,
                         archiverManager);
@@ -681,7 +682,8 @@ public class CactifyWarMojo extends AbstractMojo
     
     /**
      * Setter method for the MavenProject.
-     * @param project
+     * 
+     * @param theProject to set
      */
     public void setProject(MavenProject theProject)
     {
@@ -735,7 +737,7 @@ public class CactifyWarMojo extends AbstractMojo
     /**
      * Sets the context.
      * 
-     * @param context
+     * @param theContext to set
      */
     public void setContext(String theContext) 
     {
@@ -775,7 +777,7 @@ public class CactifyWarMojo extends AbstractMojo
     /**
      * Setter method for the destFile.
      * 
-     * @param destFile
+     * @param theDestFile to set
      */
     public void setDestFile(File theDestFile) 
     {
@@ -796,7 +798,7 @@ public class CactifyWarMojo extends AbstractMojo
      * Setter for the warArchiver so that the cactifyearmojo
      * can set it.
      * 
-     * @param warArchiver
+     * @param theWarArchiver to set
      */
     public void setWarArchiver(WarArchiver theWarArchiver) 
     {
