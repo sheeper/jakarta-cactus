@@ -26,7 +26,7 @@ import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 
 /**
- * Sample EJB home interface
+ * Sample EJB home interface.
  *
  * @version $Id: ConverterHome.java 238816 2004-02-29 16:36:46Z vmassol $
  */
