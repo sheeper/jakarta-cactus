@@ -36,7 +36,7 @@ import org.apache.cactus.ServletTestCase;
 public class TestConverterEJB extends ServletTestCase
 {
     /**
-     * Class under test
+     * Class under test.
      */
     private Converter converter;
 
