@@ -30,7 +30,7 @@ import org.apache.maven.project.MavenProject;
 /**
  * Some unit tests for the <code>CactifyEarMojo</code> class.
  * 
- * @author ptahchiev
+ * @version $Id: TestCactifyEarMojo.java 238816 2004-02-29 16:36:46Z ptahchiev$
  */
 public class TestCactifyEarMojo extends AbstractMojoTestCase 
 {
@@ -41,6 +41,8 @@ public class TestCactifyEarMojo extends AbstractMojoTestCase
     
     /**
      * Set-up method to instantiate the mojo.
+     * 
+     * @throws Exception if something nasty happens
      */
     public void setUp() throws Exception
     {
@@ -50,23 +52,26 @@ public class TestCactifyEarMojo extends AbstractMojoTestCase
     
 
     /**
-     * Tests the mojo with absolutely no parameters specified
+     * Tests the mojo with absolutely no parameters specified.
+     * 
      * @throws Exception in case some error occurs
      */
     public void testCactifyEarWithNoParametersSpecified() throws Exception
     {
-        File testPom = new File(getBasedir(), "target/test-classes/unit/ear/basic-"
-                + "cactify-noparameters/plugin-config.xml");
-        CactifyEarMojo mojo = (CactifyEarMojo) lookupMojo("cactifyear", testPom);
+        File testPom = new File(getBasedir(), "target/test-classes/unit/ear/"
+                + "basic-cactify-noparameters/plugin-config.xml");
+        CactifyEarMojo mojo = 
+            (CactifyEarMojo) lookupMojo("cactifyear", testPom);
         assertNotNull(mojo);
         try 
         {
-        	mojo.execute();
-        	fail("Exception should have been raised!");
+            mojo.execute();
+            fail("Exception should have been raised!");
         } 
         catch (MojoExecutionException mex)
         {
-        	assertEquals("You need to specify [srcFile] attribute for cactification!", mex.getMessage());
+            assertEquals("You need to specify [srcFile] attribute for "
+                    + "cactification!", mex.getMessage());
         }
     }
 }

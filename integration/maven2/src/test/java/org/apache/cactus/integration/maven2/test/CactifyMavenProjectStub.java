@@ -32,34 +32,63 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.List;
 import java.io.File;
-
+/**
+ * A maven project stub for our cactify purposes.
+ * 
+ * @version $Id: CactifyMavenProjectStub.java 238816 2004-02-29 16:36:46Z ptahchiev$
+ */
 public class CactifyMavenProjectStub extends MavenProjectStub 
 {
 
+    /**
+     * The groupId, artifactId and version for our plugin.
+     */
     private String groupId, artifactId, version;
 
+    /**
+     * The artifact object for our plugin.
+     */
     private Artifact artifact;
 
+    /**
+     * A set of artifacts we need.
+     */
     private Set artifacts;
 
+    /**
+     * The model of the pom.
+     */
     private Model model;
 
+    /**
+     * The base directory for the project.
+     */
     private File basedir;
 
+    /**
+     * @return the build for the project
+     */
     public Build getBuild()
     {
         return model.getBuild();
     }
 
+    /**
+     * @return of remote artifact repositories
+     */
     public List getRemoteArtifactRepositories()
     {
-        ArtifactRepository repository = new DefaultArtifactRepository( "central",
-                                             "file://" + PlexusTestCase.getBasedir() + "/src/test/remote-repo",
-                                             new DefaultRepositoryLayout() );
+        ArtifactRepository repository = new DefaultArtifactRepository(
+                "central", "file://" 
+                + PlexusTestCase.getBasedir() + "/src/test/remote-repo",
+                                             new DefaultRepositoryLayout());
 
-        return Collections.singletonList( repository );
+        return Collections.singletonList(repository);
     }
 
+    /**
+     * Constructor for our stub.
+     */
     public CactifyMavenProjectStub()
     {
         groupId = "cactify";
@@ -67,59 +96,77 @@ public class CactifyMavenProjectStub extends MavenProjectStub
         version = "1.0";
     }
 
+    /**
+     * @return a set of dependency artifacts.
+     */
     public Set getDependencyArtifacts()
     {
         return Collections.singleton(
-            new DefaultArtifact( "cactify", "dependency-artifact", VersionRange.createFromVersion( "1.0" ),
-                                 Artifact.SCOPE_COMPILE, "jar", null, new DefaultArtifactHandler( "jar" ), false )
+            new DefaultArtifact("cactify", "dependency-artifact", 
+                    VersionRange.createFromVersion("1.0"),
+                    Artifact.SCOPE_COMPILE, "jar", null, 
+                    new DefaultArtifactHandler("jar"), false)
             );
     }
 
+    /**
+     * @return the base directory as a File.
+     */
     public File getBasedir()
     {
-        if ( basedir == null )
+        if (basedir == null)
         {
-            basedir = new File( PlexusTestCase.getBasedir() );
+            basedir = new File(PlexusTestCase.getBasedir());
         }
 
         return basedir;
     }
 
+    /**
+     * @return the artifact for the project.
+     */
     public Artifact getArtifact()
     {
-        if ( artifact == null )
+        if (artifact == null)
         {
-            artifact = new ArtifactStub( groupId, artifactId, version, "jar", Artifact.SCOPE_COMPILE );
+            artifact = new ArtifactStub(groupId, artifactId, version, "jar", 
+                    Artifact.SCOPE_COMPILE);
         }
 
         return artifact;
     }
 
+    /**
+     * @return the model of the project.
+     */
     public Model getModel()
     {
-        if ( model == null )
+        if (model == null)
         {
             model = new Model();
 
-            model.setProperties( new Properties() );
+            model.setProperties(new Properties());
 
-            model.setGroupId( getGroupId() );
+            model.setGroupId(getGroupId());
 
-            model.setArtifactId( getArtifactId() );
+            model.setArtifactId(getArtifactId());
 
-            model.setVersion( getVersion() );
+            model.setVersion(getVersion());
 
             Build build = new Build();
-            build.setFinalName( getArtifactId() + "-" + getVersion() );
-            model.setBuild( build );
+            build.setFinalName(getArtifactId() + "-" + getVersion());
+            model.setBuild(build);
         }
 
         return model;
     }
 
+    /**
+     * @return a set of artifacts.
+     */
     public Set getArtifacts()
     {
-        if ( artifacts == null )
+        if (artifacts == null)
         {
             artifacts = Collections.EMPTY_SET;
         }
@@ -127,43 +174,68 @@ public class CactifyMavenProjectStub extends MavenProjectStub
         return artifacts;
     }
 
-    public void setArtifacts( Set artifacts )
+    /**
+     * Setter for the artifacts.
+     * @param theArtifacts to set
+     */
+    public void setArtifacts(Set theArtifacts)
     {
-        this.artifacts = artifacts;
+        this.artifacts = theArtifacts;
     }
 
+    /**
+     * @return the properties.
+     */
     public Properties getProperties()
     {
         return new Properties();
     }
 
+    /**
+     * @return the groupId
+     */
     public String getGroupId()
     {
         return groupId;
     }
 
-    public void setGroupId( String groupId )
+    /**
+     * @param theGroupId for the project
+     */
+    public void setGroupId(String theGroupId)
     {
-        this.groupId = groupId;
+        this.groupId = theGroupId;
     }
 
+    /**
+     * @return the artifactId
+     */
     public String getArtifactId()
     {
         return artifactId;
     }
 
-    public void setArtifactId( String artifactId )
+    /**
+     * @param theArtifactId for the project.
+     */
+    public void setArtifactId(String theArtifactId)
     {
-        this.artifactId = artifactId;
+        this.artifactId = theArtifactId;
     }
 
+    /**
+     * @return the version of the project
+     */
     public String getVersion()
     {
         return version;
     }
 
-    public void setVersion( String version )
+    /**
+     * @param theVersion of the project
+     */
+    public void setVersion(String theVersion)
     {
-        this.version = version;
+        this.version = theVersion;
     }
 }

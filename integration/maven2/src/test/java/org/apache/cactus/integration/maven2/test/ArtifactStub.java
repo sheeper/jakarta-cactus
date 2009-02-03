@@ -23,25 +23,56 @@ import org.apache.maven.artifact.versioning.VersionRange;
 import org.codehaus.plexus.PlexusTestCase;
 
 /**
- * @author Edwin Punzalan
+ * Artifact stub to use in the maven2 tests.
+ * 
+ * @version $Id: ArtifactStub.java 238816 2004-02-29 16:36:46Z ptahchiev$
  */
 public class ArtifactStub
     extends DefaultArtifact
 {
-    public ArtifactStub( String groupId, String artifactId, String version, String packaging, String scope )
+    /**
+     * A constructor for the stub.
+     * 
+     * @param theGroupId to set
+     * @param theArtifactId to set
+     * @param theVersion to set
+     * @param thePackaging to set
+     * @param theScope to set
+     */
+    public ArtifactStub(String theGroupId, String theArtifactId, 
+            String theVersion, String thePackaging, String theScope)
     {
-        this( groupId, artifactId, version, packaging, null, scope );
+        this(theGroupId, theArtifactId, theVersion, thePackaging, 
+                null, theScope);
     }
 
-    public ArtifactStub( String groupId, String artifactId, String version, String packaging, String classifier, String scope )
+    /**
+     * Another constructor for the stub.
+     * 
+     * @param theGroupId to use
+     * @param theArtifactId to use
+     * @param theVersion to use
+     * @param thePackaging to use
+     * @param theClassifier to use
+     * @param theScope to use
+     */
+    public ArtifactStub(String theGroupId, String theArtifactId, 
+            String theVersion, String thePackaging, String theClassifier, 
+            String theScope)
     {
-        super( groupId, artifactId, VersionRange.createFromVersion( version ), scope, packaging,
-               classifier, new DefaultArtifactHandler( packaging ), false );
+        super(theGroupId, theArtifactId, 
+            VersionRange.createFromVersion(theVersion), theScope, thePackaging,
+            theClassifier, new DefaultArtifactHandler(thePackaging), false);
     }
 
+    /**
+     * @return File the file from the local repository 
+     * constructed with our data.
+     */
     public File getFile()
     {
-        return new File( PlexusTestCase.getBasedir() + "/target/local-repo", getArtifactId() + "-" + getVersion() + "." + getType() )
+        return new File(PlexusTestCase.getBasedir() + "/target/local-repo", 
+            getArtifactId() + "-" + getVersion() + "." + getType())
         {
             public long lastModified()
             {
