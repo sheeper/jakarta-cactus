@@ -32,7 +32,7 @@ import javax.ejb.SessionContext;
 public class ConverterEJB implements SessionBean
 {
     /**
-     * Session bean context
+     * Session bean context.
      */
     private SessionContext context;
 

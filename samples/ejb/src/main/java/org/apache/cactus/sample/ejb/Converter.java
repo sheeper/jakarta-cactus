@@ -25,7 +25,7 @@ import java.rmi.RemoteException;
 import javax.ejb.EJBObject;
 
 /**
- * Sample EJB interface
+ * Sample EJB interface.
  *
  * @version $Id: Converter.java 238816 2004-02-29 16:36:46Z vmassol $
  */
