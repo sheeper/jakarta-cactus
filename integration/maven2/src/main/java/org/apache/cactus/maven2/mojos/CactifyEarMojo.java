@@ -132,8 +132,8 @@ public class CactifyEarMojo extends AbstractMojo
      * @throws MojoExecutionException in case an error occurs.
      * @throws MojoFailureException in case a failure occurs.
      */
-	public void execute() throws MojoExecutionException, MojoFailureException 
-	{
+    public void execute() throws MojoExecutionException, MojoFailureException 
+    {
         if (cactusWar == null)
         {
             cactusWar = createCactusWarConfig();
@@ -142,7 +142,7 @@ public class CactifyEarMojo extends AbstractMojo
         if (getSrcFile() == null) 
         {
             throw new MojoExecutionException("You need to specify [srcFile] "
-            		+ "attribute for cactification!");
+                + "attribute for cactification!");
         }
         MavenArchiver archiver = new MavenArchiver();
         archiver.setArchiver(earArchiver);
@@ -176,14 +176,14 @@ public class CactifyEarMojo extends AbstractMojo
         
         try 
         {
-			earArchiver.addDirectory(tempLocation);
-		} 
+            earArchiver.addDirectory(tempLocation);
+        } 
         catch (ArchiverException e1) 
         {
-			// Cannot add the temp location for some reason.
-        	throw new MojoExecutionException("Problem adding the source " +
-        			"files to the dest. archive ", e1);
-		}
+            // Cannot add the temp location for some reason.
+            throw new MojoExecutionException("Problem adding the source "
+                + "files to the dest. archive ", e1);
+        }
         
         // cactify the application.xml
         ApplicationXml appXml = null;
@@ -247,7 +247,7 @@ public class CactifyEarMojo extends AbstractMojo
                        + "folder", e);
             }
         }
-	}
+    }
     
     /**
      * A helper method to create a temporary file.
@@ -255,7 +255,8 @@ public class CactifyEarMojo extends AbstractMojo
      * @throws MojoExecutionException in case a runtime error occurs.
      * @throws MojoFailureException in case a mojo failure occurs.
      */
-    private File createCactusWarFile() throws MojoExecutionException, MojoFailureException
+    private File createCactusWarFile() 
+        throws MojoExecutionException, MojoFailureException
     {
         File tmpCactusWar = FileUtils.createTempFile("cactus", "cactus.war",
                                                      getProject().getBasedir());
@@ -286,7 +287,7 @@ public class CactifyEarMojo extends AbstractMojo
      * 
      * @param theAppXml the application.xml to cactify
      * @return the cactified application.xml
-     * @throws MojoExecutionException 
+     * @throws MojoExecutionException in case a problem occurs
      */
     private File cactifyApplicationXml(ApplicationXml theAppXml) 
                                             throws MojoExecutionException
@@ -315,7 +316,7 @@ public class CactifyEarMojo extends AbstractMojo
      * 
      * @return the application.xml from the source ear
      * @throws JDOMException in case a JDOM exception is thrown
-     * @throws MojoExecutionException 
+     * @throws MojoExecutionException in case a problem occurs
      */
     private ApplicationXml getOriginalApplicationXml() 
                             throws JDOMException, MojoExecutionException
@@ -475,7 +476,7 @@ public class CactifyEarMojo extends AbstractMojo
     
     /**
      * Getter method for the destFile.
-     * @return
+     * @return the destination file
      */
     public File getDestFile() 
     {
@@ -484,7 +485,7 @@ public class CactifyEarMojo extends AbstractMojo
     
     /**
      * Getter method for the srcFile.
-     * @return
+     * @return the source file
      */
     public File getSrcFile() 
     {
