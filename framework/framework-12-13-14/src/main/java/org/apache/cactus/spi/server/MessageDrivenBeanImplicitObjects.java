@@ -29,8 +29,6 @@ import org.apache.cactus.JmsRequest;
 /**
  * Implicit objects for the Message Driven Bean redirector.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class MessageDrivenBeanImplicitObjects implements ImplicitObjects
@@ -67,7 +65,7 @@ public class MessageDrivenBeanImplicitObjects implements ImplicitObjects
     /**
      * Setter for the queue that we are about to post our request to.
      * 
-     * @param requestQueue
+     * @param theRequestQueue parameter
      */
     public void setRequestQueue(Queue theRequestQueue) 
     {
@@ -112,7 +110,7 @@ public class MessageDrivenBeanImplicitObjects implements ImplicitObjects
 
     /**
      * Getter method for the request object.
-     * @return
+     * @return the jms request
      */
     public JmsRequest getRequest() 
     {
@@ -121,7 +119,7 @@ public class MessageDrivenBeanImplicitObjects implements ImplicitObjects
 
     /**
      * Setter method for the jms request object.
-     * @param theRequest
+     * @param theRequest parameter
      */
     public void setRequest(JmsRequest theRequest) 
     {

@@ -50,9 +50,9 @@ public class MessageDrivenBeanTestCaller extends AbstractJMSTestCaller
     /**
      * @param theObjects the implicit objects coming from the redirector
      */
-    public MessageDrivenBeanTestCaller(MessageDrivenBeanImplicitObjects objects)
+    public MessageDrivenBeanTestCaller(MessageDrivenBeanImplicitObjects theObjects)
     {
-        super(objects);
+        super(theObjects);
     }
     
     /**
@@ -78,18 +78,19 @@ public class MessageDrivenBeanTestCaller extends AbstractJMSTestCaller
         String nameOfQueue = request.getQueueName();
         
         QueueConnectionFactory qcf = ((QueueConnectionFactory) 
-        ((InitialContext)mdbImplicitObjects.getMessageDrivenBeanContext()).lookup(nameOfQueue)); 
+        ((InitialContext) mdbImplicitObjects.getMessageDrivenBeanContext()).lookup(nameOfQueue)); 
         
         Method respondMethod = jmsInstance.getClass().getMethod("getJMSReplyTo", new Class[]{});
         
-        Field requestField = jmsInstance.getClass().getField("request");     //TODO find the appropriate field names here.
+        Field requestField = jmsInstance.getClass().getField("request");  //TODO find the appropriate field names here.
 
         //requestField.set(jmsInstance, 
         //    AbstractHttpServletRequestWrapper.newInstance(request, url));
 
         // Set the response queue field of the test case class
         // ---------------------------------------------
-        Field responseQueueField = jmsInstance.getClass().getField("jMSReplyTo");   //TODO find the appropriate field names here.
+        //TODO find the appropriate field names here.
+        Field responseQueueField = jmsInstance.getClass().getField("jMSReplyTo"); 
 
         //responseQueueField.set(jmsInstance, 
         //    mdbImplicitObjects.getHttpServletResponse());
@@ -114,28 +115,40 @@ public class MessageDrivenBeanTestCaller extends AbstractJMSTestCaller
 //            sessionField.set(jmsInstance, session);
 //        }
     }
-    
+    /**
+     * Empty implementation.
+     */
     public void doTest()
     {
         
     }
     
+    /**
+     * Empty implementation.
+     */
     public void doGetResults()
     {
         
     }
     
+    /**
+     * Empty implementation.
+     */
     public void doRunTest()
     {
         
     }
     
-    
+    /**
+     * Empty implementation.
+     */
     public void doCreateSession()
     {
         
     }
-    
+    /**
+     * Empty implementation.
+     */
     public void doGetVersion()
     {
         

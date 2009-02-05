@@ -40,8 +40,6 @@ import org.apache.commons.logging.LogFactory;
  * Generic Message Driven Bean redirector that calls a test method on the
  * server side.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @since 1.4
  *
  * @version $Id$
@@ -53,7 +51,15 @@ public class MessageDrivenBeanRedirector
      * The Message context.
      */
     private MessageDrivenContext context;
-    QueueConnection connection; 
+    
+    /**
+     * Connection for the MDB.
+     */
+    QueueConnection connection;
+    
+    /**
+     * Session of the MDB.
+     */
     QueueSession session; 
     
     /**
@@ -92,7 +98,7 @@ public class MessageDrivenBeanRedirector
                     QueueSession.AUTO_ACKNOWLEDGE); 
             connection.start(); 
         } 
-        catch(Exception e) 
+        catch (Exception e) 
         {
             throw new EJBException("Failed to initialize MyMDB", e); 
         } 

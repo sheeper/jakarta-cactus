@@ -26,32 +26,37 @@ import org.apache.cactus.spi.server.ImplicitObjects;
 
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public interface EJBImplicitObjects extends ImplicitObjects 
 {
 
     /**
      * Gettermethod for the ejb context.
-     * @return
+     * 
+     * @return the context of the bean
      */
     public SessionContext getEJBContext();
 
     /**
      * Setter method for the session context.
-     * @param theContext
+     * 
+     * @param theContext the context of the bean.
      */
     public void setEJBContext(SessionContext theContext);
 
     /**
      * Setter method for the ejb request.
-     * @param theRequest
+     * 
+     * @param theRequest for the bean
      */
     public void setEJBRequest(EJBRequest theRequest);
 
     /**
      * Getter method for the ejb request.
-     * @return
+     * 
+     * @return the request for the bean
      */
     public EJBRequest getEJBRequest();
 

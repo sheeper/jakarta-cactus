@@ -26,7 +26,6 @@ import org.apache.cactus.internal.configuration.ConfigurationInitializer;
  * Provides access to the Cactus configuration parameters related to the
  * JMS Redirector.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
  *
  * @since 1.4
  *
@@ -46,8 +45,8 @@ public class JmsConfiguration extends ConfigurationInitializer
             System.getProperty("cactus.jndi.initialContextFactory");
         if (property == null) 
         {
-            throw new ChainedRuntimeException("Missing Cactus property [" +
-                "cactus.jndi.initialContextFactory" + "]");
+            throw new ChainedRuntimeException("Missing Cactus property ["
+                + "cactus.jndi.initialContextFactory" + "]");
         }
         return property;
     }
@@ -64,8 +63,8 @@ public class JmsConfiguration extends ConfigurationInitializer
             System.getProperty("cactus.jndi.providerUrl");
         if (property == null) 
         {
-            throw new ChainedRuntimeException("Missing Cactus property [" +
-                "cactus.jndi.providerUrl" + "]");
+            throw new ChainedRuntimeException("Missing Cactus property ["
+                + "cactus.jndi.providerUrl" + "]");
         }
         return property;
     }
@@ -82,8 +81,8 @@ public class JmsConfiguration extends ConfigurationInitializer
             System.getProperty("cactus.jndi.urlPkgPrefixes");
         if (property == null) 
         {
-            throw new ChainedRuntimeException("Missing Cactus property [" +
-                "cactus.jndi.urlPkgPrefixes" + "]");
+            throw new ChainedRuntimeException("Missing Cactus property ["
+               + "cactus.jndi.urlPkgPrefixes" + "]");
         }
         return property;
     }
@@ -100,8 +99,8 @@ public class JmsConfiguration extends ConfigurationInitializer
             System.getProperty("cactus.jndi.securityPrincipal");
         if (property == null) 
         {
-            throw new ChainedRuntimeException("Missing Cactus property [" +
-                "cactus.jndi.securityPrincipal" + "]");
+            throw new ChainedRuntimeException("Missing Cactus property ["
+                + "cactus.jndi.securityPrincipal" + "]");
         }
         return property;
     }
@@ -118,8 +117,8 @@ public class JmsConfiguration extends ConfigurationInitializer
             System.getProperty("cactus.jndi.securityCredentials");
         if (property == null) 
         {
-            throw new ChainedRuntimeException("Missing Cactus property [" +
-                "cactus.jndi.securityCredentials" + "]");
+            throw new ChainedRuntimeException("Missing Cactus property ["
+                + "cactus.jndi.securityCredentials" + "]");
         }
         return property;
     }
@@ -136,8 +135,8 @@ public class JmsConfiguration extends ConfigurationInitializer
             System.getProperty("cactus.jms.connectionFactoryJndiName");
         if (property == null) 
         {
-            throw new ChainedRuntimeException("Missing Cactus property [" +
-                "cactus.jms.connectionFactoryJndiName" + "]");
+            throw new ChainedRuntimeException("Missing Cactus property ["
+                + "cactus.jms.connectionFactoryJndiName" + "]");
         }
         return property;
     }

@@ -24,8 +24,6 @@ package org.apache.cactus;
  * Constants that define HTTP parameters required for defining a service that
  * is performed by the <code>ServletTestRedirector</code> servlet.
  *
- * @author <a href="mailto:vmassol@apache.org">Vincent Massol</a>
- *
  * @version $Id$
  */
 public class ServiceDefinition

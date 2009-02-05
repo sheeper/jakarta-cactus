@@ -1,4 +1,3 @@
-package org.apache.cactus.internal;
 /* 
  * ========================================================================
  * 
@@ -19,18 +18,21 @@ package org.apache.cactus.internal;
  * 
  * ========================================================================
  */
+package org.apache.cactus.internal;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public class EJBTestResult 
 {
     /**
-         * Name of the exception class if an error occurred
-         */
+     * Name of the exception class if an error occurred.
+     */
     private String exceptionClassName;
 
     /**
@@ -41,7 +43,7 @@ public class EJBTestResult
     private String exceptionStackTrace;
 
     /**
-     * The exception message if an error occurred
+     * The exception message if an error occurred.
      */
     private String exceptionMessage;
 

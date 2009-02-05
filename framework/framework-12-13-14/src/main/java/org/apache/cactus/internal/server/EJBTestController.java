@@ -1,4 +1,3 @@
-package org.apache.cactus.internal.server;
 /* 
  * ========================================================================
  * 
@@ -20,9 +19,12 @@ package org.apache.cactus.internal.server;
  * ========================================================================
  */
 
+package org.apache.cactus.internal.server;
+
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public class EJBTestController extends AbstractEJBTestController 
 {

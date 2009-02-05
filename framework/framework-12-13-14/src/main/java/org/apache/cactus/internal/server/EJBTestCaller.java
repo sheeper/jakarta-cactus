@@ -1,4 +1,3 @@
-package org.apache.cactus.internal.server;
 /* 
  * ========================================================================
  * 
@@ -20,17 +19,21 @@ package org.apache.cactus.internal.server;
  * ========================================================================
  */
 
+package org.apache.cactus.internal.server;
+
 import org.apache.cactus.internal.AbstractCactusTestCase;
 
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public class EJBTestCaller extends AbstractEJBTestCaller 
 {
     /**
      * A constructor that takes the implicitObjects as a parameter.
-     * @param objects
+     * 
+     * @param theObjects for the bean
      */
     public EJBTestCaller(EJBImplicitObjects theObjects) 
     {
@@ -39,10 +42,11 @@ public class EJBTestCaller extends AbstractEJBTestCaller
 
     /**
      * A constructor that takes the instance of the test-case as a parameter.
-     * @parameter theTestInstance
+     * 
+     * @param theTestInstance to test
+     * @throws Exception if an error occurs
      */
-    protected void setTestCaseFields(AbstractCactusTestCase theTestInstance)
-        throws Exception 
+    protected void setTestCaseFields(AbstractCactusTestCase theTestInstance) throws Exception 
     {
         //Does nothing
     }

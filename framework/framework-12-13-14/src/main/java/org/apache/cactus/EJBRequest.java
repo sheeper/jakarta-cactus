@@ -27,7 +27,8 @@ import org.apache.cactus.Request;
 
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public class EJBRequest implements Request, Serializable 
 {
@@ -47,8 +48,8 @@ public class EJBRequest implements Request, Serializable
 
     /**
      * A method to set the name of the class as a request parameter.
-     * @param theClassKey
-     * @param theName
+     * @param theClassKey to set to
+     * @param theName to set
      */
     public void setClassName(String theClassKey, String theName)
     {
@@ -57,8 +58,9 @@ public class EJBRequest implements Request, Serializable
     
     /**
      * A method to get the name of the class as a request parameter.
-     * @param theClassKey
-     * @return
+     * 
+     * @param theClassKey the parameter
+     * @return the name of the class
      */
     public String getClassName(String theClassKey) 
     {
@@ -67,8 +69,8 @@ public class EJBRequest implements Request, Serializable
     
     /**
      * A method to set the name of the test-method.
-     * @param theMethodKey
-     * @param theName
+     * @param theMethodKey the method-key
+     * @param theName the name of the method
      */
     public void setMethodName(String theMethodKey, String theName) 
     {
@@ -77,8 +79,9 @@ public class EJBRequest implements Request, Serializable
     
     /**
      * Getter method for the name of the test-method.
-     * @param theMethodKey
-     * @return
+     * 
+     * @param theMethodKey the parameter
+     * @return the name of the method
      */
     public String getMethodName(String theMethodKey) 
     {

@@ -37,7 +37,8 @@ import org.apache.cactus.util.JmsConfiguration;
 
 /**
  * The JMS protocol handler.
- * @author ptahchiev
+ * 
+ * @version $Id$
  */
 public class JmsProtocolHandler implements ProtocolHandler
 {
@@ -47,6 +48,9 @@ public class JmsProtocolHandler implements ProtocolHandler
      */
     private JmsConfiguration configuration;
     
+    /**
+     * The session.
+     */
     private QueueSession session;
 
     /**
@@ -59,7 +63,9 @@ public class JmsProtocolHandler implements ProtocolHandler
     
     /**
      * A method that gets executed after the test execution.
-     * @param theProtocolState the state of the protocol after the execution.
+     * 
+     * @param theState the state of the protocol after the execution.
+     * @throws Exception in case of error
      */
     public void afterTest(ProtocolState theState) throws Exception 
     {
@@ -70,7 +76,8 @@ public class JmsProtocolHandler implements ProtocolHandler
      * A method to create a request object.
      * @return Request
      */
-    public Request createRequest() {
+    public Request createRequest() 
+    {
         return new JmsRequest(session);
     }
 
@@ -86,9 +93,11 @@ public class JmsProtocolHandler implements ProtocolHandler
     /**
      * The method that actually runs the tests.
      * 
-     * @param theDelegatedTest
-     * @param theWrappedTest
-     * @param theRequest
+     * @param theDelegatedTest parameter
+     * @param theWrappedTest parameter
+     * @param theRequest parameter
+     * @return the protocol state
+     * @throws Throwable in case of error
      */
     public ProtocolState runTest(Test theDelegatedTest, Test theWrappedTest,
             Request theRequest) throws Throwable 

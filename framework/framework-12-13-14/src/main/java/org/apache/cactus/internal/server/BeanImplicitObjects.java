@@ -1,4 +1,3 @@
-package org.apache.cactus.internal.server;
 /* 
  * ========================================================================
  * 
@@ -19,12 +18,15 @@ package org.apache.cactus.internal.server;
  * 
  * ========================================================================
  */
+package org.apache.cactus.internal.server;
+
 import javax.ejb.SessionContext;
 import org.apache.cactus.EJBRequest;
 
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public class BeanImplicitObjects implements EJBImplicitObjects 
 {
@@ -40,6 +42,8 @@ public class BeanImplicitObjects implements EJBImplicitObjects
 
     /**
      * Getter method for the ejb context.
+     * 
+     * @return the ejb-context
      */
     public SessionContext getEJBContext() 
     {
@@ -48,7 +52,7 @@ public class BeanImplicitObjects implements EJBImplicitObjects
 
     /**
      * Setter method for the ejb context.
-     * @param theContext
+     * @param theContext to set
      */
     public void setEJBContext(SessionContext theContext) 
     {
@@ -57,6 +61,7 @@ public class BeanImplicitObjects implements EJBImplicitObjects
 
     /**
      * Getter method for the ejb request.
+     * 
      * @return ejb request object
      */
     public EJBRequest getEJBRequest() 
@@ -66,7 +71,8 @@ public class BeanImplicitObjects implements EJBImplicitObjects
     
     /**
      * Setter method for the ejb request.
-     * @param theRequest
+     * 
+     * @param theRequest to set
      */
     public void setEJBRequest(EJBRequest theRequest) 
     {

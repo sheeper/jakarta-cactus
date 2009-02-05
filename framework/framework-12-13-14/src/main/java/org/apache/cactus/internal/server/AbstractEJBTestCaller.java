@@ -1,4 +1,3 @@
-package org.apache.cactus.internal.server;
 /* 
  * ========================================================================
  * 
@@ -19,6 +18,8 @@ package org.apache.cactus.internal.server;
  * 
  * ========================================================================
  */
+package org.apache.cactus.internal.server;
+
 import java.lang.reflect.Constructor;
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.EJBTestResult;
@@ -29,7 +30,8 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Prototype of EJBRedirector for Cactus.
- * @author Siddhartha P. Chandurkar (siddhartha@visioncodified.com)
+ * 
+ * @version $Id$
  */
 public abstract class AbstractEJBTestCaller 
 {
@@ -47,7 +49,7 @@ public abstract class AbstractEJBTestCaller
 
     /**
      * A constructor for the class.
-     * @param theObjects
+     * @param theObjects parameter
      */
     public AbstractEJBTestCaller(EJBImplicitObjects theObjects) 
     {
@@ -56,7 +58,8 @@ public abstract class AbstractEJBTestCaller
     
     /**
      * Setter method to set the test-case fields.
-     * @param theTestCase
+     * 
+     * @param theTestCase parameter
      * @throws Exception in case an error occurs.
      */
     protected abstract void setTestCaseFields(AbstractCactusTestCase 
@@ -103,7 +106,8 @@ public abstract class AbstractEJBTestCaller
     
     /**
      * Getter method to return the name of the class being tested.
-     * @return
+     * 
+     * @return the class name
      */
     protected String getTestClassName() 
     {
@@ -113,7 +117,8 @@ public abstract class AbstractEJBTestCaller
 
     /**
      * Getter method to return the name of the test-method being executed.
-     * @return
+     * 
+     * @return the method-name
      * @throws Exception in case an error occurs
      */
     protected String getTestMethodName() throws Exception 
@@ -124,9 +129,9 @@ public abstract class AbstractEJBTestCaller
 
     /**
      * A method to return an instance of the test-class.
-     * @param theClassName
-     * @param theTestCaseName
-     * @return
+     * @param theClassName parameter
+     * @param theTestCaseName parameter
+     * @return the cactus test-case
      * @throws Exception in case an error occurs
      */
     protected AbstractCactusTestCase getTestClassInstance(
@@ -140,10 +145,10 @@ public abstract class AbstractEJBTestCaller
         try 
         {
             Constructor constructor =
-                testClass.getConstructor(new Class[] { String.class });
+                testClass.getConstructor(new Class[] {String.class});
             testInstance =
                 (AbstractCactusTestCase) constructor.newInstance(
-                    new Object[] { theTestCaseName });
+                    new Object[] {theTestCaseName});
         } 
         catch (Exception e) 
         {

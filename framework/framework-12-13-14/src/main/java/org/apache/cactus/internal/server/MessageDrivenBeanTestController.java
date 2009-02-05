@@ -60,8 +60,8 @@ public class MessageDrivenBeanTestController implements TestController
     /**
      * This method is supposed to handle the request from the Redirector.
      * 
-     * @param theObjects
-     * @throws JMSException 
+     * @param theObjects for the request
+     * @throws JMSException in case an error occurs
      */
     public void handleRequest(ImplicitObjects theObjects) throws JMSException
     {
