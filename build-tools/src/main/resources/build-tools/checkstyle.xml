@@ -10,17 +10,29 @@ Description:
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
     <property name="severity" value="warning"/>
+    <module name="Header">
+      <property name="headerFile" value="${checkstyle.header.file}"/>
+      <property name="ignoreLines" value="4"/>
+    </module>
+    <module name="FileLength"/>
+    <module name="FileTabCharacter"/>
+    <module name="RegexpSingleline">
+      <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
+      <property name="message" value="Avoid finalizers"/>
+    </module>
+    <module name="RegexpSingleline">
+      <property name="format" value="System\.(out|err)\."/>
+      <property name="message" value="Don't write directly to System.out our System.err"/>
+    </module>
+    <module name="RegexpSingleline">
+      <property name="format" value="@author"/>
+      <property name="message" value="No @author tag allowed"/>
+    </module>
     <module name="TreeWalker">
-        <module name="FileLength"/>
-        <module name="Header">
-            <property name="headerFile" value="${checkstyle.header.file}"/>
-            <property name="ignoreLines" value="4"/>
-        </module>
         <module name="LineLength">
             <property name="ignorePattern" value="(@version|@see|^import)"/>
             <property name="max" value="120"/>
         </module>
-        <module name="TabCharacter"/>
         <module name="AvoidStarImport"/>
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
@@ -78,21 +90,10 @@ Description:
             <property name="publicMemberPattern" value="^[a-z][a-zA-Z0-9]*$"/>
         </module>
         <module name="FinalClass"/>
-        <module name="GenericIllegalRegexp">
-            <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
-            <property name="message" value="Avoid finalizers"/>
-        </module>
-        <module name="GenericIllegalRegexp">
-            <property name="format" value="System\.(out|err)\."/>
-            <property name="message" value="Don't write directly to System.out our System.err"/>
-        </module>
-        <module name="GenericIllegalRegexp">
-            <property name="format" value="@author"/>
-            <property name="message" value="No @author tag allowed"/>
-        </module>
-        <module name="JavadocType">
+        <!--module name="JavadocType">
             <property name="versionFormat" value="\$Id.*\$"/>
-        </module>
+            <property name="allowUnknownTags" value="true"/>
+        </module-->
         <module name="JavadocMethod">
             <property name="allowUndeclaredRTE" value="true"/>
         </module>

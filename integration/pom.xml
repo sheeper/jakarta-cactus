@@ -41,11 +41,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.4</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.cactus</groupId>
 						<artifactId>cactus.build.tools</artifactId>
-						<version>1.8.0</version>
+						<version>1.8.2-SNAPSHOT</version>
 					</dependency>
 				</dependencies>
 				<configuration>
