@@ -25,9 +25,15 @@
 		<version>1.8.2-SNAPSHOT</version>
 	</parent>
 	<packaging>pom</packaging>
-  <name>Cactus Wrappers - Parent Project</name>
+        <name>Cactus Wrappers - Parent Project</name>
 	<description>Parent project for Cactus wrapper projects</description>
 	<artifactId>cactus.core.framework.wrappers</artifactId>
+  <profiles>
+    <profile>
+      <id>sourcecheck</id>
+      <activation>
+	<activeByDefault>true</activeByDefault> 
+      </activation>
 	<build>
 		<plugins>
   			<plugin>
@@ -36,6 +42,8 @@
 			</plugin>
 		</plugins>
 	</build>
+    </profile>
+  </profiles>
 	<modules>
 		<module>wrapper-javaEE-12</module>
 		<module>wrapper-javaEE-13</module>

@@ -34,6 +34,12 @@
 		<module>maven2</module>
     <module>eclipse</module>
 	</modules>
+  <profiles>
+    <profile>
+      <id>sourcecheck</id>
+      <activation>
+	<activeByDefault>true</activeByDefault> 
+      </activation>
 	<build>
 	 <plugins>
 	 			<!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
@@ -64,5 +70,7 @@
 			</plugin>
 	 </plugins>
 	</build>
+    </profile>
+  </profiles>
 </project>
  

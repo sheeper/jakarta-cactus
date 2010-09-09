@@ -28,6 +28,12 @@
 	<description>Parent project for Cactus framework</description>
 	<packaging>pom</packaging>
 	<artifactId>cactus.core.framework</artifactId>
+  <profiles>
+    <profile>
+      <id>sourcecheck</id>
+      <activation>
+	<activeByDefault>true</activeByDefault> 
+      </activation>
 	<build>
 	 <plugins>
 	 			<!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
@@ -58,6 +64,8 @@
 			</plugin>
 	 </plugins>
 	</build>
+    </profile>
+  </profiles>
 
 	<dependencies>
 		<!-- TODO: add dependencies below to parent project and remove from here -->
