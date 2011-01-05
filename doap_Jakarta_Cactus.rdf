@@ -23,20 +23,12 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
          xmlns:asfext="http://projects.apache.org/ns/asfext#"
          xmlns:foaf="http://xmlns.com/foaf/0.1/">
-<!--
-  =======================================================================
-
-   Copyright (c) 2006 The Apache Software Foundation.  
-   All rights reserved.
-
-  =======================================================================
--->
   <Project rdf:about="http://jakarta.apache.org/cactus">
     <created>2007-07-09</created>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
     <name>Apache Jakarta Cactus</name>
     <homepage rdf:resource="http://jakarta.apache.org/cactus" />
-    <asfext:pmc rdf:resource="http://jakarta.apache.org" />
+    <asfext:pmc rdf:resource="http://svn.apache.org/repos/asf/jakarta/site/jakarta.rdf" />
     <shortdesc>Cactus is a simple test framework for unit testing server-side java code (Servlets, EJBs, Tag Libs, Filters, ...).</shortdesc>
     <description>The intent of Cactus is to lower the cost of writing tests for server-side code. It uses JUnit and extends it.
 
