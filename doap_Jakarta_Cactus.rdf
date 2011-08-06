@@ -28,7 +28,7 @@
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
     <name>Apache Jakarta Cactus</name>
     <homepage rdf:resource="http://jakarta.apache.org/cactus" />
-    <asfext:pmc rdf:resource="http://svn.apache.org/repos/asf/jakarta/site/jakarta.rdf" />
+    <asfext:pmc rdf:resource="http://attic.apache.org" />
     <shortdesc>Cactus is a simple test framework for unit testing server-side java code (Servlets, EJBs, Tag Libs, Filters, ...).</shortdesc>
     <description>The intent of Cactus is to lower the cost of writing tests for server-side code. It uses JUnit and extends it.
 
@@ -38,6 +38,7 @@ Cactus implements an in-container strategy, meaning that tests are executed insi
     <download-page rdf:resource="http://jakarta.apache.org/cactus/downloads.html" />
     <programming-language>Java</programming-language>
     <category rdf:resource="http://projects.apache.org/category/testing" />
+    <category rdf:resource="http://projects.apache.org/category/retired" />
     <release>
       <Version>
         <name>v1.8.0</name>
