@@ -84,6 +84,15 @@ public abstract class AbstractWebTestCaller
         throws Exception;
 
     /**
+     * Uses the implicit object in the test case class to do some cleanup
+     * actions.
+     *
+     * @param theTestCase the instance of the test case class on which the
+     *        class variable (implicit objects) has been set
+     */
+    protected abstract void resetTestCaseFields(TestCase theTestCase);
+
+    /**
      * @return a <code>Writer</code> object that will be used to return the
      *         test result to the client side.
      * @exception IOException if an error occurs when retrieving the writer
@@ -100,11 +109,11 @@ public abstract class AbstractWebTestCaller
     public void doTest() throws ServletException
     {
         WebTestResult result = null;
-
+        TestCase testInstance = null;
         try
         {
             // Create an instance of the test class
-            TestCase testInstance = getTestClassInstance(
+            testInstance = getTestClassInstance(
                 getTestClassName(), getWrappedTestClassName(), 
                 getTestMethodName());
 
@@ -132,9 +141,13 @@ public abstract class AbstractWebTestCaller
             // <code>WebTestResult</code> with an exception.
             result = new WebTestResult(e);
         }
+        finally
+        {
+            // cleanup after the testrun if needed
+            resetTestCaseFields(testInstance);
+        }
 
         LOGGER.debug("Test result : [" + result + "]");
-
 
         // Set the test result.
         this.webImplicitObjects.getServletContext()
@@ -159,6 +172,7 @@ public abstract class AbstractWebTestCaller
         // request is fully finished and the result has been committed ...
         WebTestResult result = (WebTestResult) (this.webImplicitObjects
             .getServletContext().getAttribute(TEST_RESULTS));
+
 
         // It can happen that the result has not been written in the Servlet
         // context. This could happen for example when using a load-balancer

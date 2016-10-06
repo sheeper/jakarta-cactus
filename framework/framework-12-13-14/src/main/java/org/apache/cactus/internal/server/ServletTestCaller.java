@@ -107,6 +107,32 @@ public class ServletTestCaller extends AbstractWebTestCaller
 
     /**
      * {@inheritDoc}
+     * @see AbstractWebTestCaller#resetTestCaseFields(TestCase)
+     */
+    protected void resetTestCaseFields(TestCase theTestInstance)
+    {
+        if (!(theTestInstance instanceof ServletTestCase))
+        {
+            return;
+        }
+
+        ServletTestCase servletInstance = (ServletTestCase) theTestInstance;
+        ServletImplicitObjects servletImplicitObjects =
+                (ServletImplicitObjects) this.webImplicitObjects;
+
+        // --------------------------------------------
+        // Need to invalidate the automatically created Session object
+        // or the server might run into reject connection attempts if he
+        // reaches internal limits
+        // (e.g. java.lang.IllegalStateException on WebSphere Servers)
+        if (isAutoSession() && servletInstance.session != null)
+        {
+            servletInstance.session.invalidate();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
      * @see AbstractWebTestCaller#getResponseWriter()
      */
     protected Writer getResponseWriter() throws IOException

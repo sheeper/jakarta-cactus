@@ -99,6 +99,15 @@ public class FilterTestCaller extends AbstractWebTestCaller
 
     /**
      * {@inheritDoc}
+     * @see AbstractWebTestCaller#resetTestCaseFields(TestCase)
+     */
+    protected void resetTestCaseFields(TestCase theTestInstance)
+    {
+        // nothing to reset here
+    }
+
+    /**
+     * {@inheritDoc}
      * @see AbstractWebTestCaller#getResponseWriter()
      */
     protected Writer getResponseWriter() throws IOException
