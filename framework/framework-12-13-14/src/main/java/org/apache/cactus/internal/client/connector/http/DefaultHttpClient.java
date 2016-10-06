@@ -81,7 +81,7 @@ public class DefaultHttpClient
         HttpURLConnection connection = callRunTest(theRequest);
 
         // Open the second connection to get the test results
-        WebTestResult result = null;
+        WebTestResult result;
 
         try
         {
@@ -115,7 +115,9 @@ public class DefaultHttpClient
             if ((result.getExceptionClassName().equals(
                 "junit.framework.AssertionFailedError"))
                 || (result.getExceptionClassName().equals(
-                "junit.framework.ComparisonFailure")))
+                "junit.framework.ComparisonFailure"))
+                || (result.getExceptionClassName().equals(
+                "java.lang.AssertionError")))
             {
                 throw new AssertionFailedErrorWrapper(
                     result.getExceptionMessage(), 
