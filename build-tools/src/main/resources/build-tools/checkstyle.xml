@@ -99,9 +99,6 @@ Description:
         </module>
         <module name="JavadocVariable"/>
         <module name="JavadocStyle"/>
-        <module name="RedundantThrows">
-            <property name="allowUnchecked" value="true"/>
-        </module>
         <module name="SuperClone"/>
         <module name="SuperFinalize"/>
         <module name="TodoComment"/>
