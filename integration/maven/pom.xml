@@ -63,13 +63,6 @@
 	      <plugin>
 	        <artifactId>maven-one-plugin</artifactId>
 	        <extensions>true</extensions>
-	        <executions>
-	          <execution>
-	            <goals>
-	              <goal>install-maven-one-repository</goal>
-	            </goals>
-	          </execution>
-	        </executions>
 	      </plugin>
 	    </plugins>
 	  </build>
