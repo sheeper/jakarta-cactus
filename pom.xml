@@ -423,15 +423,9 @@
 </reporting>
 
 <ciManagement>
-	<system>gump</system>
-	<notifiers>
-		<notifier>
-			<type>mail</type>
-			<configuration>
-				<address>ptahchiev@apache.org</address>
-			</configuration>
-		</notifier>
-	</notifiers>
+	<system>Travis</system>
+	<url>https://travis-ci.org/sheeper/jakarta-cactus</url>
+	<notifiers />
 </ciManagement>
 
 <properties>
@@ -443,6 +437,9 @@
 	<pluginManagement>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-remote-resources-plugin</artifactId>
+        		<version>1.4</version>
 				<executions>
 					<execution>
 						<goals>

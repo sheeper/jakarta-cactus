@@ -147,18 +147,10 @@ public final class TestWebXml extends TestCase
             + "'http://java.sun.com/dtd/web-app_1_9.dtd'>"
             + "<web-app></web-app>";
         WebXml webXml = null;
-        try 
-        {
-            webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
-                xml.getBytes()), null);
-            fail("Problem in parsing");
-        } 
-        catch (CargoException fex)
-        {
-            //expected
-        }
-        
-        //assertNull(webXml.getVersion());
+
+        webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
+            xml.getBytes()), null);
+        assertNull(webXml);
     }
     
     /**

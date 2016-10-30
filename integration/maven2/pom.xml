@@ -149,6 +149,8 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-plugin-plugin</artifactId>
+				<!-- last working version of the plugin-plugin for maven2 plugins -->
+            	<version>2.9</version>
 				<configuration>
 					<!--
 						Note: This is to allow typing "mvn cactus:[goalname]" without
