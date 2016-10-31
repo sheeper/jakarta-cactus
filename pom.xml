@@ -38,9 +38,14 @@
 		<url>http://www.apache.org/</url>
 	</organization>
 	<scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/trunk</connection>
-		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/trunk</developerConnection>
+		<url>https://github.com/sheeper/jakarta-cactus</url>
+		<connection>scm:git:https://github.com/sheeper/jakarta-cactus.git</connection>
+		<developerConnection>scm:git:git@github.com:sheeper/jakarta-cactus.git</developerConnection>
 	</scm>
+	<issueManagement>
+		<url>https://github.com/sheeper/jakarta-cactus/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 	<prerequisites>
 		<!-- It may work with previous versions of Maven but this hasn't been tested so for safety we require: -->
 		<maven>3.2.5</maven>
@@ -377,23 +382,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<distributionManagement>
-		<repository>
-			<id>apache.releases</id>
-			<name>Apache Release Distribution Repository</name>
-			<url>scp://people.apache.org/www/people.apache.org/repo/m2-ibiblio-rsync-repository</url>
-		</repository>
-		<snapshotRepository>
-			<id>apache.snapshots</id>
-			<name>Apache Development Snapshot Repository</name>
-			<url>scp://people.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-		</snapshotRepository>
-		<site>
-			<id>cactus-site</id>
-			<name>Cactus Deployment site</name>
-			<url>scp://ptahchiev@people.apache.org:/www/jakarta.apache.org/cactus/1.8.0/</url>
-		</site>
-	</distributionManagement>
+
 	<reporting>
 		<plugins>
 			<plugin>
@@ -515,10 +504,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.0-beta-8</version>
-				<configuration>
-					<!-- This element will be overriden by children -->
-					<tagBase>https://svn.apache.org/repos/asf/jakarta/cactus/tags/</tagBase>
-				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-source-plugin</artifactId>

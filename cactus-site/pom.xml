@@ -28,48 +28,8 @@
 	<artifactId>cactus-site</artifactId>
 	<packaging>pom</packaging>
 	
-	
 	<name>Apache Cactus</name>
 	<description>Cactus framework for testing your server-side code</description>
-	<url>http://jakarta.apache.org/cactus/</url>
-		
-	<organization>
-		<name>Apache Software Foundation</name>
-		<url>http://www.apache.org/</url>
-	</organization>
-	
-	<inceptionYear>2001</inceptionYear>
-	
-    <scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/cactus/tags/1.8.1-rc2</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/cactus/tags/1.8.1-rc2</developerConnection>
-	</scm>
-	
-    <issueManagement>
-		<system>jira</system>
-		<url>https://issues.apache.org/jira/browse/CACTUS</url>
-	</issueManagement>
-
-	<distributionManagement>
-			<site>
-				<id>cactus.apache.org</id>
-				<url>scp://people.apache.org/www/jakarta.apache.org/cactus/</url>
-			</site>
-	</distributionManagement>	
-	<mailingLists>
-		<mailingList>
-			<name>Cactus User List</name>
-			<subscribe>cactus-user-subscribe@jakarta.apache.org</subscribe>
-			<unsubscribe>cactus-user-unsubscribe@jakarta.apache.org</unsubscribe>
-			<archive>http://www.mail-archive.com/cactus-user@jakarta.apache.org/</archive>
-		</mailingList>
-		<mailingList>
-			<name>Cactus Developer List</name>
-			<subscribe>cactus-dev-subscribe@jakarta.apache.org</subscribe>
-			<unsubscribe>cactus-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-			<archive>http://www.mail-archive.com/cactus-dev@jakarta.apache.org/</archive>
-		</mailingList>
-	</mailingLists>
 
 	<developers>
 		<developer>
@@ -143,7 +103,12 @@
 			<email>grimsell@apache.org</email>
 			<organization>Ida Infront Ab</organization>
 			<timezone>+1</timezone>
-		</developer>                
+		</developer>
+		<developer>
+			<name>Daniel Geissler</name>
+			<email>-</email>
+			<timezone>+1</timezone>
+		</developer>
 	</developers>
 	
 	<contributors>
