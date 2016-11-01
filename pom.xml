@@ -50,8 +50,8 @@
     </scm>
 
     <issueManagement>
+        <system>GitHub</system>
         <url>https://github.com/sheeper/jakarta-cactus/issues</url>
-        <system>GitHub Issues</system>
     </issueManagement>
 
     <ciManagement>

@@ -210,7 +210,7 @@
                     <reportSet>
                         <reports>
                             <report>changes-report</report>
-                            <report>jira-report</report>
+                            <report>github-report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
