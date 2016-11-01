@@ -23,32 +23,32 @@
 
 <document id="javadoc">
 
-  <properties>
-    <title>API Reference</title>
-  </properties>
+    <properties>
+        <title>API Reference</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Javadocs">
+        <section name="Javadocs">
 
-      <p>
-        These are the generated Cactus javadocs.
-      </p>
-      
-      <table>
-        <tr>
-          <th>
-            <strong>Name</strong>
-          </th>
-        </tr>
-        <tr>
-          <td>
-						<a href="api-docs/index.html">Javadoc</a>
-          </td>
-        </tr>
-      </table>
+            <p>
+                These are the generated Cactus javadocs.
+            </p>
 
-    </section>
+            <table>
+                <tr>
+                    <th>
+                        <strong>Name</strong>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="api-docs/index.html">Javadoc</a>
+                    </td>
+                </tr>
+            </table>
 
-  </body>
+        </section>
+
+    </body>
 </document>

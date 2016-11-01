@@ -18,55 +18,55 @@
 	under the License.   
 -->
 <project
-  default="jar:jar"
-  xmlns:j="jelly:core"
-  xmlns:u="jelly:util"
-  xmlns:maven="jelly:maven">
+        default="jar:jar"
+        xmlns:j="jelly:core"
+        xmlns:u="jelly:util"
+        xmlns:maven="jelly:maven">
 
-  <goal name="dist" prereqs="clean,jar:jar,site"/>
-    
-  <goal name="cactus-framework:init">
+    <goal name="dist" prereqs="clean,jar:jar,site"/>
 
-    <!-- Add the J2EE specific source directory to the list of source 
-         directories, as Maven only supports defining a single source
-         directory in project.xml -->
+    <goal name="cactus-framework:init">
 
-    <path id="maven.j2ee.compile.src.set">
-      <pathelement location="${pom.build.sourceDirectory}/../j2ee-${cactus.j2ee.version}"/>
-      <j:choose>
-        <j:when test="${context.getVariable('cactus.j2ee.version') == '13'}">
-          <pathelement location="${pom.build.sourceDirectory}/../share-13-14"/>
-        </j:when>
-        <j:when test="${context.getVariable('cactus.j2ee.version') == '14'}">
-          <pathelement location="${pom.build.sourceDirectory}/../share-13-14"/>
-        </j:when>
-      </j:choose>
-    </path>
-    <maven:addPath id="maven.compile.src.set" 
-        refid="maven.j2ee.compile.src.set"/>
+        <!-- Add the J2EE specific source directory to the list of source
+             directories, as Maven only supports defining a single source
+             directory in project.xml -->
 
-    <path id="maven.j2ee.test.compile.src.set">
-      <pathelement location="${pom.build.unitTestSourceDirectory}/../j2ee-${cactus.j2ee.version}"/>
-      <j:choose>
-        <j:when test="${context.getVariable('cactus.j2ee.version') == '13'}">
-          <pathelement location="${pom.build.unitTestSourceDirectory}/../share-13-14"/>
-        </j:when>
-        <j:when test="${context.getVariable('cactus.j2ee.version') == '14'}">
-          <pathelement location="${pom.build.unitTestSourceDirectory}/../share-13-14"/>
-        </j:when>
-      </j:choose>
-    </path>
-    <maven:addPath id="maven.test.compile.src.set" 
-        refid="maven.j2ee.test.compile.src.set"/>
+        <path id="maven.j2ee.compile.src.set">
+            <pathelement location="${pom.build.sourceDirectory}/../j2ee-${cactus.j2ee.version}"/>
+            <j:choose>
+                <j:when test="${context.getVariable('cactus.j2ee.version') == '13'}">
+                    <pathelement location="${pom.build.sourceDirectory}/../share-13-14"/>
+                </j:when>
+                <j:when test="${context.getVariable('cactus.j2ee.version') == '14'}">
+                    <pathelement location="${pom.build.sourceDirectory}/../share-13-14"/>
+                </j:when>
+            </j:choose>
+        </path>
+        <maven:addPath id="maven.compile.src.set"
+                       refid="maven.j2ee.compile.src.set"/>
 
-  </goal>
-  
-  <preGoal name="java:compile">
-    <attainGoal name="cactus-framework:init"/>
-  </preGoal>
+        <path id="maven.j2ee.test.compile.src.set">
+            <pathelement location="${pom.build.unitTestSourceDirectory}/../j2ee-${cactus.j2ee.version}"/>
+            <j:choose>
+                <j:when test="${context.getVariable('cactus.j2ee.version') == '13'}">
+                    <pathelement location="${pom.build.unitTestSourceDirectory}/../share-13-14"/>
+                </j:when>
+                <j:when test="${context.getVariable('cactus.j2ee.version') == '14'}">
+                    <pathelement location="${pom.build.unitTestSourceDirectory}/../share-13-14"/>
+                </j:when>
+            </j:choose>
+        </path>
+        <maven:addPath id="maven.test.compile.src.set"
+                       refid="maven.j2ee.test.compile.src.set"/>
 
-  <preGoal name="aspectj:compile">
-    <attainGoal name="cactus-framework:init"/>
-  </preGoal>
-  
+    </goal>
+
+    <preGoal name="java:compile">
+        <attainGoal name="cactus-framework:init"/>
+    </preGoal>
+
+    <preGoal name="aspectj:compile">
+        <attainGoal name="cactus-framework:init"/>
+    </preGoal>
+
 </project>

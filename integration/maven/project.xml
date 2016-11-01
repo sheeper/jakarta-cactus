@@ -17,166 +17,171 @@
 -->
 
 <project>
-  <id>org.apache.cactus</id>
+    <id>org.apache.cactus</id>
 
-  <!-- Note: Although we inherit from default-project.xml, we still cannot 
-  	   remove the <currentVersion> tag as this project.xml is parsed at 
-  	   runtime whenever our plugin is called. -->
-  <currentVersion>1.8.0-SNAPSHOT</currentVersion>
+    <!-- Note: Although we inherit from default-project.xml, we still cannot
+           remove the <currentVersion> tag as this project.xml is parsed at
+           runtime whenever our plugin is called. -->
+    <currentVersion>1.8.2-SNAPSHOT</currentVersion>
 
-  <name>Maven Cactus plugin</name>
-  <package>org.apache.cactus.integration.maven</package>
-  <description>Maven plugin for Cactus (http://jakarta.apache.org/cactus) that allows to automatically start containers, run Cactus tests and stop the containers.</description>
-  <shortDescription>Maven plugin for Cactus</shortDescription>
-  <url>http://jakarta.apache.org/cactus/integration/maven/</url>
-  <siteAddress>cvs.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
-  </repository>
-  <contributors>
-    <contributor>
-      <name>Nicolas Chalumeau</name>
-      <email>nicolas.chalumeau@arsoe-trelaze.com</email>
-    </contributor>
-  </contributors>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.cactus</groupId>
-      <artifactId>cactus.integration.ant</artifactId>
-      <version>${pom.currentVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cactus</groupId>
-      <artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
-      <version>${pom.currentVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cactus</groupId>
-      <artifactId>cactus.integration.shared.api</artifactId>
-      <version>${pom.currentVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-      <version>2.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
-      <version>1.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-    </dependency>
-    <!-- Cactus now depends on Cargo -->
-    <dependency>
-      <groupId>org.codehaus.cargo</groupId>
-      <artifactId>cargo-core-uberjar</artifactId>
-      <version>0.9</version>
-      <url>http://repo1.maven.org/maven2/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar</url>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.cargo</groupId>
-      <artifactId>cargo-ant</artifactId>
-      <version>0.9</version>
-      <url>http://repo1.maven.org/maven2/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar</url>
-    </dependency>
-    <!-- Note: Dependencies below are needed by HttpUnit. Xerces is also
-    	 needed by the XML report used by the junitreport Ant task -->
-    <dependency>
-      <groupId>httpunit</groupId>
-      <artifactId>httpunit</artifactId>
-      <version>1.6</version>
-    </dependency>
-    <dependency>
-      <groupId>nekohtml</groupId>
-      <artifactId>nekohtml</artifactId>
-      <version>0.9.1</version>
-    </dependency>
-    <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xercesImpl</artifactId>
-      <version>2.6.2</version>
-    </dependency>
-    <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xmlParserAPIs</artifactId>
-      <version>2.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>rhino</groupId>
-      <artifactId>js</artifactId>
-      <version>1.5R4.1</version>
-    </dependency>
+    <name>Maven Cactus plugin</name>
+    <package>org.apache.cactus.integration.maven</package>
+    <description>Maven plugin for Cactus (http://jakarta.apache.org/cactus) that allows to automatically start
+        containers, run Cactus tests and stop the containers.
+    </description>
+    <shortDescription>Maven plugin for Cactus</shortDescription>
+    <url>http://jakarta.apache.org/cactus/integration/maven/</url>
+    <siteAddress>cvs.apache.org</siteAddress>
+    <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
+    <repository>
+        <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/
+        </connection>
+        <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
+    </repository>
+    <contributors>
+        <contributor>
+            <name>Nicolas Chalumeau</name>
+            <email>nicolas.chalumeau@arsoe-trelaze.com</email>
+        </contributor>
+    </contributors>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cactus</groupId>
+            <artifactId>cactus.integration.ant</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cactus</groupId>
+            <artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cactus</groupId>
+            <artifactId>cactus.integration.shared.api</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <!-- Cactus now depends on Cargo -->
+        <dependency>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-core-uberjar</artifactId>
+            <version>0.9</version>
+            <url>http://repo1.maven.org/maven2/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar
+            </url>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-ant</artifactId>
+            <version>0.9</version>
+            <url>http://repo1.maven.org/maven2/org/codehaus/cargo/cargo-core-uberjar/0.9/cargo-core-uberjar-0.9.jar
+            </url>
+        </dependency>
+        <!-- Note: Dependencies below are needed by HttpUnit. Xerces is also
+             needed by the XML report used by the junitreport Ant task -->
+        <dependency>
+            <groupId>httpunit</groupId>
+            <artifactId>httpunit</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xmlParserAPIs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>rhino</groupId>
+            <artifactId>js</artifactId>
+            <version>1.5R4.1</version>
+        </dependency>
 
-    <!-- Note: Dependencies below are needed by the Cactus scanner tag -->
-    <dependency>
-      <groupId>ant</groupId>
-      <artifactId>ant</artifactId>
-      <version>1.5.3-1</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-jelly</groupId>
-      <artifactId>commons-jelly</artifactId>
-      <version>20030902.160215</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-jelly</groupId>
-      <artifactId>commons-jelly-tags-ant</artifactId>
-      <version>20030625.032346</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
-    </dependency>
+        <!-- Note: Dependencies below are needed by the Cactus scanner tag -->
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.5.3-1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly</artifactId>
+            <version>20030902.160215</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-ant</artifactId>
+            <version>20030625.032346</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
 
-    <!-- VMA: I don't know why but this dependency is required for some
-         persons -->
-    <dependency>
-      <groupId>commons-jelly</groupId>
-      <artifactId>commons-jelly-tags-xml</artifactId>
-      <version>20030211.142705</version>
-    </dependency>
-   <dependency>
-     <groupId>jline</groupId>
-     <artifactId>jline</artifactId>
-     <version>0.9.93</version>
-   </dependency>
-  </dependencies>
-  <build>
-    <sourceDirectory>src/main</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src/plugin-resources</directory>
-        <targetPath>plugin-resources</targetPath>
-      </resource>
-      <resource>
-        <directory>.</directory>
-        <includes>
-          <include>plugin.jelly</include>
-          <include>plugin.properties</include>
-          <include>project.xml</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
-  <reports>
-    <report>maven-changes-plugin</report>
-    <report>maven-changelog-plugin</report>
-    <report>maven-file-activity-plugin</report>
-    <report>maven-developer-activity-plugin</report>
-    <report>maven-file-activity-plugin</report>
-    <report>maven-license-plugin</report>
-    <report>maven-linkcheck-plugin</report>
-  </reports>
+        <!-- VMA: I don't know why but this dependency is required for some
+             persons -->
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-xml</artifactId>
+            <version>20030211.142705</version>
+        </dependency>
+        <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>0.9.93</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/plugin-resources</directory>
+                <targetPath>plugin-resources</targetPath>
+            </resource>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>plugin.jelly</include>
+                    <include>plugin.properties</include>
+                    <include>project.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+    <reports>
+        <report>maven-changes-plugin</report>
+        <report>maven-changelog-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-license-plugin</report>
+        <report>maven-linkcheck-plugin</report>
+    </reports>
 </project>

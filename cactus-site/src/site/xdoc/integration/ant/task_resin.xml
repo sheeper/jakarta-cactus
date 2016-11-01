@@ -23,115 +23,121 @@
 
 <document id="task_resin">
 
-  <properties>
-    <title>Resin[2x|3x] Ant Tasks</title>
-  </properties>
+    <properties>
+        <title>Resin[2x|3x] Ant Tasks</title>
+    </properties>
 
-  <body>
+    <body>
 
-	  <section name="Resin[2x|3x] Tasks">
+        <section name="Resin[2x|3x] Tasks">
 
-    <p>
-      The <strong>resin2x</strong> and <strong>resin3x</strong> tasks 
-      start/stop Resin 2.x/3.x instances. Both tasks support the following
-      parameters.
-    </p>
+            <p>
+                The <strong>resin2x</strong> and <strong>resin3x</strong> tasks
+                start/stop Resin 2.x/3.x instances. Both tasks support the following
+                parameters.
+            </p>
 
-    <section name="Parameters">
+            <section name="Parameters">
 
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Required</th>
-        </tr>
-        <tr>
-          <td><strong>dir</strong></td>
-          <td>
-            The installation directory of the Resin server
-          </td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td><strong>action</strong></td>
-          <td>
-            The action to perform. Valid values are "start" and "stop" to
-            respectively start and stop the container.
-          </td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>testurl</td>
-          <td>
-            A container URL to poll to test if the container has been
-            started/stopped. If specified the task waits until the
-            container has completely started/stopped.
-          </td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>warfile</td>
-          <td>
-            The WAR file to deploy
-          </td>
-          <td>No. One of warfile and earfile.</td>
-        </tr>
-        <tr>
-          <td>earfile</td>
-          <td>
-            The EAR file to deploy
-          </td>
-          <td>No. One of warfile and earfile.</td>
-        </tr>
-        <tr>
-          <td>resinconf</td>
-          <td>
-            The configuration file to use instead of the default one
-          </td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>port</td>
-          <td>
-            The TCP port that the container should listen to
-          </td>
-          <td>No, default is 8080</td>
-        </tr>
-        <tr>
-          <td>tmpdir</td>
-          <td>
-            The directory to which the container will be installed for the
-            tests.
-          </td>
-          <td>No (by default the system temporary directory is used)</td>
-        </tr>
-        <tr>
-          <td>output</td>
-          <td>
-            Name of a file to write the output of the container to. If not
-            specified, the standard output will be used
-          </td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>append</td>
-          <td>
-            Whether output should be appended to or overwrite an existing
-            file.
-          </td>
-          <td>No, default is <em>false</em></td>
-        </tr>
-      </table>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>dir</strong>
+                        </td>
+                        <td>
+                            The installation directory of the Resin server
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>action</strong>
+                        </td>
+                        <td>
+                            The action to perform. Valid values are "start" and "stop" to
+                            respectively start and stop the container.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>testurl</td>
+                        <td>
+                            A container URL to poll to test if the container has been
+                            started/stopped. If specified the task waits until the
+                            container has completely started/stopped.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>warfile</td>
+                        <td>
+                            The WAR file to deploy
+                        </td>
+                        <td>No. One of warfile and earfile.</td>
+                    </tr>
+                    <tr>
+                        <td>earfile</td>
+                        <td>
+                            The EAR file to deploy
+                        </td>
+                        <td>No. One of warfile and earfile.</td>
+                    </tr>
+                    <tr>
+                        <td>resinconf</td>
+                        <td>
+                            The configuration file to use instead of the default one
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>port</td>
+                        <td>
+                            The TCP port that the container should listen to
+                        </td>
+                        <td>No, default is 8080</td>
+                    </tr>
+                    <tr>
+                        <td>tmpdir</td>
+                        <td>
+                            The directory to which the container will be installed for the
+                            tests.
+                        </td>
+                        <td>No (by default the system temporary directory is used)</td>
+                    </tr>
+                    <tr>
+                        <td>output</td>
+                        <td>
+                            Name of a file to write the output of the container to. If not
+                            specified, the standard output will be used
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>append</td>
+                        <td>
+                            Whether output should be appended to or overwrite an existing
+                            file.
+                        </td>
+                        <td>No, default is
+                            <em>false</em>
+                        </td>
+                    </tr>
+                </table>
 
-    </section>
+            </section>
 
-    <section name="Examples">
+            <section name="Examples">
 
-      <p>
-        Start a Resin 3.x instance, wait for it to be started and
-        stop it, waiting for it to be completely stopped:
-      </p>
-<source><![CDATA[
+                <p>
+                    Start a Resin 3.x instance, wait for it to be started and
+                    stop it, waiting for it to be completely stopped:
+                </p>
+                <source><![CDATA[
 <parallel>
   <resin3x dir="${cactus.home.resin3x}" action="start"/>
   <sequential>
@@ -148,21 +154,21 @@
 </parallel>
 ]]></source>
 
-      <p>
-        This is equivalent to the following (notice the use of the
-        'testurl' attribute:
-      </p>
-<source><![CDATA[
+                <p>
+                    This is equivalent to the following (notice the use of the
+                    'testurl' attribute:
+                </p>
+                <source><![CDATA[
 <resin3x dir="${cactus.home.resin3x}" action="start"
     testurl="http://localhost:${cactus.port}"/>
 <resin3x dir="${cactus.home.resin3x}" action="stop"
     testurl="http://localhost:${cactus.port}"/>
 ]]></source>
-      
-    </section>
 
-  </section>
+            </section>
 
-  </body>
+        </section>
+
+    </body>
 
 </document>

@@ -23,28 +23,31 @@
 
 <document id="users">
 
-  <properties>
-    <title>Who is using Cactus?</title>
-  </properties>
+    <properties>
+        <title>Who is using Cactus?</title>
+    </properties>
 
-  <body>
+    <body>
 
-  <section name="Who is using Cactus?">
+        <section name="Who is using Cactus?">
 
-      <p>
-        This page is dedicated for Cactus users who want to share with other
-        their usage of Cactus in their projects and/or within their company.
-      </p>
-      <p>
-        In order to make this page alive and easy to add to, we've choosen to
-        use a Wiki system. Click the link below and edit the page.
-      </p>
-      <p>
-        <strong><a href="http://wiki.apache.org/jakarta-cactus/WhoUsesCactus">Who uses
-        Cactus?</a></strong>
-      </p>
+            <p>
+                This page is dedicated for Cactus users who want to share with other
+                their usage of Cactus in their projects and/or within their company.
+            </p>
+            <p>
+                In order to make this page alive and easy to add to, we've choosen to
+                use a Wiki system. Click the link below and edit the page.
+            </p>
+            <p>
+                <strong>
+                    <a href="http://wiki.apache.org/jakarta-cactus/WhoUsesCactus">Who uses
+                        Cactus?
+                    </a>
+                </strong>
+            </p>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

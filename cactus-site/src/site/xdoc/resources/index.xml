@@ -23,30 +23,30 @@
 
 <document id="resources">
 
-  <properties>
-    <title>Resources</title>
-  </properties>
+    <properties>
+        <title>Resources</title>
+    </properties>
 
-  <body>
+    <body>
 
-	<section name="Resources">
+        <section name="Resources">
 
-      <p>
-        This section presents resources related to Cactus:
-      </p>
-      <ul>
-        <li>
-          <a href="resources_cactus.html">Cactus links</a>,
-        </li>
-        <li>
-          <a href="resources_books.html">Cactus books</a>,
-        </li>
-        <li>
-          <a href="resources_testing.html">Testing links</a>
-        </li>
-      </ul>
+            <p>
+                This section presents resources related to Cactus:
+            </p>
+            <ul>
+                <li>
+                    <a href="resources_cactus.html">Cactus links</a>,
+                </li>
+                <li>
+                    <a href="resources_books.html">Cactus books</a>,
+                </li>
+                <li>
+                    <a href="resources_testing.html">Testing links</a>
+                </li>
+            </ul>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

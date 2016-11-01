@@ -21,31 +21,31 @@
          xmlns:j="jelly:core"
          xmlns:assert="assert"
 >
-        
-  <goal name="testPlugin" prereqs="testPropertiesDefined, testCustomProperties">
-     <attainGoal name="clean"/>
-  </goal>
 
-	<goal name="testPropertiesDefined" prereqs="testCustomProperties">
-    <j:if test="${pom.getPluginContext('cactus-maven').getVariable('cactus.war') == null}">
-      <fail>Property cactus.war is null</fail>
-    </j:if>
-    <j:if test="${pom.getPluginContext('cactus-maven').getVariable('cactus.ear') == null}">
-      <fail>Property cactus.ear is null</fail>
-    </j:if>
-  </goal>
+    <goal name="testPlugin" prereqs="testPropertiesDefined, testCustomProperties">
+        <attainGoal name="clean"/>
+    </goal>
+
+    <goal name="testPropertiesDefined" prereqs="testCustomProperties">
+        <j:if test="${pom.getPluginContext('cactus-maven').getVariable('cactus.war') == null}">
+            <fail>Property cactus.war is null</fail>
+        </j:if>
+        <j:if test="${pom.getPluginContext('cactus-maven').getVariable('cactus.ear') == null}">
+            <fail>Property cactus.ear is null</fail>
+        </j:if>
+    </goal>
 
 
-  <goal name="testCustomProperties">
-    <j:set var="newWar" value="${maven.build.dir}/myCactus.war"/>
-    <j:set var="newEar" value="${maven.build.dir}/myCactus.ear"/>
-    <j:set var="cactus.war" value="${newWar}"/>
-    <j:set var="cactus.ear" value="${newEar}"/>
-    <attainGoal name="cactus:cactifywar"/>
-    <assert:assertFileExists file="${newWar}"/>
-    <attainGoal name="cactus:cactifyear"/>
-    <assert:assertFileExists file="${newEar}"/>
-    
-  </goal>
+    <goal name="testCustomProperties">
+        <j:set var="newWar" value="${maven.build.dir}/myCactus.war"/>
+        <j:set var="newEar" value="${maven.build.dir}/myCactus.ear"/>
+        <j:set var="cactus.war" value="${newWar}"/>
+        <j:set var="cactus.ear" value="${newEar}"/>
+        <attainGoal name="cactus:cactifywar"/>
+        <assert:assertFileExists file="${newWar}"/>
+        <attainGoal name="cactus:cactifyear"/>
+        <assert:assertFileExists file="${newEar}"/>
+
+    </goal>
 
 </project>

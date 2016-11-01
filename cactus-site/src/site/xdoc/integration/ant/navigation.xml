@@ -22,29 +22,29 @@
 -->
 
 <!DOCTYPE navigation
-  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
-  "file:../../../dtds/navigation-v10.dtd">
+        PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+        "file:../../../dtds/navigation-v10.dtd">
 
 <navigation title="Ant" index="integration_ant">
 
-  <menu label="Main Page" id="index"/>
+    <menu label="Main Page" id="index"/>
 
-  <menu label="Ant Integration">
-    <item id="integration_ant" label="Overview"/>
-    <item id="howto_ant_cactus" label="Sample Walkthrough"/>
-  </menu>
+    <menu label="Ant Integration">
+        <item id="integration_ant" label="Overview"/>
+        <item id="howto_ant_cactus" label="Sample Walkthrough"/>
+    </menu>
 
-  <menu label="Ant Tasks">
-    <item id="task_cactifywar" label="CactifyWar"/>
-    <item id="task_cactifyear" label="CactifyEar"/>
-    <item id="task_cactus" label="Cactus"/>
-    <item id="task_runservertests" label="RunServerTests"/>
-    <item id="task_webxmlmerge" label="WebXmlMerge"/>
-    <item id="task_resin" label="Resin[2x|3x]"/>
-  </menu>
+    <menu label="Ant Tasks">
+        <item id="task_cactifywar" label="CactifyWar"/>
+        <item id="task_cactifyear" label="CactifyEar"/>
+        <item id="task_cactus" label="Cactus"/>
+        <item id="task_runservertests" label="RunServerTests"/>
+        <item id="task_webxmlmerge" label="WebXmlMerge"/>
+        <item id="task_resin" label="Resin[2x|3x]"/>
+    </menu>
 
-  <menu label="Development">
-    <item id="javadoc_integration_ant" label="API Documentation"/>
-  </menu>
+    <menu label="Development">
+        <item id="javadoc_integration_ant" label="API Documentation"/>
+    </menu>
 
 </navigation>

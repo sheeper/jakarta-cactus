@@ -23,237 +23,246 @@
 
 <document id="howto_config">
 
-  <properties>
-    <title>Configuration Howto</title>
-  </properties>
+    <properties>
+        <title>Configuration Howto</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Cactus Configuration">
+        <section name="Cactus Configuration">
 
-      <p>
-        Here are the configuration files used to configure Cactus manually:
-      </p>
-      <p>
-        <img src="../../images/config.jpg" alt="Configuration files"/>
-      </p>
-      <p>
-        There are 3 kinds of configuration:
-      </p>
-      <ul>
-        <li>
-		<a href="howto_config.html#clientside">Client side configuration</a>
-        </li>
-        <li>
-		<a href="howto_config.html#serverside">Server side configuration</a>
-        </li>
-        <li>
-		<a href="howto_config.html#logging">Cactus logging configuration</a>
-        </li>
-      </ul>
+            <p>
+                Here are the configuration files used to configure Cactus manually:
+            </p>
+            <p>
+                <img src="../../images/config.jpg" alt="Configuration files"/>
+            </p>
+            <p>
+                There are 3 kinds of configuration:
+            </p>
+            <ul>
+                <li>
+                    <a href="howto_config.html#clientside">Client side configuration</a>
+                </li>
+                <li>
+                    <a href="howto_config.html#serverside">Server side configuration</a>
+                </li>
+                <li>
+                    <a href="howto_config.html#logging">Cactus logging configuration</a>
+                </li>
+            </ul>
 
-      <p>
-        Cactus configuration works by setting Java System properties. You can
-        set the Cactus configuration properties:
-      </p>
-      <ul>
-          <li>
-            On the command line (using <code>-Dxxx=yyy</code>).
-          </li>
-          <li>
-            In a configuration file (recommended). By default Cactus will look
-            for a <code>cactus.properties</code> file located in your
-            classpath. You can override the name and location of the
-            configuration file by setting the <code>cactus.config</code> System
-            property. For example you can pass the following when starting the
-            JVM: <code>-Dcactus.config=c:/cactus.txt</code>.
-          </li>
-          <li>
-            In your tests (using <code>System.setProperty()</code>). This
-            option is not recommended as it is better to share a single
-            configuration across all tests.
-          </li>
-      </ul>
+            <p>
+                Cactus configuration works by setting Java System properties. You can
+                set the Cactus configuration properties:
+            </p>
+            <ul>
+                <li>
+                    On the command line (using <code>-Dxxx=yyy</code>).
+                </li>
+                <li>
+                    In a configuration file (recommended). By default Cactus will look
+                    for a <code>cactus.properties</code> file located in your
+                    classpath. You can override the name and location of the
+                    configuration file by setting the <code>cactus.config</code> System
+                    property. For example you can pass the following when starting the
+                    JVM: <code>-Dcactus.config=c:/cactus.txt</code>.
+                </li>
+                <li>
+                    In your tests (using <code>System.setProperty()</code>). This
+                    option is not recommended as it is better to share a single
+                    configuration across all tests.
+                </li>
+            </ul>
 
-      <note>
-        Please note that the different options for configuring Cactus works
-        both for Cactus client side (i.e. from where you start the JUnit Test
-        Runner) and for the Cactus server side (i.e. from where you start your
-        application server).
-      </note>
+            <note>
+                Please note that the different options for configuring Cactus works
+                both for Cactus client side (i.e. from where you start the JUnit Test
+                Runner) and for the Cactus server side (i.e. from where you start your
+                application server).
+            </note>
 
-      <anchor id="clientside"/>
-      <section name="Client side configuration">
+            <anchor id="clientside"/>
+            <section name="Client side configuration">
 
-        <p>
-          The following table lists the properties that can be defined on
-          Cactus client side:
-        </p>
+                <p>
+                    The following table lists the properties that can be defined on
+                    Cactus client side:
+                </p>
 
-        <table>
-          <tr>
-            <th>Property Name</th>
-            <td>
-              <code>cactus.contextURL</code>
-            </td>
-          </tr>
-          <tr>
-            <th>Required</th>
-            <td>
-              Yes
-            </td>
-          </tr>
-          <tr>
-            <th>Description</th>
-            <td>
-              Webapp Context under which the application to test runs.
-            </td>
-          </tr>
-          <tr>
-            <th>Example</th>
-            <td>
-              <code>cactus.contextURL = http://localhost:8080/test</code>
-            </td>
-          </tr>
-        </table>
+                <table>
+                    <tr>
+                        <th>Property Name</th>
+                        <td>
+                            <code>cactus.contextURL</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Required</th>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            Webapp Context under which the application to test runs.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Example</th>
+                        <td>
+                            <code>cactus.contextURL = http://localhost:8080/test</code>
+                        </td>
+                    </tr>
+                </table>
 
-        <p>
-          <br/>
-        </p>
+                <p>
+                    <br/>
+                </p>
 
-        <table>
-          <tr>
-            <th>Property Name</th>
-            <td>
-              <code>cactus.servletRedirectorName</code>
-            </td>
-          </tr>
-          <tr>
-            <th>Required</th>
-            <td>
-              No. Defaults to "<code>ServletRedirector</code>".
-            </td>
-          </tr>
-          <tr>
-            <th>Description</th>
-            <td>
-              Name of the Cactus Servlet Redirector as it is mapped on the
-              server side in <code>web.xml</code> (see below). This property
-              is needed only if your test classes are extending
-              <code>ServletTestCase</code> (see the
-	      <a href="../../writing/howto_testcase.html">TestCase Howto</a>
-              tutorial).
-            </td>
-          </tr>
-          <tr>
-            <th>Example</th>
-            <td>
-              <code>cactus.servletRedirectorName = ServletRedirector</code>
-            </td>
-          </tr>
-        </table>
+                <table>
+                    <tr>
+                        <th>Property Name</th>
+                        <td>
+                            <code>cactus.servletRedirectorName</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Required</th>
+                        <td>
+                            No. Defaults to "<code>ServletRedirector</code>".
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            Name of the Cactus Servlet Redirector as it is mapped on the
+                            server side in <code>web.xml</code> (see below). This property
+                            is needed only if your test classes are extending
+                            <code>ServletTestCase</code>
+                            (see the
+                            <a href="../../writing/howto_testcase.html">TestCase Howto</a>
+                            tutorial).
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Example</th>
+                        <td>
+                            <code>cactus.servletRedirectorName = ServletRedirector</code>
+                        </td>
+                    </tr>
+                </table>
 
-        <p>
-          <br/>
-        </p>
+                <p>
+                    <br/>
+                </p>
 
-        <table>
-          <tr>
-            <th>Property Name</th>
-            <td>
-              <code>cactus.jspRedirectorName</code>
-            </td>
-          </tr>
-          <tr>
-            <th>Required</th>
-            <td>
-              No. Defaults to "<code>JspRedirector</code>".
-            </td>
-          </tr>
-          <tr>
-            <th>Description</th>
-            <td>
-              Name of the Cactus JSP Redirector as it is mapped on the
-              server side in <code>web.xml</code> (see below). This property
-              is needed only if your test classes are extending
-              <code>JspTestCase</code> (see the
-              <a href="../../writing/howto_testcase.html">TestCase Howto</a>
-              tutorial).
-            </td>
-          </tr>
-          <tr>
-            <th>Example</th>
-            <td>
-              <code>cactus.jspRedirectorName = JspRedirector</code>
-            </td>
-          </tr>
-        </table>
+                <table>
+                    <tr>
+                        <th>Property Name</th>
+                        <td>
+                            <code>cactus.jspRedirectorName</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Required</th>
+                        <td>
+                            No. Defaults to "<code>JspRedirector</code>".
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            Name of the Cactus JSP Redirector as it is mapped on the
+                            server side in <code>web.xml</code> (see below). This property
+                            is needed only if your test classes are extending
+                            <code>JspTestCase</code>
+                            (see the
+                            <a href="../../writing/howto_testcase.html">TestCase Howto</a>
+                            tutorial).
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Example</th>
+                        <td>
+                            <code>cactus.jspRedirectorName = JspRedirector</code>
+                        </td>
+                    </tr>
+                </table>
 
-        <p>
-          <br/>
-        </p>
+                <p>
+                    <br/>
+                </p>
 
-        <table>
-          <tr>
-            <th>Property Name</th>
-            <td>
-              <code>cactus.filterRedirectorName</code> (For J2EE API 1.3 only)
-            </td>
-          </tr>
-          <tr>
-            <th>Required</th>
-            <td>
-              No. Defaults to "<code>FilterRedirector</code>".
-            </td>
-          </tr>
-          <tr>
-            <th>Description</th>
-            <td>
-              Name of the Cactus Filter Redirector as it is mapped on the
-              server side in <code>web.xml</code> (see below). This property
-              is needed only if your test classes are extending
-              <code>FilterTestCase</code> (see the
-	      <a href="../../writing/howto_testcase.html">TestCase Howto</a>
-              tutorial).
-            </td>
-          </tr>
-          <tr>
-            <th>Example</th>
-            <td>
-              <code>cactus.filterRedirectorName = FilterRedirector</code>
-            </td>
-          </tr>
-        </table>
+                <table>
+                    <tr>
+                        <th>Property Name</th>
+                        <td>
+                            <code>cactus.filterRedirectorName</code>
+                            (For J2EE API 1.3 only)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Required</th>
+                        <td>
+                            No. Defaults to "<code>FilterRedirector</code>".
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            Name of the Cactus Filter Redirector as it is mapped on the
+                            server side in <code>web.xml</code> (see below). This property
+                            is needed only if your test classes are extending
+                            <code>FilterTestCase</code>
+                            (see the
+                            <a href="../../writing/howto_testcase.html">TestCase Howto</a>
+                            tutorial).
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Example</th>
+                        <td>
+                            <code>cactus.filterRedirectorName = FilterRedirector</code>
+                        </td>
+                    </tr>
+                </table>
 
-      </section>
+            </section>
 
-      <anchor id="serverside"/>
-      <section name="Server side configuration">
+            <anchor id="serverside"/>
+            <section name="Server side configuration">
 
-        <p>
-          On Cactus server side, you only need to properly configure your
-          application <code>web.xml</code> file to include definitions for
-	  Cactus Redirectors (see <a href="../../how_it_works.html">How it
-          works</a> if you don't know what a Cactus Redirector is).
-        </p>
+                <p>
+                    On Cactus server side, you only need to properly configure your
+                    application <code>web.xml</code> file to include definitions for
+                    Cactus Redirectors (see <a href="../../how_it_works.html">How it
+                    works
+                </a> if you don't know what a Cactus Redirector is).
+                </p>
 
-        <p>
-          You need to register the Cactus Redirectors that you use, and you
-          need to map them to the <code>cactus.servletRedirectorName</code>,
-          <code>cactus.jspRedirectorName</code> and
-          <code>cactus.filterRedirectorName</code> that you have configured
-          on the client side (or simply make sure that you use the default
-          names, i.e. <code>ServletRedirector</code>,
-          <code>JspRedirector</code> and <code>FilterRedirector</code>
-          respectively).
-        </p>
+                <p>
+                    You need to register the Cactus Redirectors that you use, and you
+                    need to map them to the <code>cactus.servletRedirectorName</code>,
+                    <code>cactus.jspRedirectorName</code>
+                    and
+                    <code>cactus.filterRedirectorName</code>
+                    that you have configured
+                    on the client side (or simply make sure that you use the default
+                    names, i.e. <code>ServletRedirector</code>,
+                    <code>JspRedirector</code>
+                    and
+                    <code>FilterRedirector</code>
+                    respectively).
+                </p>
 
-        <p>
-          Here is a sample <code>web.xml</code> that defines the 3 Cactus
-          Redirectors:
-        </p>
+                <p>
+                    Here is a sample <code>web.xml</code> that defines the 3 Cactus
+                    Redirectors:
+                </p>
 
-<source><![CDATA[
+                <source><![CDATA[
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE web-app
@@ -295,28 +304,30 @@
 </web-app>
 ]]></source>
 
-        <note>
-          If you are using the JSP Redirector (i.e. you have test classes
-          that extend <code>JspTestCase</code>), you <strong>must</strong>
-          copy the <code>jspRedirector.jsp</code> file (found in the
-          <code>sample/web</code> directory where you unpacked your
-          Cactus distribution) in a directory in your webapp and you need to
-          put its relative path in the mapping defined above (here we
-          have put it in the webapp root.
-        </note>
+                <note>
+                    If you are using the JSP Redirector (i.e. you have test classes
+                    that extend <code>JspTestCase</code>), you
+                    <strong>must</strong>
+                    copy the <code>jspRedirector.jsp</code> file (found in the
+                    <code>sample/web</code>
+                    directory where you unpacked your
+                    Cactus distribution) in a directory in your webapp and you need to
+                    put its relative path in the mapping defined above (here we
+                    have put it in the webapp root.
+                </note>
 
-        <p>
-          If you want to provide some initialisation parameters that will
-          be available to the <code>config</code> implicit object available
-          in your test case, simply use the standard <code>
-          &lt;init-param&gt;</code> tags.
-        </p>
-        <p>
-          For example, for the Servlet Redirector (same principle applies
-          to all other redirectors):
-        </p>
+                <p>
+                    If you want to provide some initialisation parameters that will
+                    be available to the <code>config</code> implicit object available
+                    in your test case, simply use the standard <code>
+                    &lt;init-param&gt;</code> tags.
+                </p>
+                <p>
+                    For example, for the Servlet Redirector (same principle applies
+                    to all other redirectors):
+                </p>
 
-<source><![CDATA[
+                <source><![CDATA[
 [...]
     <servlet>
         <servlet-name>ServletRedirector</servlet-name>
@@ -329,85 +340,91 @@
 [...]
 ]]></source>
 
-        <note>
-          Within your <code>testXXX()</code> code, you can also call the
-          <code>config.setInitParameter()</code> method (<code>config</code>
-          being the implicit object of type <code>ServletConfig</code>) to
-          simulate initialisation parameters as if they had been defined in
-          your <code>web.xml</code>.
-        </note>
+                <note>
+                    Within your <code>testXXX()</code> code, you can also call the
+                    <code>config.setInitParameter()</code>
+                    method (
+                    <code>config</code>
+                    being the implicit object of type <code>ServletConfig</code>) to
+                    simulate initialisation parameters as if they had been defined in
+                    your <code>web.xml</code>.
+                </note>
 
-        <p>
-          Last, if you need to unit test code that uses the Servlet
-          Security API, please check the
-	  <a href="../../writing/howto_security.html">Security Howto</a>.
-        </p>
+                <p>
+                    Last, if you need to unit test code that uses the Servlet
+                    Security API, please check the
+                    <a href="../../writing/howto_security.html">Security Howto</a>.
+                </p>
 
-      </section>
+            </section>
 
-      <anchor id="logging"/>
-      <section name="Cactus logging configuration">
+            <anchor id="logging"/>
+            <section name="Cactus logging configuration">
 
-        <p>
-          Since Cactus 1.4, we have switched to using the
-	  <a href="http://jakarta.apache.org/commons/logging/">Jakarta
-          Commons Logging</a> framework for Cactus internal logs (and any
-          log you may wish to output as part of your test).
-        </p>
+                <p>
+                    Since Cactus 1.4, we have switched to using the
+                    <a href="http://jakarta.apache.org/commons/logging/">Jakarta
+                        Commons Logging
+                    </a>
+                    framework for Cactus internal logs (and any
+                    log you may wish to output as part of your test).
+                </p>
 
-        <p>
-          This allow Cactus to use any underlying logging framework such as:
-          <a href="http://jakarta.apache.org/log4j">Log4J</a>,
-          <a href="http://jakarta.apache.org/avalon/logkit">LogKit</a>,
-          JDK 1.4 Logging or even a Simple Logger provided as part of Commons
-          Logging (it outputs to the console).
-        </p>
+                <p>
+                    This allow Cactus to use any underlying logging framework such as:
+                    <a href="http://jakarta.apache.org/log4j">Log4J</a>,
+                    <a href="http://jakarta.apache.org/avalon/logkit">LogKit</a>,
+                    JDK 1.4 Logging or even a Simple Logger provided as part of Commons
+                    Logging (it outputs to the console).
+                </p>
 
-        <p>
-          Cactus is completely agnostic with regards to the logging framework
-          configuration, so you will have to learn how to configure your
-          favorite logging yourself. However here are some tips to help set up
-          a Cactus logging configuration.
-        </p>
+                <p>
+                    Cactus is completely agnostic with regards to the logging framework
+                    configuration, so you will have to learn how to configure your
+                    favorite logging yourself. However here are some tips to help set up
+                    a Cactus logging configuration.
+                </p>
 
-        <section name="'cactus.logging.config' property">
+                <section name="'cactus.logging.config' property">
 
-          <p>
-            Cactus provides an optional <code>cactus.logging.config</code>
-            configuration property. If set, Cactus will load the properties 
-            file pointed by this property and will set each property as a 
-            system property. This allowsw putting all logging-related 
-            properties into a single place, as demonstrated below.
-          </p>
+                    <p>
+                        Cactus provides an optional
+                        <code>cactus.logging.config</code>
+                        configuration property. If set, Cactus will load the properties
+                        file pointed by this property and will set each property as a
+                        system property. This allowsw putting all logging-related
+                        properties into a single place, as demonstrated below.
+                    </p>
 
-          <note>
-            If you're using the Ant <code>&lt;cactus&gt;</code> task, please
-	    refer to the <a href="../../integration/ant/task_cactus.html">documentation for that 
-            task</a> to set up Cactus logging.
-          </note>          
-          
-        </section>   
+                    <note>
+                        If you're using the Ant <code>&lt;cactus&gt;</code> task, please
+                        refer to the <a href="../../integration/ant/task_cactus.html">documentation for that
+                        task
+                    </a> to set up Cactus logging.
+                    </note>
 
-        <section name="Sample logging configuration files">
+                </section>
 
-          <p>
-            As Cactus is running in 2 JVMs (client side and server side), 
-            you'll need to provide 2 logging configuration if you wish to
-            enable logging for both sides. Here are some sample configuration
-            files.
-          </p>
+                <section name="Sample logging configuration files">
 
-          <section name="Client side configuration sample">
+                    <p>
+                        As Cactus is running in 2 JVMs (client side and server side),
+                        you'll need to provide 2 logging configuration if you wish to
+                        enable logging for both sides. Here are some sample configuration
+                        files.
+                    </p>
 
-            <note>
-              Notice that for JDK 1.4 logging and for Log4J logging you have
-              to specify that path to this file as these 2 logging systems also
-              use a configuration file to configure themselves. Alternatively
-              you can put configuration data in other files. However, it's
-              convenient to group everything in a single file.
-            </note>
-          
-<source><![CDATA[
+                    <section name="Client side configuration sample">
+
+                        <note>
+                            Notice that for JDK 1.4 logging and for Log4J logging you have
+                            to specify that path to this file as these 2 logging systems also
+                            use a configuration file to configure themselves. Alternatively
+                            you can put configuration data in other files. However, it's
+                            convenient to group everything in a single file.
+                        </note>
+
+                        <source><![CDATA[
 # -----------------------------------------------------------------------------
 # Logging properties
 # -----------------------------------------------------------------------------
@@ -481,19 +498,19 @@ org.apache.commons.logging.simplelog.log.org.apache.cactus = trace
 org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
 ]]></source>
 
-          </section>
-          
-          <section name="Server side configuration sample">
+                    </section>
 
-            <note>
-              Notice that for JDK 1.4 logging and for Log4J logging you have
-              to specify that path to this file as these 2 logging systems also
-              use a configuration file to configure themselves. Alternatively
-              you can put configuration data in other files. However, it's
-              convenient to group everything in a single file.
-            </note>
+                    <section name="Server side configuration sample">
 
-<source><![CDATA[
+                        <note>
+                            Notice that for JDK 1.4 logging and for Log4J logging you have
+                            to specify that path to this file as these 2 logging systems also
+                            use a configuration file to configure themselves. Alternatively
+                            you can put configuration data in other files. However, it's
+                            convenient to group everything in a single file.
+                        </note>
+
+                        <source><![CDATA[
 # -----------------------------------------------------------------------------
 # Logging properties
 # -----------------------------------------------------------------------------
@@ -564,28 +581,29 @@ org.apache.commons.logging.simplelog.log.org.apache.cactus = trace
 org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
 ]]></source>
 
-          </section>
-          
+                    </section>
+
+                </section>
+
+                <section name="Tips">
+
+                    <p>
+                        JUnit uses a different classloader to load each test of a TestCase
+                        class. Thus, Log4j will reinitialise for each test, which may lead
+                        to overwriting the <code>test_client.log</code> file each time
+                        (this is because we have set
+                        <code>log4j.appender.cactus.Append</code>
+                        to <code>false</code>. You can set it to <code>true</code> if you
+                        wish to keep all the logs but the file size will grow quickly. In
+                        addition logs are really only useful when there is a failure and
+                        thus not appending is usually a good choice.
+                    </p>
+
+                </section>
+
+            </section>
+
         </section>
-        
-        <section name="Tips">
 
-          <p>
-            JUnit uses a different classloader to load each test of a TestCase
-            class. Thus, Log4j will reinitialise for each test, which may lead
-            to overwriting the <code>test_client.log</code> file each time
-            (this is because we have set <code>log4j.appender.cactus.Append</code>
-            to <code>false</code>. You can set it to <code>true</code> if you
-            wish to keep all the logs but the file size will grow quickly. In
-            addition logs are really only useful when there is a failure and
-            thus not appending is usually a good choice.
-          </p>
-
-        </section>
-
-      </section>
-
-    </section>
-
-  </body>
+    </body>
 </document>

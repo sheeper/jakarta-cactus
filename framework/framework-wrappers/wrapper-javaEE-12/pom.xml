@@ -17,35 +17,39 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.apache.cactus</groupId>
-		<artifactId>cactus.core.framework.wrappers</artifactId>
-		<version>1.8.2-SNAPSHOT</version>
-	</parent>
-	<artifactId>cactus.core.framework.wrapper.javaEE.12</artifactId>
-	<packaging>jar</packaging>
-	<name>Cactus Wrappers - Java EE 1.2</name>
-	<description>Cactus Wrappers and JSP redirector for Java EE 1.2</description>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.cactus</groupId>
-			<artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
-			<version>${version}</version>
-			<scope>test</scope>
-			<type>test-jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cactus</groupId>
-			<artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.2</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus.core.framework.wrappers</artifactId>
+        <version>1.8.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cactus.core.framework.wrapper.javaEE.12</artifactId>
+
+    <name>Cactus Wrappers - Java EE 1.2</name>
+    <description>Cactus Wrappers and JSP redirector for Java EE 1.2</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cactus</groupId>
+            <artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cactus</groupId>
+            <artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

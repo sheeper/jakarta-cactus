@@ -17,262 +17,263 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>org.apache.cactus</groupId>
-    <artifactId>cactus</artifactId>
-		<version>1.8.2-SNAPSHOT</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.apache.cactus</groupId>
-	<artifactId>cactus-site</artifactId>
-	<packaging>pom</packaging>
-	
-	<name>Apache Cactus</name>
-	<description>Cactus framework for testing your server-side code</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<developers>
-		<developer>
-			<name>Vincent Massol</name>
-			<id>vmassol</id>
-			<email>vmassol@apache.org</email>
-			<organization>XWiki</organization>
-			<roles>
-				<role>Creator</role>
-				<role>Emeritus Developer</role>
-			</roles>	
-		</developer>
-		<developer>
-			<name>Jari Worsley</name>
-			<id>jariw</id>
-			<email>jariw@hyperlink-interactive.co.uk</email>
-			<organization />
-		</developer>
-		<developer>
-			<name>Nicholas Lesiecki</name>
-			<id>ndlesiecki</id>
-			<email>ndlesiecki@yahoo.com</email>
-			<organization />
-			<roles>
-				<role>Emeritus Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Julien Ruaux</name>
-			<id>jruaux</id>
-			<email>jruaux@octo.com</email>
-			<organization>Octo Technology</organization>
-		</developer>
-		<developer>
-			<name>Christopher Lenz</name>
-			<id>cmlenz</id>
-			<email>cmlenz@gmx.de</email>
-			<organization />
-		</developer>
-		<developer>
-			<name>Felipe Leme</name>
-			<id>felipeal</id>
-			<email>cactus@felipeal.net</email>
-			<organization>Falcon Informatica</organization>
-			<roles>
-				<role>Emeritus Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Nicolas Chalumeau</name>
-			<id>nchalumeau</id>
-			<email>nchalumeau@apache.org</email>
-			<organization>Simecom</organization>
-		</developer>
-		<developer>
-			<name>Petar Tahchiev</name>
-			<id>ptahchiev</id>
-			<email>ptahchiev@apache.org</email>
-			<url>http://apache.org/</url>
-			<organization>Apache Software Foundation</organization>
-			<roles>
-				<role>Lead Developer</role>
-				<role>Release Manager</role>
-				<role>Moderator</role>
-			</roles>
-			<timezone>+3</timezone>
-		</developer>
-		<developer>
-			<name>Magnus Grimsell</name>
-			<id>grimsell</id>
-			<email>grimsell@apache.org</email>
-			<organization>Ida Infront Ab</organization>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<name>Daniel Geissler</name>
-			<email>-</email>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
-	
-	<contributors>
-		<contributor>
-			<name>Eric Pugh</name>
-			<email>EPugh@upstate.com</email>
-		</contributor>
-		<contributor>
-			<name>Michael Gaffney</name>
-			<email>michael.gaffney@panacya.com</email>
-		</contributor>
-		<contributor>
-			<name>Archimedes Trajano</name>
-			<email>trajano@yahoo.com</email>
-			<url>http://www.trajano.net/</url>
-		</contributor>
-		<contributor>
-			<name>Philip Aston</name>
-			<email>paston@bea.com</email>
-		</contributor>
-		<contributor>
-			<name>Cedric Chabanois</name>
-			<email>cchabanois@ifrance.com</email>
-		</contributor>
-		<contributor>
-			<name>Bob Davison</name>
-			<email>Bob.Davison@reuters.com</email>
-		</contributor>
-                <contributor>
-			<name>Julien Dubois</name>
-			<email>julien@julien-dubois.com</email>
-		</contributor>
-                <contributor>
-			<name>Andrew B Forman</name>
-			<email>andrew.forman@wcom.com</email>
-		</contributor>
-		<contributor>
-			<name>Jerome Grelier</name>
-			<email>jgrelier@octo.com</email>
-		</contributor>
-		<contributor>
-			<name>Atsushi Hasegawa</name>
-			<email>ahasegawa@borland.com</email>
-		</contributor>
-		<contributor>
-			<name>Todd Idler</name>
-			<email>Todd_Idler@jdedwards.com</email>
-		</contributor>
-		<contributor>
-			<name>Kaarle Kaila</name>
-			<email>kaarle.kaila@iki.fi</email>
-		</contributor>
-		<contributor>
-			<name>Robert Leftwich</name>
-			<email>digital@ix.net.au</email>
-		</contributor>
-		<contributor>
-			<name>Jason Robertson</name>
-			<email>Jason.Robertson@acs-inc.com</email>
-		</contributor>
-                <contributor>
-			<name>Matt Sullivan</name>
-			<email>-</email>
-		</contributor>
-		<contributor>
-			<name>Kazuhito Suguri</name>
-			<email>suguri.kazuhito@lab.ntt.co.jp</email>
-		</contributor>
-		<contributor>
-			<name>Kunal Vaishnav</name>
-			<email>Kunal_Vaishnav@jdedwards.com</email>
-		</contributor>
-		<contributor>
-			<name>Hudson Wong</name>
-			<email>hudsoncwwong@yahoo.com</email>
-		</contributor>
-		<contributor>
-			<name>Peter Wong</name>
-			<email>pwong@sct.com</email>
-		</contributor>
-		<contributor>
-			<name>Sean Zhang</name>
-			<email>sean.zhang@verizon.com</email>
-		</contributor>
-		
-	</contributors>
-  
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changes-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>changes-report</report>
-							<report>jira-report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changelog-plugin</artifactId>
-			</plugin>
-		</plugins>
-  </reporting>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changes-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>announcement-generate</goal>
-						</goals>
-						<id>announcement-generate</id>
-					</execution>
-					<execution>
-						<goals>
-							<goal>announcement-mail</goal>
-						</goals>
-						<id>announcement-mail</id>
-					</execution>
-				</executions>
-				<configuration>
-					<smtpHost>mail.yourhost.com</smtpHost>
-					<smtpPort implementation="java.lang.Integer">25</smtpPort>
-					<toAddresses>
-						<toAddress implementation="java.lang.String">cactus-dev@jakarta.apache.org</toAddress>
-					</toAddresses>
-				</configuration>
-			</plugin>
-			<plugin>
-    		<groupId>org.codehaus.mojo</groupId>
-    		<artifactId>xml-maven-plugin</artifactId>
-    		<version>1.0-beta-2</version>
-    		<executions>
-      			<execution>
-							<phase>pre-site</phase>
-       				<goals>
-          				<goal>transform</goal>
-        			</goals>
-      			</execution>
-    		</executions>
-    		<configuration>
-      			<transformationSets>
-        			<transformationSet>
-          				<dir>src/site/resources</dir>
-									<includes>
-										<include>*.xml</include>
-									</includes>
-          				<stylesheet>src/site/stylesheets/rdf2document.xsl</stylesheet>
-          				<outputDir>src/site/xdoc/</outputDir>
-        			</transformationSet>
-      			</transformationSets>
-   				<extension>xml</extension>
-    		</configuration>
-      </plugin>
-		</plugins>
-	</build>
+    <parent>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus</artifactId>
+        <version>1.8.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cactus-site</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Apache Cactus</name>
+    <description>Cactus framework for testing your server-side code</description>
+
+    <developers>
+        <developer>
+            <name>Vincent Massol</name>
+            <id>vmassol</id>
+            <email>vmassol@apache.org</email>
+            <organization>XWiki</organization>
+            <roles>
+                <role>Creator</role>
+                <role>Emeritus Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Jari Worsley</name>
+            <id>jariw</id>
+            <email>jariw@hyperlink-interactive.co.uk</email>
+            <organization/>
+        </developer>
+        <developer>
+            <name>Nicholas Lesiecki</name>
+            <id>ndlesiecki</id>
+            <email>ndlesiecki@yahoo.com</email>
+            <organization/>
+            <roles>
+                <role>Emeritus Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Julien Ruaux</name>
+            <id>jruaux</id>
+            <email>jruaux@octo.com</email>
+            <organization>Octo Technology</organization>
+        </developer>
+        <developer>
+            <name>Christopher Lenz</name>
+            <id>cmlenz</id>
+            <email>cmlenz@gmx.de</email>
+            <organization/>
+        </developer>
+        <developer>
+            <name>Felipe Leme</name>
+            <id>felipeal</id>
+            <email>cactus@felipeal.net</email>
+            <organization>Falcon Informatica</organization>
+            <roles>
+                <role>Emeritus Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Nicolas Chalumeau</name>
+            <id>nchalumeau</id>
+            <email>nchalumeau@apache.org</email>
+            <organization>Simecom</organization>
+        </developer>
+        <developer>
+            <name>Petar Tahchiev</name>
+            <id>ptahchiev</id>
+            <email>ptahchiev@apache.org</email>
+            <url>http://apache.org/</url>
+            <organization>Apache Software Foundation</organization>
+            <roles>
+                <role>Lead Developer</role>
+                <role>Release Manager</role>
+                <role>Moderator</role>
+            </roles>
+            <timezone>+3</timezone>
+        </developer>
+        <developer>
+            <name>Magnus Grimsell</name>
+            <id>grimsell</id>
+            <email>grimsell@apache.org</email>
+            <organization>Ida Infront Ab</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <name>Daniel Geissler</name>
+            <email>-</email>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Eric Pugh</name>
+            <email>EPugh@upstate.com</email>
+        </contributor>
+        <contributor>
+            <name>Michael Gaffney</name>
+            <email>michael.gaffney@panacya.com</email>
+        </contributor>
+        <contributor>
+            <name>Archimedes Trajano</name>
+            <email>trajano@yahoo.com</email>
+            <url>http://www.trajano.net/</url>
+        </contributor>
+        <contributor>
+            <name>Philip Aston</name>
+            <email>paston@bea.com</email>
+        </contributor>
+        <contributor>
+            <name>Cedric Chabanois</name>
+            <email>cchabanois@ifrance.com</email>
+        </contributor>
+        <contributor>
+            <name>Bob Davison</name>
+            <email>Bob.Davison@reuters.com</email>
+        </contributor>
+        <contributor>
+            <name>Julien Dubois</name>
+            <email>julien@julien-dubois.com</email>
+        </contributor>
+        <contributor>
+            <name>Andrew B Forman</name>
+            <email>andrew.forman@wcom.com</email>
+        </contributor>
+        <contributor>
+            <name>Jerome Grelier</name>
+            <email>jgrelier@octo.com</email>
+        </contributor>
+        <contributor>
+            <name>Atsushi Hasegawa</name>
+            <email>ahasegawa@borland.com</email>
+        </contributor>
+        <contributor>
+            <name>Todd Idler</name>
+            <email>Todd_Idler@jdedwards.com</email>
+        </contributor>
+        <contributor>
+            <name>Kaarle Kaila</name>
+            <email>kaarle.kaila@iki.fi</email>
+        </contributor>
+        <contributor>
+            <name>Robert Leftwich</name>
+            <email>digital@ix.net.au</email>
+        </contributor>
+        <contributor>
+            <name>Jason Robertson</name>
+            <email>Jason.Robertson@acs-inc.com</email>
+        </contributor>
+        <contributor>
+            <name>Matt Sullivan</name>
+            <email>-</email>
+        </contributor>
+        <contributor>
+            <name>Kazuhito Suguri</name>
+            <email>suguri.kazuhito@lab.ntt.co.jp</email>
+        </contributor>
+        <contributor>
+            <name>Kunal Vaishnav</name>
+            <email>Kunal_Vaishnav@jdedwards.com</email>
+        </contributor>
+        <contributor>
+            <name>Hudson Wong</name>
+            <email>hudsoncwwong@yahoo.com</email>
+        </contributor>
+        <contributor>
+            <name>Peter Wong</name>
+            <email>pwong@sct.com</email>
+        </contributor>
+        <contributor>
+            <name>Sean Zhang</name>
+            <email>sean.zhang@verizon.com</email>
+        </contributor>
+    </contributors>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                            <report>jira-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>announcement-generate</goal>
+                        </goals>
+                        <id>announcement-generate</id>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>announcement-mail</goal>
+                        </goals>
+                        <id>announcement-mail</id>
+                    </execution>
+                </executions>
+                <configuration>
+                    <smtpHost>mail.yourhost.com</smtpHost>
+                    <smtpPort implementation="java.lang.Integer">25</smtpPort>
+                    <toAddresses>
+                        <toAddress implementation="java.lang.String">cactus-dev@jakarta.apache.org</toAddress>
+                    </toAddresses>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0-beta-2</version>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>src/site/resources</dir>
+                            <includes>
+                                <include>*.xml</include>
+                            </includes>
+                            <stylesheet>src/site/stylesheets/rdf2document.xsl</stylesheet>
+                            <outputDir>src/site/xdoc/</outputDir>
+                        </transformationSet>
+                    </transformationSets>
+                    <extension>xml</extension>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

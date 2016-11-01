@@ -37,199 +37,199 @@
     target is "dist"
   =============================================================================
 -->
-<project name="Cactus Servlet Sample"  xmlns:ivy="antlib:org.apache.ivy.ant" default="test"> 
+<project name="Cactus Servlet Sample" xmlns:ivy="antlib:org.apache.ivy.ant" default="test">
 
-	<description>
-     Cactus Sample
-     ---------------------------------------------------------
-     Sample WAR application that demonstrates how Cactus can
-     be used using the Ant integration for unit testing Servlets
-     classes.
-  </description>
-  
- <!--
-     ========================================================================
-       Initialize properties.
-     ========================================================================
-  -->	
-	<target name="init" depends="">
-	
-	  <property name="cactus.sample.app.type" value="servlet"/>
-		<property name="cactus.sample.archive.type" value="war"/>
-    
-    <property file="../build.properties"/>
-	 
-	
-		<path id="cactus.classpath">
-			<fileset dir="${ivy.lib.dir}">
-        <include name="*.jar"/>
-      </fileset>
-		</path>
-		
-	</target>
+    <description>
+        Cactus Sample
+        ---------------------------------------------------------
+        Sample WAR application that demonstrates how Cactus can
+        be used using the Ant integration for unit testing Servlets
+        classes.
+    </description>
 
- <!--
-     ========================================================================
-       Prepare the folder structure.
-     ========================================================================
-  -->
-	<target name="prepare" depends="init">
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${logs.dir}"/>
-		<mkdir dir="${reports.dir}"/>
-	</target>
+    <!--
+        ========================================================================
+          Initialize properties.
+        ========================================================================
+     -->
+    <target name="init" depends="">
 
- <!--
-     ========================================================================
-       Resolve Ivy dependencies.
-     ========================================================================
-  -->
-	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
-		<ivy:configure file="../ivysettings.xml" />
-		<ivy:retrieve file="./ivy.xml" sync="true"/>
-  </target>
+        <property name="cactus.sample.app.type" value="servlet"/>
+        <property name="cactus.sample.archive.type" value="war"/>
 
- <!--
-     ========================================================================
-       Load external ant tasks.
-     ========================================================================
-  -->
-	<target name="load.tasks" depends="resolve">
-		<taskdef resource="cactus.tasks"
-			 classpathref="cactus.classpath">
-		</taskdef>
-	</target>
-	
- <!--
-     ========================================================================
-       Compile source classes as well as cactus classes.
-     ========================================================================
-  -->
-	<!--Note that if some dependency is missing in the classpath, instead of compilation errors,
+        <property file="../build.properties"/>
+
+
+        <path id="cactus.classpath">
+            <fileset dir="${ivy.lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+
+    </target>
+
+    <!--
+        ========================================================================
+          Prepare the folder structure.
+        ========================================================================
+     -->
+    <target name="prepare" depends="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${logs.dir}"/>
+        <mkdir dir="${reports.dir}"/>
+    </target>
+
+    <!--
+        ========================================================================
+          Resolve Ivy dependencies.
+        ========================================================================
+     -->
+    <target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
+        <ivy:configure file="../ivysettings.xml"/>
+        <ivy:retrieve file="./ivy.xml" sync="true"/>
+    </target>
+
+    <!--
+        ========================================================================
+          Load external ant tasks.
+        ========================================================================
+     -->
+    <target name="load.tasks" depends="resolve">
+        <taskdef resource="cactus.tasks"
+                 classpathref="cactus.classpath">
+        </taskdef>
+    </target>
+
+    <!--
+        ========================================================================
+          Compile source classes as well as cactus classes.
+        ========================================================================
+     -->
+    <!--Note that if some dependency is missing in the classpath, instead of compilation errors,
       Ivy reports to Maven 'No Compiler Found' error. -->
-	<target name="compile" depends="load.tasks">
-		
-		<javac srcdir="${src.dir}"
-		       destdir="${build.dir}"
-		       classpathref="cactus.classpath"/>
-		
-		<javac srcdir="${src.test.dir}"
-		       destdir="${build.dir}"
-		       classpathref="cactus.classpath"/>
-		       
-	</target>
-	
-  <!--
-     ========================================================================
-       Create the runtime war file.
-     ========================================================================
-  -->
-	<target name="package-war" depends="compile">
-		<war destfile="${servlet.archive.name}" webxml="${basedir}/src/main/webapp/WEB-INF/web.xml">
-		  <fileset dir="${basedir}/src/main/webapp/WEB-INF">
-        <exclude name="cactus-report.xsl"/>
-        <exclude name="cactus-web.xml"/>
-        <exclude name="web.xml"/>
-      </fileset>
-      <fileset dir="${basedir}/src/main/webapp">
-        <include name="test/test.jsp"/>
-        <include name="org/apache/jsp/jspRedirector.jsp"/>
-      </fileset>
-			<classes dir="${build.dir}"/>
-			<lib dir="${ivy.lib.dir}">
-				<include name="httpunit-1.6.jar"/>
-				<include name="jstl-1.1.2.jar"/>
-				<include name="standard-1.1.2.jar"/>
-			</lib>	
-		</war>
-	</target>
-	
-  <!--
-     ========================================================================
-       Cactify the ready-made war file.
-     ========================================================================
-  -->
-	<target name="cactifywar" depends="package-war">
-    <cactifywar srcfile="${servlet.archive.name}"
-        destfile="${cactified.servlet.archive.name}"
-        mergewebxml="${basedir}/src/main/webapp/WEB-INF/cactus-web.xml">
+    <target name="compile" depends="load.tasks">
 
-      <!-- Provide a secured servlet redirector in addition to the
-           default servlet redirector -->
-      <servletredirector/>
-      <servletredirector name="ServletRedirectorSecure"
-          mapping="/ServletRedirectorSecure" roles="test"/>
-      <!-- Orion fails on a servlet filter that is not mapped to an actual
-           resource, to trick it -->
-      <filterredirector mapping="/test/filterRedirector"/>
-      <!-- Files needed for JBoss -->
-      <classes dir="${basedir}/src/main/resources/conf/jboss3x">
-        <include name="*.properties"/>
-      </classes>
-      <webinf dir="${basedir}/src/main/resources/conf/jboss3x">
-        <include name="jboss-web.xml"/>
-      </webinf>
-			<lib dir="${ivy.lib.dir}">
-				<include name="htmlunit-1.10.jar"/>
-				<include name="commons-io-1.4.jar"/>
-				<include name="commons-lang-2.3.jar"/>
-				<include name="commons-codec-1.3.jar"/>
-			</lib>
-    </cactifywar>
-    
-    	
-	</target>
-	
+        <javac srcdir="${src.dir}"
+               destdir="${build.dir}"
+               classpathref="cactus.classpath"/>
 
-	<!--
+        <javac srcdir="${src.test.dir}"
+               destdir="${build.dir}"
+               classpathref="cactus.classpath"/>
+
+    </target>
+
+    <!--
+       ========================================================================
+         Create the runtime war file.
+       ========================================================================
+    -->
+    <target name="package-war" depends="compile">
+        <war destfile="${servlet.archive.name}" webxml="${basedir}/src/main/webapp/WEB-INF/web.xml">
+            <fileset dir="${basedir}/src/main/webapp/WEB-INF">
+                <exclude name="cactus-report.xsl"/>
+                <exclude name="cactus-web.xml"/>
+                <exclude name="web.xml"/>
+            </fileset>
+            <fileset dir="${basedir}/src/main/webapp">
+                <include name="test/test.jsp"/>
+                <include name="org/apache/jsp/jspRedirector.jsp"/>
+            </fileset>
+            <classes dir="${build.dir}"/>
+            <lib dir="${ivy.lib.dir}">
+                <include name="httpunit-1.6.jar"/>
+                <include name="jstl-1.1.2.jar"/>
+                <include name="standard-1.1.2.jar"/>
+            </lib>
+        </war>
+    </target>
+
+    <!--
+       ========================================================================
+         Cactify the ready-made war file.
+       ========================================================================
+    -->
+    <target name="cactifywar" depends="package-war">
+        <cactifywar srcfile="${servlet.archive.name}"
+                    destfile="${cactified.servlet.archive.name}"
+                    mergewebxml="${basedir}/src/main/webapp/WEB-INF/cactus-web.xml">
+
+            <!-- Provide a secured servlet redirector in addition to the
+                 default servlet redirector -->
+            <servletredirector/>
+            <servletredirector name="ServletRedirectorSecure"
+                               mapping="/ServletRedirectorSecure" roles="test"/>
+            <!-- Orion fails on a servlet filter that is not mapped to an actual
+                 resource, to trick it -->
+            <filterredirector mapping="/test/filterRedirector"/>
+            <!-- Files needed for JBoss -->
+            <classes dir="${basedir}/src/main/resources/conf/jboss3x">
+                <include name="*.properties"/>
+            </classes>
+            <webinf dir="${basedir}/src/main/resources/conf/jboss3x">
+                <include name="jboss-web.xml"/>
+            </webinf>
+            <lib dir="${ivy.lib.dir}">
+                <include name="htmlunit-1.10.jar"/>
+                <include name="commons-io-1.4.jar"/>
+                <include name="commons-lang-2.3.jar"/>
+                <include name="commons-codec-1.3.jar"/>
+            </lib>
+        </cactifywar>
+
+
+    </target>
+
+
+    <!--
      ========================================================================
        Execute the tests.
      ========================================================================
   -->
-	<target name="test" depends="cactifywar">
-	  <echo>Please take a deep breath while Cargo gets the Tomcat for running the sample servlet tests...</echo>
-		<cactus warfile="${cactified.servlet.archive.name}"
-			printsummary="yes">
-			<classpath>
-				<path refid="cactus.classpath"/>
-				<pathelement location="${build.dir}"/>
-				<pathelement location="${ivy.lib.dir}/htmlunit-1.10.jar"/>
-			</classpath>
-			<containerset>
-				<cargo containerId="${tomcat.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
-					<!--If you don't want cargo to download the container, just comment the bottom
-									 lines and specify a [home] parameter-->
-				 <zipUrlInstaller
-						installUrl="http://apache.speedbone.de/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.zip"
-						installDir="${basedir}/install"/>
-				<configuration>
-						<property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
-						<property name="cargo.logging" value="${cargo.logging}"/>
-						<deployable type="${cactus.sample.archive.type}" file="${cactified.servlet.archive.name}"/>
-					</configuration>
-				</cargo>
-			</containerset>
-			<sysproperty key="prop1" value="value1"/>
-			<sysproperty key="prop2" value="value2"/>
-			<formatter type="${cactus.formatter.type}"/>
-			<batchtest todir="${reports.dir}">
-				<fileset dir="${src.test.dir}">
-					<include name="**/Test*.java"/>
-				</fileset>
-			</batchtest>
-		</cactus>
-		<junitreport todir="${reports.dir}">
-			<fileset dir="${target.dir}/${tomcat.container.id}" includes="TEST-*.xml"/>
-      <report todir="${reports.dir}" format="frames"/>
-    </junitreport>
-	</target>
-	
-	<!--
+    <target name="test" depends="cactifywar">
+        <echo>Please take a deep breath while Cargo gets the Tomcat for running the sample servlet tests...</echo>
+        <cactus warfile="${cactified.servlet.archive.name}"
+                printsummary="yes">
+            <classpath>
+                <path refid="cactus.classpath"/>
+                <pathelement location="${build.dir}"/>
+                <pathelement location="${ivy.lib.dir}/htmlunit-1.10.jar"/>
+            </classpath>
+            <containerset>
+                <cargo containerId="${tomcat.container.id}" output="${logs.dir}/output.log" log="${logs.dir}/cargo.log">
+                    <!--If you don't want cargo to download the container, just comment the bottom
+                                     lines and specify a [home] parameter-->
+                    <zipUrlInstaller
+                            installUrl="http://apache.speedbone.de/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.zip"
+                            installDir="${basedir}/install"/>
+                    <configuration>
+                        <property name="cargo.servlet.port" value="${cargo.servlet.port}"/>
+                        <property name="cargo.logging" value="${cargo.logging}"/>
+                        <deployable type="${cactus.sample.archive.type}" file="${cactified.servlet.archive.name}"/>
+                    </configuration>
+                </cargo>
+            </containerset>
+            <sysproperty key="prop1" value="value1"/>
+            <sysproperty key="prop2" value="value2"/>
+            <formatter type="${cactus.formatter.type}"/>
+            <batchtest todir="${reports.dir}">
+                <fileset dir="${src.test.dir}">
+                    <include name="**/Test*.java"/>
+                </fileset>
+            </batchtest>
+        </cactus>
+        <junitreport todir="${reports.dir}">
+            <fileset dir="${target.dir}/${tomcat.container.id}" includes="TEST-*.xml"/>
+            <report todir="${reports.dir}" format="frames"/>
+        </junitreport>
+    </target>
+
+    <!--
      ========================================================================
        Clean the build directory.
      ========================================================================
   -->
-	<target name="clean" depends="init">
-	   <delete dir="${target.dir}"/>
-	</target>
+    <target name="clean" depends="init">
+        <delete dir="${target.dir}"/>
+    </target>
 </project>

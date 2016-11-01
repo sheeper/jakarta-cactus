@@ -23,33 +23,33 @@
 
 <document id="integration_manual">
 
-  <properties>
-    <title>Manual Cactus integration</title>
-  </properties>
+    <properties>
+        <title>Manual Cactus integration</title>
+    </properties>
 
-  <body>
-    <section name="Manual Cactus configuration">
+    <body>
+        <section name="Manual Cactus configuration">
 
-      <p>
-        These pages are only useful if you wish to manually configure Cactus.
-        Most of the time this is not required. Rather you should choose a 
-        Cactus integration (Ant, Maven, Browser, etc) and follow the 
-        instructions there.
-      </p>
-      
-      <p>
-        If you still wish to configure cactus manually you need to understand:
-      </p>
-      <ul>
-        <li>
-		<a href="howto_config.html">How to configure Cactus</a>
-        </li>
-        <li>
-		<a href="howto_classpath.html">How to set up the Cactus classpath</a>
-        </li>
-      </ul>
+            <p>
+                These pages are only useful if you wish to manually configure Cactus.
+                Most of the time this is not required. Rather you should choose a
+                Cactus integration (Ant, Maven, Browser, etc) and follow the
+                instructions there.
+            </p>
 
-    </section>
+            <p>
+                If you still wish to configure cactus manually you need to understand:
+            </p>
+            <ul>
+                <li>
+                    <a href="howto_config.html">How to configure Cactus</a>
+                </li>
+                <li>
+                    <a href="howto_classpath.html">How to set up the Cactus classpath</a>
+                </li>
+            </ul>
 
-  </body>
+        </section>
+
+    </body>
 </document>

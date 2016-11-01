@@ -20,10 +20,10 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>testSkipProperty</artifactId>
-  <name>testSkipProperty</name>
-  <shortDescription>Test if cactus uses maven.test.skip property </shortDescription>
-  <description>Test case for issue CACTUS-146:cactus:test should skip tests if maven.test.skip is true</description>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>testSkipProperty</artifactId>
+    <name>testSkipProperty</name>
+    <shortDescription>Test if cactus uses maven.test.skip property</shortDescription>
+    <description>Test case for issue CACTUS-146:cactus:test should skip tests if maven.test.skip is true</description>
 </project>

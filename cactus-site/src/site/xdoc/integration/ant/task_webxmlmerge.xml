@@ -23,171 +23,176 @@
 
 <document id="task_webxmlmerge">
 
-  <properties>
-    <title>WebXmlMerge Ant Task</title>
-  </properties>
+    <properties>
+        <title>WebXmlMerge Ant Task</title>
+    </properties>
 
-  <body>
+    <body>
 
-  <section name="WebXmlMerge Task">
+        <section name="WebXmlMerge Task">
 
-    <p>
-      The task <strong>webxmlmerge</strong> provides a convenient way 
-      to inject external definitions into a web deployment descriptor
-      (<code>web.xml</code>) from an Ant build. It's primary intended use is to
-      include the definition of the Cactus redirectors into the application's
-      descriptor to enable testing the application with Cactus.
-    </p>
+            <p>
+                The task <strong>webxmlmerge</strong> provides a convenient way
+                to inject external definitions into a web deployment descriptor
+                (<code>web.xml</code>) from an Ant build. It's primary intended use is to
+                include the definition of the Cactus redirectors into the application's
+                descriptor to enable testing the application with Cactus.
+            </p>
 
-    <note>
-      This task currently merges only a subset of the definitions in a 
-      descriptor, based on the most common usage scenarios:
-      <ul>
-        <li>
-          <emphasis>Context parameters</emphasis>: Any &lt;context-param&gt;
-          element get inserted into the resulting descriptor verbatim.
-        </li>
-        <li>
-          <emphasis>Servlets and Filters</emphasis>: Both the actual definition
-          of the servlet/filter as well as the mappings to URL patterns are
-          merged. If the servlet or filter to inject is already present in the
-          source descriptor, the initialization parameters are merged.
-        </li>
-        <li>
-          <emphasis>Resource References and Resource Environment References
-          </emphasis>: Any &lt;resource-ref&gt; or &lt;resource-env-ref&gt;
-          elements get inserted into the resulting descriptor verbatim.
-        </li>
-        <li>
-          <emphasis>Security Constraints</emphasis>: Any
-          &lt;security-constraint&gt; elements get inserted into the resulting
-          descriptor verbatim.
-        </li>
-        <li>
-          <emphasis>Login Configuration</emphasis>: If a &lt;login-config&gt;
-          element is present, it will replace the corresponding element in the
-          source descriptor.
-        </li>
-        <li>
-          <emphasis>Security Roles</emphasis>: Any &lt;security-role&gt;
-          elements that are not already defined in the source descriptor
-          are inserted into the resulting descriptor.
-        </li>
-        <li>
-          <emphasis>Environment Entries</emphasis>: Any &lt;env-entry&gt;
-          elements get inserted into the resulting descriptor verbatim.
-        </li>
-        <li>
-          <emphasis>EJB References</emphasis>: Any &lt;ejb-ref&gt; or
-          &lt;ejb-local-ref&gt; elements get inserted into the resulting
-          descriptor verbatim.
-        </li>
-      </ul>
-    </note>
+            <note>
+                This task currently merges only a subset of the definitions in a
+                descriptor, based on the most common usage scenarios:
+                <ul>
+                    <li>
+                        <emphasis>Context parameters</emphasis>: Any &lt;context-param&gt;
+                        element get inserted into the resulting descriptor verbatim.
+                    </li>
+                    <li>
+                        <emphasis>Servlets and Filters</emphasis>: Both the actual definition
+                        of the servlet/filter as well as the mappings to URL patterns are
+                        merged. If the servlet or filter to inject is already present in the
+                        source descriptor, the initialization parameters are merged.
+                    </li>
+                    <li>
+                        <emphasis>Resource References and Resource Environment References
+                        </emphasis>: Any &lt;resource-ref&gt; or &lt;resource-env-ref&gt;
+                        elements get inserted into the resulting descriptor verbatim.
+                    </li>
+                    <li>
+                        <emphasis>Security Constraints</emphasis>: Any
+                        &lt;security-constraint&gt; elements get inserted into the resulting
+                        descriptor verbatim.
+                    </li>
+                    <li>
+                        <emphasis>Login Configuration</emphasis>: If a &lt;login-config&gt;
+                        element is present, it will replace the corresponding element in the
+                        source descriptor.
+                    </li>
+                    <li>
+                        <emphasis>Security Roles</emphasis>: Any &lt;security-role&gt;
+                        elements that are not already defined in the source descriptor
+                        are inserted into the resulting descriptor.
+                    </li>
+                    <li>
+                        <emphasis>Environment Entries</emphasis>: Any &lt;env-entry&gt;
+                        elements get inserted into the resulting descriptor verbatim.
+                    </li>
+                    <li>
+                        <emphasis>EJB References</emphasis>: Any &lt;ejb-ref&gt; or
+                        &lt;ejb-local-ref&gt; elements get inserted into the resulting
+                        descriptor verbatim.
+                    </li>
+                </ul>
+            </note>
 
-    <section name="Parameters">
+            <section name="Parameters">
 
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Required</th>
-        </tr>
-        <tr>
-          <td>srcfile</td>
-          <td>
-            The original deployment descriptor.
-          </td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>destfile</td>
-          <td>
-            The destination file.
-          </td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>mergefile</td>
-          <td>
-            The descriptor containing the definitions that should be merged
-            into the descriptor.
-          </td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>encoding</td>
-          <td>
-            The character encoding of the destination file. If this attribute is
-            ommitted, the character encoding of the source file will be applied.
-          </td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>force</td>
-          <td>
-            By default the task checks the modification times of the files
-            before performing the merge. Set this attribute to
-            <code>false</code> to perform the merge regardless of whether the
-            destination file seems to be up to date.
-          </td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>indent</td>
-          <td>
-            Whether the resulting XML should be indented when written to the
-            destination file.
-          </td>
-          <td>No, the default is <code>false</code></td>
-        </tr>
-      </table>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>srcfile</td>
+                        <td>
+                            The original deployment descriptor.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>destfile</td>
+                        <td>
+                            The destination file.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>mergefile</td>
+                        <td>
+                            The descriptor containing the definitions that should be merged
+                            into the descriptor.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>encoding</td>
+                        <td>
+                            The character encoding of the destination file. If this attribute is
+                            ommitted, the character encoding of the source file will be applied.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>force</td>
+                        <td>
+                            By default the task checks the modification times of the files
+                            before performing the merge. Set this attribute to
+                            <code>false</code>
+                            to perform the merge regardless of whether the
+                            destination file seems to be up to date.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>indent</td>
+                        <td>
+                            Whether the resulting XML should be indented when written to the
+                            destination file.
+                        </td>
+                        <td>No, the default is
+                            <code>false</code>
+                        </td>
+                    </tr>
+                </table>
 
-    </section>
+            </section>
 
-    <section name="Nested Elements">
+            <section name="Nested Elements">
 
-	    <section name="xmlcatalog">
+                <section name="xmlcatalog">
 
-        <p>
-          The <code>xmlcatalog</code> element can be used to perform Entity and
-          URI resolution. This is a built-in Ant type. See the
-          <a href="http://ant.apache.org/">Ant documentation</a> for details.
-        </p>
+                    <p>
+                        The <code>xmlcatalog</code> element can be used to perform Entity and
+                        URI resolution. This is a built-in Ant type. See the
+                        <a href="http://ant.apache.org/">Ant documentation</a>
+                        for details.
+                    </p>
 
-        <note>
-          The <strong>webxmlmerge</strong> task resolves the DTDs of web-app
-          descriptors (version 2.2 as well as 2.3) automatically to copies
-          stored in the JAR. So normally, you shouldn't need to specify a
-          nested <code>xmlcatalog</code> element. Further, actually
-          specifying it will disable the default behaviour, and you'll need
-          to provide the web-app DTDs yourself.
-        </note>
+                    <note>
+                        The <strong>webxmlmerge</strong> task resolves the DTDs of web-app
+                        descriptors (version 2.2 as well as 2.3) automatically to copies
+                        stored in the JAR. So normally, you shouldn't need to specify a
+                        nested <code>xmlcatalog</code> element. Further, actually
+                        specifying it will disable the default behaviour, and you'll need
+                        to provide the web-app DTDs yourself.
+                    </note>
 
-      </section>
+                </section>
 
-    </section>
+            </section>
 
-    <section name="Examples">
+            <section name="Examples">
 
-      <p>
-        The following example demonstrates the simplest-possible use of the
-        task.
-      </p>
+                <p>
+                    The following example demonstrates the simplest-possible use of the
+                    task.
+                </p>
 
-      <source><![CDATA[
+                <source><![CDATA[
 <webxmlmerge srcfile="${src.conf.dir}/web.xml"
     destfile="${build.conf.dir}/web.xml"
     mergefile="${cactus.ant.home}/confs/web.xml"/>
 ]]></source>
 
-      <p>
-        To improve speed of the parsing process and enable offline operation,
-        you should specify local paths to the web-app DTDs using a nested
-        <code>xmlcatalog</code> element:
-      </p>
+                <p>
+                    To improve speed of the parsing process and enable offline operation,
+                    you should specify local paths to the web-app DTDs using a nested
+                    <code>xmlcatalog</code>
+                    element:
+                </p>
 
-      <source><![CDATA[
+                <source><![CDATA[
 <webxmlmerge srcfile="${src.conf.dir}/web.xml"
     destfile="${build.conf.dir}/web.xml"
     mergefile="${cactus.ant.home}/confs/web.xml">
@@ -200,15 +205,17 @@
 </webxmlmerge>
 ]]></source>
 
-      <p>
-        The following example demonstrates using an <code>xmlcatalog</code>
-        by reference, so that it can also be used in other tasks (for 
-        example to validate the descriptors). In addition, the
-        <code>indent</code> attribute is set to <code>yes</code> to achieve
-        better readability of the resulting descriptor.
-      </p>
+                <p>
+                    The following example demonstrates using an
+                    <code>xmlcatalog</code>
+                    by reference, so that it can also be used in other tasks (for
+                    example to validate the descriptors). In addition, the
+                    <code>indent</code>
+                    attribute is set to <code>yes</code> to achieve
+                    better readability of the resulting descriptor.
+                </p>
 
-      <source><![CDATA[
+                <source><![CDATA[
 <xmlcatalog id="j2ee.dtds">
   <dtd publicid="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
       location="${src.dtd.dir}/web-app_2_2.dtd"/>
@@ -224,9 +231,9 @@
 </webxmlmerge>
 ]]></source>
 
-    </section>
+            </section>
 
-  </section>
+        </section>
 
-  </body>
+    </body>
 </document>

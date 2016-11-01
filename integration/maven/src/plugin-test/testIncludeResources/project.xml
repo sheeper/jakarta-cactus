@@ -20,10 +20,10 @@
  -->
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>testIncludeResources</artifactId>
-  <name>testIncludeResources</name>
-  <shortDescription>Tests if cactus is including resources on the cactus-war</shortDescription>
-  <description>Test case for the new feature of resources inclusions (issue CACTUS-132)</description>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>testIncludeResources</artifactId>
+    <name>testIncludeResources</name>
+    <shortDescription>Tests if cactus is including resources on the cactus-war</shortDescription>
+    <description>Test case for the new feature of resources inclusions (issue CACTUS-132)</description>
 </project>

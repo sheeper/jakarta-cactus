@@ -20,48 +20,50 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <name>testBundlePropertiesTest</name>
-  <artifactId>testBundlePropertiesTest</artifactId>
-  <currentVersion>1.0.0</currentVersion>
-  <shortDescription>Test for new properties ear.bundle.name and ear.bundle.dir</shortDescription>
-  <description>Tests if a dependency which has the properties ear.bundle.name or ear.bundle.dir it is properly bundled in the EAR (see issues MPEAR-26, MPEAR-23 and CACTUS-197)</description>
-  <dependencies>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.3</version>
-      <properties>
-        <ear.bundle.dir>/APP-INF/lib</ear.bundle.dir>
-        <ear.module>true</ear.module>
-      </properties>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>2.1</version>
-      <properties>
-        <ear.bundle>true</ear.bundle>
-      </properties>
-    </dependency>
-    <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>1.6</version>
-      <properties>
-        <ear.bundle>true</ear.bundle>
-        <ear.bundle.name>commons-digester.jar</ear.bundle.name>
-      </properties>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.8</version>
-      <properties>
-        <ear.bundle>true</ear.bundle>
-        <ear.bundle.name>LOG4J.JAR</ear.bundle.name>
-        <ear.bundle.dir>/APP-INF/lib</ear.bundle.dir>
-      </properties>
-    </dependency>
-  </dependencies>
+    <pomVersion>3</pomVersion>
+    <name>testBundlePropertiesTest</name>
+    <artifactId>testBundlePropertiesTest</artifactId>
+    <currentVersion>1.0.0</currentVersion>
+    <shortDescription>Test for new properties ear.bundle.name and ear.bundle.dir</shortDescription>
+    <description>Tests if a dependency which has the properties ear.bundle.name or ear.bundle.dir it is properly bundled
+        in the EAR (see issues MPEAR-26, MPEAR-23 and CACTUS-197)
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.3</version>
+            <properties>
+                <ear.bundle.dir>/APP-INF/lib</ear.bundle.dir>
+                <ear.module>true</ear.module>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>2.1</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.6</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+                <ear.bundle.name>commons-digester.jar</ear.bundle.name>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+                <ear.bundle.name>LOG4J.JAR</ear.bundle.name>
+                <ear.bundle.dir>/APP-INF/lib</ear.bundle.dir>
+            </properties>
+        </dependency>
+    </dependencies>
 </project>

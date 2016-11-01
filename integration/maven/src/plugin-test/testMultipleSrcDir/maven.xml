@@ -17,18 +17,18 @@
  * limitations under the License.
  */
  -->
-<project xmlns:maven="jelly:maven" 
+<project xmlns:maven="jelly:maven"
          default="testPlugin">
-        
-  <goal name="testPlugin" prereqs="cactus:compile"> 
-    <attainGoal name="clean"/>
-  </goal>
 
-  <preGoal name="cactus:compile"> 
-    <path id="cactus.src.set2" location="${cactus.src.dir2}"/>
-    <maven:addPath id="cactus.compile.src.set" refid="cactus.src.set2"/>
-    <path id="cactus.src.set3" location="${cactus.src.dir3}"/>
-    <maven:addPath id="cactus.compile.src.set" refid="cactus.src.set3"/>
-  </preGoal>
+    <goal name="testPlugin" prereqs="cactus:compile">
+        <attainGoal name="clean"/>
+    </goal>
+
+    <preGoal name="cactus:compile">
+        <path id="cactus.src.set2" location="${cactus.src.dir2}"/>
+        <maven:addPath id="cactus.compile.src.set" refid="cactus.src.set2"/>
+        <path id="cactus.src.set3" location="${cactus.src.dir3}"/>
+        <maven:addPath id="cactus.compile.src.set" refid="cactus.src.set3"/>
+    </preGoal>
 
 </project>

@@ -18,9 +18,9 @@
  */
  -->
 <project default="testPlugin">
-        
-  <goal name="testPlugin" prereqs="clean">
-    <attainGoal name="cactus:test-war"/>
-  </goal>
+
+    <goal name="testPlugin" prereqs="clean">
+        <attainGoal name="cactus:test-war"/>
+    </goal>
 
 </project>

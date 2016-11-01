@@ -17,33 +17,33 @@
 -->
 
 <project name="test-cactustest" basedir="." default="setup">
-  <property name="src.dir" location="${basedir}/src/test-input/org/apache/cactus/integration/ant/"/>
-  <target name="testNeitherWarFileNorEarFileSet">
-    <cactustests/>
-  </target>
+    <property name="src.dir" location="${basedir}/src/test-input/org/apache/cactus/integration/ant/"/>
+    <target name="testNeitherWarFileNorEarFileSet">
+        <cactustests/>
+    </target>
 
-  <target name="testWarFileNotExisting">
-    <cactustests runlocal="true" warfile="${src.dir}/idontexist.war"/>
-  </target>
+    <target name="testWarFileNotExisting">
+        <cactustests runlocal="true" warfile="${src.dir}/idontexist.war"/>
+    </target>
 
-  <target name="testWarFileNotCactified">
-    <cactustests runlocal="true" warfile="${src.dir}/empty.war"/>
-  </target>
+    <target name="testWarFileNotCactified">
+        <cactustests runlocal="true" warfile="${src.dir}/empty.war"/>
+    </target>
 
-  <target name="testWarFileCactified">
-    <cactustests runlocal="true" warfile="${src.dir}/cactified.war"/>
-  </target>
+    <target name="testWarFileCactified">
+        <cactustests runlocal="true" warfile="${src.dir}/cactified.war"/>
+    </target>
 
-  <target name="testEarFileEmpty">
-    <cactustests runlocal="true" earfile="${src.dir}/empty.ear"/>
-  </target>
+    <target name="testEarFileEmpty">
+        <cactustests runlocal="true" earfile="${src.dir}/empty.ear"/>
+    </target>
 
-  <target name="testEarFileNotCactified">
-    <cactustests runlocal="true" earfile="${src.dir}/notcactified.ear"/>
-  </target>
+    <target name="testEarFileNotCactified">
+        <cactustests runlocal="true" earfile="${src.dir}/notcactified.ear"/>
+    </target>
 
-  <target name="testEarFileCactified">
-    <cactustests runlocal="true" earfile="${src.dir}/cactified.ear"/>
-  </target>
+    <target name="testEarFileCactified">
+        <cactustests runlocal="true" earfile="${src.dir}/cactified.ear"/>
+    </target>
 
 </project>

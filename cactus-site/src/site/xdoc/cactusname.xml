@@ -23,90 +23,91 @@
 
 <document id="cactusname">
 
-  <properties>
-    <title>Why the name?</title>
-  </properties>
+    <properties>
+        <title>Why the name?</title>
+    </properties>
 
-  <body>
+    <body>
 
-  <section name="Why Cactus?">
+        <section name="Why Cactus?">
 
-      <p>
-        Here are some stories and reasons about the 'Cactus' name:)
-      </p>
-      <ul>
-        <li>
-          It's a cool name ... Short, easy to pronounce, same meanings in all
-          spoken languages, has some punch ...
-        </li>
-        <li>
-          There is a famous french song by Jacques Dutronc about cacti that
-          goes "le monde entier est un cactus ..." (the whole world is a
-          Cactus). The lyrics is available
-          <a href="http://www.frmusique.ru/texts/d/dutronc_jacques/cactus.htm">here
-          </a> and the music (midi format)
-          <a href="http://membres.lycos.fr/nabla007/musique/jacques_dutronc_(les_cactus).mid">here
-          </a>. It is a
-          song that says that cacti are everywhere and that everything is
-          a cactus. I like that ! :) ...
-        </li>
-        <li>
-          The J2EEUnit name (which was the previous name of Cactus) was fine
-          but there was a Sun trademark on the J2EE part of the name ...
-        </li>
-        <li>
-          Cactus is actually an acronym ... ha ha .. for Computer Assisted
-          Construction of Test Units for the Server, or Cool and Comprehensive
-          Test Units for the Server, or ... (please send your suggestions to
-          the <a href="mail-lists.html">Cactus mailing list</a>).
-        </li>
-        <li>
-          The company for which I worked (
-          <a href="http://www.octo.com/">OCTO Technology</a>) had organized a diner 
-          to celebrate our 3 years of existence. I was looking for a new name 
-          for J2EEUnit. I asked some workmates to help me look for a name. We 
-          tried to find a name which had something to do with the Apache name. 
-          We thought of indians of course ... we tried several names and then 
-          Dominique said "Cactus" (you know, indians, the desert, cacti. 
-          That's one cliche of indians we have here in France !). I immediatly 
-          liked it ...
-        </li>
-        <li>
-          The Cactus name has a rich visual iconography associated with it. So
-          it should be possible to find a nice and funny logo (I'm still
-          looking for the perfect logo ... If you have propositions, you can
-          send them to the <a href="mail-lists.html">Cactus mailing list
-          </a> (there is currently a <a href="participating/logos.html">logo contest
-          </a> going on ! Try defeating the current logo if you think you
-          can do better !).
-        </li>
-        <li>
-          A Cactus is full of spines. Visually you can imagine that a piece of
-          code that has gone through this rigourous and comprehensive testing
-          has had all its bug revealed ! ...
-        </li>
-        <li>
-          We can imagine a motto like "Tested on Apache-Cactus" !
-        </li>
-        <li>
-          In Australia it is a widely used phrase that refers to something 
-          that it not functioning correctly. So the name 'Cactus' is a very 
-          appropriate name for a testing tool. See 
-          the <a href="http://www.koalanet.com.au/australian-slang.html">Australian Slang</a> page.
-        </li>
-        <li>
-          Any more...?
-        </li>
-      </ul>
+            <p>
+                Here are some stories and reasons about the 'Cactus' name:)
+            </p>
+            <ul>
+                <li>
+                    It's a cool name ... Short, easy to pronounce, same meanings in all
+                    spoken languages, has some punch ...
+                </li>
+                <li>
+                    There is a famous french song by Jacques Dutronc about cacti that
+                    goes "le monde entier est un cactus ..." (the whole world is a
+                    Cactus). The lyrics is available
+                    <a href="http://www.frmusique.ru/texts/d/dutronc_jacques/cactus.htm">here
+                    </a>
+                    and the music (midi format)
+                    <a href="http://membres.lycos.fr/nabla007/musique/jacques_dutronc_(les_cactus).mid">here
+                    </a>. It is a
+                    song that says that cacti are everywhere and that everything is
+                    a cactus. I like that ! :) ...
+                </li>
+                <li>
+                    The J2EEUnit name (which was the previous name of Cactus) was fine
+                    but there was a Sun trademark on the J2EE part of the name ...
+                </li>
+                <li>
+                    Cactus is actually an acronym ... ha ha .. for Computer Assisted
+                    Construction of Test Units for the Server, or Cool and Comprehensive
+                    Test Units for the Server, or ... (please send your suggestions to
+                    the <a href="mail-lists.html">Cactus mailing list</a>).
+                </li>
+                <li>
+                    The company for which I worked (
+                    <a href="http://www.octo.com/">OCTO Technology</a>) had organized a diner
+                    to celebrate our 3 years of existence. I was looking for a new name
+                    for J2EEUnit. I asked some workmates to help me look for a name. We
+                    tried to find a name which had something to do with the Apache name.
+                    We thought of indians of course ... we tried several names and then
+                    Dominique said "Cactus" (you know, indians, the desert, cacti.
+                    That's one cliche of indians we have here in France !). I immediatly
+                    liked it ...
+                </li>
+                <li>
+                    The Cactus name has a rich visual iconography associated with it. So
+                    it should be possible to find a nice and funny logo (I'm still
+                    looking for the perfect logo ... If you have propositions, you can
+                    send them to the <a href="mail-lists.html">Cactus mailing list
+                </a> (there is currently a <a href="participating/logos.html">logo contest
+                </a> going on ! Try defeating the current logo if you think you
+                    can do better !).
+                </li>
+                <li>
+                    A Cactus is full of spines. Visually you can imagine that a piece of
+                    code that has gone through this rigourous and comprehensive testing
+                    has had all its bug revealed ! ...
+                </li>
+                <li>
+                    We can imagine a motto like "Tested on Apache-Cactus" !
+                </li>
+                <li>
+                    In Australia it is a widely used phrase that refers to something
+                    that it not functioning correctly. So the name 'Cactus' is a very
+                    appropriate name for a testing tool. See
+                    the <a href="http://www.koalanet.com.au/australian-slang.html">Australian Slang</a> page.
+                </li>
+                <li>
+                    Any more...?
+                </li>
+            </ul>
 
-      <p>
-        <br/>
-      </p>
-      <p>
-        -Vincent Massol
-      </p>
+            <p>
+                <br/>
+            </p>
+            <p>
+                -Vincent Massol
+            </p>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

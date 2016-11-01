@@ -22,16 +22,16 @@
 -->
 
 <!DOCTYPE navigation
-  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
-  "file:../../../dtds/navigation-v10.dtd">
+        PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+        "file:../../../dtds/navigation-v10.dtd">
 
 <navigation title="Manual" index="integration_manual">
 
-  <menu label="Main Page" id="index"/>
+    <menu label="Main Page" id="index"/>
 
-  <menu label="Manual integration">
-    <item id="howto_config" label="Configuration Guide"/>
-    <item id="howto_classpath" label="Classpath Setup"/>
-  </menu>
+    <menu label="Manual integration">
+        <item id="howto_config" label="Configuration Guide"/>
+        <item id="howto_classpath" label="Classpath Setup"/>
+    </menu>
 
 </navigation>

@@ -20,10 +20,10 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>TestCactusWarEarProperties</artifactId>
-  <name>TestCactusWarEarProperties</name>
-  <shortDescription>Test cactus.war and cactus.ear properties</shortDescription>
-  <description>Test if the cactus.war and cactus.ear are being properly defined and used properties</description>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>TestCactusWarEarProperties</artifactId>
+    <name>TestCactusWarEarProperties</name>
+    <shortDescription>Test cactus.war and cactus.ear properties</shortDescription>
+    <description>Test if the cactus.war and cactus.ear are being properly defined and used properties</description>
 </project>

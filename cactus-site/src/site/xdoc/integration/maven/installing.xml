@@ -17,49 +17,55 @@
 -->
 <document>
 
-  <properties>
-    <title>Installing the Maven Cactus plugin</title>
-    <author email="vmassol@apache.org">Vincent Massol</author>
-  </properties>
+    <properties>
+        <title>Installing the Maven Cactus plugin</title>
+        <author email="vmassol@apache.org">Vincent Massol</author>
+    </properties>
 
-  <body>
-    <section name="Installing the Cactus plugin">
-      <p>
-        There are 2 options to install the Cactus plugin in an existing Maven
-        installation:
-      </p>
-      <ul>
-        <li>
-          <strong>Automatic install</strong>: Call 
-          <code>maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion={version}</code>
-          where <code>{version}</code> is the version to use. Maven will 
-          automatically download the plugin and install it, uninstalling any
-          other version you may already have.
-        </li>
-        <li>
-          <strong>Manual install</strong>: 
-          <a href="http://www.ibiblio.org/maven/cactus/plugins/">Download</a>
-          the Cactus plugin jar and copy it in 
-          <code>{MAVEN_HOME}/plugins</code> where <code>{MAVEN_HOME}</code> is
-          the location where you have installed Maven. Make sure you also
-          remove any previous Cactus plugin from 
-          <code>{MAVEN_HOME}/plugins</code> and delete your 
-          <code>{USER_HOME}/.maven/plugins</code> directory.
-        </li>
-      </ul>
-      <note>
-        It is probable that your version of Maven already includes the Cactus
-        plugin (it was bundled with Maven not long ago). If this is the case
-        and if you want to install the new plugin, you need to remove the 
-        <code>maven-cactus-plugin</code> plugin from
-        <code>{MAVEN_HOME}/plugins</code> and delete your 
-        <code>{USER_HOME}/.maven/plugins</code> directory.
-      </note>
-      <note>
-        Older versions of the Cactus plugin can still be found
-        <a href="http://www.ibiblio.org/maven/maven/plugins/">here</a>.
-      </note>
-    </section>
+    <body>
+        <section name="Installing the Cactus plugin">
+            <p>
+                There are 2 options to install the Cactus plugin in an existing Maven
+                installation:
+            </p>
+            <ul>
+                <li>
+                    <strong>Automatic install</strong>: Call
+                    <code>maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion={version}</code>
+                    where <code>{version}</code> is the version to use. Maven will
+                    automatically download the plugin and install it, uninstalling any
+                    other version you may already have.
+                </li>
+                <li>
+                    <strong>Manual install</strong>:
+                    <a href="http://www.ibiblio.org/maven/cactus/plugins/">Download</a>
+                    the Cactus plugin jar and copy it in
+                    <code>{MAVEN_HOME}/plugins</code>
+                    where <code>{MAVEN_HOME}</code> is
+                    the location where you have installed Maven. Make sure you also
+                    remove any previous Cactus plugin from
+                    <code>{MAVEN_HOME}/plugins</code>
+                    and delete your
+                    <code>{USER_HOME}/.maven/plugins</code>
+                    directory.
+                </li>
+            </ul>
+            <note>
+                It is probable that your version of Maven already includes the Cactus
+                plugin (it was bundled with Maven not long ago). If this is the case
+                and if you want to install the new plugin, you need to remove the
+                <code>maven-cactus-plugin</code>
+                plugin from
+                <code>{MAVEN_HOME}/plugins</code>
+                and delete your
+                <code>{USER_HOME}/.maven/plugins</code>
+                directory.
+            </note>
+            <note>
+                Older versions of the Cactus plugin can still be found
+                <a href="http://www.ibiblio.org/maven/maven/plugins/">here</a>.
+            </note>
+        </section>
 
- </body>
+    </body>
 </document>

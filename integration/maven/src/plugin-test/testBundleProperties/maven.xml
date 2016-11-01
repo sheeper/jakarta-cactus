@@ -19,54 +19,54 @@
  -->
 
 <!-- OBS: this test was copied from the maven-ear-plugin test cases -->
-<project xmlns:j="jelly:core" 
+<project xmlns:j="jelly:core"
          xmlns:assert="assert"
          xmlns:util="jelly:util"
          xmlns:x="jelly:xml"
          default="testPlugin">
 
-  <goal name="testPlugin" prereqs="cactus:cactifyear,test-ear">
-    <attainGoal name="clean"/>
-  </goal>
-  
-  <goal name="test-ear">
+    <goal name="testPlugin" prereqs="cactus:cactifyear,test-ear">
+        <attainGoal name="clean"/>
+    </goal>
 
-    <!-- tests that the ear is generated -->
-    <j:set var="earFile" value="${maven.build.dir}/${pom.artifactId}-cactus.ear"/>
-    <assert:assertFileExists file="${earFile}"/>
-    
-    <!-- unzip the ear and look for the jars -->
-    <j:set var="unzipDir" value= "${maven.build.dir}/eartest"/>
-    <mkdir dir="${unzipDir}"/>
-    <unzip src="${earFile}" dest="${unzipDir}"/>
+    <goal name="test-ear">
 
-    <!-- check for commons-logging -->
-    <j:set var="commonsExpectedPath" value="/APP-INF/lib/commons-logging-1.0.3.jar"/>
-    <assert:assertFileExists file="${unzipDir}${commonsExpectedPath}"
-      msg="commons-logging was not bundled"/>
-    
-    <!-- check that commons-collections has been packaged in the right place-->
-    <assert:assertFileExists file="${unzipDir}/commons-collections-2.1.jar"
-      msg="commons-collections was bundled incorrectly"/>
+        <!-- tests that the ear is generated -->
+        <j:set var="earFile" value="${maven.build.dir}/${pom.artifactId}-cactus.ear"/>
+        <assert:assertFileExists file="${earFile}"/>
 
-    <!-- check that commons-digester has been packaged in the right place-->
-    <assert:assertFileExists file="${unzipDir}/commons-digester.jar"
-      msg="commons-digester was bundled incorrectly"/>
+        <!-- unzip the ear and look for the jars -->
+        <j:set var="unzipDir" value="${maven.build.dir}/eartest"/>
+        <mkdir dir="${unzipDir}"/>
+        <unzip src="${earFile}" dest="${unzipDir}"/>
 
-    <!-- check that log4j has been packaged in the right place-->
-    <assert:assertFileExists file="${unzipDir}/APP-INF/lib/LOG4J.JAR"
-      msg="log4j was bundled incorrectly"/>
+        <!-- check for commons-logging -->
+        <j:set var="commonsExpectedPath" value="/APP-INF/lib/commons-logging-1.0.3.jar"/>
+        <assert:assertFileExists file="${unzipDir}${commonsExpectedPath}"
+                                 msg="commons-logging was not bundled"/>
 
-    <!-- check that the application.xml was generated -->
-    <j:set var="appXml" value="${unzipDir}/META-INF/application.xml"/>
-    <assert:assertFileExists file="${appXml}"
-      msg="application.xml was not generated"/>
+        <!-- check that commons-collections has been packaged in the right place-->
+        <assert:assertFileExists file="${unzipDir}/commons-collections-2.1.jar"
+                                 msg="commons-collections was bundled incorrectly"/>
 
-    <!-- check that commons-logging was set with the right path -->
-    <util:file var="appXmlFile" name="${appXml}"/>
-    <x:parse var="appXmlDoc" xml="${appXmlFile}"/>
-    <x:set var="commonsLogging" select="string($appXmlDoc/application/module/java)"/>
-    <assert:assertEquals expected="${commonsExpectedPath}" value="${commonsLogging}"/>
+        <!-- check that commons-digester has been packaged in the right place-->
+        <assert:assertFileExists file="${unzipDir}/commons-digester.jar"
+                                 msg="commons-digester was bundled incorrectly"/>
 
-  </goal>
+        <!-- check that log4j has been packaged in the right place-->
+        <assert:assertFileExists file="${unzipDir}/APP-INF/lib/LOG4J.JAR"
+                                 msg="log4j was bundled incorrectly"/>
+
+        <!-- check that the application.xml was generated -->
+        <j:set var="appXml" value="${unzipDir}/META-INF/application.xml"/>
+        <assert:assertFileExists file="${appXml}"
+                                 msg="application.xml was not generated"/>
+
+        <!-- check that commons-logging was set with the right path -->
+        <util:file var="appXmlFile" name="${appXml}"/>
+        <x:parse var="appXmlDoc" xml="${appXmlFile}"/>
+        <x:set var="commonsLogging" select="string($appXmlDoc/application/module/java)"/>
+        <assert:assertEquals expected="${commonsExpectedPath}" value="${commonsLogging}"/>
+
+    </goal>
 </project>

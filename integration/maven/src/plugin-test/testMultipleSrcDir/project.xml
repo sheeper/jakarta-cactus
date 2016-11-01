@@ -20,18 +20,18 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>testMultipleSrcDir</artifactId>
-  <name>testMultipleSrcDir</name>
-  <shortDescription>Testcase for tests that are split in multiple directories</shortDescription>
-  <description>Testcase for tests that are split in multiple directories</description>
-  <build>
-    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <unitTest>
-      <includes>
-        <include>**/*Test.java</include>
-      </includes>
-    </unitTest>
-  </build>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>testMultipleSrcDir</artifactId>
+    <name>testMultipleSrcDir</name>
+    <shortDescription>Testcase for tests that are split in multiple directories</shortDescription>
+    <description>Testcase for tests that are split in multiple directories</description>
+    <build>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+        </unitTest>
+    </build>
 </project>

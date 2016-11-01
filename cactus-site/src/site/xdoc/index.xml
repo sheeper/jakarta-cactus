@@ -23,131 +23,160 @@
 
 <document id="index">
 
-  <properties>
-	<title>Jakarta Cactus</title>
-  </properties>
-<head>
-	<LINK REL="SHORTCUT ICON" HREF="favicon.ico"/>
-</head>
-  <body>
+    <properties>
+        <title>Jakarta Cactus</title>
+    </properties>
+    <head>
+        <LINK REL="SHORTCUT ICON" HREF="favicon.ico"/>
+    </head>
+    <body>
 
-    <section name="Project Description">
-      <p>
-        Cactus is a simple test framework for unit testing server-side java
-        code (Servlets, EJBs, Tag Libs, Filters, ...).
-      </p>
-      <p>
-        The intent of Cactus is to lower the cost of writing tests for
-        server-side code. It uses <a href="http://junit.org/">JUnit</a> and 
-        extends it.
-      </p>
-      <p>
-        Cactus implements an in-container strategy, meaning that tests are
-        executed inside the container.
-      </p>
-      <p class="image">
-      <center>
-      <img src="images/ecosystem.jpg" alt="The Cactus Ecosystem"
-	   usemap="#ecosystem" style="float: center; margin-right: 1em;">
-<map name="ecosystem">
-<!-- #$-:Image map file created by GIMP Image Map plug-in -->
-<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
-<!-- #$-:Please do not edit lines starting with "#$" -->
-<!-- #$VERSION:2.3 -->
-<!-- #$AUTHOR:tahchiev -->
-<area shape="poly" coords="58,91,39,103,38,127,72,146,104,132,106,103,80,87,82,88,71,87" alt="EJB Sample" href="howto_sample.html"/>
-<area shape="poly" coords="46,148,23,157,17,173,26,193,55,203,81,192,90,174,80,154,58,148" alt="Servlet Sample" href="howto_sample.html" />
-<area shape="poly" coords="47,211,35,229,40,250,61,257,88,259,104,242,107,222,88,206,69,204,50,208" alt="Jetty Sample" href="howto_sample.html" />
-<area shape="poly" coords="124,146,103,159,96,166,98,181,108,198,129,201,149,199,168,184,164,162,158,151,146,147,130,146,128,146" alt="Ant Integration" href="integration/integration_ant.html" />
-<area shape="poly" coords="153,205,142,214,132,225,137,244,146,256,171,259,189,252,203,242,206,222,192,208,181,204,165,203" alt="Manual Configuration" href="integration/manual/howto_config.html" />
-<area shape="poly" coords="227,208,216,223,218,239,237,256,259,257,285,244,289,224,281,209,267,205,252,201,240,203" alt="Browser Integration" href="integration/integration_browser.html" />
-<area shape="poly" coords="253,171,259,187,272,200,286,202,299,202,321,192,328,176,316,152,300,148,284,147,270,153,258,160,257,162,257,160" alt="Jetty Integration" href="integration/integration_jetty.html" />
-<area shape="poly" coords="225,99,217,110,217,126,227,140,240,146,250,147,260,145,282,136,287,123,288,109,280,100,266,90,248,91,234,92" alt="Maven Plugin" href="integration/maven/index.html" />
-<area shape="poly" coords="136,103,136,127,149,140,171,146,187,142,202,132,206,123,206,111,198,103,192,94,178,90,166,89,151,94" alt="Eclipse Plugin" href="integration/eclipse/index.html" />
-<area shape="poly" coords="203,139,187,146,177,153,169,163,169,178,174,195,186,203,205,207,221,207,244,197,253,181,253,163,244,152,235,145,221,139,210,141,198,141" alt="Cactus Framework" href="index.html" />
-<area shape="poly" coords="307,74,296,91,298,99,304,109,311,117,320,122,330,124,341,122,350,118,363,112,369,102,369,92,367,79,356,71,351,69,341,69,334,67,326,68,315,70" alt="Jenerator" href="http://www.visioncodified.com/" />
-<area shape="poly" coords="336,127,328,144,329,154,334,164,341,168,351,173,356,176,367,176,373,176,381,176,387,163,396,167,401,159,401,147,395,132,391,125,383,121,374,122,365,122,357,124,351,124,345,124" alt="StrutsTestCase" href="http://strutstestcase.sourceforge.net/" />
-<area shape="poly" coords="336,185,329,197,329,208,333,221,339,225,345,230,362,235,373,235,381,235,389,226,392,222,396,216,400,210,401,203,401,196,394,186,386,182,380,178,376,178,366,178,358,180,354,182,346,182,340,184,333,188" alt="JUnitEE Runner" href="http://www.junitee.org/" />
-<area shape="poly" coords="299,242,291,248,291,259,291,270,301,281,315,285,331,289,346,289,358,273,363,263,363,252,357,243,353,235,343,231,332,227,319,229,310,233,304,237,296,241" alt="JSFUnit" href="http://labs.jboss.com/jsfunit/" />
-</map>
-      </img>
-      </center>
-	</p>
-      <p>
-        The Cactus Ecosystem is made of several components:
-      </p>
-      <ul>
-        <li>
-          The Cactus Framework: This is the heart of Cactus. It is the engine
-          that provides the API to write Cactus tests.
-        </li>
-        <li>
-          The Cactus Integration Modules: They are front ends and frameworks 
-          that provide easy ways of using the Cactus Framework (Ant scripts,
-          Eclipse plugin, Maven plugin, ...).
-        </li>
-        <li>
-          The Cactus Samples: They are simple projects that demonstrate how
-          to write Cactus tests and how to use some of the Integration Modules.
-        </li>
-      </ul>
-    </section>
+        <section name="Project Description">
+            <p>
+                Cactus is a simple test framework for unit testing server-side java
+                code (Servlets, EJBs, Tag Libs, Filters, ...).
+            </p>
+            <p>
+                The intent of Cactus is to lower the cost of writing tests for
+                server-side code. It uses <a href="http://junit.org/">JUnit</a> and
+                extends it.
+            </p>
+            <p>
+                Cactus implements an in-container strategy, meaning that tests are
+                executed inside the container.
+            </p>
+            <p class="image">
+                <center>
+                    <img src="images/ecosystem.jpg" alt="The Cactus Ecosystem"
+                         usemap="#ecosystem" style="float: center; margin-right: 1em;">
+                        <map name="ecosystem">
+                            <!-- #$-:Image map file created by GIMP Image Map plug-in -->
+                            <!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+                            <!-- #$-:Please do not edit lines starting with "#$" -->
+                            <!-- #$VERSION:2.3 -->
+                            <!-- #$AUTHOR:tahchiev -->
+                            <area shape="poly" coords="58,91,39,103,38,127,72,146,104,132,106,103,80,87,82,88,71,87"
+                                  alt="EJB Sample" href="howto_sample.html"/>
+                            <area shape="poly" coords="46,148,23,157,17,173,26,193,55,203,81,192,90,174,80,154,58,148"
+                                  alt="Servlet Sample" href="howto_sample.html"/>
+                            <area shape="poly"
+                                  coords="47,211,35,229,40,250,61,257,88,259,104,242,107,222,88,206,69,204,50,208"
+                                  alt="Jetty Sample" href="howto_sample.html"/>
+                            <area shape="poly"
+                                  coords="124,146,103,159,96,166,98,181,108,198,129,201,149,199,168,184,164,162,158,151,146,147,130,146,128,146"
+                                  alt="Ant Integration" href="integration/integration_ant.html"/>
+                            <area shape="poly"
+                                  coords="153,205,142,214,132,225,137,244,146,256,171,259,189,252,203,242,206,222,192,208,181,204,165,203"
+                                  alt="Manual Configuration" href="integration/manual/howto_config.html"/>
+                            <area shape="poly"
+                                  coords="227,208,216,223,218,239,237,256,259,257,285,244,289,224,281,209,267,205,252,201,240,203"
+                                  alt="Browser Integration" href="integration/integration_browser.html"/>
+                            <area shape="poly"
+                                  coords="253,171,259,187,272,200,286,202,299,202,321,192,328,176,316,152,300,148,284,147,270,153,258,160,257,162,257,160"
+                                  alt="Jetty Integration" href="integration/integration_jetty.html"/>
+                            <area shape="poly"
+                                  coords="225,99,217,110,217,126,227,140,240,146,250,147,260,145,282,136,287,123,288,109,280,100,266,90,248,91,234,92"
+                                  alt="Maven Plugin" href="integration/maven/index.html"/>
+                            <area shape="poly"
+                                  coords="136,103,136,127,149,140,171,146,187,142,202,132,206,123,206,111,198,103,192,94,178,90,166,89,151,94"
+                                  alt="Eclipse Plugin" href="integration/eclipse/index.html"/>
+                            <area shape="poly"
+                                  coords="203,139,187,146,177,153,169,163,169,178,174,195,186,203,205,207,221,207,244,197,253,181,253,163,244,152,235,145,221,139,210,141,198,141"
+                                  alt="Cactus Framework" href="index.html"/>
+                            <area shape="poly"
+                                  coords="307,74,296,91,298,99,304,109,311,117,320,122,330,124,341,122,350,118,363,112,369,102,369,92,367,79,356,71,351,69,341,69,334,67,326,68,315,70"
+                                  alt="Jenerator" href="http://www.visioncodified.com/"/>
+                            <area shape="poly"
+                                  coords="336,127,328,144,329,154,334,164,341,168,351,173,356,176,367,176,373,176,381,176,387,163,396,167,401,159,401,147,395,132,391,125,383,121,374,122,365,122,357,124,351,124,345,124"
+                                  alt="StrutsTestCase" href="http://strutstestcase.sourceforge.net/"/>
+                            <area shape="poly"
+                                  coords="336,185,329,197,329,208,333,221,339,225,345,230,362,235,373,235,381,235,389,226,392,222,396,216,400,210,401,203,401,196,394,186,386,182,380,178,376,178,366,178,358,180,354,182,346,182,340,184,333,188"
+                                  alt="JUnitEE Runner" href="http://www.junitee.org/"/>
+                            <area shape="poly"
+                                  coords="299,242,291,248,291,259,291,270,301,281,315,285,331,289,346,289,358,273,363,263,363,252,357,243,353,235,343,231,332,227,319,229,310,233,304,237,296,241"
+                                  alt="JSFUnit" href="http://labs.jboss.com/jsfunit/"/>
+                        </map>
+                    </img>
+                </center>
+            </p>
+            <p>
+                The Cactus Ecosystem is made of several components:
+            </p>
+            <ul>
+                <li>
+                    The Cactus Framework: This is the heart of Cactus. It is the engine
+                    that provides the API to write Cactus tests.
+                </li>
+                <li>
+                    The Cactus Integration Modules: They are front ends and frameworks
+                    that provide easy ways of using the Cactus Framework (Ant scripts,
+                    Eclipse plugin, Maven plugin, ...).
+                </li>
+                <li>
+                    The Cactus Samples: They are simple projects that demonstrate how
+                    to write Cactus tests and how to use some of the Integration Modules.
+                </li>
+            </ul>
+        </section>
 
-    <anchor id="unittest_types"/>
-    <section name="Different kinds of unit tests" id="unittest_types">
+        <anchor id="unittest_types"/>
+        <section name="Different kinds of unit tests" id="unittest_types">
 
-      <p>
-        There are several kinds of unit testing frameworks. We categorize them
-        in 3 types:
-      </p>
-      <ol>
-        <li>
-          <strong>Type 1: code logic unit testing</strong>. Probably the
-          best strategy for these tests is to use a
-	  <a href="http://www.mockobjects.com/">Mock Objects</a> type
-          framework.
-        </li>
-        <li>
-          <strong>Type 2: integration unit testing</strong>. Cactus is
-          typically in this category (we'll let you judge if it is the best or
-          not :)). These tests will exercise the interactions with the
-          container.
-        </li>
-        <li>
-          <strong>Type 3: functional unit testing</strong>. These unit tests
-          will let you test the returned values from your server code. This is
-          for example
-	  <a href="http://httpunit.sourceforge.net/">HttpUnit</a> (Note that HttpUnit also 
-          performs standard functional testing - as opposed to functional unit 
-          testing -, which let you test full use cases - a login use case for 
-          example, which is comprised of several requests/responses).
-        </li>
-      </ol>
-      <p>
-        Ideally you would use 3 different frameworks just to unit test your
-        code ! Then you have to think about acceptance testing, system
-        integration testing, ...
-      </p>
-      <p>
-        Cactus was developed to fit Type 2 but also to be a very good
-        compromise for types 1 and 3, with the idea that it is much easier to
-        have to write tests for a single framework than for several ! Moreover,
-        you can never fully test your code. We believe Cactus provides a middle
-        ground that provides a high confidence that your code will run when
-        deployed. However, it is your choice and you can use Cactus only for
-        type 2 if you wish.
-      </p>
+            <p>
+                There are several kinds of unit testing frameworks. We categorize them
+                in 3 types:
+            </p>
+            <ol>
+                <li>
+                    <strong>Type 1: code logic unit testing</strong>. Probably the
+                    best strategy for these tests is to use a
+                    <a href="http://www.mockobjects.com/">Mock Objects</a>
+                    type
+                    framework.
+                </li>
+                <li>
+                    <strong>Type 2: integration unit testing</strong>. Cactus is
+                    typically in this category (we'll let you judge if it is the best or
+                    not :)). These tests will exercise the interactions with the
+                    container.
+                </li>
+                <li>
+                    <strong>Type 3: functional unit testing</strong>. These unit tests
+                    will let you test the returned values from your server code. This is
+                    for example
+                    <a href="http://httpunit.sourceforge.net/">HttpUnit</a>
+                    (Note that HttpUnit also
+                    performs standard functional testing - as opposed to functional unit
+                    testing -, which let you test full use cases - a login use case for
+                    example, which is comprised of several requests/responses).
+                </li>
+            </ol>
+            <p>
+                Ideally you would use 3 different frameworks just to unit test your
+                code ! Then you have to think about acceptance testing, system
+                integration testing, ...
+            </p>
+            <p>
+                Cactus was developed to fit Type 2 but also to be a very good
+                compromise for types 1 and 3, with the idea that it is much easier to
+                have to write tests for a single framework than for several ! Moreover,
+                you can never fully test your code. We believe Cactus provides a middle
+                ground that provides a high confidence that your code will run when
+                deployed. However, it is your choice and you can use Cactus only for
+                type 2 if you wish.
+            </p>
 
-    </section>
+        </section>
 
-    <section name="Getting Started">
+        <section name="Getting Started">
 
-      <p>
-        To get started, read the
-	<a href="getting_started.html">Getting Started</a> guide.
-      </p>
+            <p>
+                To get started, read the
+                <a href="getting_started.html">Getting Started</a>
+                guide.
+            </p>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

@@ -17,40 +17,40 @@
  * limitations under the License.
  */
  -->
-<project 
-         xmlns:assert="assert"
-         xmlns:j="jelly:core"
-         default="testPlugin">
-        
-  <goal name="testPlugin" prereqs="clean,testEar,testWar"> 
-    <attainGoal name="clean"/>
-  </goal>
+<project
+        xmlns:assert="assert"
+        xmlns:j="jelly:core"
+        default="testPlugin">
 
-  <goal name="preTest">
-    <attainGoal name="clean"/>
-    <mkdir dir="${maven.build.dir}"/>
-    <attainGoal name="test"/>
-    <assert:assertFileExists file="${maven.build.dir}/tmpFile.txt"/>
-  </goal>
-  
-  <goal name="testEar">
-    <attainGoal name="preTest"/>
-    <j:set var="cactus.is.ear" value="true"/>
-    <attainGoal name="cactus:test"/>
-  </goal>
+    <goal name="testPlugin" prereqs="clean,testEar,testWar">
+        <attainGoal name="clean"/>
+    </goal>
 
-  <goal name="testWar">
-    <attainGoal name="preTest"/>
-    <j:set var="cactus.is.ear" value="false"/>
-    <attainGoal name="cactus:test"/>
-  </goal>
-  
-  <goal name="cactus:test-ear">
-    <fail>catus:test-ear should have been skipped</fail>
-  </goal>
-  
-  <goal name="cactus:test-war">
-    <fail>catus:test-war should have been skipped</fail>
-  </goal>
+    <goal name="preTest">
+        <attainGoal name="clean"/>
+        <mkdir dir="${maven.build.dir}"/>
+        <attainGoal name="test"/>
+        <assert:assertFileExists file="${maven.build.dir}/tmpFile.txt"/>
+    </goal>
+
+    <goal name="testEar">
+        <attainGoal name="preTest"/>
+        <j:set var="cactus.is.ear" value="true"/>
+        <attainGoal name="cactus:test"/>
+    </goal>
+
+    <goal name="testWar">
+        <attainGoal name="preTest"/>
+        <j:set var="cactus.is.ear" value="false"/>
+        <attainGoal name="cactus:test"/>
+    </goal>
+
+    <goal name="cactus:test-ear">
+        <fail>catus:test-ear should have been skipped</fail>
+    </goal>
+
+    <goal name="cactus:test-war">
+        <fail>catus:test-war should have been skipped</fail>
+    </goal>
 
 </project>
