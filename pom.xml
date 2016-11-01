@@ -547,7 +547,11 @@
                         <exclude>ANNOUNCEMENT.txt</exclude>
                         <!-- Eclipse files -->
                         <exclude>**/.*</exclude>
-                        <exclude>**/eclipse-classes/**/*</exclude>
+                        <!-- IDEA files -->
+                        <exclude>.idea/**</exclude>
+                        <exclude>**/*.iml</exclude>
+                        <!-- git directory -->
+                        <exclude>.git/**</exclude>
                         <!-- Probably cannot have a header -->
                         <exclude>cactus-site/src/site/xdoc/original/Sequence.dfSequence</exclude>
                         <!-- short files -->
