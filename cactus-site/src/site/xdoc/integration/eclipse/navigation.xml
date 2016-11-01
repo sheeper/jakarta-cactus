@@ -22,24 +22,24 @@
 -->
 
 <!DOCTYPE navigation
-  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
-  "file:../../../dtds/navigation-v10.dtd">
+        PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+        "file:../../../dtds/navigation-v10.dtd">
 
 <navigation title="Eclipse" index="integration_eclipse">
 
-  <menu label="Main Page" id="index"/>
+    <menu label="Main Page" id="index"/>
 
-  <menu label="Eclipse Integration">
-    <item id="integration_eclipse" label="Overview"/>
-  </menu>
+    <menu label="Eclipse Integration">
+        <item id="integration_eclipse" label="Overview"/>
+    </menu>
 
-  <menu label="Eclipse Plugins">
-    <item id="integration_eclipse_runner" label="Cactus Runner Plugin"/>
-    <item id="integration_eclipse_webapp" label="Web Application Plugin"/>
-  </menu>
+    <menu label="Eclipse Plugins">
+        <item id="integration_eclipse_runner" label="Cactus Runner Plugin"/>
+        <item id="integration_eclipse_webapp" label="Web Application Plugin"/>
+    </menu>
 
-  <menu label="Developers">
-    <item id="integration_eclipse_dev" label="Development environment"/>
-  </menu>
-  
+    <menu label="Developers">
+        <item id="integration_eclipse_dev" label="Development environment"/>
+    </menu>
+
 </navigation>

@@ -20,55 +20,56 @@
  -->
 
 <project>
-  <pomVersion>3</pomVersion>
-  <id>test-cactus-maven-plugin</id>
-  <name>Tests project for Cactus Maven Plugin</name>
-  <description>Tests for Cactus Maven plugin</description>
-  <shortDescription>Tests for Cactus Maven plugin</shortDescription>
-  <groupId>cactus</groupId>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org/</url>
-  </organization>
-  <inceptionYear>2004</inceptionYear>
-  <url>http://jakarta.apache.org/cactus/integration/maven/</url>
-  <siteAddress>cvs.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
-  </repository>
-  <developers>
-    <developer>
-      <name>Vincent Massol</name>
-      <id>vmassol</id>
-      <email>vmassol@pivolis.com</email>
-      <organization>Pivolis</organization>
-    </developer>
-    <developer>
-      <name>Felipe Leme</name>
-      <id>felipeal</id>
-      <email>maven@felipeal.net</email>
-      <organization>Falcon Informatica</organization>
-      <roles>
-         <role>Test cases project creator</role>
-         <role>Jelly developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Petar Tahchiev</name>
-      <id>ptahchiev</id>
-      <email>ptahchiev@apache.org</email>
-      <organization>Hewlett Packard</organization>
-    </developer>
-  </developers>
-  <dependencies>
-   <dependency>
-     <groupId>jline</groupId>
-     <artifactId>jline</artifactId>
-     <version>0.9.93</version>
-   </dependency>
-  </dependencies>
-  <build/>
+    <pomVersion>3</pomVersion>
+    <id>test-cactus-maven-plugin</id>
+    <name>Tests project for Cactus Maven Plugin</name>
+    <description>Tests for Cactus Maven plugin</description>
+    <shortDescription>Tests for Cactus Maven plugin</shortDescription>
+    <groupId>cactus</groupId>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
+    <organization>
+        <name>Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+    </organization>
+    <inceptionYear>2004</inceptionYear>
+    <url>http://jakarta.apache.org/cactus/integration/maven/</url>
+    <siteAddress>cvs.apache.org</siteAddress>
+    <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
+    <repository>
+        <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-cactus/integration/maven/
+        </connection>
+        <url>http://cvs.apache.org/viewcvs/jakarta-cactus/integration/maven/</url>
+    </repository>
+    <developers>
+        <developer>
+            <name>Vincent Massol</name>
+            <id>vmassol</id>
+            <email>vmassol@pivolis.com</email>
+            <organization>Pivolis</organization>
+        </developer>
+        <developer>
+            <name>Felipe Leme</name>
+            <id>felipeal</id>
+            <email>maven@felipeal.net</email>
+            <organization>Falcon Informatica</organization>
+            <roles>
+                <role>Test cases project creator</role>
+                <role>Jelly developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Petar Tahchiev</name>
+            <id>ptahchiev</id>
+            <email>ptahchiev@apache.org</email>
+            <organization>Hewlett Packard</organization>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>0.9.93</version>
+        </dependency>
+    </dependencies>
+    <build/>
 </project>

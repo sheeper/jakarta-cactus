@@ -17,55 +17,59 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.apache.cactus</groupId>
-		<artifactId>cactus.integration</artifactId>
-		<version>1.8.2-SNAPSHOT</version>
-	</parent>
-	<artifactId>cactus.maven1.plugin</artifactId>
-	<name>Cactus Maven 1 Plugin</name>
-  <packaging>maven-one-plugin</packaging>
-	<dependencies>
-		<!-- Note: Dependencies below are needed by the Cactus scanner tag -->
-		<dependency>
-			<groupId>ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>1.6.5</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-jelly</groupId>
-			<artifactId>commons-jelly</artifactId>
-			<version>20030902.160215</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-jelly</groupId>
-			<artifactId>commons-jelly-tags-ant</artifactId>
-			<version>20030625.032346</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.7.0</version>
-		</dependency>
-		
-		<!-- VMA: I don't know why but this dependency is required for some
-		     persons -->
-		<dependency>
-			<groupId>commons-jelly</groupId>
-			<artifactId>commons-jelly-tags-xml</artifactId>
-			<version>20030211.142705</version>
-		</dependency>
-	</dependencies>
-	  <build>
-	    <plugins>
-	      <plugin>
-	        <artifactId>maven-one-plugin</artifactId>
-	        <extensions>true</extensions>
-	      </plugin>
-	    </plugins>
-	  </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus.integration</artifactId>
+        <version>1.8.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cactus.maven1.plugin</artifactId>
+    <packaging>maven-one-plugin</packaging>
+
+    <name>Cactus Maven 1 Plugin</name>
+
+    <dependencies>
+        <!-- Note: Dependencies below are needed by the Cactus scanner tag -->
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly</artifactId>
+            <version>20030902.160215</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-ant</artifactId>
+            <version>20030625.032346</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
+        <!-- VMA: I don't know why but this dependency is required for some persons -->
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-xml</artifactId>
+            <version>20030211.142705</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-one-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 
 

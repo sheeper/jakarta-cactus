@@ -23,17 +23,17 @@
 
 <document id="how_it_works_uml">
 
-  <properties>
-    <title>Cactus UML Sequence Diagram</title>
-  </properties>
+    <properties>
+        <title>Cactus UML Sequence Diagram</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="UML Sequence Diagram">
+        <section name="UML Sequence Diagram">
 
-      <img src="images/sequence.jpg" alt="UML Sequence Diagram"/>
+            <img src="images/sequence.jpg" alt="UML Sequence Diagram"/>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

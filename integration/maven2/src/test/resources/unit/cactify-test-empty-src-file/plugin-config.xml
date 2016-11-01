@@ -18,17 +18,17 @@ under the License.
 -->
 
 <project>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.cactus</groupId>
-        <artifactId>cactus.integration.maven2</artifactId>
-		<configuration>
-		   <project implementation="org.apache.cactus.integration.maven2.test.CactifyMavenProjectStub" />
-		         
-		   <srcFile>target/test-classes/unit/cactify-test-empty-src-file/nowebxml.war</srcFile>
-		</configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cactus</groupId>
+                <artifactId>cactus.integration.maven2</artifactId>
+                <configuration>
+                    <project implementation="org.apache.cactus.integration.maven2.test.CactifyMavenProjectStub"/>
+
+                    <srcFile>target/test-classes/unit/cactify-test-empty-src-file/nowebxml.war</srcFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

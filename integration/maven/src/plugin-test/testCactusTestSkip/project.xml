@@ -20,18 +20,18 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>testCactusTestSkip</artifactId>
-  <name>testCactusTestSkip</name>
-  <shortDescription>Testcase for cactus.test.skip property</shortDescription>
-  <description>Testcase for cactus.test.skip property</description>
-  <build>
-    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <unitTest>
-      <includes>
-        <include>**/*Test.java</include>
-      </includes>
-    </unitTest>
-  </build>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>testCactusTestSkip</artifactId>
+    <name>testCactusTestSkip</name>
+    <shortDescription>Testcase for cactus.test.skip property</shortDescription>
+    <description>Testcase for cactus.test.skip property</description>
+    <build>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+        </unitTest>
+    </build>
 </project>

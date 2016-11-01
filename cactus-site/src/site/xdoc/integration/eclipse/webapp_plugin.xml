@@ -23,80 +23,84 @@
 
 <document id="integration_eclipse_webapp">
 
-  <properties>
-    <title>Webapp Eclipse plug-in</title>
-  </properties>
+    <properties>
+        <title>Webapp Eclipse plug-in</title>
+    </properties>
 
-  <body>
-    <section name="Overview">
-      <p>
-        The Webapp 
-	<a href="http://www.eclipse.org/">Eclipse</a>
-        plug-in is intended for war packaging of a web application.
-        It can only be used by another plug-in, i.e. it does not provide any action
-        to users for the moment.
-      </p>
-      <li>
-	      <a href="#features">Features</a>
-      </li>
-      <li>
-        <a href="#installation">Installation</a>
-      </li>
-      <li>
-        <a href="#using">Using</a>
-      </li>
-    </section>
+    <body>
+        <section name="Overview">
+            <p>
+                The Webapp
+                <a href="http://www.eclipse.org/">Eclipse</a>
+                plug-in is intended for war packaging of a web application.
+                It can only be used by another plug-in, i.e. it does not provide any action
+                to users for the moment.
+            </p>
+            <li>
+                <a href="#features">Features</a>
+            </li>
+            <li>
+                <a href="#installation">Installation</a>
+            </li>
+            <li>
+                <a href="#using">Using</a>
+            </li>
+        </section>
 
-    <a name="features" />
-    <section name="Features">
-      <ul>
-        <li>
-          Provides a project property page for web application setup.<br/>
-          <p>
-          <img src="../../images/eclipse/webapp/propertypage.png"
-            alt="Webapp property page"/>
-          </p>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          Generates a war file containg the libraries (Jar files) and the web files
-          selected in the property page.
-        </li>
-      </ul>
-    </section>
+        <a name="features"/>
+        <section name="Features">
+            <ul>
+                <li>
+                    Provides a project property page for web application setup.
+                    <br/>
+                    <p>
+                        <img src="../../images/eclipse/webapp/propertypage.png"
+                             alt="Webapp property page"/>
+                    </p>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    Generates a war file containg the libraries (Jar files) and the web files
+                    selected in the property page.
+                </li>
+            </ul>
+        </section>
 
-    <a name="installation"/>
-    <section name="Installation">
-	    <section name="Requirements">
-        <p>
-          The webapp plugin requires a version of the Eclipse platform later
-          than 2.1 RC2.
-        </p>
-      </section>
-      <section name="Installation">
-        <p>
-          Uncompress the zip file and copy the
-          <code>org.apache.cactus.integration.eclipse_[version]</code> folder to 
-          your Eclipse <code>plugins</code> folder and restart Eclipse.
-        </p>
-      </section>
-      <section name="Configuration">
-        <p>
-          Select a Java project, right click and open its properties. On the page that
-          appears select the Web Application item.
-        </p>
-      </section>
-    </section>
-    
-    <a name="using" />
-    <section name="Using">
-      <p>
-        This plug-in can only be called by another plug-in. See the 
-	<a href="runner_plugin.html">Cactus runner 
-        plug-in</a> for a use case.
-      </p>
-    </section>
+        <a name="installation"/>
+        <section name="Installation">
+            <section name="Requirements">
+                <p>
+                    The webapp plugin requires a version of the Eclipse platform later
+                    than 2.1 RC2.
+                </p>
+            </section>
+            <section name="Installation">
+                <p>
+                    Uncompress the zip file and copy the
+                    <code>org.apache.cactus.integration.eclipse_[version]</code>
+                    folder to
+                    your Eclipse <code>plugins</code> folder and restart Eclipse.
+                </p>
+            </section>
+            <section name="Configuration">
+                <p>
+                    Select a Java project, right click and open its properties. On the page that
+                    appears select the Web Application item.
+                </p>
+            </section>
+        </section>
 
-  </body>
+        <a name="using"/>
+        <section name="Using">
+            <p>
+                This plug-in can only be called by another plug-in. See the
+                <a href="runner_plugin.html">Cactus runner
+                    plug-in
+                </a>
+                for a use case.
+            </p>
+        </section>
+
+    </body>
 </document>

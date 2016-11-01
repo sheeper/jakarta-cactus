@@ -23,70 +23,78 @@
 
 <document id="build_result">
 
-  <properties>
-    <title>Nightly Build Results</title>
-  </properties>
+    <properties>
+        <title>Nightly Build Results</title>
+    </properties>
 
-  <body>
+    <body>
 
-<section name="Nightly Build Results">
+        <section name="Nightly Build Results">
 
-      <p>
-        Every day, the main Cactus build is run, the cactus jars are generated,
-        the full suite of tests is executed and a nightly cactus distribution
-        is packaged. This is possible thanks to
-        <a href="http://gump.apache.org/">GUMP</a>.
-      </p>
-      <p>
-        Please find below the links to the Cactus Nightly Build results:
-      </p>
+            <p>
+                Every day, the main Cactus build is run, the cactus jars are generated,
+                the full suite of tests is executed and a nightly cactus distribution
+                is packaged. This is possible thanks to
+                <a href="http://gump.apache.org/">GUMP</a>.
+            </p>
+            <p>
+                Please find below the links to the Cactus Nightly Build results:
+            </p>
 
-      <ul>
-        <li>
-          <link href="ext:gump_cactus_doc">Cactus Documentation</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_framework_12">Cactus Framework for 
-          J2EE 1.2</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_framework_13">Cactus Framework for 
-          J2EE 1.3</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_integration_ant_12">Cactus Ant 
-          Integration for J2EE 1.2</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_integration_ant_13">Cactus Ant 
-          Integration for J2EE 1.3</link>
-        </li>
-        <li>
-          <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet 
-          Sample for J2EE 1.2 (Servlet API 2.2)</link>
-        </li>
-        <li>
-          <a href="ext:gump_cactus_sample_servlet_13">Cactus Servlet 
-          Sample for J2EE 1.3 (Servlet API 2.3)</a>
-        </li>
-        <li>
-          <a href="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-sample-jetty-13/index.html">Cactus Jetty 
-          Sample for J2EE 1.3 (Servlet API 2.3)</a>
-        </li>
-      </ul>
+            <ul>
+                <li>
+                    <link href="ext:gump_cactus_doc">Cactus Documentation</link>
+                </li>
+                <li>
+                    <link href="ext:gump_cactus_framework_12">Cactus Framework for
+                        J2EE 1.2
+                    </link>
+                </li>
+                <li>
+                    <link href="ext:gump_cactus_framework_13">Cactus Framework for
+                        J2EE 1.3
+                    </link>
+                </li>
+                <li>
+                    <link href="ext:gump_cactus_integration_ant_12">Cactus Ant
+                        Integration for J2EE 1.2
+                    </link>
+                </li>
+                <li>
+                    <link href="ext:gump_cactus_integration_ant_13">Cactus Ant
+                        Integration for J2EE 1.3
+                    </link>
+                </li>
+                <li>
+                    <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet
+                        Sample for J2EE 1.2 (Servlet API 2.2)
+                    </link>
+                </li>
+                <li>
+                    <a href="ext:gump_cactus_sample_servlet_13">Cactus Servlet
+                        Sample for J2EE 1.3 (Servlet API 2.3)
+                    </a>
+                </li>
+                <li>
+                    <a href="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-sample-jetty-13/index.html">
+                        Cactus Jetty
+                        Sample for J2EE 1.3 (Servlet API 2.3)
+                    </a>
+                </li>
+            </ul>
 
-      <note>
-        All Gump results are available
-        <a href="http://lsd.student.utwente.nl/gump/projects.html">here</a>.
-      </note>
+            <note>
+                All Gump results are available
+                <a href="http://lsd.student.utwente.nl/gump/projects.html">here</a>.
+            </note>
 
-      <p>
-        If the nightly build is successful, Gump posts the packaged Cactus
-        distributable in the Cactus nightly
-        <a href="../downloads.html">download area</a>.
-      </p>
+            <p>
+                If the nightly build is successful, Gump posts the packaged Cactus
+                distributable in the Cactus nightly
+                <a href="../downloads.html">download area</a>.
+            </p>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

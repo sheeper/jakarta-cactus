@@ -17,48 +17,56 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.apache.cactus</groupId>
-		<artifactId>cactus.integration</artifactId>
-		<version>1.8.2-SNAPSHOT</version>
-	</parent>
-	<artifactId>cactus.integration.eclipse</artifactId>
-	<name>Cactus Eclipse Integration</name>
-	<packaging>pom</packaging>
-	<repositories>
-		<repository>
-			<id>maven.eclipse.plugin.repository</id>
-			<name>Maven-Eclipse</name>
-			<url>http://repo1.maven.org/eclipse/</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven.eclipse.plugin.repository</id>
-			<name>Maven-Eclipse</name>
-			<url>http://repo1.maven.org/eclipse/</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-  <modules>
-		<module>org.apache.cactus.eclipse.webapp</module>
-		<module>org.apache.cactus.eclipse.runner</module>
-	</modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus.integration</artifactId>
+        <version>1.8.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cactus.integration.eclipse</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Cactus Eclipse Integration</name>
+
+    <modules>
+        <module>org.apache.cactus.eclipse.webapp</module>
+        <module>org.apache.cactus.eclipse.runner</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>maven.eclipse.plugin.repository</id>
+            <name>Maven-Eclipse</name>
+            <url>http://repo1.maven.org/eclipse/</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven.eclipse.plugin.repository</id>
+            <name>Maven-Eclipse</name>
+            <url>http://repo1.maven.org/eclipse/</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
 </project>
 
  

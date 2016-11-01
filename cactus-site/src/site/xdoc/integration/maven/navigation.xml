@@ -17,20 +17,20 @@
 -->
 <project name="Maven Cactus plugin">
 
-  <title>Maven Cactus plugin</title>
+    <title>Maven Cactus plugin</title>
 
-  <body>
-    <links>
-      <item name="Maven" href="http://maven.apache.org/"/>
-      <item name="Cactus" href="http://jakarta.apache.org/cactus/"/>
-    </links>
-    <menu name="Overview">
-      <item name="Features" href="/features.html"/>
-      <item name="Installing" href="/installing.html"/>
-      <item name="Using" href="/using.html"/>
-      <item name="Goals" href="/goals.html"/>
-      <item name="Properties" href="/properties.html"/>
-      <item name="Changes" href="http://tinyurl.com/dl9ej"/>
-    </menu>
-  </body>
+    <body>
+        <links>
+            <item name="Maven" href="http://maven.apache.org/"/>
+            <item name="Cactus" href="http://jakarta.apache.org/cactus/"/>
+        </links>
+        <menu name="Overview">
+            <item name="Features" href="/features.html"/>
+            <item name="Installing" href="/installing.html"/>
+            <item name="Using" href="/using.html"/>
+            <item name="Goals" href="/goals.html"/>
+            <item name="Properties" href="/properties.html"/>
+            <item name="Changes" href="http://tinyurl.com/dl9ej"/>
+        </menu>
+    </body>
 </project>

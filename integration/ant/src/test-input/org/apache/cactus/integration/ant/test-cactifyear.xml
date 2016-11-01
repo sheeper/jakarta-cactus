@@ -15,35 +15,35 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-   
+
 <project name="test-cactifyear" basedir="." default="help">
 
-  <property name="work.dir" location="${basedir}/target/work"/>
-  <property name="src.dir" location="${basedir}/src/test-input/org/apache/cactus/integration/ant/"/>
-  <target name="setUp">
-    <mkdir dir="${work.dir}"/>
-  </target>
+    <property name="work.dir" location="${basedir}/target/work"/>
+    <property name="src.dir" location="${basedir}/src/test-input/org/apache/cactus/integration/ant/"/>
+    <target name="setUp">
+        <mkdir dir="${work.dir}"/>
+    </target>
 
-  <target name="testCanAddCactifiedWar">
-    <cactifyear srcfile="${src.dir}/empty.ear" destfile="${work.dir}/cactified.ear"/>
-  </target>
+    <target name="testCanAddCactifiedWar">
+        <cactifyear srcfile="${src.dir}/empty.ear" destfile="${work.dir}/cactified.ear"/>
+    </target>
 
-  <target name="testCustomCactusWarContext">
-    <cactifyear srcfile="${src.dir}/empty.ear" destfile="${work.dir}/cactified.ear">
-        <cactuswar context="/myTestFramework" version="2.3"/>
-    </cactifyear>
-  </target>
+    <target name="testCustomCactusWarContext">
+        <cactifyear srcfile="${src.dir}/empty.ear" destfile="${work.dir}/cactified.ear">
+            <cactuswar context="/myTestFramework" version="2.3"/>
+        </cactifyear>
+    </target>
 
-  <target name="testAddEjbReferences">
-    <cactifyear srcfile="${src.dir}/weblogic.ear" 
-                destfile="${work.dir}/cactified.ear"
-                addEjbReferences="yes">
-        <cactuswar srcfile="${src.dir}/weblogic.war"/>
-    </cactifyear>
-  </target>
-  
-  <target name="tearDown">
-    <delete dir="${work.dir}"/>
-  </target>
-    
+    <target name="testAddEjbReferences">
+        <cactifyear srcfile="${src.dir}/weblogic.ear"
+                    destfile="${work.dir}/cactified.ear"
+                    addEjbReferences="yes">
+            <cactuswar srcfile="${src.dir}/weblogic.war"/>
+        </cactifyear>
+    </target>
+
+    <target name="tearDown">
+        <delete dir="${work.dir}"/>
+    </target>
+
 </project>

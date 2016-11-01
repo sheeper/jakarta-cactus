@@ -1,11 +1,12 @@
 Building the project
 ====================
 
-Cactus uses Maven 2 as the build mechanism.
+Cactus uses Maven 3 as the build mechanism.
 
 Requirements:
-- Java 1.4 or later
-- Maven 2.0.? or later
+(as of Travis CI we are not able to build against older versions)
+- Java 1.6 or later
+- Maven 3.2.x
 
 Creating the jars
 =================

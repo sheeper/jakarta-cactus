@@ -20,10 +20,10 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>testSimpleWarNoWebXml</artifactId>
-  <name>testSimpleWar</name>
-  <shortDescription>Simple project</shortDescription>
-  <description>Creates a simple cactus-war without web.xml and test it</description>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>testSimpleWarNoWebXml</artifactId>
+    <name>testSimpleWar</name>
+    <shortDescription>Simple project</shortDescription>
+    <description>Creates a simple cactus-war without web.xml and test it</description>
 </project>

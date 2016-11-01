@@ -20,10 +20,11 @@
 
 
 <project>
-  <pomVersion>3</pomVersion>
-  <extend>../project.xml</extend>
-  <artifactId>testCustomWarName</artifactId>
-  <name>testCustomWarName</name>
-  <shortDescription>Simple project with different war name</shortDescription>
-  <description>Creates a simple cactus-war and tests it, but uses a custom war name (defined by maven.war.final.name</description>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <artifactId>testCustomWarName</artifactId>
+    <name>testCustomWarName</name>
+    <shortDescription>Simple project with different war name</shortDescription>
+    <description>Creates a simple cactus-war and tests it, but uses a custom war name (defined by maven.war.final.name
+    </description>
 </project>

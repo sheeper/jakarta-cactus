@@ -23,143 +23,153 @@
 
 <document id="participating">
 
-  <properties>
-    <title>Participating</title>
-  </properties>
+    <properties>
+        <title>Participating</title>
+    </properties>
 
-  <body>
+    <body>
 
-<section name="Introduction">
+        <section name="Introduction">
 
-    <p>
-	    The Cactus Project is an <a href="http://www.opensource.org/">Open Source</a>
-      volunteer project under the auspices of the
-      <a href="http://www.apache.org/">Apache Software Foundation (ASF)</a>,
-      and, in harmony with the Apache webserver itself, it is released under
-      a very open license.
-      This means there are many ways to contribute to the project
-      (coding, documenting, answering questions,
-      proposing ideas, reporting bugs, suggesting bug-fixes, etc..).
-    </p>
-    <p>
-      To begin with, we suggest you to subscribe to the 
-      <a href="../mail-lists.html">Cactus mailing list</a>.
-    </p>
-    <p>
-	    Then you can download the <a href="../downloads.html">latest Cactus
-      release</a> or checkout the latest code from
-<a href="http://svn.apache.org/repos/asf/jakarta/cactus/trunk/">SVN</a>.
-    </p>
-    <p>
-	    Last, you can check the <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">todo list</a> and 
-      jump in.
-    </p>
+            <p>
+                The Cactus Project is an
+                <a href="http://www.opensource.org/">Open Source</a>
+                volunteer project under the auspices of the
+                <a href="http://www.apache.org/">Apache Software Foundation (ASF)</a>,
+                and, in harmony with the Apache webserver itself, it is released under
+                a very open license.
+                This means there are many ways to contribute to the project
+                (coding, documenting, answering questions,
+                proposing ideas, reporting bugs, suggesting bug-fixes, etc..).
+            </p>
+            <p>
+                To begin with, we suggest you to subscribe to the
+                <a href="../mail-lists.html">Cactus mailing list</a>.
+            </p>
+            <p>
+                Then you can download the <a href="../downloads.html">latest Cactus
+                release
+            </a> or checkout the latest code from
+                <a href="http://svn.apache.org/repos/asf/jakarta/cactus/trunk/">SVN</a>.
+            </p>
+            <p>
+                Last, you can check the <a
+                    href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">
+                todo list
+            </a> and
+                jump in.
+            </p>
 
-  </section>
+        </section>
 
-  <section name="Help Wanted Here">
+        <section name="Help Wanted Here">
 
-    <p>
-      The rest of this document is mainly about
-      contributing new or improved code and/or documentation, but we would also
-      be glad to have extra help in any of the following areas:
-    </p>
-    <ul>
-      <li>
-        Answering questions on the 
-		<a href="../mail-lists.html">Cactus mailing list</a>;
-        there is often a problem of having too many questioners and not enough
-        experts to respond to all the questions.
-      </li>
-      <li>
-        Testing Cactus (especially its less-frequently-used features) on
-        various configurations and reporting back.
-      </li>
-      <li>
-        Debugging - producing reproducable test cases and/or finding causes of
-        bugs (bugs can be found in the
-	<a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">bug database</a>).
-      </li>
-      <li>
-        Specifying/analysing/designing new features for Cactus (If you wish to
-	get involved with this, please join the <a href="../mail-lists.html">
-        Cactus mailing list</a>,
-        install and try out Cactus and read some of the mailing list archives.
-        In addition, please have a look at the 
-	<a href="../goals.html">Goals</a> page which gives a vision of 
-        where Cactus is heading and provide some high level todos.
-      </li>
-      <li>
-        Providing automated Ant scripts for new servlet engines/application
-        servers. The list of supported servers can found in the
-	<a href="../features.html">features</a> list.
-      </li>
-      <li>
-        ... and there is just one other thing - don't forget to tell everyone
-        who asks how great Cactus is! ;-)
-        The more people that know about and start to use Cactus, the larger the
-        pool of potential contributors there will be.
-      </li>
-    </ul>
- 
-    <p>
-      Thank you very much.
-    </p>
+            <p>
+                The rest of this document is mainly about
+                contributing new or improved code and/or documentation, but we would also
+                be glad to have extra help in any of the following areas:
+            </p>
+            <ul>
+                <li>
+                    Answering questions on the
+                    <a href="../mail-lists.html">Cactus mailing list</a>;
+                    there is often a problem of having too many questioners and not enough
+                    experts to respond to all the questions.
+                </li>
+                <li>
+                    Testing Cactus (especially its less-frequently-used features) on
+                    various configurations and reporting back.
+                </li>
+                <li>
+                    Debugging - producing reproducable test cases and/or finding causes of
+                    bugs (bugs can be found in the
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">bug database</a>).
+                </li>
+                <li>
+                    Specifying/analysing/designing new features for Cactus (If you wish to
+                    get involved with this, please join the <a href="../mail-lists.html">
+                    Cactus mailing list</a>,
+                    install and try out Cactus and read some of the mailing list archives.
+                    In addition, please have a look at the
+                    <a href="../goals.html">Goals</a>
+                    page which gives a vision of
+                    where Cactus is heading and provide some high level todos.
+                </li>
+                <li>
+                    Providing automated Ant scripts for new servlet engines/application
+                    servers. The list of supported servers can found in the
+                    <a href="../features.html">features</a>
+                    list.
+                </li>
+                <li>
+                    ... and there is just one other thing - don't forget to tell everyone
+                    who asks how great Cactus is! ;-)
+                    The more people that know about and start to use Cactus, the larger the
+                    pool of potential contributors there will be.
+                </li>
+            </ul>
 
-  </section>
+            <p>
+                Thank you very much.
+            </p>
 
-  <section name="Contributions of Code and Documentation">
-  
-    <p>
-      We are starting to use an informal system for accepting contributions to
-      Cactus. The process varies depending on whether the contribution is a
-      modification (i.e. patch) or a fairly standalone item, and whether you 
-      have commit access (committers have been granted access by a vote of 
-      confidence, so they are assumed to be trustworthy enough
-      to make changes directly in SVN. If you submit many good patches, you 
-      may be nominated as a committer yourself!)
-    </p>
+        </section>
 
-    <p>
-      If your contribution requires changing more than a few lines of Cactus
-      (code or documentation), then it counts as a <strong>patch</strong>. If 
-      you have a patch and would like to see it incorporated into the Cactus
-      distribution, take note of the Licensing Requirements listed below, and 
-      then create a <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">JIRA issue</a> and attach
-      to it  a unified diff (<code>svn patch</code>) of your changes against 
-      the latest SVN version of the code (SVN HEAD).
-    </p>
-  
-    <section name="Licensing Requirements for the Cactus Distribution">
-  
-      <p>
-        To avoid legal problems, the Apache Project Management Committee (PMC) 
-        have agreed on a policy for under what licensing code can be accepted 
-        into Apache projects:
-      </p>
-      <ul>
-        <li>
-          Source code files must be under the Apache license and must have
-          copyright assigned to the Apache Software Foundation.
-        </li>
-        <li>
-          Jar files need only be released under a license that permits free 
-          redistribution and does not cover new files added to the jar/library
-          (so the GPL and LGPL are not allowed, but MPL and Apache licenses are,
-          for example).
-        </li>
-      </ul>
-      <p>
-        <strong>By submitting a patch, you signify your understanding and 
-        acceptance of these conditions</strong> - like most open source projects
-        , we do not have the resources nor the inclination to obtain signed 
-        statements from all contributors!
-      </p>
-   
-    </section>
- 
-  </section>
+        <section name="Contributions of Code and Documentation">
 
-  </body>
+            <p>
+                We are starting to use an informal system for accepting contributions to
+                Cactus. The process varies depending on whether the contribution is a
+                modification (i.e. patch) or a fairly standalone item, and whether you
+                have commit access (committers have been granted access by a vote of
+                confidence, so they are assumed to be trustworthy enough
+                to make changes directly in SVN. If you submit many good patches, you
+                may be nominated as a committer yourself!)
+            </p>
+
+            <p>
+                If your contribution requires changing more than a few lines of Cactus
+                (code or documentation), then it counts as a <strong>patch</strong>. If
+                you have a patch and would like to see it incorporated into the Cactus
+                distribution, take note of the Licensing Requirements listed below, and
+                then create a <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">JIRA issue</a> and
+                attach
+                to it a unified diff (<code>svn patch</code>) of your changes against
+                the latest SVN version of the code (SVN HEAD).
+            </p>
+
+            <section name="Licensing Requirements for the Cactus Distribution">
+
+                <p>
+                    To avoid legal problems, the Apache Project Management Committee (PMC)
+                    have agreed on a policy for under what licensing code can be accepted
+                    into Apache projects:
+                </p>
+                <ul>
+                    <li>
+                        Source code files must be under the Apache license and must have
+                        copyright assigned to the Apache Software Foundation.
+                    </li>
+                    <li>
+                        Jar files need only be released under a license that permits free
+                        redistribution and does not cover new files added to the jar/library
+                        (so the GPL and LGPL are not allowed, but MPL and Apache licenses are,
+                        for example).
+                    </li>
+                </ul>
+                <p>
+                    <strong>By submitting a patch, you signify your understanding and
+                        acceptance of these conditions
+                    </strong>
+                    - like most open source projects
+                    , we do not have the resources nor the inclination to obtain signed
+                    statements from all contributors!
+                </p>
+
+            </section>
+
+        </section>
+
+    </body>
 
 </document>

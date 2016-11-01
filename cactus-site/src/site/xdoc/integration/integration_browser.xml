@@ -23,46 +23,48 @@
 
 <document id="integration_browser">
 
-  <properties>
-    <title>Running Cactus tests from a browser</title>
-  </properties>
+    <properties>
+        <title>Running Cactus tests from a browser</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Running Cactus tests from a browser">
+        <section name="Running Cactus tests from a browser">
 
-      <note>
-        This section only applies for Cactus 1.4 and greater.
-      </note>
+            <note>
+                This section only applies for Cactus 1.4 and greater.
+            </note>
 
-      <section name="Step 1: Setting up the classpath">
+            <section name="Step 1: Setting up the classpath">
 
-        <p>
-          In order to run Cactus tests from a browser you need to have a webapp
-          containing your classes to test and your test classes. In addition,
-          both Cactus client side and server side jar classes must be able to be
-          loaded from your webapp (i.e located in your <code>WEB-INF/lib</code>
-          directory or in a location available through your container Context
-          class loader (refer to your container documentation).
-        </p>
+                <p>
+                    In order to run Cactus tests from a browser you need to have a webapp
+                    containing your classes to test and your test classes. In addition,
+                    both Cactus client side and server side jar classes must be able to be
+                    loaded from your webapp (i.e located in your
+                    <code>WEB-INF/lib</code>
+                    directory or in a location available through your container Context
+                    class loader (refer to your container documentation).
+                </p>
 
-        <note>
-		Refer to the <a href="manual/howto_classpath.html">Classpath Howto</a>
-          guide for the exact list of jars.
-        </note>
+                <note>
+                    Refer to the
+                    <a href="manual/howto_classpath.html">Classpath Howto</a>
+                    guide for the exact list of jars.
+                </note>
 
-      </section>
+            </section>
 
-      <section name="Step 2: Mapping the Cactus Servlet Test Runner">
+            <section name="Step 2: Mapping the Cactus Servlet Test Runner">
 
-        <p>
-          Then, in addition to the Cactus redirectors that you have mapped in
-          your <code>web.xml</code> (see the
-	  <a href="manual/howto_config.html">Configuration howto</a>), you also
-          need to map the Cactus Servlet Test Runner, as follows:
-        </p>
+                <p>
+                    Then, in addition to the Cactus redirectors that you have mapped in
+                    your <code>web.xml</code> (see the
+                    <a href="manual/howto_config.html">Configuration howto</a>), you also
+                    need to map the Cactus Servlet Test Runner, as follows:
+                </p>
 
-<source><![CDATA[
+                <source><![CDATA[
 [...]
 <servlet>
     <servlet-name>ServletTestRunner</servlet-name>
@@ -78,90 +80,98 @@
 [...]
 ]]></source>
 
-      </section>
+            </section>
 
-      <section name="Step 3: Executing the tests">
+            <section name="Step 3: Executing the tests">
 
-        <p>
-          Open a browser and type <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase</code>
-          where:
-        </p>
-        <ul>
-          <li>
-            <code>server:port</code> is the name of your server machine and
-            port on which your container is running
-          </li>
-          <li>
-            <code>mywebapp</code> is the name of your webapp (usually the name
-            of your war file)
-          </li>
-          <li>
-            <code>mytestcase</code> is the fully qualified name (i.e. with
-            packages) of your <code>TestCase</code> class containing a
-            <code>suite()</code> method listing all the tests, in standard
-            JUnit fashion.
-          </li>
-        </ul>
+                <p>
+                    Open a browser and type
+                    <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase</code>
+                    where:
+                </p>
+                <ul>
+                    <li>
+                        <code>server:port</code>
+                        is the name of your server machine and
+                        port on which your container is running
+                    </li>
+                    <li>
+                        <code>mywebapp</code>
+                        is the name of your webapp (usually the name
+                        of your war file)
+                    </li>
+                    <li>
+                        <code>mytestcase</code>
+                        is the fully qualified name (i.e. with
+                        packages) of your <code>TestCase</code> class containing a
+                        <code>suite()</code>
+                        method listing all the tests, in standard
+                        JUnit fashion.
+                    </li>
+                </ul>
 
-        <p class="image">
-          Here is an example of what you will get:<br/>
-          <center>
-          <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
-         </center>
-        </p>
+                <p class="image">
+                    Here is an example of what you will get:
+                    <br/>
+                    <center>
+                        <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
+                    </center>
+                </p>
 
-        <note>
-          If you see a blank page, click on the View source option of your 
-          browser. It means your browser doesn't know how to display XML data.
-        </note>
-        
-        <p>
-          Ok, that's nice ... But what if I want HTML instead of XML? Don't
-          worry there is a solution. Grab the following
-	  <a href="../misc/cactus-report.xsl">XSLT stylesheet</a>
-          (based on the stylesheet used by the
-          <strong>&lt;junitreport&gt;</strong> Ant task), drop it in your
-          webapp and name it <code>cactus-report.xsl</code> (in the root
-          directory for example). Then, open a browser and type
-          <code>http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&amp;xsl=cactus-report.xsl</code>.
-          You should see the following:
-        </p>
-        <p class="image">
-        <center>
-        <img src="../images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
-        </center>
-        </p>
-        <note>
-          This will work with Internet Explorer as the XSL transformation is
-          performed on the client side (i.e by the browser). I'm not sure
-          about other browsers.
-        </note>
+                <note>
+                    If you see a blank page, click on the View source option of your
+                    browser. It means your browser doesn't know how to display XML data.
+                </note>
 
-      </section>
+                <p>
+                    Ok, that's nice ... But what if I want HTML instead of XML? Don't
+                    worry there is a solution. Grab the following
+                    <a href="../misc/cactus-report.xsl">XSLT stylesheet</a>
+                    (based on the stylesheet used by the
+                    <strong>&lt;junitreport&gt;</strong>
+                    Ant task), drop it in your
+                    webapp and name it <code>cactus-report.xsl</code> (in the root
+                    directory for example). Then, open a browser and type
+                    <code>
+                        http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&amp;xsl=cactus-report.xsl</code>.
+                    You should see the following:
+                </p>
+                <p class="image">
+                    <center>
+                        <img src="../images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
+                    </center>
+                </p>
+                <note>
+                    This will work with Internet Explorer as the XSL transformation is
+                    performed on the client side (i.e by the browser). I'm not sure
+                    about other browsers.
+                </note>
 
-      <section name="Enabling Server-Side XSLT Transformations">
+            </section>
 
-        <p>
-          In the previous section, the XSLT transformation was performed on the 
-          client. This requires a browser capable of doing XSLT transformations 
-          in a standards-compliant manner, and requires adding the location of 
-          the stylesheet as a request parameter.
-        </p>
+            <section name="Enabling Server-Side XSLT Transformations">
 
-        <p>
-          Since Cactus 1.5, the ServletTestRunner can also perform the 
-          transformation on the server-side. To enable that feature, make sure
-          that a JAXP compliant XSLT processor (such as 
-	  <a href="http://xml.apache.org/xalan-j/">Xalan</a>) is available to the 
-          web-application.
-        </p>
+                <p>
+                    In the previous section, the XSLT transformation was performed on the
+                    client. This requires a browser capable of doing XSLT transformations
+                    in a standards-compliant manner, and requires adding the location of
+                    the stylesheet as a request parameter.
+                </p>
 
-        <p>
-          In addition, the location of the XSLT stylesheet needs to specified as
-          initialization parameter of the ServletTestRunner. For example:
-        </p>
+                <p>
+                    Since Cactus 1.5, the ServletTestRunner can also perform the
+                    transformation on the server-side. To enable that feature, make sure
+                    that a JAXP compliant XSLT processor (such as
+                    <a href="http://xml.apache.org/xalan-j/">Xalan</a>) is available to the
+                    web-application.
+                </p>
 
-    <source><![CDATA[
+                <p>
+                    In addition, the location of the XSLT stylesheet needs to specified as
+                    initialization parameter of the ServletTestRunner. For example:
+                </p>
+
+                <source><![CDATA[
 [...]
 <servlet>
     <servlet-name>ServletTestRunner</servlet-name>
@@ -176,33 +186,33 @@
 [...]
 ]]></source>
 
-        <p>
-          The specified path is relative to the root of the web-application. Of 
-          course, the stylesheet needs to exist at that location. In contrast to
-          client-side transformations, the stylesheet may be placed somewhere
-          inside the <code>WEB-INF</code> directory, because clients do not need
-          to access it directly.
-        </p>
+                <p>
+                    The specified path is relative to the root of the web-application. Of
+                    course, the stylesheet needs to exist at that location. In contrast to
+                    client-side transformations, the stylesheet may be placed somewhere
+                    inside the <code>WEB-INF</code> directory, because clients do not need
+                    to access it directly.
+                </p>
 
-        <p>
-          If all of the above is correctly set up, you can enable the actual
-          transformation by including a <code>transform</code> parameter with
-          the request (the value of the parameter does not matter). For example
-        </p>
+                <p>
+                    If all of the above is correctly set up, you can enable the actual
+                    transformation by including a <code>transform</code> parameter with
+                    the request (the value of the parameter does not matter). For example
+                </p>
 
-    <source><![CDATA[
+                <source><![CDATA[
 http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&transform=yes
 ]]></source>
 
-        <note>
-          The stylesheet specified as initialization parameter is loaded when 
-          the ServletTestRunner gets initialized. Changes to the stylesheet will
-          not get picked up until the web-application is reloaded.
-        </note>
+                <note>
+                    The stylesheet specified as initialization parameter is loaded when
+                    the ServletTestRunner gets initialized. Changes to the stylesheet will
+                    not get picked up until the web-application is reloaded.
+                </note>
 
-      </section>
+            </section>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

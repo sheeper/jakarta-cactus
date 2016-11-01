@@ -23,57 +23,59 @@
 
 <document id="howto_jsp">
 
-  <properties>
-    <title>Testing JSP with Cactus</title>
-  </properties>
+    <properties>
+        <title>Testing JSP with Cactus</title>
+    </properties>
 
-  <body>
+    <body>
 
-	  <section name="JSP Testing in Cactus">
+        <section name="JSP Testing in Cactus">
 
-      <p>
-        This tutorial explains how Cactus can be used to test JSP.        
-      </p>
-	  <p>
-	  	There are different kibds of tests that you can implement with
-	  	Cactus for testing JSP:
-	  </p>
-	  <ul>
-	  	<li>
-          <a href="howto_jsp.html#jsp_type1">type 1</a>:
-          You may simply want to verify the result of the JSP processing,
-	  	  i.e. the HTML, XML or other format it returns.
-	  	</li>
-	  	<li>
-          <a href="howto_jsp.html#jsp_type2">type 2</a>:
-          You may want to unit test your JSP taglibs.
-	    </li>
-	    <li>
-          <a href="howto_jsp.html#jsp_type2">type 3</a>:
-	      You may want to test your JSP in isolation by being able to 
-	      execute it without the java logic being present. This is often 
-	      the case when the team is split into 2: one group for page 
-	      development and another group for the java logic.
-	    </li>
-	  </ul>
-	      
-    </section>
+            <p>
+                This tutorial explains how Cactus can be used to test JSP.
+            </p>
+            <p>
+                There are different kibds of tests that you can implement with
+                Cactus for testing JSP:
+            </p>
+            <ul>
+                <li>
+                    <a href="howto_jsp.html#jsp_type1">type 1</a>:
+                    You may simply want to verify the result of the JSP processing,
+                    i.e. the HTML, XML or other format it returns.
+                </li>
+                <li>
+                    <a href="howto_jsp.html#jsp_type2">type 2</a>:
+                    You may want to unit test your JSP taglibs.
+                </li>
+                <li>
+                    <a href="howto_jsp.html#jsp_type2">type 3</a>:
+                    You may want to test your JSP in isolation by being able to
+                    execute it without the java logic being present. This is often
+                    the case when the team is split into 2: one group for page
+                    development and another group for the java logic.
+                </li>
+            </ul>
 
-    <anchor id="jsp_type1"/>
-    <section name="Type 1: verifying JSP result">
+        </section>
 
-      <p>
-      	This is easily done by implementing a
-      	<code>endXXX(WebResponse)</code> method as described in the
-      	<a href="howto_testcase.html#endxxx" anchor="endxxx">TestCase tutorial</a>.
-      </p>
-      <p>
-      	Your test case class will also need to extend 
-      	<code>ServletTestCase</code> and forward the request to your JSP
-      	page, as in the following example:
-      </p>
+        <anchor id="jsp_type1"/>
+        <section name="Type 1: verifying JSP result">
 
-<source><![CDATA[
+            <p>
+                This is easily done by implementing a
+                <code>endXXX(WebResponse)</code>
+                method as described in the
+                <a href="howto_testcase.html#endxxx" anchor="endxxx">TestCase tutorial</a>.
+            </p>
+            <p>
+                Your test case class will also need to extend
+                <code>ServletTestCase</code>
+                and forward the request to your JSP
+                page, as in the following example:
+            </p>
+
+            <source><![CDATA[
 public class MyTest extends ServletTestCase
 {
     [...]
@@ -94,41 +96,41 @@ public class MyTest extends ServletTestCase
     [...]
 }        
 ]]></source>
-      
-    </section>
 
-    <anchor id="jsp_type2"/>
-    <section name="Type 2: testing JSP taglibs">
+        </section>
 
-      <p>
-      	This is easily done by creating a test case class that extends
-      	<code>JspTestCase</code>. See the 
-      	<a href="howto_testcase_jsp.html">Taglib TestCase 
-        tutorial</a>.
-      </p>
-      
-    </section>
+        <anchor id="jsp_type2"/>
+        <section name="Type 2: testing JSP taglibs">
 
-    <anchor id="jsp_type3"/>
-    <section name="Type 3: testing JSP in isolation">
+            <p>
+                This is easily done by creating a test case class that extends
+                <code>JspTestCase</code>. See the
+                <a href="howto_testcase_jsp.html">Taglib TestCase
+                    tutorial</a>.
+            </p>
 
-      <p>
-        This type of testing depends mostly on your architecture. The general
-        idea is that you would normally have an MVC implementation with a
-        controller (usually a Servlet) that inspect the HTTP request, 
-        potentially gather some other data from the Session, ServletContext or
-        some storage and based on this information decides to call some 
-        business code logic, and then forward the call to a given JSP page.
-      </p>
-      <p>
-      	Thus, one solution to unit test your JSP in isolation is to succeed
-      	in either bypassing the controller altogether or in telling it to use
-      	some mock code logic that you would write for your tests.
-      </p>
-      
-      <section name="Example1">
+        </section>
 
-<source><![CDATA[
+        <anchor id="jsp_type3"/>
+        <section name="Type 3: testing JSP in isolation">
+
+            <p>
+                This type of testing depends mostly on your architecture. The general
+                idea is that you would normally have an MVC implementation with a
+                controller (usually a Servlet) that inspect the HTTP request,
+                potentially gather some other data from the Session, ServletContext or
+                some storage and based on this information decides to call some
+                business code logic, and then forward the call to a given JSP page.
+            </p>
+            <p>
+                Thus, one solution to unit test your JSP in isolation is to succeed
+                in either bypassing the controller altogether or in telling it to use
+                some mock code logic that you would write for your tests.
+            </p>
+
+            <section name="Example1">
+
+                <source><![CDATA[
 public class MyTestCase extends JspTestCase
 {
 [...]
@@ -157,14 +159,14 @@ public class MyTestCase extends JspTestCase
 }
 ]]></source>
 
-        <p>
-          In <code>testXXX()</code>, we populate a bean with values for our
-          test and put this bean in the request.  Normally this would have
-          been performed by the controller but we're bypassing it for the
-          test. Then we call our JSP page, which looks like:
-        </p>
+                <p>
+                    In <code>testXXX()</code>, we populate a bean with values for our
+                    test and put this bean in the request. Normally this would have
+                    been performed by the controller but we're bypassing it for the
+                    test. Then we call our JSP page, which looks like:
+                </p>
 
-<source><![CDATA[
+                <source><![CDATA[
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
   <HEAD>
@@ -182,20 +184,20 @@ public class MyTestCase extends JspTestCase
   </BODY>
 </HTML>
 ]]></source>
-        
-      </section>
-      
-      <section name="Example2: Struts application">
 
-        <p>
-          See the 
-          <a href="http://strutstestcase.sourceforge.net/">StrutsTestCase</a>
-          project.
-        </p>
-        
-      </section>
+            </section>
 
-    </section>
+            <section name="Example2: Struts application">
 
-  </body>
+                <p>
+                    See the
+                    <a href="http://strutstestcase.sourceforge.net/">StrutsTestCase</a>
+                    project.
+                </p>
+
+            </section>
+
+        </section>
+
+    </body>
 </document>

@@ -41,169 +41,168 @@
 -->
 <project name="Cactus Jetty Sample" xmlns:ivy="antlib:org.apache.ivy.ant" default="test">
 
-  <description>
-     Cactus Jetty Sample
-     ---------------------------------------------------------
-     Sample web-application that demonstrates how Cactus can
-     be used using the Jetty integration for unit testing 
-     classes that use the servlet API (such as servlets, 
-     filters and tag libraries).
-  </description>
+    <description>
+        Cactus Jetty Sample
+        ---------------------------------------------------------
+        Sample web-application that demonstrates how Cactus can
+        be used using the Jetty integration for unit testing
+        classes that use the servlet API (such as servlets,
+        filters and tag libraries).
+    </description>
 
- <!--
-     ========================================================================
-       Initialize properties.
-     ========================================================================
-  -->	
-  <target name="init" depends="">
-  
-	  <property name="cactus.sample.app.type" value="servlet"/>
-		<property name="cactus.sample.archive.type" value="war"/>
-    <property environment="env"/>
-    <property file="../build.properties"/>
-	 
-	
-		<path id="cactus.classpath">
-			<fileset dir="${ivy.lib.dir}">
-        <include name="*.jar"/>
-      </fileset>
-      <dirset dir="../servlet/target/">
-				<include name="test-classes"/>
-      </dirset>
-		</path>
-		
-  </target>
-  
-<!--
-     ========================================================================
-       Prepare the folder structure.
-     ========================================================================
-  -->
-	<target name="prepare" depends="init">
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${logs.dir}"/>
-		<mkdir dir="${reports.dir}"/>
-	</target>
+    <!--
+        ========================================================================
+          Initialize properties.
+        ========================================================================
+     -->
+    <target name="init" depends="">
 
-<!--
-     ========================================================================
-       Resolve Ivy dependencies.
-     ========================================================================
-  -->
-	<target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
-		<ivy:configure file="../ivysettings.xml" />
-		<ivy:retrieve file="./ivy.xml" sync="true"/>
-  </target>
-
-<!--
-     ========================================================================
-       Load external ant tasks.
-     ========================================================================
-  -->
-	<target name="load.tasks" depends="resolve">
-		<taskdef resource="cactus.tasks"
-			 classpathref="cactus.classpath">
-		</taskdef>
-	</target>
+        <property name="cactus.sample.app.type" value="servlet"/>
+        <property name="cactus.sample.archive.type" value="war"/>
+        <property environment="env"/>
+        <property file="../build.properties"/>
 
 
+        <path id="cactus.classpath">
+            <fileset dir="${ivy.lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <dirset dir="../servlet/target/">
+                <include name="test-classes"/>
+            </dirset>
+        </path>
 
-<!--
-     ========================================================================
-       Compile source classes as well as cactus classes.
-     ========================================================================
-  -->
-	<!--Note that if some dependency is missing in the classpath, instead of compilation errors,
+    </target>
+
+    <!--
+         ========================================================================
+           Prepare the folder structure.
+         ========================================================================
+      -->
+    <target name="prepare" depends="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${logs.dir}"/>
+        <mkdir dir="${reports.dir}"/>
+    </target>
+
+    <!--
+         ========================================================================
+           Resolve Ivy dependencies.
+         ========================================================================
+      -->
+    <target name="resolve" description="Retrieve dependencies with ivy" depends="prepare">
+        <ivy:configure file="../ivysettings.xml"/>
+        <ivy:retrieve file="./ivy.xml" sync="true"/>
+    </target>
+
+    <!--
+         ========================================================================
+           Load external ant tasks.
+         ========================================================================
+      -->
+    <target name="load.tasks" depends="resolve">
+        <taskdef resource="cactus.tasks"
+                 classpathref="cactus.classpath">
+        </taskdef>
+    </target>
+
+
+    <!--
+         ========================================================================
+           Compile source classes as well as cactus classes.
+         ========================================================================
+      -->
+    <!--Note that if some dependency is missing in the classpath, instead of compilation errors,
       Ivy reports to Maven 'No Compiler Found' error. -->
-	<target name="compile" depends="load.tasks">
-		
-		<javac srcdir="${src.dir}"
-		       destdir="${build.dir}"
-		       classpathref="cactus.classpath"/>
-	</target>
+    <target name="compile" depends="load.tasks">
 
-  <!--
-     ========================================================================
-       Create the runtime war file.
-     ========================================================================
-  -->
-	<target name="package-war" depends="compile">
-		<war destfile="${servlet.archive.name}" webxml="${basedir}/src/main/webapp/WEB-INF/web.xml">
-		  <fileset dir="${basedir}/src/main/webapp/WEB-INF">
-        <exclude name="cactus-report.xsl"/>
-        <exclude name="cactus-web.xml"/>
-        <exclude name="web.xml"/>
-      </fileset>
-      <fileset dir="${basedir}/src/main/webapp">
-        <include name="test/test.jsp"/>
-        <include name="org/apache/jsp/jspRedirector.jsp"/>
-      </fileset>
-			<classes dir="${build.dir}"/>
-			<lib dir="${ivy.lib.dir}">
-				<include name="**.jar"/>
-				<exclude name="jsp-api-2.0.jar"/>
-        <exclude name="servlet-api-2.5.jar"/>
-			</lib>	
-		</war>
-	</target>
+        <javac srcdir="${src.dir}"
+               destdir="${build.dir}"
+               classpathref="cactus.classpath"/>
+    </target>
+
+    <!--
+       ========================================================================
+         Create the runtime war file.
+       ========================================================================
+    -->
+    <target name="package-war" depends="compile">
+        <war destfile="${servlet.archive.name}" webxml="${basedir}/src/main/webapp/WEB-INF/web.xml">
+            <fileset dir="${basedir}/src/main/webapp/WEB-INF">
+                <exclude name="cactus-report.xsl"/>
+                <exclude name="cactus-web.xml"/>
+                <exclude name="web.xml"/>
+            </fileset>
+            <fileset dir="${basedir}/src/main/webapp">
+                <include name="test/test.jsp"/>
+                <include name="org/apache/jsp/jspRedirector.jsp"/>
+            </fileset>
+            <classes dir="${build.dir}"/>
+            <lib dir="${ivy.lib.dir}">
+                <include name="**.jar"/>
+                <exclude name="jsp-api-2.0.jar"/>
+                <exclude name="servlet-api-2.5.jar"/>
+            </lib>
+        </war>
+    </target>
 
 
-  <!--
-     ========================================================================
-       Generate the distributable files
-     ========================================================================
-  -->
-  <target name="dist" depends="clean, package-war, test"
-      description="Generate the distributable files">
+    <!--
+       ========================================================================
+         Generate the distributable files
+       ========================================================================
+    -->
+    <target name="dist" depends="clean, package-war, test"
+            description="Generate the distributable files">
 
-    <copy todir="${dist.dir}"
-        file="${target.dir}/${project.name.file}.war"/>
+        <copy todir="${dist.dir}"
+              file="${target.dir}/${project.name.file}.war"/>
 
-  </target>
+    </target>
 
-  <!--
-     ========================================================================
-       Clean generated files (including distributables)
-     ========================================================================
-  -->
-  <target name="clean" depends="init" description="Clean all generated files">
+    <!--
+       ========================================================================
+         Clean generated files (including distributables)
+       ========================================================================
+    -->
+    <target name="clean" depends="init" description="Clean all generated files">
 
-    <delete dir="${target.dir}"/>
-    <delete dir="${dist.dir}"/>
+        <delete dir="${target.dir}"/>
+        <delete dir="${dist.dir}"/>
 
-  </target>
+    </target>
 
-<!--
-     ========================================================================
-       Run the tests on Jetty.
-     ========================================================================
-  -->
-  <target name="test" depends="compile">
-    
-    <junit fork="yes" failureproperty="tests.failed">
-      <sysproperty key="cactus.contextURL"
-          value="http://localhost:${cargo.servlet.port}/test"/>
-      <sysproperty key="cactus.jetty.resourceDir" file="${src.webapp.dir}"/>
-      <sysproperty key="cactus.jetty.config" file="${src.conf.dir}/5x/jetty.xml"/>
-      <classpath>
-        <path refid="cactus.classpath"/>
-        <pathelement location="${build.dir}"/>
-        <!-- Needed By Jasper to Compile the JSPs-->
-        <pathelement location="${env.JAVA_HOME}\lib\tools.jar"/>
-      </classpath>
-      <formatter type="brief" usefile="false"/>
-      <formatter type="xml"/>
-      <test todir="${reports.dir}"
-          name="org.apache.cactus.sample.jetty.TestJettyAll"/>
-    </junit>
+    <!--
+         ========================================================================
+           Run the tests on Jetty.
+         ========================================================================
+      -->
+    <target name="test" depends="compile">
 
-    <junitreport todir="${reports.dir}">
-      <fileset dir="${reports.dir}" includes="TEST-*.xml"/>
-      <report todir="${reports.dir}" format="frames"/>
-    </junitreport>
+        <junit fork="yes" failureproperty="tests.failed">
+            <sysproperty key="cactus.contextURL"
+                         value="http://localhost:${cargo.servlet.port}/test"/>
+            <sysproperty key="cactus.jetty.resourceDir" file="${src.webapp.dir}"/>
+            <sysproperty key="cactus.jetty.config" file="${src.conf.dir}/5x/jetty.xml"/>
+            <classpath>
+                <path refid="cactus.classpath"/>
+                <pathelement location="${build.dir}"/>
+                <!-- Needed By Jasper to Compile the JSPs-->
+                <pathelement location="${env.JAVA_HOME}\lib\tools.jar"/>
+            </classpath>
+            <formatter type="brief" usefile="false"/>
+            <formatter type="xml"/>
+            <test todir="${reports.dir}"
+                  name="org.apache.cactus.sample.jetty.TestJettyAll"/>
+        </junit>
 
-    <fail if="tests.failed">At least one test failed!</fail>
+        <junitreport todir="${reports.dir}">
+            <fileset dir="${reports.dir}" includes="TEST-*.xml"/>
+            <report todir="${reports.dir}" format="frames"/>
+        </junitreport>
 
-  </target>
+        <fail if="tests.failed">At least one test failed!</fail>
+
+    </target>
 
 </project>

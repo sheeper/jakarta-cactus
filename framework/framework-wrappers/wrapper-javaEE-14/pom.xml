@@ -17,70 +17,74 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.apache.cactus</groupId>
-		<artifactId>cactus.core.framework.wrappers</artifactId>
-		<version>1.8.2-SNAPSHOT</version>
-	</parent>
-	<name>Cactus Wrappers - Java EE 1.4</name>
-	<description>Cactus Wrappers and JSP redirector for Java EE 1.4</description>
-	<artifactId>cactus.core.framework.wrapper.javaEE.14</artifactId>
-	<packaging>jar</packaging>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.cactus</groupId>
-			<artifactId>cactus.core.framework.javaEE.13-14</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<!--  TODO: change versions below -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-	</dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.0</version>
-				<configuration>
-					<includes>
-						<include>**/*.java, **/*.aj</include>
-					</includes>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-        </executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptor>src/assemble/main.xml</descriptor>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>deploy</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <parent>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus.core.framework.wrappers</artifactId>
+        <version>1.8.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cactus.core.framework.wrapper.javaEE.14</artifactId>
+
+    <name>Cactus Wrappers - Java EE 1.4</name>
+    <description>Cactus Wrappers and JSP redirector for Java EE 1.4</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cactus</groupId>
+            <artifactId>cactus.core.framework.javaEE.13-14</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!--  TODO: change versions below -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <includes>
+                        <include>**/*.java, **/*.aj</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptor>src/assemble/main.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

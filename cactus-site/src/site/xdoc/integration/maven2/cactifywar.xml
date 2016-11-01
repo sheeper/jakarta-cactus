@@ -24,129 +24,152 @@
 <document id="mojo_cactifywar">
 
     <properties>
-    <title>CactifyWar Maven2 MOJO</title>
-  </properties>
+        <title>CactifyWar Maven2 MOJO</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="CactifyWar MOJO">
+        <section name="CactifyWar MOJO">
 
-      <p>
-        The mojo <strong>cactifywar</strong> allows the enhancement of an existing
-        web-application archive (WAR) with the elements needed to run Cactus 
-        in-container tests. This includes adding the definitions of the test 
-        redirectors to the deployment descriptor, as well as adding the libraries
-        that Cactus requires on the server side (see the 
-	<a href="../manual/howto_classpath.html">Classpath Guide</a> for details).
-      </p>
+            <p>
+                The mojo <strong>cactifywar</strong> allows the enhancement of an existing
+                web-application archive (WAR) with the elements needed to run Cactus
+                in-container tests. This includes adding the definitions of the test
+                redirectors to the deployment descriptor, as well as adding the libraries
+                that Cactus requires on the server side (see the
+                <a href="../manual/howto_classpath.html">Classpath Guide</a>
+                for details).
+            </p>
 
-      <note>
-        If you want to use the
-	<a href="../../writing/howto_httpunit.html">HttpUnit integration</a> in your
-        tests, you'll need to explicitly add the <code>httpunit.jar</code> to
-        the cactified WAR. You can easily do this by specifying it as a
-        <code>&lt;libDependencies&gt;</code> element.
-      </note>
+            <note>
+                If you want to use the
+                <a href="../../writing/howto_httpunit.html">HttpUnit integration</a>
+                in your
+                tests, you'll need to explicitly add the <code>httpunit.jar</code> to
+                the cactified WAR. You can easily do this by specifying it as a
+                <code>&lt;libDependencies&gt;</code>
+                element.
+            </note>
 
-      <section name="Parameters">
+            <section name="Parameters">
 
-        <p>
-         Here is a list of all the parameters that can be specified to the
-         <strong>cactifywar</strong> plugin.
-        </p>
+                <p>
+                    Here is a list of all the parameters that can be specified to the
+                    <strong>cactifywar</strong>
+                    plugin.
+                </p>
 
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Required</th>
-          </tr>
-          <tr>
-            <td><strong>destFile</strong></td>
-            <td>
-              The location and name of the cactified web-application archive to create.
-            </td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td><strong>srcFile</strong></td>
-            <td>
-              The original web-application archive that is going to be
-              cactified.
-            </td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td><strong>mergeWebXml</strong></td>
-            <td>
-              Allows the specification of a web deployment descriptor whose 
-              content will get merged into the resulting descriptor. This is
-              only required for purposes like adding special security
-              constraints for testing, as the Cactus test redirectors will be
-              added to the cactified deployment descriptor anyway. The merging
-              of the descriptors is based on the same principles as used by the
-	      <a href="task_webxmlmerge.html">webxmlmerge</a> task.
-            </td>
-            <td>No</td>
-          </tr>
-          <tr>
-            <td><strong>version</strong></td>
-            <td>
-              The version of the web application archive to create if no source
-              archive has been specified with the <em>srcfile</em> attribute.
-              Can be either <code>2.2</code> or <code>2.3</code>.
-            </td>
-            <td>No, unless the <em>srcfile</em> attribute is omitted</td>
-          </tr>
-        </table>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>destFile</strong>
+                        </td>
+                        <td>
+                            The location and name of the cactified web-application archive to create.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>srcFile</strong>
+                        </td>
+                        <td>
+                            The original web-application archive that is going to be
+                            cactified.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>mergeWebXml</strong>
+                        </td>
+                        <td>
+                            Allows the specification of a web deployment descriptor whose
+                            content will get merged into the resulting descriptor. This is
+                            only required for purposes like adding special security
+                            constraints for testing, as the Cactus test redirectors will be
+                            added to the cactified deployment descriptor anyway. The merging
+                            of the descriptors is based on the same principles as used by the
+                            <a href="task_webxmlmerge.html">webxmlmerge</a>
+                            task.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>version</strong>
+                        </td>
+                        <td>
+                            The version of the web application archive to create if no source
+                            archive has been specified with the <em>srcfile</em> attribute.
+                            Can be either <code>2.2</code> or <code>2.3</code>.
+                        </td>
+                        <td>No, unless the <em>srcfile</em> attribute is omitted
+                        </td>
+                    </tr>
+                </table>
 
-      </section>
+            </section>
 
-      <section name="Nested Elements">
+            <section name="Nested Elements">
 
-        <p>
-          Here is a list of all the nested elements that you can use
-          with the <strong>cactifywar</strong> plugin.
-        </p>
+                <p>
+                    Here is a list of all the nested elements that you can use
+                    with the <strong>cactifywar</strong> plugin.
+                </p>
 
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Required</th>
-          </tr>
-          <tr>
-            <td><strong>libDependencies</strong></td>
-            <td>
-              The artifacts that you want to include in the <strong>WEB-INF/lib</strong> folder 
-              of the archive that you create. The dependencies that you specify here with <strong>&lt;groupId&gt;</strong>
-              and <strong>&lt;artifactId&gt;</strong> must be specified as a project dependencies. 
-            </td>
-            <td>No</td>
-          </tr>
-          <tr>
-            <td><strong>redirectors</strong></td>
-            <td>
-              This allows you to specify custom redirector definitions. Inside the this element you can specify any of
-              the following: <strong>&lt;servletRedirector&gt;</strong>, <strong>&lt;filterRedirector&gt;</strong>, 
-              <strong>&lt;jspRedirector&gt;</strong>. Each one of these can get any of the following attributes: 
-              <strong>name</strong>, <strong>mapping</strong>, <strong>roles</strong>. 
-            </td>
-            <td>No</td>
-          </tr>
-       </table>
-      </section>
-      <section name="Examples">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>libDependencies</strong>
+                        </td>
+                        <td>
+                            The artifacts that you want to include in the <strong>WEB-INF/lib</strong> folder
+                            of the archive that you create. The dependencies that you specify here with
+                            <strong>&lt;groupId&gt;</strong>
+                            and <strong>&lt;artifactId&gt;</strong> must be specified as a project dependencies.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>redirectors</strong>
+                        </td>
+                        <td>
+                            This allows you to specify custom redirector definitions. Inside the this element you can
+                            specify any of
+                            the following: <strong>&lt;servletRedirector&gt;</strong>, <strong>
+                            &lt;filterRedirector&gt;</strong>,
+                            <strong>&lt;jspRedirector&gt;</strong>. Each one of these can get any of the following
+                            attributes:
+                            <strong>name</strong>, <strong>mapping</strong>, <strong>roles</strong>.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                </table>
+            </section>
+            <section name="Examples">
 
-        <p>
-          The following example demonstrates the simplest-possible use of the
-          plugin. You have to add the following plugin definition inside your 
-          <strong>&lt;build&gt;</strong> definition of your pom.xml. It will 
-          add the redirectors with the default mappings to the
-          cactified WARs, as well as the Cactus libraries and the JSP page
-          needed for the JSP redirector.
-        </p>
-        <source><![CDATA[
+                <p>
+                    The following example demonstrates the simplest-possible use of the
+                    plugin. You have to add the following plugin definition inside your
+                    <strong>&lt;build&gt;</strong>
+                    definition of your pom.xml. It will
+                    add the redirectors with the default mappings to the
+                    cactified WARs, as well as the Cactus libraries and the JSP page
+                    needed for the JSP redirector.
+                </p>
+                <source><![CDATA[
 <plugin>
    <groupId>org.apache.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
@@ -157,12 +180,12 @@
    </configuration>
 </plugin>
 ]]></source>
-        <p>
-          The next example demonstrates how to modify the mappings of the
-          redirectors.
-        </p>
+                <p>
+                    The next example demonstrates how to modify the mappings of the
+                    redirectors.
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <plugin>
    <groupId>org.apache.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
@@ -185,14 +208,15 @@
 </plugin>        
 ]]></source>
 
-        <p>
-          In the following example, we add the
-	  <a href="../../writing/howto_httpunit.html">HttpUnit</a> library to the
-          cactified WAR. (Note that you have to add it explicitly in the project
-          dependecies also)
-        </p>
+                <p>
+                    In the following example, we add the
+                    <a href="../../writing/howto_httpunit.html">HttpUnit</a>
+                    library to the
+                    cactified WAR. (Note that you have to add it explicitly in the project
+                    dependecies also)
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <plugin>
    <groupId>org.apache.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
@@ -210,17 +234,18 @@
 </plugin>           
 ]]></source>
 
-        <p>
-          In the next example, we add a security-constrained instance of the
-          servlet redirector to be able to run tests using authentication
-	  (see <a href="../../writing/howto_security.html">Using Authentication</a>
-          for details). Note that you need to provide an empty servlet
-          redirector element, so that the default redirector is included
-          along side the secured redirector (it would just be overridden
-          otherwise).
-        </p>
+                <p>
+                    In the next example, we add a security-constrained instance of the
+                    servlet redirector to be able to run tests using authentication
+                    (see
+                    <a href="../../writing/howto_security.html">Using Authentication</a>
+                    for details). Note that you need to provide an empty servlet
+                    redirector element, so that the default redirector is included
+                    along side the secured redirector (it would just be overridden
+                    otherwise).
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <plugin>
    <groupId>org.apache.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
@@ -239,7 +264,7 @@
    </configuration>
 </plugin>     
 ]]></source>
-      </section>
-    </section>
-  </body>
+            </section>
+        </section>
+    </body>
 </document>

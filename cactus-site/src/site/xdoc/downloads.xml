@@ -23,84 +23,88 @@
 
 <document id="downloads">
 
-  <properties>
-    <title>Downloads</title>
-  </properties>
+    <properties>
+        <title>Downloads</title>
+    </properties>
 
-  <body>
+    <body>
 
-  <section name="Downloadable Files">
+        <section name="Downloadable Files">
 
-      <p>
-        The following files are available for download:
-      </p>
-
-      <section name="Core Distribution">
-
-        <p>
-          The core distribution consists of the actual Cactus framework for
-          server-side unit tests, as well as documentation, examples and the
-	  Cactus <a href="integration/ant/index.html">Ant tasks</a>.
-        </p>
-
-        <ul>
-          <li>
-						<strong>cactus-&lt;version&gt;-bin.&lt;archive.type&gt;</strong>
             <p>
-              The main binary distribution of Cactus for J2EE 1.4. or higher. Includes the
-              Cactus framework, the complete set of documentation, the Cactus Ant
-              tasks and the examples.
+                The following files are available for download:
             </p>
-          </li>
-          <li>
-						<strong>cactus-src-&lt;version&gt;-src.&lt;archive.type&gt;</strong>
-            <p>
-              The source distribution of Cactus. This corresponds to a clean SVN
-              checkout of the Cactus sources at the time the version was
-              released.
-            </p>
-          </li>
-					<li>
-						<p>
-							If you need the cactus framework for an older Java version,
-							you can get it from the <a href="http://repo1.maven.org/maven2/org/apache/cactus/1.8.0/">maven central repository</a>
-						</p>
-          </li>
-        </ul>
 
-       <p>
-         Maven provides its own way of installing plugins. The Maven plugin for
-	 Cactus is deployed on <a href="http://www.ibiblio.org/maven/cactus/plugins">Ibiblio </a> 
-         and can be installed in your Maven installation by running:
-       </p>
-<source><![CDATA[
+            <section name="Core Distribution">
+
+                <p>
+                    The core distribution consists of the actual Cactus framework for
+                    server-side unit tests, as well as documentation, examples and the
+                    Cactus <a href="integration/ant/index.html">Ant tasks</a>.
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>cactus-&lt;version&gt;-bin.&lt;archive.type&gt;</strong>
+                        <p>
+                            The main binary distribution of Cactus for J2EE 1.4. or higher. Includes the
+                            Cactus framework, the complete set of documentation, the Cactus Ant
+                            tasks and the examples.
+                        </p>
+                    </li>
+                    <li>
+                        <strong>cactus-src-&lt;version&gt;-src.&lt;archive.type&gt;</strong>
+                        <p>
+                            The source distribution of Cactus. This corresponds to a clean SVN
+                            checkout of the Cactus sources at the time the version was
+                            released.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            If you need the cactus framework for an older Java version,
+                            you can get it from the
+                            <a href="http://repo1.maven.org/maven2/org/apache/cactus/1.8.0/">maven central repository
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+
+                <p>
+                    Maven provides its own way of installing plugins. The Maven plugin for
+                    Cactus is deployed on
+                    <a href="http://www.ibiblio.org/maven/cactus/plugins">Ibiblio</a>
+                    and can be installed in your Maven installation by running:
+                </p>
+                <source><![CDATA[
 maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion=<version>
 ]]></source>
-       <p>
-	       For more details see the <a href="integration/maven/installing.html">Maven 
-         Cactus plugin installation page</a>.
-       </p>
-       
-      </section>
+                <p>
+                    For more details see the <a href="integration/maven/installing.html">Maven
+                    Cactus plugin installation page</a>.
+                </p>
 
-      <note>
-        <code>&lt;version&gt;</code> represents the version number for releases
-        and the date stamp for nightly builds.
-      </note>
+            </section>
 
-    </section>
+            <note>
+                <code>&lt;version&gt;</code>
+                represents the version number for releases
+                and the date stamp for nightly builds.
+            </note>
 
-    <section name="Releases">
+        </section>
 
-      <ul>
-        <li>
-	<a href="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi">Cactus binary releases</a>.
-        </li>
-        <li>
-		<a href="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi">Cactus source releases</a>.
-        </li>
-      </ul>
+        <section name="Releases">
 
-    </section>
-  </body>
+            <ul>
+                <li>
+                    <a href="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi">Cactus binary releases</a>.
+                </li>
+                <li>
+                    <a href="http://jakarta.apache.org/site/downloads/downloads_cactus.cgi">Cactus source releases</a>.
+                </li>
+            </ul>
+
+        </section>
+    </body>
 </document>

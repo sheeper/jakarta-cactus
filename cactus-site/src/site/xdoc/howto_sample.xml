@@ -23,111 +23,128 @@
 
 <document id="howto_sample">
 
-  <properties>
-    <title>Sample Howto</title>
-  </properties>
+    <properties>
+        <title>Sample Howto</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Introduction">
+        <section name="Introduction">
 
-      <p>
-        This tutorial explains where to get Cactus samples and how to use
-        them.
-      </p>
-      <p>
-        There are some samples available as part of the documentation. The
-        samples depend on the kind of test case you are writing (Servlet,
-        Taglibs, Filters, ...). For this reason you'll find some samples
-        in the <a href="writing/howto_testcase.html">TestCase Howto</a>
-        tutorial.
-      </p>
-      <p>
-        However, the majority of Cactus samples are in the form of source
-        samples. These samples are part of the Cactus distribution that
-        you have downloaded (in the <code>samples</code> directory).
-      </p>
-      <p>
-        The following section explains how to execute the Cactus Samples
-        using Ant or Maven2(the Maven2 execution only calls the Ant execution).
-        If you wish to integrate them in your own build system or in your
-        favorite IDE, you'll have to understand the principles first and
-        manually install them (read the
-        <a href="getting_started.html">Getting Started</a>
-        and the <a href="integration/manual/howto_config.html">Configuration Howto</a>
-        tutorials). Some detailed explanations for IDE integration
-        are also available in the <a href="integration/howto_ide.html">IDE Howto</a>
-        tutorial.
-      </p>
+            <p>
+                This tutorial explains where to get Cactus samples and how to use
+                them.
+            </p>
+            <p>
+                There are some samples available as part of the documentation. The
+                samples depend on the kind of test case you are writing (Servlet,
+                Taglibs, Filters, ...). For this reason you'll find some samples
+                in the
+                <a href="writing/howto_testcase.html">TestCase Howto</a>
+                tutorial.
+            </p>
+            <p>
+                However, the majority of Cactus samples are in the form of source
+                samples. These samples are part of the Cactus distribution that
+                you have downloaded (in the <code>samples</code> directory).
+            </p>
+            <p>
+                The following section explains how to execute the Cactus Samples
+                using Ant or Maven2(the Maven2 execution only calls the Ant execution).
+                If you wish to integrate them in your own build system or in your
+                favorite IDE, you'll have to understand the principles first and
+                manually install them (read the
+                <a href="getting_started.html">Getting Started</a>
+                and the
+                <a href="integration/manual/howto_config.html">Configuration Howto</a>
+                tutorials). Some detailed explanations for IDE integration
+                are also available in the
+                <a href="integration/howto_ide.html">IDE Howto</a>
+                tutorial.
+            </p>
 
-    </section>
+        </section>
 
-    <section name="Running the Cactus Samples using Ant">
+        <section name="Running the Cactus Samples using Ant">
 
-      <subsection name="Prerequisites">
+            <subsection name="Prerequisites">
 
-        <p>
-          You need to install the following items prior to building the Cactus
-          Sample application:
-        </p>
-        <ul>
-          <li>
-            A JVM (1.2 or above),
-          </li>
-          <li>
-            You don't need a servlet engine any more, since Cactus in integrated with
-            Cargo and now Cargo tries to download a servlet container for you.
-          </li>
-          <li>
-            Ant (see the <a href="integration/ant/howto_ant_install.html">"Installing
-            Ant"</a> tutorial).
-          </li>
-          <li>
-            <a href="http://ant.apache.org/ivy/">Ivy</a> for copying the dependencies from the <code>m2</code> repository.
-            The installation of Ivy is pretty straight-forward: simply place the two <code>Ivy</code>
-            jars(<code>ivy-[version].jar</code> and <code>ivy-core[version].jar</code>) in the <code>ANT_HOME/lib</code> directory. 
-          </li>
-          <li>
-            <a href="http://maven.apache.org/">Maven2</a> for getting the dependencies.        
-          </li>
-          
-        </ul>
+                <p>
+                    You need to install the following items prior to building the Cactus
+                    Sample application:
+                </p>
+                <ul>
+                    <li>
+                        A JVM (1.2 or above),
+                    </li>
+                    <li>
+                        You don't need a servlet engine any more, since Cactus in integrated with
+                        Cargo and now Cargo tries to download a servlet container for you.
+                    </li>
+                    <li>
+                        Ant (see the <a href="integration/ant/howto_ant_install.html">"Installing
+                        Ant"
+                    </a> tutorial).
+                    </li>
+                    <li>
+                        <a href="http://ant.apache.org/ivy/">Ivy</a>
+                        for copying the dependencies from the <code>m2</code> repository.
+                        The installation of Ivy is pretty straight-forward: simply place the two
+                        <code>Ivy</code>
+                        jars(<code>ivy-[version].jar</code> and <code>ivy-core[version].jar</code>) in the <code>
+                        ANT_HOME/lib
+                    </code> directory.
+                    </li>
+                    <li>
+                        <a href="http://maven.apache.org/">Maven2</a>
+                        for getting the dependencies.
+                    </li>
 
-      </subsection>
+                </ul>
 
-      <subsection name="Installing the Cactus Sample">
+            </subsection>
 
-        <p>
-          Follow these steps:
-        </p>
-        <ul>
-          <li>
-            Download the <a href="downloads.html">Cactus Sample</a> and
-            unzip it in a directory. Let's call the <code>[downloaded_directory]/samples</code> directory
-            <em><code>sampleroot</code></em>.
-          </li>
-        </ul>
+            <subsection name="Installing the Cactus Sample">
 
-      </subsection>
+                <p>
+                    Follow these steps:
+                </p>
+                <ul>
+                    <li>
+                        Download the <a href="downloads.html">Cactus Sample</a> and
+                        unzip it in a directory. Let's call the <code>[downloaded_directory]/samples</code> directory
+                        <em>
+                            <code>sampleroot</code>
+                        </em>
+                        .
+                    </li>
+                </ul>
 
-      <subsection name="Running the samples">
+            </subsection>
 
-        <p>
-          Open a shell, cd to the <em><code>sampleroot</code></em>
-          directory and select which samples you want to run. To run all of the
-          dependencies type in <code>sampleroot</code> the following: <code>mvn install</code>.
-          If you want to run just one type of samples, cd to the corresponding directory and
-          type agsain <code>mvn install</code>. What will happen is that Maven will get all of the
-          dependencies(approximately 10-15 min.) and then will invoke Ant to execute the tests.
-          Ant will call Cargo to get the container that is needed to execute the tests in (approximately 5-10 min.)
-          and will execute the tests (approximately 2-3 mins.) As you can see the majority of time
-          is spent on getting the dependencies and the containers. Hopefully this is done only one time(dependencies)
-          or until you call <code>mvn clean</code>(containers).
-        </p>
+            <subsection name="Running the samples">
 
-      </subsection>
+                <p>
+                    Open a shell, cd to the
+                    <em>
+                        <code>sampleroot</code>
+                    </em>
+                    directory and select which samples you want to run. To run all of the
+                    dependencies type in <code>sampleroot</code> the following: <code>mvn install</code>.
+                    If you want to run just one type of samples, cd to the corresponding directory and
+                    type agsain <code>mvn install</code>. What will happen is that Maven will get all of the
+                    dependencies(approximately 10-15 min.) and then will invoke Ant to execute the tests.
+                    Ant will call Cargo to get the container that is needed to execute the tests in (approximately 5-10
+                    min.)
+                    and will execute the tests (approximately 2-3 mins.) As you can see the majority of time
+                    is spent on getting the dependencies and the containers. Hopefully this is done only one
+                    time(dependencies)
+                    or until you call <code>mvn clean</code>(containers).
+                </p>
 
-    </section>
+            </subsection>
 
-  </body>
+        </section>
+
+    </body>
 </document>

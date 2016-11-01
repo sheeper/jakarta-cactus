@@ -22,16 +22,16 @@
 -->
 
 <!DOCTYPE navigation
-  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
-  "file:../../dtds/navigation-v10.dtd">
+        PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+        "file:../../dtds/navigation-v10.dtd">
 <project>
-<body>
-  <menu name="Main Page" label="index"/>
+    <body>
+        <menu name="Main Page" label="index"/>
 
-  <menu name="Resources">
-    <item name="resources_cactus" label="Cactus Links"/>
-    <item name="resources_books" label="Cactus Books"/>
-    <item name="resources_testing" label="Testing links"/>
-  </menu>
-</body>
+        <menu name="Resources">
+            <item name="resources_cactus" label="Cactus Links"/>
+            <item name="resources_books" label="Cactus Books"/>
+            <item name="resources_testing" label="Testing links"/>
+        </menu>
+    </body>
 </project>

@@ -18,13 +18,13 @@
  */
  -->
 <project default="testPlugin">
-        
-  <goal name="testPlugin" prereqs="clean">
-    <attainGoal name="cactus:test"/>
-  </goal>
 
-  <goal name="cactus:test-ear">
-    <fail>catus:test-ear should have been skipped</fail>
-  </goal>
+    <goal name="testPlugin" prereqs="clean">
+        <attainGoal name="cactus:test"/>
+    </goal>
+
+    <goal name="cactus:test-ear">
+        <fail>catus:test-ear should have been skipped</fail>
+    </goal>
 
 </project>

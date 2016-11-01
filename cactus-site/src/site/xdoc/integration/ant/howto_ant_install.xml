@@ -23,112 +23,127 @@
 
 <document id="howto_ant_install">
 
-  <properties>
-    <title>Installing Ant</title>
-  </properties>
+    <properties>
+        <title>Installing Ant</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Forewords">
+        <section name="Forewords">
 
-      <note>
-        <strong>You need to have a good understanding of Ant before
-        reading this tutorial. If you don't, I suggest you read the
-        <a href="http://ant.apache.org/manual/">Ant User Manual</a> first</strong>.
-      </note>
+            <note>
+                <strong>You need to have a good understanding of Ant before
+                    reading this tutorial. If you don't, I suggest you read the
+                    <a href="http://ant.apache.org/manual/">Ant User Manual</a>
+                    first
+                </strong>
+                .
+            </note>
 
-      <p>
-        This tutorial explains how to install Ant properly to be able to
-        run the Sample application provided with the Cactus distribution and
-        also build the Cactus distribution from the sources.
-      </p>
+            <p>
+                This tutorial explains how to install Ant properly to be able to
+                run the Sample application provided with the Cactus distribution and
+                also build the Cactus distribution from the sources.
+            </p>
 
-    </section>
+        </section>
 
-    <section name="Ant tasks needed by Cactus">
+        <section name="Ant tasks needed by Cactus">
 
-      <p>
-        Cactus uses the following optional tasks of Ant:
-      </p>
-      <ul>
-        <li>
-          The <strong><code>junit</code></strong> task: it is used to run
-          the unit tests of Cactus itself and the Cactus unit tests of the
-          Sample application. This task is
-          normally found in the <code>optional.jar</code> Ant jar.
-        </li>
-        <li>
-          The Cactus Sample application uses some Ant custom tasks provided
-          by Cactus in the <code>cactus-ant.jar</code> jar file (
-          found in the <code>lib/</code> directory where you unpacked the
-          Cactus distribution).
-        </li>
-        <li>
-          The <strong><code>checkstyle</code></strong> task: it is used only
-          to build Cactus from the sources (i.e. not needed for building the
-          Cactus sample application). The version of
-          <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> used is 3.0+.
-        </li>
-      </ul>
+            <p>
+                Cactus uses the following optional tasks of Ant:
+            </p>
+            <ul>
+                <li>
+                    The
+                    <strong>
+                        <code>junit</code>
+                    </strong>
+                    task: it is used to run
+                    the unit tests of Cactus itself and the Cactus unit tests of the
+                    Sample application. This task is
+                    normally found in the <code>optional.jar</code> Ant jar.
+                </li>
+                <li>
+                    The Cactus Sample application uses some Ant custom tasks provided
+                    by Cactus in the <code>cactus-ant.jar</code> jar file (
+                    found in the <code>lib/</code> directory where you unpacked the
+                    Cactus distribution).
+                </li>
+                <li>
+                    The
+                    <strong>
+                        <code>checkstyle</code>
+                    </strong>
+                    task: it is used only
+                    to build Cactus from the sources (i.e. not needed for building the
+                    Cactus sample application). The version of
+                    <a href="http://checkstyle.sourceforge.net/">Checkstyle</a>
+                    used is 3.0+.
+                </li>
+            </ul>
 
-      <p>
-        In order to simplify the installation of Ant and the gathering of
-        the required Ant tasks as described above, we provide a
-        prepackaged zip containing everything needed. This is available from
-        the <a href="../../downloads.html">downloads</a> section.
-      </p>
+            <p>
+                In order to simplify the installation of Ant and the gathering of
+                the required Ant tasks as described above, we provide a
+                prepackaged zip containing everything needed. This is available from
+                the <a href="../../downloads.html">downloads</a> section.
+            </p>
 
-    </section>
+        </section>
 
-    <section name="Installing Ant on Windows systems">
+        <section name="Installing Ant on Windows systems">
 
-      <p>
-        Follow the steps below to install Ant:
-      </p>
-      <ol>
-        <li>
-          Download Jakarta Ant
-          (<code>jakarta-ant-&lt;version&gt;-bin.zip</code>) from
-          <a href="http://ant.apache.org/">here</a>. We recommend version 1.5.3 or 
-          above. Alternatively you can download the
-          prepackaged Ant version, as mentioned above.
-        </li>
-        <li>
-          Unzip it in a directory. Let's call this directory
-          <code>antroot</code>,
-        </li>
-        <li>
-          Create an environment variable named <code>ANT_HOME</code> that
-          points to the <code>antroot</code> directory,
-        </li>
-        <li>
-          Modify the <code>PATH</code> environment variable to include the
-          <code>%ANT_HOME%\bin</code> directory (so that you'll be able to type
-          <code>ant</code> in a DOS shell, in whatever directory and it will
-          call the <code>%ANT_HOME%\bin\ant.bat</code> script,
-        </li>
-        <li>
-          Download the Ant optional task jar
-          (<code>jakarta-ant-&lt;version&gt;-optional.jar</code>) from
-          <a href="http://ant.apache.org/">here</a>
-          and put it in <code>%ANT_HOME%\lib</code>. <em>Note that this step
-          is needed only if you haven't downloaded the prepackaged zip</em>,
-        </li>
-        <li>
-          If you haven't downloaded the prepackaged Ant zip, you'll need to
-          download the Stylebook 1.0b3 for Xalan 2 jar, the latest
-          <a href="http://xml.apache.org/xalan-j/ ">Xalan</a>, the latest
-          <a href="http://xml.apache.org/xerces-j">Xerces</a>, the
-          latest <a href="http://junit.org/">JUnit</a> and the latest
-          <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> jars. You'll
-          also need to ensure that you use a JAXP 1.1 parser. You can download
-          one (crimson) from
-          <a href="http://java.sun.com/xml/download.html">here</a>. Put
-          all these jars in <code>%ANT_HOME%\lib</code>.
-        </li>
-      </ol>
+            <p>
+                Follow the steps below to install Ant:
+            </p>
+            <ol>
+                <li>
+                    Download Jakarta Ant
+                    (<code>jakarta-ant-&lt;version&gt;-bin.zip</code>) from
+                    <a href="http://ant.apache.org/">here</a>. We recommend version 1.5.3 or
+                    above. Alternatively you can download the
+                    prepackaged Ant version, as mentioned above.
+                </li>
+                <li>
+                    Unzip it in a directory. Let's call this directory
+                    <code>antroot</code>,
+                </li>
+                <li>
+                    Create an environment variable named <code>ANT_HOME</code> that
+                    points to the <code>antroot</code> directory,
+                </li>
+                <li>
+                    Modify the <code>PATH</code> environment variable to include the
+                    <code>%ANT_HOME%\bin</code>
+                    directory (so that you'll be able to type
+                    <code>ant</code>
+                    in a DOS shell, in whatever directory and it will
+                    call the <code>%ANT_HOME%\bin\ant.bat</code> script,
+                </li>
+                <li>
+                    Download the Ant optional task jar
+                    (<code>jakarta-ant-&lt;version&gt;-optional.jar</code>) from
+                    <a href="http://ant.apache.org/">here</a>
+                    and put it in <code>%ANT_HOME%\lib</code>. <em>Note that this step
+                    is needed only if you haven't downloaded the prepackaged zip</em>,
+                </li>
+                <li>
+                    If you haven't downloaded the prepackaged Ant zip, you'll need to
+                    download the Stylebook 1.0b3 for Xalan 2 jar, the latest
+                    <a href="http://xml.apache.org/xalan-j/ ">Xalan</a>, the latest
+                    <a href="http://xml.apache.org/xerces-j">Xerces</a>, the
+                    latest <a href="http://junit.org/">JUnit</a> and the latest
+                    <a href="http://checkstyle.sourceforge.net/">Checkstyle</a>
+                    jars. You'll
+                    also need to ensure that you use a JAXP 1.1 parser. You can download
+                    one (crimson) from
+                    <a href="http://java.sun.com/xml/download.html">here</a>. Put
+                    all these jars in <code>%ANT_HOME%\lib</code>.
+                </li>
+            </ol>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

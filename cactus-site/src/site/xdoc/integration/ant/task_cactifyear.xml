@@ -23,134 +23,140 @@
 
 <document id="task_cactifyear">
 
-  <properties>
-    <title>CactifyEar Ant Task</title>
-  </properties>
+    <properties>
+        <title>CactifyEar Ant Task</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="CactifyEar Task">
+        <section name="CactifyEar Task">
 
-      <p>
-        The task <strong>cactifyear</strong> allows the enhancement of an existing
-        enterprise-application archive (EAR) with the elements needed to run Cactus 
-        in-container tests. This includes adding a web application that contains 
-        the deployed Cactus redirectors.
-      </p>
+            <p>
+                The task <strong>cactifyear</strong> allows the enhancement of an existing
+                enterprise-application archive (EAR) with the elements needed to run Cactus
+                in-container tests. This includes adding a web application that contains
+                the deployed Cactus redirectors.
+            </p>
 
-      <p>
-        The <strong>cactifyear</strong> task extends the built-in Ant task
-        <strong>ear</strong>, so it also supports all attributes and nested
-        elements that <strong>ear</strong> supports.
-      </p>
+            <p>
+                The <strong>cactifyear</strong> task extends the built-in Ant task
+                <strong>ear</strong>, so it also supports all attributes and nested
+                elements that <strong>ear</strong> supports.
+            </p>
 
-      <section name="Parameters">
+            <section name="Parameters">
 
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Required</th>
-          </tr>
-          <tr>
-            <td><strong>srcfile</strong></td>
-            <td>
-              The original ear that is going to be cactified. 
-            </td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>addEjbReferences</td>
-            <td>
-              Specifies if EJB references to all local EJBs in the ear should be added to the cactus war. 
-            </td>
-            <td>No</td>
-          </tr>
-        </table>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>srcfile</strong>
+                        </td>
+                        <td>
+                            The original ear that is going to be cactified.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>addEjbReferences</td>
+                        <td>
+                            Specifies if EJB references to all local EJBs in the ear should be added to the cactus war.
+                        </td>
+                        <td>No</td>
+                    </tr>
+                </table>
 
-      </section>
+            </section>
 
-      <section name="Nested Elements">
+            <section name="Nested Elements">
 
 
-        <section name="cactuswar">
+                <section name="cactuswar">
 
-          <p>
-            The <strong>cactuswar</strong> element configures everything that 
-            has to do with the cactus web application that will end up in the 
-            ear. This element has all the parameters of the 
-	    <a href="task_cactifywar.html">cactifywar</a> task except
-            the <strong>destfile</strong> parameter. The web application will
-            always be named cactus.war and be placed in the root of the ear.
-          </p>
+                    <p>
+                        The <strong>cactuswar</strong> element configures everything that
+                        has to do with the cactus web application that will end up in the
+                        ear. This element has all the parameters of the
+                        <a href="task_cactifywar.html">cactifywar</a>
+                        task except
+                        the <strong>destfile</strong> parameter. The web application will
+                        always be named cactus.war and be placed in the root of the ear.
+                    </p>
 
-	  <section name="Parameters">
+                    <section name="Parameters">
 
-            <table>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Required</th>
-              </tr>
-              <tr>
-                <td>context</td>
-                <td>
-                  The context to wich the cactified web application will be mapped to.
-                </td>
-                <td>No, the default is <em>/cactus</em></td>
-              </tr>
-            </table>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Required</th>
+                            </tr>
+                            <tr>
+                                <td>context</td>
+                                <td>
+                                    The context to wich the cactified web application will be mapped to.
+                                </td>
+                                <td>No, the default is
+                                    <em>/cactus</em>
+                                </td>
+                            </tr>
+                        </table>
 
-          </section>
+                    </section>
 
-        </section>
+                </section>
 
-      </section>
+            </section>
 
-      <section name="Examples">
+            <section name="Examples">
 
-        <p>
-          The following example demonstrates the simplest-possible use of the
-          task. It will add a web application named cactus.war under the context
-          /cactus. The web application will contain the redirectors necessary
-          for cactus to work.
-        </p>
+                <p>
+                    The following example demonstrates the simplest-possible use of the
+                    task. It will add a web application named cactus.war under the context
+                    /cactus. The web application will contain the redirectors necessary
+                    for cactus to work.
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <cactifyear srcfile="${build.dir}/my.ear" destfile="${build.dir}/cactified.ear"/>
 ]]></source>
 
-        <p>
-          The next example demonstrates how to set the context for the web 
-          application.
-        </p>
+                <p>
+                    The next example demonstrates how to set the context for the web
+                    application.
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <cactifyear srcfile="${build.dir}/my.ear" destfile="${build.dir}/cactified.ear">
     <cactuswar context="/myTestFramework" version="2.3"/>
 </cactifyear>
     ]]></source>
 
-        <p>
-          In the following example, we use an existing war by cactify it and 
-          add it to the ear.
-        </p>
+                <p>
+                    In the following example, we use an existing war by cactify it and
+                    add it to the ear.
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <cactifyear srcfile="${build.dir}/my.ear" destfile="${build.dir}/cactified.ear">
     <cactuswar srcfile="mytest.war"/>
 </cactifyear>
 ]]></source>
 
-        <p>
-            As mentioned previously all parameters of the tasks 
-            <strong>cactifywar</strong> and <strong>war</strong> can be used. 
-            The only exception to this is <strong>destfile</strong> since
-            the resulting war always is placed inside the ear with the 
-            name cactus.war.
-        </p>
+                <p>
+                    As mentioned previously all parameters of the tasks
+                    <strong>cactifywar</strong>
+                    and <strong>war</strong> can be used.
+                    The only exception to this is <strong>destfile</strong> since
+                    the resulting war always is placed inside the ear with the
+                    name cactus.war.
+                </p>
 
-        <source><![CDATA[
+                <source><![CDATA[
 <cactifyear srcfile="${build.dir}/my.ear" destfile="${build.dir}/cactified.ear">
     <cactuswar srcfile="mytest.war" mergewebxml="my-web.xml">
         <classes dir="${classes}">
@@ -160,10 +166,10 @@
 </cactifyear>
 ]]></source>
 
-      </section>
+            </section>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 
 </document>

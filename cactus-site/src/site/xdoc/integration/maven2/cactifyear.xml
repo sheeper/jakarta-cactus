@@ -24,124 +24,130 @@
 <document id="mojo_cactifyear">
 
     <properties>
-    <title>CactifyEar Maven2 MOJO</title>
-  </properties>
+        <title>CactifyEar Maven2 MOJO</title>
+    </properties>
 
-  <body>
+    <body>
 
-		<section name="Parameters">
-			
-			<table>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Required</th>
-				</tr>
-				<tr>
-					<td><strong>srcFile</strong></td>
-					<td>
-						The original ear that is going to be cactified. 
-					</td>
-					<td>Yes</td>
-				</tr>
-				<tr>
-					<td>destFile</td>
-					<td>
-						The output file of the cactification process.
-					</td>
-					<td>No, the default is ${project.build.directory}/${project.artifactId}-cactified.ear</td>
-				</tr>
-				<tr>
-					<td>addEjbReferences</td>
-					<td>
-						Specifies if EJB references to all local EJBs in the ear should be added to the cactus war. 
-					</td>
-					<td>No</td>
-				</tr>
-			</table>
-			
-		</section>
-		
-		<section name="Nested Elements">
-			
-			
-			<section name="cactuswar">
-				
-				<p>
-					The <strong>cactuswar</strong> element configures everything that 
-					has to do with the cactus web application that will end up in the 
-					ear. This element has all the parameters of the 
-					<a href="cactifywar.html">cactifywar</a> task except
-					the <strong>destfile</strong> parameter. The web application will
-					always be named cactus.war and be placed in the root of the ear.
-				</p>
-				
-				<section name="Parameters">
-					
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>Required</th>
-						</tr>
-						<tr>
-							<td>context</td>
-							<td>
-								The context to wich the cactified web application will be mapped to.
-							</td>
-							<td>No, the default is <em>/cactus</em></td>
-						</tr>
-						<tr>
-							<td>redirectors</td>
-							<td>
-								The redirectors to include in the web application. Redirectors should 
-								be specified specified in a list in this element.
-							</td>
-							<td>No</td>
-						</tr>
-						<tr>
-							<td>libDependencies</td>
-							<td>
-								A list of &lt;dependency&gt; elements to include in the web applpication's 
-								WEB-INF/lib folder.
-							</td>
-							<td>No</td>
-						</tr>
-						<tr>
-							<td>testClasses</td>
-							<td>
-								An element containing a &lt;directory&gt; and &lt;includes&gt; element to specify
-								which tests to include in the war application.
-							</td>
-							<td>No</td>
-						</tr>
-						<tr>
-							<td>version</td>
-							<td>
-								The version of the web application archive to create if no source
-				              archive has been specified with the <em>srcFile</em> attribute.
-				              Can be either <code>2.2</code> or <code>2.3</code>.
-							</td>
-							<td>No, required is only if not srcFile attribute is present</td>
-						</tr>
-					</table>
-					
-				</section>
-				
-			</section>
-			
-		</section>
-		
-		<section name="Examples">
-			
-			<p>
-				The following example demonstrates how to use the cactifyear mojol.
-				It will create a cactified archive from the <code>target/cactus.samples.ejb-1.8.1-SNAPSHOT-bin.ear</code>
-				adding the listed redirectors and library dependencies.
-			</p>
-			
-			<source>
-				<![CDATA[
+        <section name="Parameters">
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>srcFile</strong>
+                    </td>
+                    <td>
+                        The original ear that is going to be cactified.
+                    </td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>destFile</td>
+                    <td>
+                        The output file of the cactification process.
+                    </td>
+                    <td>No, the default is ${project.build.directory}/${project.artifactId}-cactified.ear</td>
+                </tr>
+                <tr>
+                    <td>addEjbReferences</td>
+                    <td>
+                        Specifies if EJB references to all local EJBs in the ear should be added to the cactus war.
+                    </td>
+                    <td>No</td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section name="Nested Elements">
+
+
+            <section name="cactuswar">
+
+                <p>
+                    The <strong>cactuswar</strong> element configures everything that
+                    has to do with the cactus web application that will end up in the
+                    ear. This element has all the parameters of the
+                    <a href="cactifywar.html">cactifywar</a>
+                    task except
+                    the <strong>destfile</strong> parameter. The web application will
+                    always be named cactus.war and be placed in the root of the ear.
+                </p>
+
+                <section name="Parameters">
+
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Required</th>
+                        </tr>
+                        <tr>
+                            <td>context</td>
+                            <td>
+                                The context to wich the cactified web application will be mapped to.
+                            </td>
+                            <td>No, the default is
+                                <em>/cactus</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>redirectors</td>
+                            <td>
+                                The redirectors to include in the web application. Redirectors should
+                                be specified specified in a list in this element.
+                            </td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>libDependencies</td>
+                            <td>
+                                A list of &lt;dependency&gt; elements to include in the web applpication's
+                                WEB-INF/lib folder.
+                            </td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>testClasses</td>
+                            <td>
+                                An element containing a &lt;directory&gt; and &lt;includes&gt; element to specify
+                                which tests to include in the war application.
+                            </td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>version</td>
+                            <td>
+                                The version of the web application archive to create if no source
+                                archive has been specified with the <em>srcFile</em> attribute.
+                                Can be either <code>2.2</code> or <code>2.3</code>.
+                            </td>
+                            <td>No, required is only if not srcFile attribute is present</td>
+                        </tr>
+                    </table>
+
+                </section>
+
+            </section>
+
+        </section>
+
+        <section name="Examples">
+
+            <p>
+                The following example demonstrates how to use the cactifyear mojol.
+                It will create a cactified archive from the
+                <code>target/cactus.samples.ejb-1.8.1-SNAPSHOT-bin.ear</code>
+                adding the listed redirectors and library dependencies.
+            </p>
+
+            <source>
+                <![CDATA[
 <plugin>
    <groupId>org.apache.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
@@ -192,7 +198,7 @@
    </executions>
 </plugin>
 				]]>
-			</source>																														
-	</section>
-  </body>
+            </source>
+        </section>
+    </body>
 </document>

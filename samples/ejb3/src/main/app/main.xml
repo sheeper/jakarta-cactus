@@ -18,18 +18,18 @@
 		under the License.   
 -->
 <assembly>
-   <id>bin</id>
-   <formats>
-      <format>ear</format>
-   </formats>
-   <includeBaseDirectory>false</includeBaseDirectory>
-   <fileSets>
-      <fileSet>
-         <directory>target</directory>
-         <outputDirectory>/</outputDirectory>
-         <includes>
-            <include>cactus.samples.ejb3-1.8.1-SNAPSHOT.jar</include>
-         </includes>
-      </fileSet>
-   </fileSets>
+    <id>bin</id>
+    <formats>
+        <format>ear</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>cactus.samples.ejb3-1.8.1-SNAPSHOT.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
 </assembly>

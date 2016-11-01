@@ -17,51 +17,54 @@
 -->
 <document>
 
-  <properties>
-    <title>Maven Cactus plugin</title>
-    <author email="vmassol@apache.org">Vincent Massol</author>
-  </properties>
+    <properties>
+        <title>Maven Cactus plugin</title>
+        <author email="vmassol@apache.org">Vincent Massol</author>
+    </properties>
 
-  <body>
-    <section name="Maven Cactus plugin">
-      <p>
-        This is a plugin for <a href="http://maven.apache.org/">Maven</a>
-        that allows to easily perform Cactus unit-testing with Maven. See
-        the <a href="features.html">features list</a> for more details.
-      </p>
-    </section>
-    <section name="News">
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>28 Janv 2004</td>
-          <td>
-            Maven plugin 1.7 for Cactus is available. See the
-            <a href="changes-report.html">changes report</a> for the detailed 
-            list of changes. To install it, run:<br/>
-            <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.7</code>
-            <br/>Read the <a href="using.html">using guide</a> for more details
-            on installation and usage.
-          </td>
-        </tr>
-      </table>
-    </section>
-    <section name="Documentation roadmap">
-      <p>
-        Check the <a href="features.html">features</a> page for all features
-        of this plugin.
-      </p>
-      <p>
-        Then, you should read the <a href="using.html">Quick Start</a> page
-        which provides details about how to use the plugin.
-      </p>
-      <p>
-        The latest changes are available <a href="changes-report.html">here</a>.
-      </p>
-    </section>
+    <body>
+        <section name="Maven Cactus plugin">
+            <p>
+                This is a plugin for
+                <a href="http://maven.apache.org/">Maven</a>
+                that allows to easily perform Cactus unit-testing with Maven. See
+                the <a href="features.html">features list</a> for more details.
+            </p>
+        </section>
+        <section name="News">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>28 Janv 2004</td>
+                    <td>
+                        Maven plugin 1.7 for Cactus is available. See the
+                        <a href="changes-report.html">changes report</a>
+                        for the detailed
+                        list of changes. To install it, run:
+                        <br/>
+                        <code>maven plugin:download -DartifactId=cactus-maven -DgroupId=cactus -Dversion=1.7</code>
+                        <br/>Read the <a href="using.html">using guide</a> for more details
+                        on installation and usage.
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <section name="Documentation roadmap">
+            <p>
+                Check the <a href="features.html">features</a> page for all features
+                of this plugin.
+            </p>
+            <p>
+                Then, you should read the <a href="using.html">Quick Start</a> page
+                which provides details about how to use the plugin.
+            </p>
+            <p>
+                The latest changes are available <a href="changes-report.html">here</a>.
+            </p>
+        </section>
 
- </body>
+    </body>
 </document>

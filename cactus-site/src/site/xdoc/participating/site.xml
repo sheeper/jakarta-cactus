@@ -22,33 +22,33 @@
 -->
 
 <!DOCTYPE navigation
-  PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
-  "file:../../dtds/navigation-v10.dtd">
+        PUBLIC "-//Apache Software Foundation//DTD Cactus Navigation V1.0//EN"
+        "file:../../dtds/navigation-v10.dtd">
 
 <project>
-<body>
-  <menu name="Main Page" id="index"/>
+    <body>
+        <menu name="Main Page" id="index"/>
 
-  <menu name="Participating">
-    <item id="participating" label="Introduction"/>
-    <item id="contributors"/>
-    <item id="users"/>
-  </menu>
+        <menu name="Participating">
+            <item id="participating" label="Introduction"/>
+            <item id="contributors"/>
+            <item id="users"/>
+        </menu>
 
-  <menu label="Developers">
-    <item name="bug_database_cactus_open_issues" label="Todo/Open Issues"/>
-    <item name="build_result" href="build_result.html"/>
-    <item name="coding_conventions" href="coding_conventions.html"/>
-    <item name="apis" href="apis.html"/>
-    <item name="CVS" href=""/>
-    <item name="" href="howto_build.html"/>
-    <item name="coverage" href="coverage.html"/>
-    <item name="" href="release_checklist.html"/>
-  </menu>
+        <menu label="Developers">
+            <item name="bug_database_cactus_open_issues" label="Todo/Open Issues"/>
+            <item name="build_result" href="build_result.html"/>
+            <item name="coding_conventions" href="coding_conventions.html"/>
+            <item name="apis" href="apis.html"/>
+            <item name="CVS" href=""/>
+            <item name="" href="howto_build.html"/>
+            <item name="coverage" href="coverage.html"/>
+            <item name="" href="release_checklist.html"/>
+        </menu>
 
-  <menu label="Miscellaneous">
-    <item name="logos" href=""/>
-  </menu>
+        <menu label="Miscellaneous">
+            <item name="logos" href=""/>
+        </menu>
 
-</body>
+    </body>
 </project>

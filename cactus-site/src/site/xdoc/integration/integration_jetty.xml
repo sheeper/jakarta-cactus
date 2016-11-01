@@ -23,35 +23,37 @@
 
 <document id="integration_jetty">
 
-  <properties>
-    <title>Jetty Integration</title>
-  </properties>
+    <properties>
+        <title>Jetty Integration</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Forewords and Requirements">
+        <section name="Forewords and Requirements">
 
-      <p>
-        This page explains how to run Cactus tests with the Jetty servlet
-	container. You will need the single <a href="http://mortbay.org/jetty/">Jetty</a>
-        jar, and if you are using JSPs you will also need the Jasper jars.
-      </p>
+            <p>
+                This page explains how to run Cactus tests with the Jetty servlet
+                container. You will need the single
+                <a href="http://mortbay.org/jetty/">Jetty</a>
+                jar, and if you are using JSPs you will also need the Jasper jars.
+            </p>
 
-    </section>
-    
-    <section name="Setting up Jetty">
+        </section>
 
-      <p>
-        The idea is to use the 
-        <code>org.apache.cactus.extension.jetty.JettyTestSetup</code> JUnit
-        TestSetup class provided by Cactus so that Jetty is started before the 
-        tests are run.
-      </p>
-      <p>
-        In order to use the TestSetup, you need to wrap your test suite in 
-        <code>JettyTestSetup</code>:
-      </p>
-<source><![CDATA[
+        <section name="Setting up Jetty">
+
+            <p>
+                The idea is to use the
+                <code>org.apache.cactus.extension.jetty.JettyTestSetup</code>
+                JUnit
+                TestSetup class provided by Cactus so that Jetty is started before the
+                tests are run.
+            </p>
+            <p>
+                In order to use the TestSetup, you need to wrap your test suite in
+                <code>JettyTestSetup</code>:
+            </p>
+            <source><![CDATA[
 public class TestJettyAll extends TestCase
 {
     public static Test suite()
@@ -64,43 +66,45 @@ public class TestJettyAll extends TestCase
         return new JettyTestSetup(suite);
     }        
 ]]></source>
-      
-      <p>
-        You can configure the Jetty TestSetup either programatically or
-        with system properties:
-      </p>
-      <ul>
-        <li>
-          The method <code>setConfigFile(File)</code> or the system property
-          <code>cactus.jetty.config</code> sets the location of an optional
-          jetty.xml file (see Jetty's documentation for details).
-        </li>
-        <li>
-          The method <code>setResourceDir(File)</code> or the system property
-          <code>cactus.jetty.resourceDir</code> sets the directory containing
-          the web-application resources (expanded WAR). If you omit this step,
-          you'll only be able to use the Servlet Redirector.
-        </li>
-      </ul>
-      <p>
-        In both cases, the value set programatically takes precendence over the
-        value of the corresponding system property.
-      </p>
-      <note>
-        If you're using JSPs you'll need to add the Jasper jars to your 
-        runtime Classpath (in addition to the Jetty jar).
-      </note>      
 
-      <section name="Example 1: Running from Ant">
+            <p>
+                You can configure the Jetty TestSetup either programatically or
+                with system properties:
+            </p>
+            <ul>
+                <li>
+                    The method <code>setConfigFile(File)</code> or the system property
+                    <code>cactus.jetty.config</code>
+                    sets the location of an optional
+                    jetty.xml file (see Jetty's documentation for details).
+                </li>
+                <li>
+                    The method <code>setResourceDir(File)</code> or the system property
+                    <code>cactus.jetty.resourceDir</code>
+                    sets the directory containing
+                    the web-application resources (expanded WAR). If you omit this step,
+                    you'll only be able to use the Servlet Redirector.
+                </li>
+            </ul>
+            <p>
+                In both cases, the value set programatically takes precendence over the
+                value of the corresponding system property.
+            </p>
+            <note>
+                If you're using JSPs you'll need to add the Jasper jars to your
+                runtime Classpath (in addition to the Jetty jar).
+            </note>
 
-        <p>
-          Let's assume we have a JUnit task that launches the tests.
-          We need to add the Jetty jar and optionally the Jasper jars
-          (if we use JSPs) to the runtime classpath. Then, all we have 
-          to do is add the correct VM arguments to configure
-          the <code>JettyTestSetup</code> behavior. For example:
-        </p>
-<source><![CDATA[
+            <section name="Example 1: Running from Ant">
+
+                <p>
+                    Let's assume we have a JUnit task that launches the tests.
+                    We need to add the Jetty jar and optionally the Jasper jars
+                    (if we use JSPs) to the runtime classpath. Then, all we have
+                    to do is add the correct VM arguments to configure
+                    the <code>JettyTestSetup</code> behavior. For example:
+                </p>
+                <source><![CDATA[
 <junit>
 
     [...]
@@ -122,23 +126,23 @@ public class TestJettyAll extends TestCase
 </junit>
 ]]></source>
 
-      </section>
+            </section>
 
-      <section name="Example 2: Running from an IDE">
+            <section name="Example 2: Running from an IDE">
 
-        <p>
-          Again all you have to do is add the correct VM arguments, and the
-          Jetty and Jasper jars, to the JUnit launch.
-        </p>
-        <p>
-          For example in Eclipse you would add the jars, and create a JUnit
-          launch configuration as below:
-        </p>
-        <img src="../images/jetty_eclipse.png"
-            alt="Eclipse configuration for Jetty"/>
+                <p>
+                    Again all you have to do is add the correct VM arguments, and the
+                    Jetty and Jasper jars, to the JUnit launch.
+                </p>
+                <p>
+                    For example in Eclipse you would add the jars, and create a JUnit
+                    launch configuration as below:
+                </p>
+                <img src="../images/jetty_eclipse.png"
+                     alt="Eclipse configuration for Jetty"/>
 
-      </section>
+            </section>
 
-    </section>
-  </body>
+        </section>
+    </body>
 </document>

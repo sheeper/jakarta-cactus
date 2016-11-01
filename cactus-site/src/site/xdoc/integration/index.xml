@@ -23,68 +23,70 @@
 
 <document id="howto_runner">
 
-  <properties>
-    <title>Runners Howto</title>
-  </properties>
+    <properties>
+        <title>Runners Howto</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Starting Cactus tests">
+        <section name="Starting Cactus tests">
 
-      <p>
-        The Cactus tests are started using a JUnit Test Runner. There are
-        several integration clients you can use for executing these test runners:
-      </p>
-      <ul>
-        <li>
-		<a href="manual/index.html">Manually</a>. This means 
-          that you need to deploy your code and tests into your container and
-          start this container by yourself. Then you can execute the tests 
-          by running a standard JUnit test Runner. For example, you can start
-          the tests:
-          <ul>
-            <li>
-              From the java command line, calling the <code>main()</code> 
-              method of a JUnit Test Runner. For example, running the JUnit 
-              Swing Test Runner:
-              <code>junit.swingui.TestRunner.main [test case class]</code>
-            </li>
-            <li>
-	    <a href="howto_ide.html">From an IDE</a> or any tool 
-              providing a JUnit integration plugin.
-            </li>
-            <li>
-		    <a href="integration_browser.html">From a browser</a>, by
-              using the Cactus Servlet Test Runner, which is a special JUnit 
-              Test Runner. Please also check the 
-	      <a href="howto_tomcat.html">Tomcat quick start tutorial</a>
-              which is a step by step tutorial describing how to deploy Cactus 
-              tests in Tomcat and how to execute them through a browser.
-            </li>
-            <li>
-              From Ant by simply using the <code>&lt;junit&gt;</code> Ant task
-              found in the Ant distribution.
-            </li>
-          </ul>
-        </li>
-        <li>
-		Using the Cactus <a href="ant/index.html">Ant 
-          integration</a>. Cactus provides several custom Ant task to
-          automate the deployment of Cactus tests 
-          (<code>&lt;cactifywar&gt;</code>) and the 
-          start/stop/configuration of your container 
-          (<code>&lt;cactus&gt;</code>). Note that you can also use the 
-          custom <code>&lt;runservertests&gt;</code> Ant task which allows you 
-          to use your existing container configuration should you wish to.
-        </li>
-        <li>
-          Using the Cactus <a href="maven/index.html">Maven 
-          plugin</a>. As with the Ant tasks this plugin offers a fully 
-          automated solution to deploy and execute Cactus tests.
-        </li>
-      </ul>
+            <p>
+                The Cactus tests are started using a JUnit Test Runner. There are
+                several integration clients you can use for executing these test runners:
+            </p>
+            <ul>
+                <li>
+                    <a href="manual/index.html">Manually</a>. This means
+                    that you need to deploy your code and tests into your container and
+                    start this container by yourself. Then you can execute the tests
+                    by running a standard JUnit test Runner. For example, you can start
+                    the tests:
+                    <ul>
+                        <li>
+                            From the java command line, calling the
+                            <code>main()</code>
+                            method of a JUnit Test Runner. For example, running the JUnit
+                            Swing Test Runner:
+                            <code>junit.swingui.TestRunner.main [test case class]</code>
+                        </li>
+                        <li>
+                            <a href="howto_ide.html">From an IDE</a>
+                            or any tool
+                            providing a JUnit integration plugin.
+                        </li>
+                        <li>
+                            <a href="integration_browser.html">From a browser</a>, by
+                            using the Cactus Servlet Test Runner, which is a special JUnit
+                            Test Runner. Please also check the
+                            <a href="howto_tomcat.html">Tomcat quick start tutorial</a>
+                            which is a step by step tutorial describing how to deploy Cactus
+                            tests in Tomcat and how to execute them through a browser.
+                        </li>
+                        <li>
+                            From Ant by simply using the <code>&lt;junit&gt;</code> Ant task
+                            found in the Ant distribution.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Using the Cactus <a href="ant/index.html">Ant
+                    integration</a>. Cactus provides several custom Ant task to
+                    automate the deployment of Cactus tests
+                    (<code>&lt;cactifywar&gt;</code>) and the
+                    start/stop/configuration of your container
+                    (<code>&lt;cactus&gt;</code>). Note that you can also use the
+                    custom <code>&lt;runservertests&gt;</code> Ant task which allows you
+                    to use your existing container configuration should you wish to.
+                </li>
+                <li>
+                    Using the Cactus <a href="maven/index.html">Maven
+                    plugin</a>. As with the Ant tasks this plugin offers a fully
+                    automated solution to deploy and execute Cactus tests.
+                </li>
+            </ul>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

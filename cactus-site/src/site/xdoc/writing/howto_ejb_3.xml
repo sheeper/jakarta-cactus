@@ -22,45 +22,46 @@
 		-->
 
 <document id="howto_ejb_j2eeri">
-	
-	<properties>
-		<title>EJB Testing with J2EE RI</title>
-	</properties>
-	
-	<body>
-		
-		<section name="Forewords">
-			<p>
-				This document explains how to unit test EJBs version 3.0 with Cactus. It is a good idea 
-				to have a look at the
-				sample applications that come with Cactus's distribution in <code>samples/ejb3</code>
-			</p>
-			<p>
-				This tutorial shows how to write test cases for unit testing
-				EJB methods. The EJB used in this example is a simple Stateless Bean.
-			</p>
-			<p>
-				This tutorial assumes the reader has already understood how to use
-				Cactus to test Servlet. To test an EJB, you need to prepare a war to
-				contain the cactus setting and test cases, and then prepare a jar of
-				your ejb. You need to match the JNDI name in the ejb jar and the war.
-			</p>
-			
-		</section>
-		
-		<section name="EJB Jar">
-			
-			<subsection name="Step 1: Prepare the Sample EJB">
-				
-				<p>
-					The EJB used in this tutorial is a simple Stateless Bean with a method
-					for converting Yen to Dollar.
-				</p>
-			</subsection>
-		<subsection name="EJB Bean">
-					
-		<source>
-			<![CDATA[
+
+    <properties>
+        <title>EJB Testing with J2EE RI</title>
+    </properties>
+
+    <body>
+
+        <section name="Forewords">
+            <p>
+                This document explains how to unit test EJBs version 3.0 with Cactus. It is a good idea
+                to have a look at the
+                sample applications that come with Cactus's distribution in
+                <code>samples/ejb3</code>
+            </p>
+            <p>
+                This tutorial shows how to write test cases for unit testing
+                EJB methods. The EJB used in this example is a simple Stateless Bean.
+            </p>
+            <p>
+                This tutorial assumes the reader has already understood how to use
+                Cactus to test Servlet. To test an EJB, you need to prepare a war to
+                contain the cactus setting and test cases, and then prepare a jar of
+                your ejb. You need to match the JNDI name in the ejb jar and the war.
+            </p>
+
+        </section>
+
+        <section name="EJB Jar">
+
+            <subsection name="Step 1: Prepare the Sample EJB">
+
+                <p>
+                    The EJB used in this tutorial is a simple Stateless Bean with a method
+                    for converting Yen to Dollar.
+                </p>
+            </subsection>
+            <subsection name="EJB Bean">
+
+                <source>
+                    <![CDATA[
 package org.apache.cactus.sample.ejb3;
 
 import javax.ejb.Stateless;
@@ -83,12 +84,12 @@ public class ConverterBean implements IConvertLocal {
       }
 }
        ]]>
-    </source>
-    </subsection>
-    <subsection name="EJB Local Interface">
+                </source>
+            </subsection>
+            <subsection name="EJB Local Interface">
 
-      <source>
-				<![CDATA[
+                <source>
+                    <![CDATA[
 package org.apache.cactus.sample.ejb3;
 
 import java.io.Serializable;
@@ -111,13 +112,13 @@ public interface IConvertLocal extends Serializable
       */
       public double convert(double theYenAmount);
 }]]>
-      </source>
-    </subsection>
-  </section>
-  <section name="Prepare deployment descriptors">
-				<subsection name="application.xml">
-					<source>
-<![CDATA[
+                </source>
+            </subsection>
+        </section>
+        <section name="Prepare deployment descriptors">
+            <subsection name="application.xml">
+                <source>
+                    <![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE application
    PUBLIC '-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN'
@@ -130,13 +131,13 @@ public interface IConvertLocal extends Serializable
    </module>
 </application>
 ]]>
-					</source>
-				</subsection>
-  </section>
-	<section name="Cactus Web Application">
-				<subsection name="Step 1: Prepare test code">
-						<source>
-							<![CDATA[
+                </source>
+            </subsection>
+        </section>
+        <section name="Cactus Web Application">
+            <subsection name="Step 1: Prepare test code">
+                <source>
+                    <![CDATA[
 package org.apache.cactus.sample.ejb3;
 
 import java.util.Properties;
@@ -181,11 +182,11 @@ public class TestConverterEJB extends ServletTestCase
       }
 }
 							]]>
-						</source>
-				</subsection>
-				<subsection name="Step 2: Prepare Web Application Deployment Descriptor (web.xml)">
-					<source>
-						<![CDATA[
+                </source>
+            </subsection>
+            <subsection name="Step 2: Prepare Web Application Deployment Descriptor (web.xml)">
+                <source>
+                    <![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 	<!DOCTYPE web-app
 						PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
@@ -209,24 +210,24 @@ public class TestConverterEJB extends ServletTestCase
       <remote>org.apache.cactus.sample.ejb.Converter</remote>
    </ejb-ref>
 </web-app>]]>
-							</source>
-			</subsection>
-					<subsection name="Step 3: Package Web Application">
-						
-						<p>
-							Package the web application into a war file.
-						</p>
-						
-					</subsection>
-  </section>
-	<section name="Deploy">
-				<p>
-				You need to package the war file with all the additional jar files in an ear file
-				and then deploy the ear file based on
-				the deployment procedure of your servlet container and your ejb
-				container.
-				</p>
-						
-	</section>
-	</body>
+                </source>
+            </subsection>
+            <subsection name="Step 3: Package Web Application">
+
+                <p>
+                    Package the web application into a war file.
+                </p>
+
+            </subsection>
+        </section>
+        <section name="Deploy">
+            <p>
+                You need to package the war file with all the additional jar files in an ear file
+                and then deploy the ear file based on
+                the deployment procedure of your servlet container and your ejb
+                container.
+            </p>
+
+        </section>
+    </body>
 </document>

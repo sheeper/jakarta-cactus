@@ -16,47 +16,47 @@
    limitations under the License.
 -->
 <feature
-      id="org.apache.cactus.eclipse.feature"
-      label="Cactus Eclipse Feature"
-      version="1.8.0"
-      provider-name="Apache Software Foundation"
-      image="logocactus.gif">
+        id="org.apache.cactus.eclipse.feature"
+        label="Cactus Eclipse Feature"
+        version="1.8.0"
+        provider-name="Apache Software Foundation"
+        image="logocactus.gif">
 
-   <description>
-      This feature includes the runner plug-in for Cactus and the webapp plug-in.
-   </description>
+    <description>
+        This feature includes the runner plug-in for Cactus and the webapp plug-in.
+    </description>
 
-   <license>
-      %license
-   </license>
+    <license>
+        %license
+    </license>
 
-   <requires>
-      <import plugin="org.apache.ant"/>
-      <import plugin="org.eclipse.ant.core"/>
-      <import plugin="org.eclipse.core.boot"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.eclipse.debug.ui"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jdt.debug"/>
-      <import plugin="org.eclipse.jdt.junit"/>
-      <import plugin="org.eclipse.jdt.launching"/>
-      <import plugin="org.eclipse.jdt.ui"/>
-      <import plugin="org.eclipse.swt"/>
-      <import plugin="org.eclipse.ui"/>
-   </requires>
+    <requires>
+        <import plugin="org.apache.ant"/>
+        <import plugin="org.eclipse.ant.core"/>
+        <import plugin="org.eclipse.core.boot"/>
+        <import plugin="org.eclipse.core.resources"/>
+        <import plugin="org.eclipse.core.runtime"/>
+        <import plugin="org.eclipse.debug.core"/>
+        <import plugin="org.eclipse.debug.ui"/>
+        <import plugin="org.eclipse.jdt.core"/>
+        <import plugin="org.eclipse.jdt.debug"/>
+        <import plugin="org.eclipse.jdt.junit"/>
+        <import plugin="org.eclipse.jdt.launching"/>
+        <import plugin="org.eclipse.jdt.ui"/>
+        <import plugin="org.eclipse.swt"/>
+        <import plugin="org.eclipse.ui"/>
+    </requires>
 
-   <plugin
-         id="org.apache.cactus.eclipse.runner"
-         download-size="0"
-         install-size="0"
-         version="1.8.0"/>
+    <plugin
+            id="org.apache.cactus.eclipse.runner"
+            download-size="0"
+            install-size="0"
+            version="1.8.0"/>
 
-   <plugin
-         id="org.apache.cactus.eclipse.webapp"
-         download-size="0"
-         install-size="0"
-         version="1.8.0"/>
+    <plugin
+            id="org.apache.cactus.eclipse.webapp"
+            download-size="0"
+            install-size="0"
+            version="1.8.0"/>
 
 </feature>

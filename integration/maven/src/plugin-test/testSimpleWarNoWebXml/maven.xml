@@ -22,41 +22,41 @@
          xmlns:j="jelly:core"
          xmlns:x="jelly:xml"
          xmlns:util="jelly:util"
->        
-  <goal name="testPlugin" prereqs="clean,testDefault,test23">
-  </goal>
+>
+    <goal name="testPlugin" prereqs="clean,testDefault,test23">
+    </goal>
 
-  <goal name="testDefault">
-    <attainGoal name="cactus:test-war"/>
-    <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
-    <attainGoal name="checkGeneratedWar"/>
-  </goal>
+    <goal name="testDefault">
+        <attainGoal name="cactus:test-war"/>
+        <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
+        <attainGoal name="checkGeneratedWar"/>
+    </goal>
 
-  <goal name="test23">
-    <j:set var="cactus.servlet.version" value="2.3"/>
-    <attainGoal name="cactus:test-war"/>
-    <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
-    <attainGoal name="checkGeneratedWar"/>
-  </goal>
+    <goal name="test23">
+        <j:set var="cactus.servlet.version" value="2.3"/>
+        <attainGoal name="cactus:test-war"/>
+        <j:set var="expectedDTD" value="http://java.sun.com/dtd/web-app_2_3.dtd"/>
+        <attainGoal name="checkGeneratedWar"/>
+    </goal>
 
-  <goal name="checkGeneratedWar">
-    <!-- tests that the war is generated -->
-    <j:set var="warFile" value="${maven.build.dir}/${pom.artifactId}-cactus.war"/>
-    <assert:assertFileExists file="${warFile}"/>
+    <goal name="checkGeneratedWar">
+        <!-- tests that the war is generated -->
+        <j:set var="warFile" value="${maven.build.dir}/${pom.artifactId}-cactus.war"/>
+        <assert:assertFileExists file="${warFile}"/>
 
-    <!-- unzip the war and look for the web.xml -->
-    <j:set var="unzipDir" value= "${maven.build.dir}/wartest"/>
-    <mkdir dir="${unzipDir}"/>
-    <unzip src="${warFile}" dest="${unzipDir}"/>
-    <j:set var="webXmlPath" value="${unzipDir}/WEB-INF/web.xml"/>
-    <assert:assertFileExists file="${webXmlPath}"
-      msg="web.xml not found in the war file"/>
+        <!-- unzip the war and look for the web.xml -->
+        <j:set var="unzipDir" value="${maven.build.dir}/wartest"/>
+        <mkdir dir="${unzipDir}"/>
+        <unzip src="${warFile}" dest="${unzipDir}"/>
+        <j:set var="webXmlPath" value="${unzipDir}/WEB-INF/web.xml"/>
+        <assert:assertFileExists file="${webXmlPath}"
+                                 msg="web.xml not found in the war file"/>
 
-    <!-- verify the content of the web.xml -->
-    <util:file var="webXmlFile" name="${webXmlPath}"/>
-    <x:parse var="webXmlDoc" xml="${webXmlFile}"/>
-    <assert:assertEquals expected="${expectedDTD}" value="${webXmlDoc.getDocType().getSystemID()}"/>
+        <!-- verify the content of the web.xml -->
+        <util:file var="webXmlFile" name="${webXmlPath}"/>
+        <x:parse var="webXmlDoc" xml="${webXmlFile}"/>
+        <assert:assertEquals expected="${expectedDTD}" value="${webXmlDoc.getDocType().getSystemID()}"/>
 
-  </goal>
+    </goal>
 
 </project>

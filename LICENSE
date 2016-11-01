@@ -212,13 +212,13 @@ these dependent packages is subject to the terms and conditions of the
 following licenses.
 
 The JUnit framework is licensed under the Common Public License Version 1.0
-See licences/cpl-1.0.txt
+See descriptors/licences/cpl-1.0.txt
 
 AspectJ is licensed under the Eclipse Public License - v 1.0.
-See licences/epl-v10.html
+See descriptors/licences/epl-v10.html
 
 The HttpUnit framework is is licensed under MIT license:
-See licenses/mit.txt
+See descriptors/licenses/mit.txt
 
 The Jetty software is licensed under the Apache License, Version 2.0.
 

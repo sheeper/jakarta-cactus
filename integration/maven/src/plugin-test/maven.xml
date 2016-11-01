@@ -18,13 +18,13 @@
  */
  -->
 <project xmlns:maven="jelly:maven" default="testPlugin">
-         
-  <goal name="testPlugin">
-    <maven:reactor basedir="${basedir}"
-      includes="test*/project.xml"
-      goals="testPlugin"
-      banner="Test"
-      ignoreFailures="false"/>
-  </goal>
-  
+
+    <goal name="testPlugin">
+        <maven:reactor basedir="${basedir}"
+                       includes="test*/project.xml"
+                       goals="testPlugin"
+                       banner="Test"
+                       ignoreFailures="false"/>
+    </goal>
+
 </project>

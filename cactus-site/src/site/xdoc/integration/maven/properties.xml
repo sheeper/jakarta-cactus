@@ -17,745 +17,758 @@
 -->
 
 <document>
-  <properties>
-    <title>Maven Cactus properties</title>
-    <author email="vmassol@apache.org">Vincent Massol</author>
-  </properties>
-  <body>
-    <section name="Cactus Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.home.[container name]</td>
-          <td>At least one container</td>
-          <td>
-            <p>
-              Home directory of where you have installed the container on
-              which you wish to run the Cactus tests. Valid container
-              names are: <code>tomcat4x</code>, <code>tomcat5x</code>,
-              <code>resin2x</code>, <code>resin3x</code>, 
-              <code>orion1x</code>, <code>orion2x</code>, <code>jboss3x</code>
-              and <code>weblogic7x</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.src.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the Cactus test cases. Default value is 
-              <code>src/test-cactus</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.port</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Port on which to start the containers. Default value is 
-              <code>8080</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.test.includes</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Lists of test classes that will be executed. Default value is
-              <code>**/*Test*.class</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.test.excludes</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Lists of test classes that will not be excluded. Default 
-              value is <code>**/All*Test*.class,**/Test*All.class</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.junit.usefile</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Decides whether the test result will be printed to the console or
-              not. Default value is <code>false</code>, meaning errors will be
-              displayed on the console.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.reports.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of junit test reports for the Cactus tests.
-              Default value is 
-              <code>${cactus.target.dir}/test-cactus-reports</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.halt.on.error</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Decides whether to stop the build on test errors.
-              Default value is <code>true</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.halt.on.failure</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Decides whether to stop the build on test failures
-              Default value is <code>true</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.src.mergewebxml</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of a test-specific web.xml file that will be merged with
-              the application web.xml, during the War cactification. Note that 
-              by default the cactification already adds the Cactus redirector 
-              definitions.Decides whether to stop the build on test failures.
-              Example: 
-              <code>cactus.src.mergewebxml = ${basedir}/src/conf/cactus-web.xml</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.printsummary</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              How summary information on test should be printed to the console. This 
-              property has the same meaning as the <code>printsummary</code> attribute
-              of the JUnit Ant task. Default value is
-              <code>cactus.printsummary = withOutAndErr</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tmp.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location where Cactus will put its temporary files (mostly where
-              it setups containers for execution). Default value is
-              <code>[java.io.tmpdir]/[containername]</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.execute.during.report</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Should Cactus tests be run whenever cactus:report is called
-              (e.g. when the web site is generated). Default value is
-              <code>true</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.j2ee.version</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              J2EE version for the generated appxml descriptor (needed only 
-              when testing EJBs with Cactus). Defaults to <code>1.3</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.src.war</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of war to cactify. Defaults to
-              <code>${maven.build.dir}/${pom.artifactId}.war</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.src.ejb</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the EJB to test (for the test-ear goal only). 
-              Defaults to
-              <code>${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.war</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location where to generate the cactified WAR. Note that this is 
-              also the name of the test context that will be used (except if 
-              the context is specified by other means such as in 
-              <code>application.xml</code> if the WAR is packaged in an EAR, 
-              etc). Defaults to
-              <code>${maven.build.dir}/${pom.artifactId}-cactus.war</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.ear</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location where to generate the cactified EAR. Defaults to
-              <code>${maven.build.dir}/${pom.artifactId}-cactus.ear</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.build.goal.war</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Goal that Cactus should call for generating the war artifact.
-              Default to <code>war:war</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.build.goal.ejb</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Goal that Cactus should call for generating the ejb artifact.
-              Default to <code>ejb:ejb</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.logging.config.client</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of client logging properties file to debug Cactus tests.
-              For example <code>cactus.logging.config.client = ${basedir}/logging_client.properties</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.logging.config.server</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of server logging properties file to debug Cactus tests.
-              For example <code>cactus.logging.config.server = ${basedir}/logging_server.properties</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.is.ear</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              If this is true then the <code>cactus:test</code> target will 
-              execute <code>cactus:test-ear</code>. Default value is 
-              <code>false</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.test.skip</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              If set to <code>true</code>, goal <code>cactus:test</code> will 
-              skip tests (it does not affects other goals though, like 
-              <code>cactus:test-war</code> and <code>cactus:test-ear</code>).
-              Default value is <code>${maven.test.skip}</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.sysproperties</td>
-          <td>Yes</td>
-          <td>
-            Use this property elements to specify system properties required
-            by the test class. These properties will be made available to the 
-            Cactus client side and server side JVMs during the execution of 
-            the test. You can specify several system properties by listing 
-            their names, separating them with spaces. Each property value is
-            defined as a separate Maven property.
-            For example:
-<source><![CDATA[
+    <properties>
+        <title>Maven Cactus properties</title>
+        <author email="vmassol@apache.org">Vincent Massol</author>
+    </properties>
+    <body>
+        <section name="Cactus Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.home.[container name]</td>
+                    <td>At least one container</td>
+                    <td>
+                        <p>
+                            Home directory of where you have installed the container on
+                            which you wish to run the Cactus tests. Valid container
+                            names are: <code>tomcat4x</code>, <code>tomcat5x</code>,
+                            <code>resin2x</code>, <code>resin3x</code>,
+                            <code>orion1x</code>, <code>orion2x</code>,
+                            <code>jboss3x</code>
+                            and <code>weblogic7x</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.src.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the Cactus test cases. Default value is
+                            <code>src/test-cactus</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.port</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Port on which to start the containers. Default value is
+                            <code>8080</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.test.includes</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Lists of test classes that will be executed. Default value is
+                            <code>**/*Test*.class</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.test.excludes</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Lists of test classes that will not be excluded. Default
+                            value is <code>**/All*Test*.class,**/Test*All.class</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.junit.usefile</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Decides whether the test result will be printed to the console or
+                            not. Default value is <code>false</code>, meaning errors will be
+                            displayed on the console.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.reports.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of junit test reports for the Cactus tests.
+                            Default value is
+                            <code>${cactus.target.dir}/test-cactus-reports</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.halt.on.error</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Decides whether to stop the build on test errors.
+                            Default value is <code>true</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.halt.on.failure</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Decides whether to stop the build on test failures
+                            Default value is <code>true</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.src.mergewebxml</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of a test-specific web.xml file that will be merged with
+                            the application web.xml, during the War cactification. Note that
+                            by default the cactification already adds the Cactus redirector
+                            definitions.Decides whether to stop the build on test failures.
+                            Example:
+                            <code>cactus.src.mergewebxml = ${basedir}/src/conf/cactus-web.xml</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.printsummary</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            How summary information on test should be printed to the console. This
+                            property has the same meaning as the <code>printsummary</code> attribute
+                            of the JUnit Ant task. Default value is
+                            <code>cactus.printsummary = withOutAndErr</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tmp.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location where Cactus will put its temporary files (mostly where
+                            it setups containers for execution). Default value is
+                            <code>[java.io.tmpdir]/[containername]</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.execute.during.report</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Should Cactus tests be run whenever cactus:report is called
+                            (e.g. when the web site is generated). Default value is
+                            <code>true</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.j2ee.version</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            J2EE version for the generated appxml descriptor (needed only
+                            when testing EJBs with Cactus). Defaults to <code>1.3</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.src.war</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of war to cactify. Defaults to
+                            <code>${maven.build.dir}/${pom.artifactId}.war</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.src.ejb</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the EJB to test (for the test-ear goal only).
+                            Defaults to
+                            <code>${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.war</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location where to generate the cactified WAR. Note that this is
+                            also the name of the test context that will be used (except if
+                            the context is specified by other means such as in
+                            <code>application.xml</code>
+                            if the WAR is packaged in an EAR,
+                            etc). Defaults to
+                            <code>${maven.build.dir}/${pom.artifactId}-cactus.war</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.ear</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location where to generate the cactified EAR. Defaults to
+                            <code>${maven.build.dir}/${pom.artifactId}-cactus.ear</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.build.goal.war</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Goal that Cactus should call for generating the war artifact.
+                            Default to <code>war:war</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.build.goal.ejb</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Goal that Cactus should call for generating the ejb artifact.
+                            Default to <code>ejb:ejb</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.logging.config.client</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of client logging properties file to debug Cactus tests.
+                            For example <code>cactus.logging.config.client = ${basedir}/logging_client.properties</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.logging.config.server</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of server logging properties file to debug Cactus tests.
+                            For example <code>cactus.logging.config.server = ${basedir}/logging_server.properties</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.is.ear</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            If this is true then the <code>cactus:test</code> target will
+                            execute <code>cactus:test-ear</code>. Default value is
+                            <code>false</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.test.skip</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            If set to <code>true</code>, goal <code>cactus:test</code> will
+                            skip tests (it does not affects other goals though, like
+                            <code>cactus:test-war</code>
+                            and <code>cactus:test-ear</code>).
+                            Default value is <code>${maven.test.skip}</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.sysproperties</td>
+                    <td>Yes</td>
+                    <td>
+                        Use this property elements to specify system properties required
+                        by the test class. These properties will be made available to the
+                        Cactus client side and server side JVMs during the execution of
+                        the test. You can specify several system properties by listing
+                        their names, separating them with spaces. Each property value is
+                        defined as a separate Maven property.
+                        For example:
+                        <source><![CDATA[
 cactus.sysproperties=prop1 basedir
 prop1=your value
 basedir=${basedir}
 ]]>
-            </source>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.servlet.version</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Servlet version for the generated Cactus War file. Particularly 
-              useful when the project does not provide a web descriptor (<code>
-              web.xml</code>) - in this situation, the generated file
-              will be an empty descriptor for the Servlet API version defined
-              by this property.
-              Default value is <code>2.3</code> and currently only <code>
-              2.2</code> and <code>2.3</code> are supported.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
+                        </source>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.servlet.version</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Servlet version for the generated Cactus War file. Particularly
+                            useful when the project does not provide a web descriptor (<code>
+                            web.xml</code>) - in this situation, the generated file
+                            will be an empty descriptor for the Servlet API version defined
+                            by this property.
+                            Default value is <code>2.3</code> and currently only <code>
+                            2.2
+                        </code> and <code>2.3</code> are supported.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
 
-    <section name="Cactus Path Settings">
-      <table>
-        <tr>
-          <th>Path Id</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.compile.src.set</td>
-          <td>No</td>
-          <td>
-            <p>
-              Ant path containing the Java classes used by the
-              <code>cactus:compile</code> goal. This path is created by
-              the <code>cactus:init</code> goal ant initially populated with
-              only one path element (<code>${cactus.src.dir}</code> - if a
-              project requires multiple source directories, it could create a
-              <code>preGoal</code> which would add more elements in the path.
-              by a 
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
+        <section name="Cactus Path Settings">
+            <table>
+                <tr>
+                    <th>Path Id</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.compile.src.set</td>
+                    <td>No</td>
+                    <td>
+                        <p>
+                            Ant path containing the Java classes used by the
+                            <code>cactus:compile</code>
+                            goal. This path is created by
+                            the <code>cactus:init</code> goal ant initially populated with
+                            only one path element (<code>${cactus.src.dir}</code> - if a
+                            project requires multiple source directories, it could create a
+                            <code>preGoal</code>
+                            which would add more elements in the path.
+                            by a
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
 
-    <section name="Cactus/Generic Container Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.genericContainer.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to a container's JVM (for instance,
-              <code>-Xms256m -Xmx800m</code>). Each container has an
-              equivalent property, which by default points to this one.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-
-    <section name="Cactus/JBoss 3.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.jboss3x.config.name</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Name of the JBoss server configuration to use.
-              Default value is <code>default</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.jboss3x.tmp.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Default tmp directory where the JBoss server configuration for 
-              Cactus will be created.
-              Default value is <code>${cactus.home.jboss3x}/server/cactus</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.jboss3x.config.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of a custom user-specified server configuration which
-              will be copied to <code>cactus.jboss3x.tmp.dir</code> if 
-              specified. By default this property is not set.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.jboss3x.jndiport</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Name of the JNDI port on which JBoss is started. This is only 
-              used to shutdown JBoss. Defaults to <code>1099</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.jboss3x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section name="Cactus/Resin 2.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.resin2x.config</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the Resin 2.x configuration file if you don't want 
-              to use the cactus-provided one.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.resin2x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section name="Cactus/Resin 3.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.resin3x.config</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the Resin 3.x configuration file if you don't want 
-              to use the cactus-provided one.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.resin3x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-    
-    <section name="Cactus/Orion 1.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.orion1x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section name="Cactus/Orion 2.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.orion2x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section name="Cactus/Tomcat 4.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.tomcat4x.config</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the Tomcat 4.x configuration file if you don't want 
-              to use the cactus-provided one.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat4x.conf.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of custom Tomcat 4.x configuration file that will be 
-              copied, overwriting the Cactus-provided configuration files.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat4x.conf.includes</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Configuration files located at 
-              <code>${cactus.tomcat4x.conf.dir</code> that should be included
-              in the Tomcat 4.x container set up by Cactus.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat4x.conf.excludes</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Configuration files located at 
-              <code>${cactus.tomcat4x.conf.dir</code> that should not be 
-              included in the Tomcat 4.x container set up by Cactus.
-            </p>
-          </td>
-        </tr>
-        <tr>
-	  <td>cactus.tomcat4x.tmpdir</td>
-	  <td>Yes</td>
-	  <td>
-	    <p>
-	      Directory to which the container will be installed for the tests.
-	      By default the system temporary directory is used.
-	    </p>
-	  </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat4x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section name="Cactus/Tomcat 5.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.tomcat5x.config</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the Tomcat 5.x configuration file if you don't want 
-              to use the cactus-provided one.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat5x.conf.dir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of custom Tomcat 5.x configuration file that will be 
-              copied, overwriting the Cactus-provided configuration files.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat5x.conf.includes</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Configuration files located at 
-              <code>${cactus.tomcat5x.conf.dir</code> that should be included
-              in the Tomcat 5.x container set up by Cactus.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat5x.conf.excludes</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Configuration files located at 
-              <code>${cactus.tomcat5x.conf.dir</code> that should not be 
-              included in the Tomcat 5.x container set up by Cactus.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.tomcat5x.tmpdir</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Directory to which the container will be installed for the tests.
-              By default the system temporary directory is used.
-            </p>
-          </td>
-        </tr>        
-        <tr>
-          <td>cactus.tomcat5x.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section name="Cactus/WebLogic 7.x Settings">
-      <table>
-        <tr>
-          <th>Property</th>
-          <th>Optional?</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>cactus.weblogic7x.beahome</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of BEA HOME. If not specified it defaults to
-              the parent directory of <code>cactus.home.weblogic7x</code>.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.weblogic7x.config</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Location of the WebLogic 7.x configuration file if you don't want 
-              to use the cactus-provided one.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.resources.dirs</td>
-          <td>Yes</td>
-          <td>
-            Comma-separated list of resources labels to be used to include resources in 
-            the classpath (WEB-INF/classes) of the generated Cactus Web Application. 
-            The mechanism to include/exclude files use these labels to define other properties: 
-            cactus.resources.[label].dir, cactus.resources.[label].includes and 
-            cactus.resources.[label].excludes.
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.resources.[label].dir</td>
-          <td>Yes</td>
-          <td>
-            Directory whose resources will be included in the war classpath. The [label] stands for the label name
-            in the cactus.resources.dirs list. 
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.resources.[label].includes</td>
-          <td>Yes</td>
-          <td>
-            Comma-separated list of Which files in the directory defined by cactus.resources.[label].dir should be included in the Cactus war.
-            Default value is <code>**/*</code>, which means all files are included.
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.resources.[label].excludes</td>
-          <td>Yes</td>
-          <td>
-            Comma-separated list of which files in the directory defined by cactus.resources.[label].dir should be included in the Cactus war.
-            Default value is none, which means no files are excluded.
-          </td>
-        </tr>
-        <tr>
-          <td>cactus.weblogic.jvmArgs</td>
-          <td>Yes</td>
-          <td>
-            <p>
-              Arguments to be passed to the container's JVM. Defaults to
-              <code>${cactus.genericContainer.jvmArgs}</code>.
-            </p>
-          </td>
-        </tr>
-      </table>
-    </section>
+        <section name="Cactus/Generic Container Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.genericContainer.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to a container's JVM (for instance,
+                            <code>-Xms256m -Xmx800m</code>). Each container has an
+                            equivalent property, which by default points to this one.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
 
 
-  </body>
+        <section name="Cactus/JBoss 3.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.jboss3x.config.name</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Name of the JBoss server configuration to use.
+                            Default value is <code>default</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.jboss3x.tmp.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Default tmp directory where the JBoss server configuration for
+                            Cactus will be created.
+                            Default value is <code>${cactus.home.jboss3x}/server/cactus</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.jboss3x.config.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of a custom user-specified server configuration which
+                            will be copied to <code>cactus.jboss3x.tmp.dir</code> if
+                            specified. By default this property is not set.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.jboss3x.jndiport</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Name of the JNDI port on which JBoss is started. This is only
+                            used to shutdown JBoss. Defaults to <code>1099</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.jboss3x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/Resin 2.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.resin2x.config</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the Resin 2.x configuration file if you don't want
+                            to use the cactus-provided one.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.resin2x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/Resin 3.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.resin3x.config</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the Resin 3.x configuration file if you don't want
+                            to use the cactus-provided one.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.resin3x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/Orion 1.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.orion1x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/Orion 2.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.orion2x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/Tomcat 4.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat4x.config</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the Tomcat 4.x configuration file if you don't want
+                            to use the cactus-provided one.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat4x.conf.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of custom Tomcat 4.x configuration file that will be
+                            copied, overwriting the Cactus-provided configuration files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat4x.conf.includes</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Configuration files located at
+                            <code>${cactus.tomcat4x.conf.dir</code>
+                            that should be included
+                            in the Tomcat 4.x container set up by Cactus.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat4x.conf.excludes</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Configuration files located at
+                            <code>${cactus.tomcat4x.conf.dir</code>
+                            that should not be
+                            included in the Tomcat 4.x container set up by Cactus.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat4x.tmpdir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Directory to which the container will be installed for the tests.
+                            By default the system temporary directory is used.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat4x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/Tomcat 5.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat5x.config</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the Tomcat 5.x configuration file if you don't want
+                            to use the cactus-provided one.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat5x.conf.dir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of custom Tomcat 5.x configuration file that will be
+                            copied, overwriting the Cactus-provided configuration files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat5x.conf.includes</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Configuration files located at
+                            <code>${cactus.tomcat5x.conf.dir</code>
+                            that should be included
+                            in the Tomcat 5.x container set up by Cactus.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat5x.conf.excludes</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Configuration files located at
+                            <code>${cactus.tomcat5x.conf.dir</code>
+                            that should not be
+                            included in the Tomcat 5.x container set up by Cactus.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat5x.tmpdir</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Directory to which the container will be installed for the tests.
+                            By default the system temporary directory is used.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.tomcat5x.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section name="Cactus/WebLogic 7.x Settings">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Optional?</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>cactus.weblogic7x.beahome</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of BEA HOME. If not specified it defaults to
+                            the parent directory of <code>cactus.home.weblogic7x</code>.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.weblogic7x.config</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Location of the WebLogic 7.x configuration file if you don't want
+                            to use the cactus-provided one.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.resources.dirs</td>
+                    <td>Yes</td>
+                    <td>
+                        Comma-separated list of resources labels to be used to include resources in
+                        the classpath (WEB-INF/classes) of the generated Cactus Web Application.
+                        The mechanism to include/exclude files use these labels to define other properties:
+                        cactus.resources.[label].dir, cactus.resources.[label].includes and
+                        cactus.resources.[label].excludes.
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.resources.[label].dir</td>
+                    <td>Yes</td>
+                    <td>
+                        Directory whose resources will be included in the war classpath. The [label] stands for the
+                        label name
+                        in the cactus.resources.dirs list.
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.resources.[label].includes</td>
+                    <td>Yes</td>
+                    <td>
+                        Comma-separated list of Which files in the directory defined by cactus.resources.[label].dir
+                        should be included in the Cactus war.
+                        Default value is <code>**/*</code>, which means all files are included.
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.resources.[label].excludes</td>
+                    <td>Yes</td>
+                    <td>
+                        Comma-separated list of which files in the directory defined by cactus.resources.[label].dir
+                        should be included in the Cactus war.
+                        Default value is none, which means no files are excluded.
+                    </td>
+                </tr>
+                <tr>
+                    <td>cactus.weblogic.jvmArgs</td>
+                    <td>Yes</td>
+                    <td>
+                        <p>
+                            Arguments to be passed to the container's JVM. Defaults to
+                            <code>${cactus.genericContainer.jvmArgs}</code>.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+
+    </body>
 </document>

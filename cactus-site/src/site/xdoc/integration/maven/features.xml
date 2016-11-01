@@ -17,47 +17,47 @@
 -->
 <document>
 
-  <properties>
-    <title>Cactus plugin features</title>
-    <author email="vmassol@apache.org">Vincent Massol</author>
-  </properties>
+    <properties>
+        <title>Cactus plugin features</title>
+        <author email="vmassol@apache.org">Vincent Massol</author>
+    </properties>
 
-  <body>
-    <section name="Cactus plugin features">
-      <p>
-        The following features are provided:
-      </p>
-      <ul>
-        <li>
-          Uses the
-          <a href="http://jakarta.apache.org/cactus/integration/ant/">Cactus 
-          Ant integration</a>.
-        </li>
-        <li>
-          Create cactified WAR of your web application.
-        </li>
-        <li>
-          Supports generating cactified EAR for deploying Cactus EJB tests.
-        </li>
-        <li>
-          Start/stop containers automatically.
-        </li>
-        <li>
-          Deploy your web application automatically in the target containers.
-        </li>
-        <li>
-          Supports adding custom testing jars to the Cactus classpaths.
-        </li>
-        <li>
-          Supports Servlet API 2.3 only.
-        </li>
-        <li>
-          Requires JDK 1.4 or superior.
-        </li>
-        <li>
-          Automatically discover test classes from non-test classes.
-        </li>
-      </ul>
-    </section>
- </body>
+    <body>
+        <section name="Cactus plugin features">
+            <p>
+                The following features are provided:
+            </p>
+            <ul>
+                <li>
+                    Uses the
+                    <a href="http://jakarta.apache.org/cactus/integration/ant/">Cactus
+                        Ant integration</a>.
+                </li>
+                <li>
+                    Create cactified WAR of your web application.
+                </li>
+                <li>
+                    Supports generating cactified EAR for deploying Cactus EJB tests.
+                </li>
+                <li>
+                    Start/stop containers automatically.
+                </li>
+                <li>
+                    Deploy your web application automatically in the target containers.
+                </li>
+                <li>
+                    Supports adding custom testing jars to the Cactus classpaths.
+                </li>
+                <li>
+                    Supports Servlet API 2.3 only.
+                </li>
+                <li>
+                    Requires JDK 1.4 or superior.
+                </li>
+                <li>
+                    Automatically discover test classes from non-test classes.
+                </li>
+            </ul>
+        </section>
+    </body>
 </document>

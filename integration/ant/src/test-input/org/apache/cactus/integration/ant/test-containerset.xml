@@ -18,41 +18,41 @@
 
 <project name="test-containerset" basedir="." default="testEmpty">
 
-  <target name="testEmpty">
-    <containerset id="test"/>
-  </target>
+    <target name="testEmpty">
+        <containerset id="test"/>
+    </target>
 
-  <target name="testEmptyWithProxyPort">
-    <containerset id="test" proxyport="8088"/>
-  </target>
+    <target name="testEmptyWithProxyPort">
+        <containerset id="test" proxyport="8088"/>
+    </target>
 
-  <target name="testEmptyWithTimeout">
-    <containerset id="test" timeout="60000"/>
-  </target>
+    <target name="testEmptyWithTimeout">
+        <containerset id="test" timeout="60000"/>
+    </target>
 
-  <target name="testGenericContainer">
-    <containerset id="test">
-      <generic port="8080"/>
-    </containerset>
-  </target>
+    <target name="testGenericContainer">
+        <containerset id="test">
+            <generic port="8080"/>
+        </containerset>
+    </target>
 
-  <target name="testGenericContainerWithProxyPort">
-    <containerset id="test" proxyport="8088">
-      <generic port="8080"/>
-    </containerset>
-  </target>
+    <target name="testGenericContainerWithProxyPort">
+        <containerset id="test" proxyport="8088">
+            <generic port="8080"/>
+        </containerset>
+    </target>
 
-  <target name="testGenericContainerWithTasks">
-    <containerset id="test" proxyport="8088">
-      <generic port="8080">
-        <startup>
-          <property name="startup.executed" value="true"/>
-        </startup>
-        <shutdown>
-          <property name="shutdown.executed" value="true"/>
-        </shutdown>
-      </generic>
-    </containerset>
-  </target>
+    <target name="testGenericContainerWithTasks">
+        <containerset id="test" proxyport="8088">
+            <generic port="8080">
+                <startup>
+                    <property name="startup.executed" value="true"/>
+                </startup>
+                <shutdown>
+                    <property name="shutdown.executed" value="true"/>
+                </shutdown>
+            </generic>
+        </containerset>
+    </target>
 
 </project>

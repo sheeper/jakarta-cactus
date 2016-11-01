@@ -23,68 +23,70 @@
 
 <document id="mailinglist">
 
-  <properties>
-    <title>Cactus Mailing-List</title>
-  </properties>
+    <properties>
+        <title>Cactus Mailing-List</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Mailing List directions">
+        <section name="Mailing List directions">
 
-      <p>
-        General information about the jakarta mailing lists can be found
-        <a href="http://jakarta.apache.org/site/mail.html">here</a>.
-        Please read these guidelines before subscribing or posting to the
-        lists.
-      </p>
-      <p>
-        Cactus has 2 lists:
-      </p>
-      <ul>
-        <li>
-          <code>cactus-user@jakarta.apache.org</code>: for users of Cactus
-        </li>
-        <li>
-          <code>cactus-dev@jakarta.apache.org</code>: for developers of
-          Cactus
-        </li>
-      </ul>
-      <p>
-        To subscribe to the user list, send an empty message to
-        <a href="mailto:cactus-user-subscribe@jakarta.apache.org">
-        cactus-user-subscribe@jakarta.apache.org</a>. Same for the dev
-        mailing list.
-      </p>
-      <p>
-        To unsubscribe from the user list, send an empty message to
-        <a href="mailto:cactus-user-unsubscribe@jakarta.apache.org">
-        cactus-user-unsubscribe@jakarta.apache.org</a>. Same for the dev
-        mailing list. Note that you must unsubscribe using the same email
-        address you've used to subscribe. If you wish to unsubscribe from a
-        different email address, use the following email address:
-        <code>cactus-user-unsubscribe-yourname=yourdomain@jakarta.apache.org</code>
-        (assuming the email address you wish to unsubscribe is
-        <code>yourname@yourdomain</code>).
-      </p>
-      <p>
-        Once you're subscribed, send mail to
-        <a href="mailto:cactus-user@jakarta.apache.org">
-        cactus-user@jakarta.apache.org</a> to post messages on the user
-        list.
-      </p>
-      <p>
-        All emails sent to <code>cactus-user@jakarta.apache.org</code> are
-        archived
-        <a href="http://www.mail-archive.com/cactus-user%40jakarta.apache.org/">
-        here</a>.
-      </p>
-      <p>
-        All emails sent to <code>cactus-dev@jakarta.apache.org</code> are
-        archived
-        <a href="http://www.mail-archive.com/cactus-dev%40jakarta.apache.org/">
-        here</a>.
-      </p>
-    </section>
+            <p>
+                General information about the jakarta mailing lists can be found
+                <a href="http://jakarta.apache.org/site/mail.html">here</a>.
+                Please read these guidelines before subscribing or posting to the
+                lists.
+            </p>
+            <p>
+                Cactus has 2 lists:
+            </p>
+            <ul>
+                <li>
+                    <code>cactus-user@jakarta.apache.org</code>: for users of Cactus
+                </li>
+                <li>
+                    <code>cactus-dev@jakarta.apache.org</code>: for developers of
+                    Cactus
+                </li>
+            </ul>
+            <p>
+                To subscribe to the user list, send an empty message to
+                <a href="mailto:cactus-user-subscribe@jakarta.apache.org">
+                    cactus-user-subscribe@jakarta.apache.org</a>. Same for the dev
+                mailing list.
+            </p>
+            <p>
+                To unsubscribe from the user list, send an empty message to
+                <a href="mailto:cactus-user-unsubscribe@jakarta.apache.org">
+                    cactus-user-unsubscribe@jakarta.apache.org</a>. Same for the dev
+                mailing list. Note that you must unsubscribe using the same email
+                address you've used to subscribe. If you wish to unsubscribe from a
+                different email address, use the following email address:
+                <code>cactus-user-unsubscribe-yourname=yourdomain@jakarta.apache.org</code>
+                (assuming the email address you wish to unsubscribe is
+                <code>yourname@yourdomain</code>).
+            </p>
+            <p>
+                Once you're subscribed, send mail to
+                <a href="mailto:cactus-user@jakarta.apache.org">
+                    cactus-user@jakarta.apache.org
+                </a>
+                to post messages on the user
+                list.
+            </p>
+            <p>
+                All emails sent to <code>cactus-user@jakarta.apache.org</code> are
+                archived
+                <a href="http://www.mail-archive.com/cactus-user%40jakarta.apache.org/">
+                    here</a>.
+            </p>
+            <p>
+                All emails sent to <code>cactus-dev@jakarta.apache.org</code> are
+                archived
+                <a href="http://www.mail-archive.com/cactus-dev%40jakarta.apache.org/">
+                    here</a>.
+            </p>
+        </section>
 
-  </body>
+    </body>
 </document>

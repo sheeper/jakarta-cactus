@@ -17,112 +17,117 @@
 	specific language governing permissions and limitations
 	under the License.   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.apache.cactus</groupId>
-		<artifactId>cactus</artifactId>
-		<version>1.8.2-SNAPSHOT</version>
-	</parent>
-  <name>Cactus Framework - Parent Project</name>
-	<description>Parent project for Cactus framework</description>
-	<packaging>pom</packaging>
-	<artifactId>cactus.core.framework</artifactId>
-  <profiles>
-    <profile>
-      <id>sourcecheck</id>
-      <activation>
-	<activeByDefault>true</activeByDefault> 
-      </activation>
-	<build>
-	 <plugins>
-	 			<!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
-					 files are taken from the build-tools JAR module -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.6</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.cactus</groupId>
-						<artifactId>cactus.build.tools</artifactId>
-						<version>1.8.2-SNAPSHOT</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<consoleOutput>true</consoleOutput>
-					<configLocation>build-tools/checkstyle.xml</configLocation>
-					<headerLocation>build-tools/checkstyle.license</headerLocation>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-	 </plugins>
-	</build>
-    </profile>
-  </profiles>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<dependencies>
-		<!-- TODO: add dependencies below to parent project and remove from here -->
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jms_1.1_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-ejb_3.0_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
-<!-- TODO: check if really necessary -->
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>   <!-- It seems to be neccessary -->
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-      <groupId>jmock</groupId>
-      <artifactId>jmock</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>httpunit</groupId>
-			<artifactId>httpunit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>org.mortbay.jetty</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>httpunit</groupId>
-			<artifactId>httpunit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.5.3</version>
-    </dependency>
-	</dependencies>
+    <parent>
+        <groupId>org.apache.cactus</groupId>
+        <artifactId>cactus</artifactId>
+        <version>1.8.2-SNAPSHOT</version>
+    </parent>
 
-	<modules>	
-		<module>framework-12-13-14</module>
-		<module>framework-13-14</module>
-		<module>framework-wrappers</module>
-		<module>framework-uberjars</module>
-	</modules>
+    <artifactId>cactus.core.framework</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Cactus Framework - Parent Project</name>
+    <description>Parent project for Cactus framework</description>
+
+    <modules>
+        <module>framework-12-13-14</module>
+        <module>framework-13-14</module>
+        <module>framework-wrappers</module>
+        <module>framework-uberjars</module>
+    </modules>
+
+    <profiles>
+        <profile>
+            <id>sourcecheck</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
+                        files are taken from the build-tools JAR module -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>2.6</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.cactus</groupId>
+                                <artifactId>cactus.build.tools</artifactId>
+                                <version>1.8.2-SNAPSHOT</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <consoleOutput>true</consoleOutput>
+                            <configLocation>build-tools/checkstyle.xml</configLocation>
+                            <headerLocation>build-tools/checkstyle.license</headerLocation>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <!-- TODO: add dependencies below to parent project and remove from here -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jms_1.1_spec</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-ejb_3.0_spec</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>httpunit</groupId>
+            <artifactId>httpunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>org.mortbay.jetty</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>httpunit</groupId>
+            <artifactId>httpunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+    </dependencies>
+
 </project>

@@ -23,91 +23,98 @@
 
 <document id="howto_htmlunit">
 
-  <properties>
-    <title>HtmlUnit Howto</title>
-  </properties>
+    <properties>
+        <title>HtmlUnit Howto</title>
+    </properties>
 
-  <body>
+    <body>
 
-	  <section name="HtmlUnit integration">
-      <p>
-        Cactus provides the exact same integration with HtmlUnit as with HttpUnit. This page discusses this integration.
-      </p>
+        <section name="HtmlUnit integration">
+            <p>
+                Cactus provides the exact same integration with HtmlUnit as with HttpUnit. This page discusses this
+                integration.
+            </p>
 
-      <note>
-        <strong>The HtmlUnit integration is only available for Cactus v1.8 and
-        later. It won't work with version 1.7 and earlier.</strong>
-      </note>
+            <note>
+                <strong>The HtmlUnit integration is only available for Cactus v1.8 and
+                    later. It won't work with version 1.7 and earlier.
+                </strong>
+            </note>
 
-      <p>
-        Cactus test cases allow to assert the results of the returned server
-        output stream in an <code>endXXX()</code> method (where <code>XXX</code>
-        is the name of your test case).
-      </p>
-      <p>
-        Cactus proposes 2 ways of writing your <code>endXXX()</code> methods,
-      </p>
-      <ul>
-        <li>
-          <strong>Method 1</strong>:  it allows you to do simple check on the
-          returned stream like checking for returned cookies, HTTP headers and
-          to do assertions on the returned content as a String,
-        </li>
-        <li>
-          <strong>Method 2</strong>: it allows you to do complex and
-          powerful assertions on the returned content. For example, you can
-          get an HTML DOM view of your returned HTML page and check that a given
-          named table has the correct number of columns, ....
-        </li>
-      </ul>
-      <p>
-        Method 2 is supported through the integration with
-        <a href="http://htmlunit.sourceforge.net">HtmlUnit</a>, meaning
-        you'll benefit from the full assertion power of HtmlUnit in your
-        <code>endXXX()</code> method. Method 1 is a class provided by Cactus.
-      </p>
-      <p>
-        Depending on your need you can choose, on a per test case basis, the
-        method you want to use.
-      </p>
+            <p>
+                Cactus test cases allow to assert the results of the returned server
+                output stream in an <code>endXXX()</code> method (where
+                <code>XXX</code>
+                is the name of your test case).
+            </p>
+            <p>
+                Cactus proposes 2 ways of writing your <code>endXXX()</code> methods,
+            </p>
+            <ul>
+                <li>
+                    <strong>Method 1</strong>: it allows you to do simple check on the
+                    returned stream like checking for returned cookies, HTTP headers and
+                    to do assertions on the returned content as a String,
+                </li>
+                <li>
+                    <strong>Method 2</strong>: it allows you to do complex and
+                    powerful assertions on the returned content. For example, you can
+                    get an HTML DOM view of your returned HTML page and check that a given
+                    named table has the correct number of columns, ....
+                </li>
+            </ul>
+            <p>
+                Method 2 is supported through the integration with
+                <a href="http://htmlunit.sourceforge.net">HtmlUnit</a>, meaning
+                you'll benefit from the full assertion power of HtmlUnit in your
+                <code>endXXX()</code>
+                method. Method 1 is a class provided by Cactus.
+            </p>
+            <p>
+                Depending on your need you can choose, on a per test case basis, the
+                method you want to use.
+            </p>
 
-    </section>
+        </section>
 
-    <section name="Usage">
+        <section name="Usage">
 
-      <p>
-        The signature of an <code>endXXX()</code> method is always:
-      </p>
-<source><![CDATA[
+            <p>
+                The signature of an <code>endXXX()</code> method is always:
+            </p>
+            <source><![CDATA[
 public void endXXX(WebResponse theResponse)
 {
 [...]
 }
 ]]></source>
 
-      <p>
-        The <code>WebResponse</code> object is passed by the Cactus framework
-        to your <code>endXXX()</code> method. What changes between the 2
-        methods described above is the class of the <code>WebResponse</code>
-        object that is passed:
-      </p>
-      <ul>
-        <li>
-          <code>org.apache.cactus.WebResponse</code> for Method 1,
-        </li>
-        <li>
-          <code>com.gargoylesoftware.htmlunit.WebResponse</code> for Method 2
-          (HtmlUnit)
-        </li>
-      </ul>
+            <p>
+                The <code>WebResponse</code> object is passed by the Cactus framework
+                to your <code>endXXX()</code> method. What changes between the 2
+                methods described above is the class of the
+                <code>WebResponse</code>
+                object that is passed:
+            </p>
+            <ul>
+                <li>
+                    <code>org.apache.cactus.WebResponse</code>
+                    for Method 1,
+                </li>
+                <li>
+                    <code>com.gargoylesoftware.htmlunit.WebResponse</code>
+                    for Method 2
+                    (HtmlUnit)
+                </li>
+            </ul>
 
-      <section name="Method 1: Cactus provided WebResponse object">
+            <section name="Method 1: Cactus provided WebResponse object">
 
-         <p>
-           An example:
-         </p>
+                <p>
+                    An example:
+                </p>
 
-<source><![CDATA[
+                <source><![CDATA[
 public void endXXX(org.apache.cactus.WebResponse theResponse)
 {
   // Get the returned cookies
@@ -122,20 +129,21 @@ public void endXXX(org.apache.cactus.WebResponse theResponse)
 }
 ]]></source>
 
-        <note>
-          For the complete list of all methods available on the
-          <code>WebResponse</code> object, see the associated Javadoc.
-        </note>
+                <note>
+                    For the complete list of all methods available on the
+                    <code>WebResponse</code>
+                    object, see the associated Javadoc.
+                </note>
 
-      </section>
+            </section>
 
-      <section name="Method 2: HtmlUnit provided WebResponse object">
+            <section name="Method 2: HtmlUnit provided WebResponse object">
 
-         <p>
-           An example:
-         </p>
+                <p>
+                    An example:
+                </p>
 
-<source><![CDATA[
+                <source><![CDATA[
 public void endXXX(com.meterware.httpunit.WebResponse theResponse)
 {
   WebTable table = theResponse.getTables()[0];
@@ -144,15 +152,15 @@ public void endXXX(com.meterware.httpunit.WebResponse theResponse)
 }
 ]]></source>
 
-        <note>
-          For the complete list of all methods available on the
-          HtmlUnit <code>WebResponse</code> object, see the HtmlUnit
-          documentation.
-        </note>
+                <note>
+                    For the complete list of all methods available on the
+                    HtmlUnit <code>WebResponse</code> object, see the HtmlUnit
+                    documentation.
+                </note>
 
-      </section>
+            </section>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

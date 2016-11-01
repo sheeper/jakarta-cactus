@@ -23,34 +23,34 @@
 
 <document id="coverage">
 
-  <properties>
-    <title>Test Coverage</title>
-  </properties>
+    <properties>
+        <title>Test Coverage</title>
+    </properties>
 
-  <body>
+    <body>
 
-<section name="Test Coverage Reports">
+        <section name="Test Coverage Reports">
 
-      <p>
-        These are test coverage reports for Cactus. They were generated using
-	<a href="http://www.cenqua.com/clover/">Clover</a>.
-        They show how good (or how bad) the Cactus tests suite is.
-      </p>
+            <p>
+                These are test coverage reports for Cactus. They were generated using
+                <a href="http://www.cenqua.com/clover/">Clover</a>.
+                They show how good (or how bad) the Cactus tests suite is.
+            </p>
 
-      <ul>
-        <li>
-		<a href="../clover-12/index.html">
-            Test coverage for Cactus for J2EE 1.2
-          </a>
-        </li>
-        <li>
-		<a href="../clover-13/index.html">
-            Test coverage for Cactus for J2EE 1.3
-          </a>
-        </li>
-      </ul>
+            <ul>
+                <li>
+                    <a href="../clover-12/index.html">
+                        Test coverage for Cactus for J2EE 1.2
+                    </a>
+                </li>
+                <li>
+                    <a href="../clover-13/index.html">
+                        Test coverage for Cactus for J2EE 1.3
+                    </a>
+                </li>
+            </ul>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>

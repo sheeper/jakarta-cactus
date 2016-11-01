@@ -19,24 +19,21 @@
  -->
 
 
-<project 
-  xmlns:j="jelly:core" 
-  xmlns:ant="jelly:ant"
->
+<project xmlns:j="jelly:core" xmlns:ant="jelly:ant">
 
-   <postGoal name="plugin:install">
-      <attainGoal name="install-cactus-dist"/>
-   </postGoal>
+    <postGoal name="plugin:install">
+        <attainGoal name="install-cactus-dist"/>
+    </postGoal>
 
-   <goal name="install-cactus-dist">
-     <j:if test="${context.getVariable('maven.jar.override')=='on'}">
-       <j:set var="jarsDir" value="${maven.repo.local}/${pom.groupId}/jars"/>
-       <ant:echo>Copying Cactus jars to ${jarsDir}</ant:echo>
-       <ant:mkdir dir="${jarsDir}"/>
-       <ant:copy todir="${jarsDir}" file="${maven.jar.cactus}"/>
-       <ant:copy todir="${jarsDir}" file="${maven.jar.cactus.ant}"/>
-       <ant:copy todir="${jarsDir}" file="${maven.jar.cactus.share}"/>
-     </j:if>
-   </goal>
+    <goal name="install-cactus-dist">
+        <j:if test="${context.getVariable('maven.jar.override')=='on'}">
+            <j:set var="jarsDir" value="${maven.repo.local}/${pom.groupId}/jars"/>
+            <ant:echo>Copying Cactus jars to ${jarsDir}</ant:echo>
+            <ant:mkdir dir="${jarsDir}"/>
+            <ant:copy todir="${jarsDir}" file="${maven.jar.cactus}"/>
+            <ant:copy todir="${jarsDir}" file="${maven.jar.cactus.ant}"/>
+            <ant:copy todir="${jarsDir}" file="${maven.jar.cactus.share}"/>
+        </j:if>
+    </goal>
 
 </project>
