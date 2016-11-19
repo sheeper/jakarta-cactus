@@ -23,7 +23,7 @@ Creating the site documentation
 
 cd top-level
 
-mvn jxr:jxr
+mvn jxr:aggregate
 mvn javadoc:javadoc
 
 cd cactus-site
