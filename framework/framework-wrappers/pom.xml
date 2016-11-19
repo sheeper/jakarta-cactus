@@ -30,7 +30,7 @@
     <artifactId>cactus.core.framework.wrappers</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Wrappers - Parent Project</name>
+    <name>Cactus Wrappers - Parent</name>
     <description>Parent project for Cactus wrapper projects</description>
 
     <modules>

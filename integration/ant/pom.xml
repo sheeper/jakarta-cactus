@@ -29,7 +29,7 @@
 
     <artifactId>cactus.integration.ant</artifactId>
 
-    <name>Cactus Ant Integration</name>
+    <name>Cactus Integration - Ant Tasks</name>
 
     <dependencies>
         <dependency>

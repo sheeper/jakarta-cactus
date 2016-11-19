@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 
 <!--
  * ========================================================================
@@ -21,44 +21,25 @@
  * ========================================================================
 -->
 
-<document id="changes">
+<document id="changes"
+          xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
 
     <properties>
         <title>Changes</title>
     </properties>
 
     <body>
-
         <section name="Summary of changes">
             <ul>
                 <li>
                     <link href="site:news">News and Events</link>
                 </li>
                 <li>
-                    <jump anchor="website_changes">Last 15 days web site changes</jump>
-                </li>
-                <li>
                     <jump anchor="release_changes">Release changes</jump>
                 </li>
             </ul>
-        </section>
-
-        <!-- ================================================================= -->
-        <!-- Last 15 days web site changes -->
-        <!-- ================================================================= -->
-
-        <anchor id="website_changes"/>
-        <section name="Last 15 days web site changes">
-
-            <p>
-                These are the changes that happened to the Cactus web site for the past
-                15 days since the last site update (excluding the todo and changes
-                pages which are modified too often):
-            </p>
-
-            <!-- Note: The XSL stylesheet will include the CVS changelog here -->
-            <cvschangelog/>
-
         </section>
 
         <!-- ================================================================= -->
@@ -82,6 +63,13 @@
                 <a href="ext:integration_maven_changes">Maven integration release
                     changes page</a>.
             </p>
+
+            <release version="1.8.2">
+                <action dev="geissld" type="update" date="1 November 2016" issue="#1">
+                    Migration of the project to GitHub. Various changes to the build to enable it for Maven3
+                    and automatic build with TravisCI.
+                </action>
+            </release>
 
             <release version="1.8.1" date="18 January 2009">
                 <action dev="PTT" type="update">

@@ -23,14 +23,14 @@
 
     <parent>
         <groupId>org.apache.cactus</groupId>
-        <artifactId>cactus</artifactId>
+        <artifactId>cactus-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>cactus-site</artifactId>
     <packaging>pom</packaging>
 
-    <name>Apache Cactus</name>
+    <name>Cactus Site</name>
     <description>Cactus framework for testing your server-side code</description>
 
     <developers>
@@ -108,6 +108,7 @@
         </developer>
         <developer>
             <name>Daniel Geissler</name>
+            <id>geissld</id>
             <email>-</email>
             <timezone>+1</timezone>
         </developer>
@@ -206,6 +207,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
+                <configuration>
+                    <includeOpenIssues>false</includeOpenIssues>
+                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -271,7 +275,6 @@
                             <outputDir>src/site/xdoc/</outputDir>
                         </transformationSet>
                     </transformationSets>
-                    <extension>xml</extension>
                 </configuration>
             </plugin>
         </plugins>

@@ -23,7 +23,7 @@
         <artifactId>cactus.integration.eclipse</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
-    <name>Cactus Eclipse Integration - Runner</name>
+    <name>Cactus Integration - Eclipse Runner</name>
     <packaging>jar</packaging>
     <artifactId>org.apache.cactus.eclipse.runner</artifactId>
 

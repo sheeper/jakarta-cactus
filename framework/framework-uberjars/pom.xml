@@ -30,7 +30,7 @@
     <artifactId>cactus.core.framework.uberjars</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Uberjars - Parent Project</name>
+    <name>Cactus Uberjars - Parent</name>
 
     <modules>
         <module>javaEE-12-uberjar</module>

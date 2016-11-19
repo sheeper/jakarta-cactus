@@ -30,7 +30,7 @@
     <artifactId>cactus.integration.eclipse</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Eclipse Integration</name>
+    <name>Cactus Integration - Eclipse Plugin</name>
 
     <modules>
         <module>org.apache.cactus.eclipse.webapp</module>

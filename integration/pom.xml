@@ -23,14 +23,14 @@
 
     <parent>
         <groupId>org.apache.cactus</groupId>
-        <artifactId>cactus</artifactId>
+        <artifactId>cactus-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>cactus.integration</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Integration - Parent Project</name>
+    <name>Cactus Integration - Parent</name>
 
     <modules>
         <module>shared-api</module>

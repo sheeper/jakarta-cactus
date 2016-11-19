@@ -29,7 +29,7 @@
 
     <artifactId>cactus.integration.shared.api</artifactId>
 
-    <name>Cactus Shared API for the integration</name>
+    <name>Cactus Integration - Shared API</name>
 
     <dependencies>
         <dependency>
