@@ -34,6 +34,6 @@ Creating the distribution
 
 Ensure that you have created the site first and the jars
 
-change to top-level directory
+change to cactus-assembly directory
 
-mvn assembly:assembly -N
+mvn assembly:single

@@ -17,59 +17,68 @@
 		specific language governing permissions and limitations
 		under the License.   
 -->
-<assembly>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
     <id>bin</id>
+
     <formats>
         <format>zip</format>
         <format>tar.gz</format>
         <format>tar.bz2</format>
     </formats>
+
     <includeBaseDirectory>true</includeBaseDirectory>
     <baseDirectory>${project.artifactId}-${project.version}-bin</baseDirectory>
+
     <scope>runtime</scope>
+
     <dependencySets>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>/lib</outputDirectory>
-            <includes>
-                <include>*:jar:*</include>
-            </includes>
             <unpack>false</unpack>
         </dependencySet>
     </dependencySets>
+
     <fileSets>
         <fileSet>
-            <useDefaultExcludes>false</useDefaultExcludes>
             <includes>
-                <include>README</include>
-                <include>LICENSE</include>
                 <include>NOTICE</include>
                 <include>KEYS</include>
                 <include>ANNOUNCEMENT.txt</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>framework/framework-uberjars/javaEE-14-uberjar/target</directory>
+            <directory>${parent.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README.md</include>
+                <include>LICENSE</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${parent.basedir}/framework/framework-uberjars/javaEE-14-uberjar/target</directory>
             <outputDirectory>lib</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>integration/ant/target</directory>
+            <directory>${parent.basedir}/integration/ant/target</directory>
             <outputDirectory>lib</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>integration/shared-api/target</directory>
+            <directory>${parent.basedir}/integration/shared-api/target</directory>
             <outputDirectory>lib</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>samples</directory>
+            <directory>${parent.basedir}/samples</directory>
             <outputDirectory>samples</outputDirectory>
             <includes>
                 <include>**/*</include>
@@ -77,20 +86,24 @@
             <excludes>
                 <exclude>pom.xml</exclude>
                 <exclude>**/target/**</exclude>
+
+                <!--Eclipse's work directory. -->
+                <exclude>bin/**</exclude>
+                <exclude>.settings/**</exclude>
+                <exclude>.project</exclude>
+                <exclude>.profile</exclude>
+                <exclude>.classpath</exclude>
+
+                <!-- Intellij project files -->
+                <exclude>**/*.iml</exclude>
+                <exclude>.idea/**</exclude>
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>framework/web</directory>
+            <directory>${parent.basedir}/framework/web</directory>
             <outputDirectory>web</outputDirectory>
             <includes>
                 <include>**/*</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>descriptors</directory>
-            <outputDirectory>samples</outputDirectory>
-            <includes>
-                <include>pom.xml</include>
             </includes>
         </fileSet>
         <fileSet>
@@ -101,7 +114,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>cactus-site/target/site</directory>
+            <directory>${parent.basedir}/cactus-site/target/site</directory>
             <outputDirectory>documentation</outputDirectory>
             <includes>
                 <include>**/*.*</include>
