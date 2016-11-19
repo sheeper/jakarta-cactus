@@ -271,7 +271,6 @@
                             <outputDir>src/site/xdoc/</outputDir>
                         </transformationSet>
                     </transformationSets>
-                    <extension>xml</extension>
                 </configuration>
             </plugin>
         </plugins>
