@@ -108,6 +108,7 @@
         </developer>
         <developer>
             <name>Daniel Geissler</name>
+            <id>geissld</id>
             <email>-</email>
             <timezone>+1</timezone>
         </developer>
@@ -206,6 +207,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
+                <configuration>
+                    <includeOpenIssues>false</includeOpenIssues>
+                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
