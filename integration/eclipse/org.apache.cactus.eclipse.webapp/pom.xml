@@ -29,7 +29,7 @@
 
     <artifactId>org.apache.cactus.eclipse.webapp</artifactId>
 
-    <name>Cactus Eclipse Integration - Webapp</name>
+    <name>Cactus Integration - Eclipse Webapp</name>
 
     <dependencies>
         <dependency>

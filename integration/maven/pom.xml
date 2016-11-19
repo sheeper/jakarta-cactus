@@ -30,7 +30,7 @@
     <artifactId>cactus.maven1.plugin</artifactId>
     <packaging>maven-one-plugin</packaging>
 
-    <name>Cactus Maven 1 Plugin</name>
+    <name>Cactus Integration - Maven1 Plugin</name>
 
     <dependencies>
         <!-- Note: Dependencies below are needed by the Cactus scanner tag -->

@@ -30,7 +30,7 @@
     <artifactId>cactus.samples</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Samples - Parent Project</name>
+    <name>Cactus Samples - Parent</name>
     <description>Cactus Sample Projects</description>
 
     <profiles>

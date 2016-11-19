@@ -30,6 +30,6 @@
     <artifactId>cactus.maven.skin</artifactId>
     <version>1.8.2-SNAPSHOT</version>
 
-    <name>Cactus Site Skin</name>
+    <name>Cactus Site - Skin</name>
     <description>Cactus Maven2 Site Skin</description>
 </project>

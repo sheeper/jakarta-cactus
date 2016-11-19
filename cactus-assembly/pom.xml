@@ -30,7 +30,7 @@
     <artifactId>cactus</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Assembly Project</name>
+    <name>Cactus Assembly</name>
 
     <!-- THESE DEPENDENCIES ARE LISTED HERE SO THAT THE ASSEMBLY PLUGIN CAN PRODUCE THE LIB FOLDER IN THE ASSEMBLIES-->
     <dependencies>

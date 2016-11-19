@@ -30,7 +30,7 @@
     <artifactId>cactus-site</artifactId>
     <packaging>pom</packaging>
 
-    <name>Apache Cactus</name>
+    <name>Cactus Site</name>
     <description>Cactus framework for testing your server-side code</description>
 
     <developers>

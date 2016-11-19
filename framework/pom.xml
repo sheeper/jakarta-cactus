@@ -30,7 +30,7 @@
     <artifactId>cactus.core.framework</artifactId>
     <packaging>pom</packaging>
 
-    <name>Cactus Framework - Parent Project</name>
+    <name>Cactus Framework - Parent</name>
     <description>Parent project for Cactus framework</description>
 
     <modules>
