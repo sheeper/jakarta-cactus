@@ -20,13 +20,11 @@
  */
 package org.apache.cactus.server;
 
-import java.io.UnsupportedEncodingException;
-
-import java.util.Map;
+import org.apache.cactus.ServletURL;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.cactus.ServletURL;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * Extends {@link AbstractHttpServletRequestWrapper} by adding the new methods 

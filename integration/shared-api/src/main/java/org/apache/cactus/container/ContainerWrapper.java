@@ -20,13 +20,13 @@
  */
 package org.apache.cactus.container;
 
-import java.io.File;
-import java.util.Map;
-
 import org.codehaus.cargo.container.Container;
 import org.codehaus.cargo.container.InstalledLocalContainer;
 import org.codehaus.cargo.container.property.GeneralPropertySet;
 import org.codehaus.cargo.util.log.Logger;
+
+import java.io.File;
+import java.util.Map;
 
 /**
  * Class that wraps around an implementation of the <code>Container</code>

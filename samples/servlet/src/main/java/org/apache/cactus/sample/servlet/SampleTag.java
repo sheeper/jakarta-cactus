@@ -20,15 +20,13 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import java.io.IOException;
-
-import java.util.Enumeration;
-
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.io.IOException;
+import java.util.Enumeration;
 
 /**
  * Sample tag that implements simple tag logic.

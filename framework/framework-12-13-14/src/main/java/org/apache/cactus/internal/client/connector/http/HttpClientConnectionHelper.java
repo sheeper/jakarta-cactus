@@ -20,15 +20,6 @@
  */
 package org.apache.cactus.internal.client.connector.http;
 
-import java.io.IOException;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.internal.configuration.Configuration;
@@ -36,12 +27,19 @@ import org.apache.cactus.internal.util.CookieUtil;
 import org.apache.cactus.internal.util.UrlUtil;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Implementation of <code>ConnectionHelper</code> using Jakarta Commons

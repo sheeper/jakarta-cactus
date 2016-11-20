@@ -22,7 +22,6 @@ package org.apache.cactus.sample.servlet.unit;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
 import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;

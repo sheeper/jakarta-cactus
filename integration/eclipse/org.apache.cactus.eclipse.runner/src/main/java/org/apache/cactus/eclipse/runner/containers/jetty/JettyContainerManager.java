@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.eclipse.runner.containers.jetty;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
@@ -34,9 +30,12 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.types.FileSet;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Implementation of IContainerManager for the Jetty container.

@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.integration.ant.deployment.webapp;
 
-import java.io.File;
-
+import junit.framework.TestCase;
 import org.codehaus.cargo.module.webapp.DefaultWarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
 
-import junit.framework.TestCase;
+import java.io.File;
 
 /**
  * Unit tests for {@link WarArchive}.

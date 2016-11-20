@@ -20,13 +20,13 @@
  */
 package org.apache.cactus.integration.api.cactify;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.codehaus.cargo.util.log.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Abstract base class for nested redirector elements.

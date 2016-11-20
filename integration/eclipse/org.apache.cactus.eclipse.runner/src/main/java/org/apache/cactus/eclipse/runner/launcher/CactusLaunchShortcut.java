@@ -24,8 +24,9 @@ import org.apache.cactus.eclipse.runner.ui.CactusPreferences;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
-//import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
 import org.eclipse.jdt.junit.launcher.JUnitLaunchShortcut;
+
+//import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchShortcut;
 
 /**
  * Launch shortcut used to start the Cactus launch configuration on the

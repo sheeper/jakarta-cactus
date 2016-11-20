@@ -20,11 +20,9 @@
  */
 package org.apache.cactus.server;
 
-import java.lang.reflect.Method;
-
-import java.util.Set;
-
 import javax.servlet.ServletContext;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * Wrapper around Servlet 2.3 <code>ServletContext</code>. This wrapper

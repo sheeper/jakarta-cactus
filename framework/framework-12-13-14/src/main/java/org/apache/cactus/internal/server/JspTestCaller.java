@@ -20,18 +20,15 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import java.lang.reflect.Field;
-
-import javax.servlet.http.HttpServletRequest;
-
 import junit.framework.TestCase;
-
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.server.AbstractPageContextWrapper;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.reflect.Field;
 
 /**
  * Call the test method on the server side after assigning the JSP implicit

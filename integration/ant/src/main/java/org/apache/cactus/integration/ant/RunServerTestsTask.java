@@ -20,14 +20,14 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.net.URL;
-
 import org.apache.cactus.container.ContainerRunner;
 import org.apache.cactus.integration.ant.container.GenericContainer;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.codehaus.cargo.util.DefaultAntTaskFactory;
 import org.codehaus.cargo.util.log.AntLogger;
+
+import java.net.URL;
 
 /**
  * Task to automate running in-container unit test. It has the following

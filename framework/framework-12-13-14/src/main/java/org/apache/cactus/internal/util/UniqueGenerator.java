@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.internal.util;
 
+import junit.framework.TestCase;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import junit.framework.TestCase;
 
 /**
  * Generates a quasi-unique id for a test case.

@@ -20,9 +20,8 @@
  */
 package org.apache.cactus;
 
-import org.apache.cactus.internal.AbstractTestSuite;
-
 import junit.framework.Test;
+import org.apache.cactus.internal.AbstractTestSuite;
 
 /**
  * {@link junit.framework.TestSuite} wrapper that wraps all the tests of the 

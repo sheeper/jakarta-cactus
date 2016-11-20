@@ -20,8 +20,6 @@
  */
 package org.apache.cactus.internal.client.connector.http;
 
-import java.net.HttpURLConnection;
-
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.RequestDirectives;
@@ -35,6 +33,8 @@ import org.apache.cactus.internal.client.WebTestResultParser;
 import org.apache.cactus.internal.configuration.WebConfiguration;
 import org.apache.cactus.internal.util.IoUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.net.HttpURLConnection;
 
 /**
  * Performs the steps necessary to run a test. It involves

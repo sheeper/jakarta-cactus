@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.eclipse.webapp.internal;
 
-import java.io.File;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -34,6 +30,10 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+
+import java.io.File;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 /**
  * Represents a web application for a given project.

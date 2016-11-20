@@ -20,18 +20,17 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.apache.cactus.FilterTestCase;
+import org.apache.cactus.WebResponse;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import org.apache.cactus.FilterTestCase;
-import org.apache.cactus.WebResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Tests of the <code>SampleFilter</code> filter class.

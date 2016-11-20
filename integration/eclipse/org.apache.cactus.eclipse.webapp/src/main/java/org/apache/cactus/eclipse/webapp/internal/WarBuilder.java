@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.eclipse.webapp.internal;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.webapp.internal.ui.WebappMessages;
 import org.apache.cactus.eclipse.webapp.internal.ui.WebappPlugin;
 import org.apache.tools.ant.Project;
@@ -45,6 +41,10 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.JavaModel;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Vector;
 
 /**
  * Helper class for creating War files.

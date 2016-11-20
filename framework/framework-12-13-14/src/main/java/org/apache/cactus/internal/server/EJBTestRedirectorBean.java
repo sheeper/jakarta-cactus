@@ -19,12 +19,14 @@ package org.apache.cactus.internal.server;
  * 
  * ========================================================================
  */
-import javax.ejb.CreateException;
-import javax.ejb.SessionBean;
-import javax.ejb.SessionContext;
+
 import org.apache.cactus.EJBRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.ejb.CreateException;
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
 
 /**
  * Prototype of EJBRedirector for Cactus.

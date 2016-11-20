@@ -20,16 +20,8 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import java.lang.reflect.Constructor;
-
-import javax.servlet.ServletException;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
-
 import org.apache.cactus.internal.CactusTestCase;
 import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.ServiceEnumeration;
@@ -38,6 +30,11 @@ import org.apache.cactus.internal.configuration.Version;
 import org.apache.cactus.internal.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server

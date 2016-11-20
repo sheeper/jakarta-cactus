@@ -20,9 +20,8 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import org.apache.cactus.FilterTestCase;
-
 import com.meterware.httpunit.WebResponse;
+import org.apache.cactus.FilterTestCase;
 
 /**
  * Tests HTTP headers set in Filter code.

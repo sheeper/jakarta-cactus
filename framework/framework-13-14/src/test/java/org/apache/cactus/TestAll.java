@@ -20,10 +20,9 @@
  */
 package org.apache.cactus;
 
-import org.apache.cactus.extension.jetty.TestJettyTestSetup;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.apache.cactus.extension.jetty.TestJettyTestSetup;
 
 /**
  * Run all the Cactus unit tests related to J2EE API 1.3.

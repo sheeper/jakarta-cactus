@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.server;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.cactus.ServletURL;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Provide implementation of 

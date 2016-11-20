@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-import java.util.Iterator;
-import java.util.List;
-
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.DefaultEarArchive;
 import org.codehaus.cargo.module.application.EarArchive;
@@ -32,6 +28,10 @@ import org.codehaus.cargo.module.webapp.WebXml;
 import org.codehaus.cargo.module.webapp.WebXmlType;
 import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.jdom.Element;
+
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Test class for the CactifyEar task.

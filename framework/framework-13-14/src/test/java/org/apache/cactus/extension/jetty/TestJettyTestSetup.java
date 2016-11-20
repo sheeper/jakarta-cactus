@@ -20,16 +20,14 @@
  */
 package org.apache.cactus.extension.jetty;
 
-import java.net.URL;
-
-import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
+import junit.framework.TestCase;
 import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
-import junit.framework.TestCase;
+import java.net.URL;
 
 /**
  * Unit tests of the {@link JettyTestSetup} class.

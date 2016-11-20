@@ -20,11 +20,10 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import java.io.IOException;
-
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import java.io.IOException;
 
 /**
  * Sample tag that interacts with its body. The tag acts as a filter for its

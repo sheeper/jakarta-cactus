@@ -20,9 +20,6 @@
  */
 package org.apache.cactus.internal;
 
-import java.net.HttpURLConnection;
-import java.util.StringTokenizer;
-
 import org.apache.cactus.Cookie;
 import org.apache.cactus.HttpSessionCookie;
 import org.apache.cactus.ServletURL;
@@ -32,6 +29,9 @@ import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.internal.client.connector.http.HttpClientConnectionHelper;
 import org.apache.cactus.internal.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.net.HttpURLConnection;
+import java.util.StringTokenizer;
 
 /**
  * Extends {@link BaseWebRequest} to add properties specific to the

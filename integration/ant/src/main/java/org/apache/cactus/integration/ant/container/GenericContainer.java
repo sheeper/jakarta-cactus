@@ -20,16 +20,16 @@
  */
 package org.apache.cactus.integration.ant.container;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.cactus.container.ContainerWrapper;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.TaskContainer;
 import org.apache.tools.ant.taskdefs.CallTarget;
 import org.codehaus.cargo.util.AntTaskFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A generic container that can be nested in the

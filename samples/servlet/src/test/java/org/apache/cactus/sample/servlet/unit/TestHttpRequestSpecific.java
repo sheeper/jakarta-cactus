@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.util.Map;
-
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
+
+import java.util.Map;
 
 /**
  * Test HTTP request methods specific to Servlet API 2.3.

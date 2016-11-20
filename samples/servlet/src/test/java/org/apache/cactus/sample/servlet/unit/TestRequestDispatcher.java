@@ -20,14 +20,13 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 /**
  * Tests manipulating The Request Dispatcher.

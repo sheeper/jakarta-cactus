@@ -21,7 +21,6 @@
 package org.apache.cactus.mock;
 
 import java.io.InputStream;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 

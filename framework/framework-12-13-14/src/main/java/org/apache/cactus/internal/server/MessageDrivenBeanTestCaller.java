@@ -20,17 +20,15 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import javax.jms.QueueConnectionFactory;
-import javax.naming.InitialContext;
-
 import junit.framework.TestCase;
-
 import org.apache.cactus.JmsRequest;
 import org.apache.cactus.JmsTestCase;
 import org.apache.cactus.spi.server.MessageDrivenBeanImplicitObjects;
+
+import javax.jms.QueueConnectionFactory;
+import javax.naming.InitialContext;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server

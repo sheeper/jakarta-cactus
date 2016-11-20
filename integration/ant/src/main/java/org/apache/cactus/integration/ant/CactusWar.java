@@ -20,12 +20,12 @@
  */
 package org.apache.cactus.integration.ant;
 
+import org.apache.cactus.integration.api.version.Version;
+import org.codehaus.cargo.module.webapp.EjbRef;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.cactus.integration.api.version.Version;
-import org.codehaus.cargo.module.webapp.EjbRef;
 
 /**
  * Implements the nested element cactuswar of the cactifyear task.

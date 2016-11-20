@@ -20,24 +20,23 @@
  */
 package org.apache.cactus.integration.maven;
 
+import junit.framework.TestCase;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import java.util.List;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URLClassLoader;
-import java.net.URL;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Method;
-
-import junit.framework.TestCase;
+import java.util.List;
 
 /**
  * Process {@link FileSet} and extracts classes that are Cactus tests. As

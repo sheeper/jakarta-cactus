@@ -20,15 +20,14 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.io.Serializable;
-
+import junit.framework.AssertionFailedError;
+import junit.framework.ComparisonFailure;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.internal.client.AssertionFailedErrorWrapper;
 import org.apache.cactus.internal.client.ServletExceptionWrapper;
 import org.apache.cactus.internal.util.JUnitVersionHelper;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.ComparisonFailure;
+import java.io.Serializable;
 
 /**
  * Verifies the correct handling of exceptions that happen when running

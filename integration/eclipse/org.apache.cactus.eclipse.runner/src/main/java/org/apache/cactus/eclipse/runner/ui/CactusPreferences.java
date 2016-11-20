@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.eclipse.runner.ui;
 
-import java.util.Hashtable;
-
 import org.eclipse.jface.preference.IPreferenceStore;
+
+import java.util.Hashtable;
 
 /**
  * Central class for managing the Cactus preferences.

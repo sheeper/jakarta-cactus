@@ -20,15 +20,6 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import org.apache.cactus.integration.api.cactify.FilterRedirector;
 import org.apache.cactus.integration.api.cactify.JspRedirector;
 import org.apache.cactus.integration.api.cactify.Redirector;
@@ -51,6 +42,15 @@ import org.codehaus.cargo.module.webapp.WebXmlVersion;
 import org.codehaus.cargo.module.webapp.merge.WebXmlMerger;
 import org.codehaus.cargo.util.log.AntLogger;
 import org.jdom.JDOMException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 /**
  * An Ant task that injects elements necessary to run Cactus tests into an

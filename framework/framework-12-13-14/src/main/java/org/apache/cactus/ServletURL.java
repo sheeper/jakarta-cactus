@@ -20,11 +20,11 @@
  */
 package org.apache.cactus;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.cactus.internal.server.ServletUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Simulate an HTTP URL by breaking it into its different parts.

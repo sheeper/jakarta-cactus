@@ -15,12 +15,12 @@
  */
 package org.apache.cactus.integration.maven2.test;
 
-import java.io.File;
-
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.codehaus.plexus.PlexusTestCase;
+
+import java.io.File;
 
 /**
  * Artifact stub to use in the maven2 tests.

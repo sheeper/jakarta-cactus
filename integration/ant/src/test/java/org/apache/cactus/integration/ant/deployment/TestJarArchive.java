@@ -20,17 +20,16 @@
  */
 package org.apache.cactus.integration.ant.deployment;
 
+import junit.framework.TestCase;
+import org.codehaus.cargo.module.DefaultJarArchive;
+import org.codehaus.cargo.module.JarArchive;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-
-import org.codehaus.cargo.module.DefaultJarArchive;
-import org.codehaus.cargo.module.JarArchive;
-
-import junit.framework.TestCase;
 
 /**
  * Unit tests for {@link JarArchive}.

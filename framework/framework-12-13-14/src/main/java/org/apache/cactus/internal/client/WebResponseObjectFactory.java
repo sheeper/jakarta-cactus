@@ -20,18 +20,17 @@
  */
 package org.apache.cactus.internal.client;
 
-import java.io.InputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-
 import org.apache.cactus.Request;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.spi.client.ResponseObjectFactory;
+
+import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Constructs Web response objects. Supports both Cactus

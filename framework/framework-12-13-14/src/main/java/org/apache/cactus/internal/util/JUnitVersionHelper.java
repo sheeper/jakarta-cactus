@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.internal.util;
 
-import java.lang.reflect.Method;
-
-import org.apache.cactus.util.ChainedRuntimeException;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
+import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.lang.reflect.Method;
 
 /**
  * Work around for some changes to the public JUnit API between

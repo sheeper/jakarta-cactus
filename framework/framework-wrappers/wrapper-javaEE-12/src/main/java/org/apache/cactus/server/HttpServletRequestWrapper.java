@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.server;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.cactus.ServletURL;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Encapsulation class for the Servlet 2.2 API <code>HttpServletRequest</code>.

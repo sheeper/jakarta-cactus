@@ -20,11 +20,10 @@
  */
 package org.apache.cactus.sample.servlet.util;
 
+import javax.servlet.ServletOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import javax.servlet.ServletOutputStream;
 
 /**
  * Helper class to help write filters that manipulates the output stream. This

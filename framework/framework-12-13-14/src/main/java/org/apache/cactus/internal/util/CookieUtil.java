@@ -20,9 +20,6 @@
  */
 package org.apache.cactus.internal.util;
 
-import java.net.URL;
-import java.util.Vector;
-
 import org.apache.cactus.Cookie;
 import org.apache.cactus.ServletURL;
 import org.apache.cactus.WebRequest;
@@ -32,6 +29,9 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.net.URL;
+import java.util.Vector;
 
 /**
  * Utility methods to manipulate cookies and transform Cactus cookie objects 

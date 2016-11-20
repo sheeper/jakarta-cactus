@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-
 import junit.framework.Test;
+
+import java.io.File;
 
 /**
  * Class used to run all tests under Eclipse.

@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.eclipse.runner.containers;
 
-import java.net.URL;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+
+import java.net.URL;
 
 /**
  * Interface for container configuration and startup.

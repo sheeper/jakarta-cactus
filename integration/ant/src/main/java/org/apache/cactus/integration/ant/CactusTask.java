@@ -21,14 +21,6 @@
 
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import org.apache.cactus.container.ContainerRunner;
 import org.apache.cactus.container.ContainerWrapper;
 import org.apache.cactus.integration.ant.util.PropertySet;
@@ -40,10 +32,18 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.types.Environment;
-import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
+import org.apache.tools.ant.types.Path;
 import org.codehaus.cargo.container.Container;
 import org.codehaus.cargo.util.log.AntLogger;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * An Ant task that extends the optional JUnit task to provide support for

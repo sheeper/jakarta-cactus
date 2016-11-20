@@ -20,14 +20,13 @@
  */
 package org.apache.cactus.internal.util;
 
-import java.net.URL;
-
+import junit.framework.TestCase;
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.commons.httpclient.HttpState;
 
-import junit.framework.TestCase;
+import java.net.URL;
 
 /**
  * Unit tests for the {@link CookieUtil} class.

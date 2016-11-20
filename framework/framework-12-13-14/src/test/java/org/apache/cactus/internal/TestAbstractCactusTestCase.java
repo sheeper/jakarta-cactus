@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.internal;
 
-import java.net.HttpURLConnection;
-
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
+
+import java.net.HttpURLConnection;
 
 /**
  * Unit tests of the {@link AbstractCactusTestCase} class.

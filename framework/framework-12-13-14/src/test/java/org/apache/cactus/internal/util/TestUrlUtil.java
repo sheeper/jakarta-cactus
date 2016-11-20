@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.internal.util;
 
+import junit.framework.TestCase;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import junit.framework.TestCase;
 /**
  * Unit tests for the {@link UrlUtil} class.
  *

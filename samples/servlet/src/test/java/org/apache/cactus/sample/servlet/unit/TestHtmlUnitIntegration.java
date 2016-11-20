@@ -20,11 +20,11 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.sample.servlet.SampleServlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Test the HtmlpUnit integration.

@@ -20,11 +20,6 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
 import org.apache.cactus.integration.api.version.Version;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -41,6 +36,11 @@ import org.codehaus.cargo.module.ejb.Entity;
 import org.codehaus.cargo.module.ejb.Session;
 import org.codehaus.cargo.module.webapp.EjbRef;
 import org.jdom.JDOMException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * An Ant task that injects elements necessary to run Cactus tests into an

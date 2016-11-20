@@ -21,7 +21,6 @@
 package org.apache.cactus.spi.client.connector;
 
 import junit.framework.Test;
-
 import org.apache.cactus.Request;
 import org.apache.cactus.spi.client.ResponseObjectFactory;
 

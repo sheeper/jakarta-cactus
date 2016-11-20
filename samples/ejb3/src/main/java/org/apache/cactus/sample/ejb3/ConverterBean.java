@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.sample.ejb3;
 
-import javax.ejb.Stateless;
-
 import org.apache.cactus.sample.ejb3.IConvertLocal;
+
+import javax.ejb.Stateless;
 
 /**
  * Sample EJB3 bean.

@@ -20,9 +20,6 @@
  */
 package org.apache.cactus.internal.server;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-
 import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.ServiceEnumeration;
 import org.apache.cactus.spi.server.ImplicitObjects;
@@ -30,6 +27,9 @@ import org.apache.cactus.spi.server.MessageDrivenBeanImplicitObjects;
 import org.apache.cactus.spi.server.TestController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
 
 /**
  * MDB Controller that extracts the requested service from the

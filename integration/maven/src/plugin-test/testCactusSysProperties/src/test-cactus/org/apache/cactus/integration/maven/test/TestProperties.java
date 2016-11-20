@@ -21,10 +21,7 @@
 
 package org.apache.cactus.integration.maven.test;
 
-import java.util.Map;
-
 import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebRequest;
 
 /**
  * Verify that properties defined by the 

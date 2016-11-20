@@ -20,15 +20,15 @@
  */
 package org.apache.cactus.eclipse.webapp.internal.ui;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import org.apache.cactus.eclipse.webapp.internal.Webapp;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * The main plugin class to be used in the desktop.

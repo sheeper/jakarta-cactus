@@ -20,12 +20,6 @@
  */
 package org.apache.cactus.eclipse.runner.ui;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.runner.containers.IContainerManager;
 import org.apache.cactus.eclipse.runner.containers.ant.AntContainerManager;
 import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
@@ -43,6 +37,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Vector;
 
 /**
  * The plug-in runtime class for the Cactus plug-in.

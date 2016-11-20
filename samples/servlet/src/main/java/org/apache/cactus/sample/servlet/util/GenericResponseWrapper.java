@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.sample.servlet.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 
 /**
  * Wrapper around a <code>HttpServletResponse</code> that we use to easily

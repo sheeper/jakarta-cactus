@@ -20,9 +20,6 @@
  */
 package org.apache.cactus.eclipse.runner.ui;
 
-import java.io.File;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.runtime.Path;
@@ -36,6 +33,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+
+import java.io.File;
+import java.util.Vector;
 
 /**
  * Action delegate to cactify a project.

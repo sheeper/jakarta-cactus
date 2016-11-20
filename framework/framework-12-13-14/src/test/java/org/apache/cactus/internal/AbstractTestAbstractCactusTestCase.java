@@ -20,13 +20,8 @@
  */
 package org.apache.cactus.internal;
 
-import java.io.ByteArrayInputStream;
-
-import java.net.URL;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
@@ -35,6 +30,9 @@ import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.mock.MockHttpURLConnection;
+
+import java.io.ByteArrayInputStream;
+import java.net.URL;
 
 /**
  * Test class that intercepts all exceptions (and assert them) coming from 

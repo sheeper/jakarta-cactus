@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.io.IOException;
-
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.WebResponse;
+
+import java.io.IOException;
 
 /**
  * Test the usage of the <code>out</code> implicit object when using

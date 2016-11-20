@@ -20,13 +20,14 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.lang.reflect.Constructor;
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.EJBTestResult;
 import org.apache.cactus.internal.HttpServiceDefinition;
 import org.apache.cactus.internal.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.lang.reflect.Constructor;
 
 /**
  * Prototype of EJBRedirector for Cactus.

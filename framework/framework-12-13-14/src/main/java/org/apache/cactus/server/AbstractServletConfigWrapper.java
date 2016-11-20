@@ -20,16 +20,14 @@
  */
 package org.apache.cactus.server;
 
-import java.lang.reflect.Constructor;
-
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-
-import org.apache.cactus.util.ChainedRuntimeException;
+import java.lang.reflect.Constructor;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * Abstract wrapper around <code>ServletConfig</code> which overrides the

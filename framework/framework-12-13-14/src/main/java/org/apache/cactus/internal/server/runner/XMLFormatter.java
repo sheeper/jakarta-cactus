@@ -20,17 +20,16 @@
  */
 package org.apache.cactus.internal.server.runner;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestFailure;
 import junit.framework.TestListener;
 import junit.framework.TestResult;
-
 import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.internal.util.StringUtil;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Format the test results in XML.

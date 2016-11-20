@@ -20,11 +20,11 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.io.IOException;
-
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.server.HttpServletRequestWrapper;
 import org.apache.cactus.server.ServletConfigWrapper;
+
+import java.io.IOException;
 
 /**
  * Test the usage of the <code>pageContext</code> implicit object when using

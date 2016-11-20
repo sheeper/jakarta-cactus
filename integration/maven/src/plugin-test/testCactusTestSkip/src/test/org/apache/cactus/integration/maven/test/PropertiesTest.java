@@ -21,10 +21,10 @@
 
 package org.apache.cactus.integration.maven.test;
 
+import junit.framework.TestCase;
+
 import java.io.File;
 import java.io.IOException;
-
-import junit.framework.TestCase;
 
 
 public class PropertiesTest extends TestCase

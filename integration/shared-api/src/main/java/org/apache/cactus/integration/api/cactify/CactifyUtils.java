@@ -20,18 +20,12 @@
  */
 package org.apache.cactus.integration.api.cactify;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import org.codehaus.cargo.container.internal.util.ResourceUtils;
+import org.codehaus.cargo.module.webapp.WebXml;
+import org.codehaus.cargo.util.log.Logger;
+
 import java.util.Iterator;
 import java.util.List;
-
-import org.codehaus.cargo.container.internal.util.ResourceUtils;
-import org.codehaus.cargo.module.webapp.DefaultWarArchive;
-import org.codehaus.cargo.module.webapp.WarArchive;
-import org.codehaus.cargo.module.webapp.WebXml;
-import org.codehaus.cargo.util.internal.log.AbstractLogger;
-import org.codehaus.cargo.util.log.Logger;
 
 /**
  * Util class for cactifying purposes.

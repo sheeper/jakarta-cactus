@@ -20,10 +20,9 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import org.apache.cactus.ServletTestSuite;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
+import org.apache.cactus.ServletTestSuite;
 
 /**
  * Pure JUnit Test Case that we run on the server side using Cactus, by

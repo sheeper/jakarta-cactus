@@ -20,13 +20,13 @@
  */
 package org.apache.cactus.container;
 
+import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
+import org.codehaus.cargo.util.log.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
-import org.codehaus.cargo.util.log.Logger;
 
 /**
  * Support class that handles the lifecycle of a container, which basically

@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.server;
 
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
-
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 
 /**
  * Wrapper around <code>FilterConfig</code> which overrides the

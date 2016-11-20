@@ -20,12 +20,12 @@
  */
 package org.apache.cactus;
 
-import javax.jms.QueueSession;
-import javax.jms.Message;
-import javax.jms.TextMessage;
-import javax.jms.JMSException;
-
 import org.apache.cactus.util.ChainedRuntimeException;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.QueueSession;
+import javax.jms.TextMessage;
 
 /**
  * Contains all JMS request data for a test case. It is the data that

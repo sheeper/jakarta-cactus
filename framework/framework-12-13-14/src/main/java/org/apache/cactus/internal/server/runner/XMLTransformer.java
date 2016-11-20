@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.internal.server.runner;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.Writer;
-
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -32,6 +28,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.Writer;
 
 /**
  * Helper class that handles the transformation of the XML test results to

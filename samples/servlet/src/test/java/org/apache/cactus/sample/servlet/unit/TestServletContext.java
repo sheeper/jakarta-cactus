@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.util.Enumeration;
-
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.server.ServletContextWrapper;
+
+import java.util.Enumeration;
 
 /**
  * Tests that exercise the Cactus Servlet Context wrapper.
