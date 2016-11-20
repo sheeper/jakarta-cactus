@@ -23,13 +23,13 @@
         <format>ear</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
-    <fileSets>
-        <fileSet>
-            <directory>target</directory>
-            <outputDirectory>/</outputDirectory>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory/>
+            <outputFileNameMapping/>
             <includes>
-                <include>cactus.samples.ejb3-1.8.1-SNAPSHOT.jar</include>
+                <include>org.apache.cactus:cactus.samples.ejb3:jar</include>
             </includes>
-        </fileSet>
-    </fileSets>
+        </dependencySet>
+    </dependencySets>
 </assembly>

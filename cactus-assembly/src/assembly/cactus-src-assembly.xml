@@ -34,7 +34,7 @@
     <fileSets>
         <fileSet>
             <directory>${parent.basedir}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <useDefaultExcludes>false</useDefaultExcludes>
             <includes>
                 <include>**/**</include>

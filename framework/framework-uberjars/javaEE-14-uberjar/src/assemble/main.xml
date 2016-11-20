@@ -24,7 +24,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <outputFileNameMapping/>
             <includes>
                 <include>org.apache.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
