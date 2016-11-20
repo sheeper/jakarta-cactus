@@ -221,7 +221,7 @@
                 <code>application.xml</code>
                 if the WAR is packaged in an EAR,
                 etc). It defaults to
-                <code>${maven.build.dir}/${pom.artifactId}-cactus.war</code>.
+                <code>${maven.build.dir}/${project.artifactId}-cactus.war</code>.
             </action>
             <action dev="vmassol" type="add" due-to="Tony Czupryna" due-to-email="tczupryna@orbitz.com">
                 Added support for the new <code>configxml</code> attribute used in the
@@ -266,7 +266,7 @@
                 The plugin now correctly uses the
                 <code>${maven.war.final.name}</code>
                 property instead of hard-coding the war name to
-                <code>${pom.artifactId}.war</code>.
+                <code>${project.artifactId}.war</code>.
             </action>
             <action dev="vmassol" type="add">
                 Moved the Cactus plugin from the Maven CVS to the Cactus CVS.
