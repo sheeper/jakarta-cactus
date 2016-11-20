@@ -48,31 +48,10 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
-                        files are taken from the build-tools JAR module -->
+                    <!-- The checkstyle config files are taken from the build-tools JAR module -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>2.6</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.cactus</groupId>
-                                <artifactId>cactus.build.tools</artifactId>
-                                <version>1.8.2-SNAPSHOT</version>
-                            </dependency>
-                        </dependencies>
-                        <configuration>
-                            <consoleOutput>true</consoleOutput>
-                            <configLocation>build-tools/checkstyle.xml</configLocation>
-                            <headerLocation>build-tools/checkstyle.license</headerLocation>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
