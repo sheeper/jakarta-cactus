@@ -92,7 +92,7 @@ public class CactifyEarMojo extends AbstractMojo
     /**
      * The Ear archiver.
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#ear}"
+     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="ear"
      * @required
      */
     private EarArchiver earArchiver;
@@ -100,7 +100,7 @@ public class CactifyEarMojo extends AbstractMojo
     /**
      * The War archiver.
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#war}"
+     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="war"
      * @required
      */
     private WarArchiver warArchiver;

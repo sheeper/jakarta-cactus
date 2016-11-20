@@ -118,7 +118,7 @@ public class CactifyWarMojo extends AbstractMojo
     /**
      * The War archiver.
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#war}"
+     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="war"
      * @required
      */
     private WarArchiver warArchiver;
@@ -181,7 +181,7 @@ public class CactifyWarMojo extends AbstractMojo
     private ArtifactFactory factory;
     
     /**
-     * @parameter expression="${component.org.apache.maven.artifact.installer.ArtifactInstaller}"
+     * @component role="org.apache.maven.artifact.installer.ArtifactInstaller"
      * @required
      * @readonly
      */
