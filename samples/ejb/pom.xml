@@ -124,11 +124,13 @@
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-3</version>
                 <executions>
                     <execution>
                         <id>create-cactus-archive</id>
                         <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                         <configuration>
                             <descriptors>
                                 <descriptor>src/main/app/main.xml</descriptor>
@@ -137,9 +139,6 @@
                                 <appxml>src/main/app/application.xml</appxml>
                             </archiverConfig>
                         </configuration>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -148,7 +147,7 @@
                 <artifactId>cactus.integration.maven2</artifactId>
                 <version>${project.version}</version>
                 <configuration>
-                    <srcFile>target/cactus.samples.ejb-1.8.1-SNAPSHOT-bin.ear</srcFile>
+                    <srcFile>${project.build.directory}/cactus.samples.ejb-${project.version}-bin.ear</srcFile>
                     <cactusWar>
                         <context>/</context>
                         <redirectors>
@@ -174,7 +173,7 @@
                             </dependency>
                         </libDependencies>
                         <testClasses>
-                            <directory>target/test-classes</directory>
+                            <directory>${project.build.testOutputDirectory}</directory>
                             <includes>
                                 <include>**/*Test*.*</include>
                             </includes>
@@ -214,21 +213,21 @@
                 </executions>
                 <configuration>
                     <wait>false</wait>
-                    <timeout>20000</timeout>
                     <container>
+                        <timeout>20000</timeout>
                         <containerId>jboss42x</containerId>
-                        <log>target/cargo.log</log>
-                        <output>target/output.log</output>
+                        <log>${project.build.directory}/cargo.log</log>
+                        <output>${project.build.directory}/output.log</output>
                         <!--If you don't want cargo to download the container, just comment the bottom lines and specify a [home] parameter-->
                         <zipUrlInstaller>
-                            <url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
+                            <url>http://netcologne.dl.sourceforge.net/project/jboss/JBoss/JBoss-4.2.2.GA/jboss-4.2.2.GA.zip</url>
                             <installDir>${basedir}/install</installDir>
                         </zipUrlInstaller>
                     </container>
                     <configuration>
                         <deployables>
                             <deployable>
-                                <location>${project.build.directory}/${pom.artifactId}-cactified.ear</location>
+                                <location>${project.build.directory}/${project.artifactId}-cactified.ear</location>
                                 <type>ear</type>
                                 <pingURL>http://localhost:8080/</pingURL>
                             </deployable>

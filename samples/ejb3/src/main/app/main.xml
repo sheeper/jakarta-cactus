@@ -26,7 +26,7 @@
     <dependencySets>
         <dependencySet>
             <outputDirectory/>
-            <outputFileNameMapping/>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
             <includes>
                 <include>org.apache.cactus:cactus.samples.ejb3:jar</include>
             </includes>

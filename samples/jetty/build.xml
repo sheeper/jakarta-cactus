@@ -68,6 +68,7 @@
                 <include name="*.jar"/>
             </fileset>
             <dirset dir="../servlet/target/">
+                <include name="classes"/>
                 <include name="test-classes"/>
             </dirset>
         </path>
@@ -146,7 +147,6 @@
         </war>
     </target>
 
-
     <!--
        ========================================================================
          Generate the distributable files
@@ -156,7 +156,7 @@
             description="Generate the distributable files">
 
         <copy todir="${dist.dir}"
-              file="${target.dir}/${project.name.file}.war"/>
+              file="${target.dir}/${ant.project.name}.war"/>
 
     </target>
 
@@ -184,11 +184,12 @@
                          value="http://localhost:${cargo.servlet.port}/test"/>
             <sysproperty key="cactus.jetty.resourceDir" file="${src.webapp.dir}"/>
             <sysproperty key="cactus.jetty.config" file="${src.conf.dir}/5x/jetty.xml"/>
+            <sysproperty key="java.home" path="${env.JAVA_HOME}"/>
             <classpath>
                 <path refid="cactus.classpath"/>
                 <pathelement location="${build.dir}"/>
                 <!-- Needed By Jasper to Compile the JSPs-->
-                <pathelement location="${env.JAVA_HOME}\lib\tools.jar"/>
+                <pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
             </classpath>
             <formatter type="brief" usefile="false"/>
             <formatter type="xml"/>
