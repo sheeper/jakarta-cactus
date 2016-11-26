@@ -20,10 +20,7 @@
  */
 package org.apache.cactus.internal.client.connector.http;
 
-import javax.jms.QueueSession;
-
 import junit.framework.Test;
-
 import org.apache.cactus.JmsRequest;
 import org.apache.cactus.Request;
 import org.apache.cactus.ServiceDefinition;
@@ -34,6 +31,8 @@ import org.apache.cactus.spi.client.ResponseObjectFactory;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
 import org.apache.cactus.spi.client.connector.ProtocolState;
 import org.apache.cactus.util.JmsConfiguration;
+
+import javax.jms.QueueSession;
 
 /**
  * The JMS protocol handler.

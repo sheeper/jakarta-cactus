@@ -20,12 +20,12 @@
  */
 package org.apache.cactus.integration.maven2.test;
 
-import java.io.File;
-
 import org.apache.cactus.maven2.mojos.CactifyWarMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+
+import java.io.File;
 
 /**
  * Some unit tests for the <code>CactifyWarMojo</code> class.

@@ -20,14 +20,6 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.util.Enumeration;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.net.MalformedURLException;
 import org.apache.cactus.integration.ant.util.HttpProbe;
 import org.apache.cactus.integration.api.deployable.DeployableFile;
 import org.apache.cactus.integration.api.deployable.EarParser;
@@ -36,8 +28,17 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTask;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
-import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Environment.Variable;
+import org.apache.tools.ant.types.Path;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 /**
  * An Ant task that extends the optional JUnit task to provide support for

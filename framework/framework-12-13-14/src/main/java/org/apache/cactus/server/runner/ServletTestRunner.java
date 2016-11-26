@@ -20,28 +20,26 @@
  */
 package org.apache.cactus.server.runner;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.Writer;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+import junit.framework.Test;
+import junit.framework.TestResult;
+import org.apache.cactus.internal.configuration.BaseConfiguration;
+import org.apache.cactus.internal.configuration.ConfigurationInitializer;
+import org.apache.cactus.internal.server.runner.WebappTestRunner;
+import org.apache.cactus.internal.server.runner.XMLFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import junit.framework.Test;
-import junit.framework.TestResult;
-
-import org.apache.cactus.internal.configuration.BaseConfiguration;
-import org.apache.cactus.internal.configuration.ConfigurationInitializer;
-import org.apache.cactus.internal.server.runner.WebappTestRunner;
-import org.apache.cactus.internal.server.runner.XMLFormatter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 /**
  * Helper servlet to start a JUnit Test Runner in a webapp.

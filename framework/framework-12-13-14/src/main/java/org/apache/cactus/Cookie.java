@@ -20,11 +20,10 @@
  */
 package org.apache.cactus;
 
-import java.io.Serializable;
-
-import java.util.Date;
-
 import org.apache.cactus.internal.util.CookieUtil;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Client cookie. Used for manipulating client cookies either in

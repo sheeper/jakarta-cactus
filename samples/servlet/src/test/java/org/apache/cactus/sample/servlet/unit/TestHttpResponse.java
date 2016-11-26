@@ -20,17 +20,16 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+import org.apache.cactus.WebResponse;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.WebResponse;
 
 /**
  * Tests that writes to the HTTP response.

@@ -20,11 +20,6 @@
  */
 package org.apache.cactus.maven2.mojos;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
 import org.apache.cactus.integration.api.version.Version;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
@@ -52,6 +47,11 @@ import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
 import org.codehaus.plexus.archiver.war.WarArchiver;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.JDOMException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
 /**
  * A maven2 mojo that injects elements necessary to run Cactus tests into an
  * existing EAR file.
@@ -92,7 +92,7 @@ public class CactifyEarMojo extends AbstractMojo
     /**
      * The Ear archiver.
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#ear}"
+     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="ear"
      * @required
      */
     private EarArchiver earArchiver;
@@ -100,7 +100,7 @@ public class CactifyEarMojo extends AbstractMojo
     /**
      * The War archiver.
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#war}"
+     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="war"
      * @required
      */
     private WarArchiver warArchiver;

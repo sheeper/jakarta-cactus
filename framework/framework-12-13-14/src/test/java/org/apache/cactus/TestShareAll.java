@@ -20,6 +20,8 @@
  */
 package org.apache.cactus;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import org.apache.cactus.internal.TestAbstractCactusTestCase;
 import org.apache.cactus.internal.TestWebTestResult;
 import org.apache.cactus.internal.client.TestWebTestResultParser;
@@ -32,9 +34,6 @@ import org.apache.cactus.internal.util.TestStringUtil;
 import org.apache.cactus.internal.util.TestTestCaseImplementChecker;
 import org.apache.cactus.internal.util.TestUniqueGenerator;
 import org.apache.cactus.server.runner.TestServletTestRunner;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * Run all the unit tests of Cactus that do not need a servlet

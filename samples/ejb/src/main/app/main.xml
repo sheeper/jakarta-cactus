@@ -17,19 +17,21 @@
 		specific language governing permissions and limitations
 		under the License.   
 -->
-<assembly>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
     <id>bin</id>
     <formats>
         <format>ear</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
-    <fileSets>
-        <fileSet>
-            <directory>target</directory>
-            <outputDirectory>/</outputDirectory>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory/>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
             <includes>
-                <include>cactus.samples.ejb-1.8.1-SNAPSHOT.jar</include>
+                <include>org.apache.cactus:cactus.samples.ejb:jar</include>
             </includes>
-        </fileSet>
-    </fileSets>
+        </dependencySet>
+    </dependencySets>
 </assembly>

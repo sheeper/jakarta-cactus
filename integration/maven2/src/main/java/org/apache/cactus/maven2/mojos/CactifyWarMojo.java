@@ -20,15 +20,6 @@
  */
 package org.apache.cactus.maven2.mojos;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import org.apache.cactus.integration.api.cactify.CactifyUtils;
 import org.apache.cactus.integration.api.version.Version;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
@@ -63,6 +54,15 @@ import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
 import org.codehaus.plexus.archiver.war.WarArchiver;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.JDOMException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 /**
  * A maven2 mojo that injects elements necessary to run Cactus tests into an
@@ -118,7 +118,7 @@ public class CactifyWarMojo extends AbstractMojo
     /**
      * The War archiver.
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#war}"
+     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="war"
      * @required
      */
     private WarArchiver warArchiver;
@@ -181,7 +181,7 @@ public class CactifyWarMojo extends AbstractMojo
     private ArtifactFactory factory;
     
     /**
-     * @parameter expression="${component.org.apache.maven.artifact.installer.ArtifactInstaller}"
+     * @component role="org.apache.maven.artifact.installer.ArtifactInstaller"
      * @required
      * @readonly
      */

@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.internal.util;
 
+import junit.framework.TestCase;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-
-import junit.framework.TestCase;
 
 /**
  * Unit tests for the {@link IoUtil} class.

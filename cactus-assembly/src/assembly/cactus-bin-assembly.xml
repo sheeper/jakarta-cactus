@@ -50,7 +50,7 @@
         </fileSet>
         <fileSet>
             <directory>${parent.basedir}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>README.md</include>
                 <include>LICENSE</include>

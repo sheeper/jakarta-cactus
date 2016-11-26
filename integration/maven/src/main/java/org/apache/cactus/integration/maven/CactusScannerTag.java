@@ -20,20 +20,20 @@
  */
 package org.apache.cactus.integration.maven;
 
-import java.lang.reflect.InvocationTargetException;
-
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.tags.ant.TaskSource;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.jelly.tags.ant.TaskSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Reference;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Cactus Jelly Tag that scans Ant FileSets and return a list of

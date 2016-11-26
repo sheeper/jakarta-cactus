@@ -22,7 +22,6 @@ package org.apache.cactus.internal;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
-
 import org.apache.cactus.internal.client.ClientTestCaseCaller;
 import org.apache.cactus.internal.configuration.ConfigurationInitializer;
 import org.apache.cactus.internal.server.ServerTestCaseCaller;

@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.client.authentication;
 
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.HttpServiceDefinition;
@@ -37,6 +33,10 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Form-based authentication implementation. An instance of this class

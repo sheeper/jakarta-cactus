@@ -20,6 +20,10 @@
  */
 package org.apache.cactus.spi.server;
 
+import org.apache.cactus.internal.server.MessageDrivenBeanTestController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.MessageDrivenBean;
@@ -31,10 +35,6 @@ import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSession;
 import javax.naming.InitialContext;
-
-import org.apache.cactus.internal.server.MessageDrivenBeanTestController;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Generic Message Driven Bean redirector that calls a test method on the

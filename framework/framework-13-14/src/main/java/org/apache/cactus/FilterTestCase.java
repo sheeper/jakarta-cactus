@@ -20,18 +20,17 @@
  */
 package org.apache.cactus;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletResponse;
-
 import junit.framework.Test;
-
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.CactusTestCase;
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.internal.configuration.DefaultFilterConfiguration;
-import org.apache.cactus.server.FilterConfigWrapper;
 import org.apache.cactus.server.AbstractHttpServletRequestWrapper;
+import org.apache.cactus.server.FilterConfigWrapper;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
+
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Test classes that need access to valid Filter implicit objects (such as the

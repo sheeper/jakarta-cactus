@@ -20,17 +20,16 @@
  */
 package org.apache.cactus;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import junit.framework.Test;
-
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.CactusTestCase;
 import org.apache.cactus.internal.client.connector.http.HttpProtocolHandler;
 import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.server.AbstractServletConfigWrapper;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Cactus test case to unit test Servlets. Test classes that need access to 

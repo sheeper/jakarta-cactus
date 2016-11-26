@@ -20,14 +20,13 @@
  */
 package org.apache.cactus.integration.ant.deployment.application;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import junit.framework.TestCase;
-
 import org.codehaus.cargo.module.application.ApplicationXmlVersion;
 import org.jdom.DocType;
 import org.w3c.dom.DOMImplementation;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Unit tests for {@link ApplicationXmlVersion}.

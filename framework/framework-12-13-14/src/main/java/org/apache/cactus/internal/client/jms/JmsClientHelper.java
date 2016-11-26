@@ -20,20 +20,20 @@
  */
 package org.apache.cactus.internal.client.jms;
 
-import java.util.Hashtable;
-import javax.jms.QueueConnection;
+import org.apache.cactus.util.ChainedRuntimeException;
+import org.apache.cactus.util.JmsConfiguration;
+
 import javax.jms.JMSException;
+import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
-import javax.jms.QueueConnectionFactory;
-import javax.jms.Queue;
-import javax.jms.QueueSender;
-import javax.naming.InitialContext;
 import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import org.apache.cactus.util.JmsConfiguration;
-import org.apache.cactus.util.ChainedRuntimeException;
+import java.util.Hashtable;
 
 /**
  * Helper class to send a JMS message.

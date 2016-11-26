@@ -20,15 +20,13 @@
  */
 package org.apache.cactus.integration.ant.deployment;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import org.apache.cactus.integration.ant.deployment.application.TestApplicationXml;
 import org.apache.cactus.integration.ant.deployment.application.TestApplicationXmlVersion;
 import org.apache.cactus.integration.ant.deployment.webapp.TestWarArchive;
 import org.apache.cactus.integration.ant.deployment.webapp.TestWebXml;
-
 import org.apache.cactus.integration.ant.deployment.webapp.TestWebXmlVersion;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * Run all the unit tests for the deployment support classes.

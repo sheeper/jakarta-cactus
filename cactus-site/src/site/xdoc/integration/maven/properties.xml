@@ -190,7 +190,7 @@
                     <td>
                         <p>
                             Location of war to cactify. Defaults to
-                            <code>${maven.build.dir}/${pom.artifactId}.war</code>.
+                            <code>${maven.build.dir}/${project.artifactId}.war</code>.
                         </p>
                     </td>
                 </tr>
@@ -201,7 +201,7 @@
                         <p>
                             Location of the EJB to test (for the test-ear goal only).
                             Defaults to
-                            <code>${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar</code>.
+                            <code>${maven.build.dir}/${project.artifactId}-${project.currentVersion}.jar</code>.
                         </p>
                     </td>
                 </tr>
@@ -216,7 +216,7 @@
                             <code>application.xml</code>
                             if the WAR is packaged in an EAR,
                             etc). Defaults to
-                            <code>${maven.build.dir}/${pom.artifactId}-cactus.war</code>.
+                            <code>${maven.build.dir}/${project.artifactId}-cactus.war</code>.
                         </p>
                     </td>
                 </tr>
@@ -226,7 +226,7 @@
                     <td>
                         <p>
                             Location where to generate the cactified EAR. Defaults to
-                            <code>${maven.build.dir}/${pom.artifactId}-cactus.ear</code>.
+                            <code>${maven.build.dir}/${project.artifactId}-cactus.ear</code>.
                         </p>
                     </td>
                 </tr>

@@ -20,21 +20,19 @@
  */
 package org.apache.cactus.integration.ant.deployment.application;
 
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.util.Iterator;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import junit.framework.TestCase;
-
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.ApplicationXmlIo;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.StringReader;
+import java.util.Iterator;
 
 /**
  * Unit tests for {@link ApplicationXml}.

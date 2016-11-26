@@ -25,7 +25,7 @@
     <includeBaseDirectory>true</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>org.apache.cactus:org.apache.cactus.eclipse.webapp:jar</include>
             </includes>
@@ -35,21 +35,21 @@
     <fileSets>
         <fileSet>
             <directory>target</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>*-src.zip</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>target</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>*.jar</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>src/conf</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>*.*</include>
             </includes>

@@ -20,12 +20,12 @@
  */
 package org.apache.cactus.internal.client.connector.http;
 
+import org.apache.cactus.WebRequest;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Enumeration;
-
-import org.apache.cactus.WebRequest;
 
 /**
  * Utility methods to manipulate HTTP requests.

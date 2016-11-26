@@ -20,11 +20,6 @@
  */
 package org.apache.cactus.eclipse.runner.launcher;
 
-import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.runner.common.LibraryHelper;
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
@@ -45,6 +40,10 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.swt.widgets.Display;
+
+import java.net.URL;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Provides a launcher to start Cactus tests. This is done by extending

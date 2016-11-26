@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.integration.maven2.test;
 
-import java.io.File;
-
 import org.apache.cactus.maven2.mojos.CactifyEarMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.apache.maven.project.MavenProject;
+
+import java.io.File;
 
 /**
  * Some unit tests for the <code>CactifyEarMojo</code> class.

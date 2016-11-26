@@ -20,6 +20,11 @@
  */
 package org.apache.cactus.internal;
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestResult;
+import org.apache.cactus.ServletTestCase;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
@@ -28,12 +33,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import org.apache.cactus.ServletTestCase;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
 
 /**
  * Test Suite that wraps all the tests of the suite in Cactus Test Case 

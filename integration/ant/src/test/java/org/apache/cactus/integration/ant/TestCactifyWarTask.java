@@ -20,10 +20,6 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.codehaus.cargo.module.webapp.DefaultWarArchive;
@@ -36,6 +32,10 @@ import org.codehaus.cargo.module.webapp.elements.SecurityConstraint;
 import org.codehaus.cargo.module.webapp.weblogic.WeblogicXml;
 import org.codehaus.cargo.module.webapp.weblogic.WeblogicXmlTag;
 import org.jdom.Element;
+
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Unit tests for {@link CactifyWarTask}.

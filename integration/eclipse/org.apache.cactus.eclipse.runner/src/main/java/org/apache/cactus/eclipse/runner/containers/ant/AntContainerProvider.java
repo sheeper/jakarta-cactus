@@ -20,9 +20,6 @@
  */
 package org.apache.cactus.eclipse.runner.containers.ant;
 
-import java.net.URL;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.runner.containers.ContainerInfo;
 import org.apache.cactus.eclipse.runner.containers.Credential;
 import org.apache.cactus.eclipse.runner.containers.IContainerProvider;
@@ -33,6 +30,9 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
+
+import java.net.URL;
+import java.util.Vector;
 
 /**
  * Implementation of IContainerProvider that uses ant scripts to set up

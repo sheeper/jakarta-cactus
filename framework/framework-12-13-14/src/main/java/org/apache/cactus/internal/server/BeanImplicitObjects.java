@@ -20,8 +20,9 @@
  */
 package org.apache.cactus.internal.server;
 
-import javax.ejb.SessionContext;
 import org.apache.cactus.EJBRequest;
+
+import javax.ejb.SessionContext;
 
 /**
  * Prototype of EJBRedirector for Cactus.

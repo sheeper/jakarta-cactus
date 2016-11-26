@@ -20,13 +20,6 @@
  */
 package org.apache.cactus.integration.api.deployable;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
 import org.codehaus.cargo.module.application.ApplicationXml;
 import org.codehaus.cargo.module.application.DefaultEarArchive;
@@ -34,6 +27,12 @@ import org.codehaus.cargo.module.application.EarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.jdom.JDOMException;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Parse an EAR descriptor to extract meaninful information for Cactus,

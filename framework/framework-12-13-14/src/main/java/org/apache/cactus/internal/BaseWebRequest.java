@@ -20,17 +20,16 @@
  */
 package org.apache.cactus.internal;
 
-import java.io.InputStream;
-
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
-
 import org.apache.cactus.Cookie;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.Authentication;
 import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * Contains all HTTP request data for a test case but independently of

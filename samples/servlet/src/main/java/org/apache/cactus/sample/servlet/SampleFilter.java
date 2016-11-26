@@ -20,8 +20,7 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import org.apache.cactus.sample.servlet.util.GenericResponseWrapper;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -30,8 +29,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.cactus.sample.servlet.util.GenericResponseWrapper;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Sample filter that implements some very simple business logic. The goal is

@@ -20,9 +20,8 @@
  */
 package org.apache.cactus.sample.ejb3;
 
-import java.io.Serializable;
-
 import javax.ejb.Local;
+import java.io.Serializable;
 
 /**
  * Sample EJB local interface.

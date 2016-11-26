@@ -20,15 +20,15 @@
  */
 package org.apache.cactus.eclipse.runner.common;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Helper class for library access.

@@ -66,6 +66,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-one-plugin</artifactId>
+                <version>1.3</version>
                 <extensions>true</extensions>
             </plugin>
         </plugins>

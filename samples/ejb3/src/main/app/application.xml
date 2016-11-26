@@ -12,7 +12,7 @@
     <display-name>cactus-sample-ejb</display-name>
     <description>Cactus EJB3 Sample</description>
     <module>
-        <ejb>cactus.samples.ejb3-1.8.1-SNAPSHOT.jar</ejb>
+        <ejb>cactus.samples.ejb3.jar</ejb>
     </module>
 
 </application>

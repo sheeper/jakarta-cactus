@@ -20,15 +20,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.apache.cactus</groupId>
         <artifactId>cactus.samples</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
+
     <artifactId>cactus.samples.jetty</artifactId>
+
     <name>Cactus Jetty Samples</name>
     <description>Cactus Jetty Sample Projects</description>
-    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>ant</groupId>
@@ -64,6 +67,7 @@
             <groupId>org.apache.cactus</groupId>
             <artifactId>cactus.samples.servlet</artifactId>
             <version>${project.version}</version>
+            <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.apache.cactus</groupId>
@@ -144,6 +148,7 @@
             <version>5.5.9</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -171,7 +176,7 @@
                         <configuration>
                             <tasks>
                                 <ant antfile="build.xml">
-                                    <property name="cactus.version" value="${pom.version}"/>
+                                    <property name="cactus.version" value="${project.version}"/>
                                 </ant>
                             </tasks>
                         </configuration>

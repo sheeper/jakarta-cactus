@@ -20,13 +20,13 @@
  */
 package org.apache.cactus.integration.ant.util;
 
+import org.apache.tools.ant.BuildException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-
-import org.apache.tools.ant.BuildException;
 
 /**
  * Ant element used to tell the Cactus task to load a properties file

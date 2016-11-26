@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.integration.ant;
 
+import org.codehaus.cargo.ant.CargoTask;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.codehaus.cargo.ant.CargoTask;
 
 /**
  * Ant data type that represents a set of J2EE containers.

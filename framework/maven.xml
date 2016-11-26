@@ -20,7 +20,6 @@
 <project
         default="jar:jar"
         xmlns:j="jelly:core"
-        xmlns:u="jelly:util"
         xmlns:maven="jelly:maven">
 
     <goal name="dist" prereqs="clean,jar:jar,site"/>

@@ -23,8 +23,6 @@ package org.apache.cactus;
 import java.io.Serializable;
 import java.util.Hashtable;
 
-import org.apache.cactus.Request;
-
 /**
  * Prototype of EJBRedirector for Cactus.
  * 

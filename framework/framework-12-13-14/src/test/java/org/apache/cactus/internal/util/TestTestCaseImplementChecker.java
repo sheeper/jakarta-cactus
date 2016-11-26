@@ -20,12 +20,13 @@
  */
 package org.apache.cactus.internal.util;
 
-import java.lang.reflect.Method;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import org.apache.cactus.Request;
 import org.apache.cactus.WebResponse;
+
+import java.lang.reflect.Method;
 
 /**
  * Unit tests for the {@link TestCaseImplementChecker} class.

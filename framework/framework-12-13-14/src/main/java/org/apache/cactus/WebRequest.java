@@ -20,11 +20,11 @@
  */
 package org.apache.cactus;
 
+import org.apache.cactus.client.authentication.Authentication;
+
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import org.apache.cactus.client.authentication.Authentication;
 
 /**
  * Contains HTTP request data for a Cactus test case.

@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import javax.servlet.ServletException;
-
 import org.apache.cactus.ServletTestCase;
+
+import javax.servlet.ServletException;
 
 /**
  * Tests of the <code>SampleServletConfig</code> servlet class. This to show

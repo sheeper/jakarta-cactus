@@ -20,13 +20,12 @@
  */
 package org.apache.cactus;
 
-import java.util.Enumeration;
-
 import junit.framework.TestCase;
-
 import org.apache.cactus.internal.WebRequestImpl;
 import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.util.Enumeration;
 
 /**
  * Unit tests of the <code>WebRequest</code> class.

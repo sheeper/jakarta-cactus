@@ -20,15 +20,14 @@
  */
 package org.apache.cactus;
 
-import javax.jms.Message;
-import javax.ejb.MessageDrivenContext;
-
 import junit.framework.Test;
-
 import org.apache.cactus.internal.AbstractCactusTestCase;
 import org.apache.cactus.internal.client.connector.http.JmsProtocolHandler;
 import org.apache.cactus.spi.client.connector.ProtocolHandler;
 import org.apache.cactus.util.JmsConfiguration;
+
+import javax.ejb.MessageDrivenContext;
+import javax.jms.Message;
 
 /**
  * TestCase class to test Message Driven Beans (or any JMS listener for that

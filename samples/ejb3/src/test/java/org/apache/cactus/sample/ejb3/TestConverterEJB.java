@@ -20,11 +20,10 @@
  */
 package org.apache.cactus.sample.ejb3;
 
-import java.util.Properties;
+import org.apache.cactus.ServletTestCase;
 
 import javax.naming.InitialContext;
-
-import org.apache.cactus.ServletTestCase;
+import java.util.Properties;
 
 /**
  * Sample Cactus test for a session bean.

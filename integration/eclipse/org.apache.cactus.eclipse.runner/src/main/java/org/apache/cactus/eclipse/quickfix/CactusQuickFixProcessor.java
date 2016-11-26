@@ -20,8 +20,6 @@
  */
 package org.apache.cactus.eclipse.quickfix;
 
-import java.util.ArrayList;
-
 import org.apache.cactus.eclipse.runner.ui.CactusMessages;
 import org.apache.cactus.eclipse.runner.ui.CactusPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -32,6 +30,8 @@ import org.eclipse.jdt.ui.text.java.IInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
 import org.eclipse.jdt.ui.text.java.IProblemLocation;
 import org.eclipse.jdt.ui.text.java.IQuickFixProcessor;
+
+import java.util.ArrayList;
 /**
  * QuickFix processor to propose cactifying of the project.
  * 

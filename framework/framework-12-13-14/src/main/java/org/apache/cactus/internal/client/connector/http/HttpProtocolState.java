@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.internal.client.connector.http;
 
-import java.net.HttpURLConnection;
-
 import org.apache.cactus.spi.client.connector.ProtocolState;
+
+import java.net.HttpURLConnection;
 
 /**
  * HTTP-specific state information to be passed to the different 

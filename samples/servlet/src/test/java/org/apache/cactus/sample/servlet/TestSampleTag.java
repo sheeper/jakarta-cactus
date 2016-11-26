@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import javax.servlet.jsp.tagext.Tag;
-
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.WebResponse;
+
+import javax.servlet.jsp.tagext.Tag;
 
 /**
  * Tests of the <code>SampleTag</code> class.

@@ -20,14 +20,13 @@
  */
 package org.apache.cactus.server;
 
-import java.io.IOException;
+import org.apache.cactus.ServletURL;
 
 import javax.servlet.ServletException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.el.ExpressionEvaluator;
 import javax.servlet.jsp.el.VariableResolver;
-
-import org.apache.cactus.ServletURL;
+import java.io.IOException;
 
 /**
  * Provide implementation of 

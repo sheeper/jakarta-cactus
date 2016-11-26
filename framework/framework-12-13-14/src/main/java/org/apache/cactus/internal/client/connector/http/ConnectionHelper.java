@@ -20,10 +20,10 @@
  */
 package org.apache.cactus.internal.client.connector.http;
 
-import java.net.HttpURLConnection;
-
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.internal.configuration.Configuration;
+
+import java.net.HttpURLConnection;
 
 /**
  * Helper class to open an HTTP connection to the server redirector and pass

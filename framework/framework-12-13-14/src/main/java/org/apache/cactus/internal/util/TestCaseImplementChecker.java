@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.internal.util;
 
+import junit.framework.Test;
+import org.apache.cactus.Request;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
-import junit.framework.Test;
-
-import org.apache.cactus.Request;
 
 /**
  * Utilities to check TestCase implementation.

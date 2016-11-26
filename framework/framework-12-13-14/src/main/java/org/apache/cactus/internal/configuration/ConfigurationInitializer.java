@@ -20,16 +20,15 @@
  */
 package org.apache.cactus.internal.configuration;
 
+import org.apache.cactus.internal.util.ClassLoaderUtils;
+import org.apache.cactus.util.ChainedRuntimeException;
+
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.util.Enumeration;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-
-import org.apache.cactus.internal.util.ClassLoaderUtils;
-import org.apache.cactus.util.ChainedRuntimeException;
 
 /**
  * Read Cactus configuration files and set the properties found as

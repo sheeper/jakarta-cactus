@@ -20,7 +20,11 @@
  */
 package org.apache.cactus.server;
 
-import java.io.IOException;
+import org.apache.cactus.internal.configuration.ConfigurationInitializer;
+import org.apache.cactus.internal.server.FilterImplicitObjects;
+import org.apache.cactus.internal.server.FilterTestController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -30,12 +34,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.cactus.internal.configuration.ConfigurationInitializer;
-import org.apache.cactus.internal.server.FilterImplicitObjects;
-import org.apache.cactus.internal.server.FilterTestController;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.IOException;
 
 /**
  * Generic Filter redirector that calls a test method on the server side.

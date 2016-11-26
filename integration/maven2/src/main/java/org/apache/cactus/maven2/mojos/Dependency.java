@@ -20,11 +20,11 @@
  */
 package org.apache.cactus.maven2.mojos;
 
-import java.io.File;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+
+import java.io.File;
 
 /**
  * Dependency that we use for the lib folder add-on's.

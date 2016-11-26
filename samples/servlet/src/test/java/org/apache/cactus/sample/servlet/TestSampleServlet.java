@@ -20,16 +20,14 @@
  */
 package org.apache.cactus.sample.servlet;
 
-import java.io.IOException;
-
-import java.net.URLDecoder;
-
-import java.util.Hashtable;
-
 import org.apache.cactus.Cookie;
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
+
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Hashtable;
 
 /**
  * Tests of the <code>SampleServlet</code> servlet class.

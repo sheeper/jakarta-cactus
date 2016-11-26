@@ -20,18 +20,10 @@
  */
 package org.apache.cactus.eclipse.webapp.internal.ui;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.preferences.PreferencesMessages;
 import org.eclipse.jdt.internal.ui.util.PixelConverter;
-import org.eclipse.jdt.internal.ui.util.SWTUtil;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.CPListElement;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.LibrariesWorkbookPage;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.CheckedListDialogField;
@@ -50,6 +42,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * UI block which shows a list of jar entries.

@@ -20,19 +20,16 @@
  */
 package org.apache.cactus.server.runner;
 
-import java.io.IOException;
-import java.io.InputStream;
+import junit.framework.TestCase;
+import org.jmock.Mock;
+import org.jmock.MockObjectTestCase;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
-
-
-import org.jmock.MockObjectTestCase;
-import org.jmock.Mock;
-
-import junit.framework.TestCase;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Unit tests for {@link ServletTestRunner}.

@@ -149,12 +149,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.debug</groupId>
-            <artifactId>ui</artifactId>
-            <version>[2.0.0,4.0.0)</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.eclipse.core.runtime</groupId>
             <artifactId>compatibility</artifactId>
             <version>[3.0.0,4.0.0)</version>

@@ -20,12 +20,8 @@
  */
 package org.apache.cactus.internal.client;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import junit.framework.Assert;
 import junit.framework.Test;
-
 import org.apache.cactus.Request;
 import org.apache.cactus.internal.util.JUnitVersionHelper;
 import org.apache.cactus.internal.util.TestCaseImplementChecker;
@@ -34,6 +30,9 @@ import org.apache.cactus.spi.client.connector.ProtocolHandler;
 import org.apache.cactus.spi.client.connector.ProtocolState;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Provides the ability to run common code before and after each test on the 

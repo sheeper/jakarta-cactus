@@ -20,13 +20,6 @@
  */
 package org.apache.cactus.integration.ant.deployment;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.cactus.integration.api.deployable.EarParser;
 import org.apache.tools.ant.BuildException;
 import org.codehaus.cargo.module.application.ApplicationXml;
@@ -37,6 +30,12 @@ import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 /**
  * Unit tests for {@link EarParser}.

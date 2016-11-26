@@ -20,16 +20,9 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.io.IOException;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.jstl.core.LoopTagStatus;
-
-import org.apache.cactus.extension.jsp.JspTagLifecycle;
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.WebResponse;
+import org.apache.cactus.extension.jsp.JspTagLifecycle;
 import org.apache.taglibs.standard.tag.common.core.ChooseTag;
 import org.apache.taglibs.standard.tag.common.core.OtherwiseTag;
 import org.apache.taglibs.standard.tag.el.core.ForEachTag;
@@ -37,6 +30,12 @@ import org.apache.taglibs.standard.tag.el.core.IfTag;
 import org.apache.taglibs.standard.tag.el.core.OutTag;
 import org.apache.taglibs.standard.tag.el.core.SetTag;
 import org.apache.taglibs.standard.tag.el.core.WhenTag;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.jstl.core.LoopTagStatus;
+import javax.servlet.jsp.tagext.BodyContent;
+import java.io.IOException;
 
 /**
  * Tests for the <code>JspTagLifecycle</code> extension.

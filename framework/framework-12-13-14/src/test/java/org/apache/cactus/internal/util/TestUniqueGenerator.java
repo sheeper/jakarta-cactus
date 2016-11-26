@@ -20,16 +20,15 @@
  */
 package org.apache.cactus.internal.util;
 
+import junit.framework.TestCase;
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.util.ChainedRuntimeException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.util.ChainedRuntimeException;
-
-import junit.framework.TestCase;
 
 /**
  * Smoke test for the unique id generator.

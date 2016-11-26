@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.internal.client.jms;
 
-import javax.jms.QueueSender;
-
 import org.apache.cactus.JmsRequest;
+
+import javax.jms.QueueSender;
 
 /**
  * JMS class for performing the steps necessary to run a test. It involves

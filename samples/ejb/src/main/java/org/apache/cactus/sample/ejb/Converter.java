@@ -20,9 +20,8 @@
  */
 package org.apache.cactus.sample.ejb;
 
-import java.rmi.RemoteException;
-
 import javax.ejb.EJBObject;
+import java.rmi.RemoteException;
 
 /**
  * Sample EJB interface.

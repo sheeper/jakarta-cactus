@@ -20,19 +20,16 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import java.lang.reflect.Field;
-
-import javax.servlet.http.HttpServletRequest;
-
 import junit.framework.TestCase;
-
 import org.apache.cactus.FilterTestCase;
 import org.apache.cactus.ServletURL;
-import org.apache.cactus.server.FilterConfigWrapper;
 import org.apache.cactus.server.AbstractHttpServletRequestWrapper;
+import org.apache.cactus.server.FilterConfigWrapper;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.reflect.Field;
 
 /**
  * Responsible for instanciating the <code>TestCase</code> class on the server

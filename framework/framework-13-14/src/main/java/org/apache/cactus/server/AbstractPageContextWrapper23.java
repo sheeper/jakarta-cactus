@@ -20,12 +20,11 @@
  */
 package org.apache.cactus.server;
 
-import java.io.IOException;
+import org.apache.cactus.ServletURL;
 
 import javax.servlet.ServletException;
 import javax.servlet.jsp.PageContext;
-
-import org.apache.cactus.ServletURL;
+import java.io.IOException;
 
 /**
  * Extends {@link AbstractPageContextWrapper} by adding the new methods 

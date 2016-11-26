@@ -20,9 +20,8 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import org.apache.cactus.ServletTestCase;
-
 import junit.framework.AssertionFailedError;
+import org.apache.cactus.ServletTestCase;
 
 /**
  * Test that <code>tearDown()</code> is called even when an exception

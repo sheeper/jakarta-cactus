@@ -20,11 +20,11 @@
  */
 package org.apache.cactus.internal.server;
 
+import org.apache.cactus.spi.server.ImplicitObjects;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.cactus.spi.server.ImplicitObjects;
 
 /**
  * Interface for implicit objects that exist

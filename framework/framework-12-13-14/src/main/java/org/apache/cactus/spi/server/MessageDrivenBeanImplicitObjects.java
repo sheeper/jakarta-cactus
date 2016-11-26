@@ -20,11 +20,11 @@
  */
 package org.apache.cactus.spi.server;
 
+import org.apache.cactus.JmsRequest;
+
+import javax.ejb.MessageDrivenContext;
 import javax.jms.Message;
 import javax.jms.Queue;
-import javax.ejb.MessageDrivenContext;
-
-import org.apache.cactus.JmsRequest;
 
 /**
  * Implicit objects for the Message Driven Bean redirector.

@@ -21,7 +21,6 @@
 package org.apache.cactus.internal.client;
 
 import junit.framework.TestCase;
-
 import org.apache.cactus.internal.WebTestResult;
 
 /**

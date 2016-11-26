@@ -22,7 +22,6 @@ package org.apache.cactus.internal.server;
 
 import junit.framework.Assert;
 import junit.framework.Test;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

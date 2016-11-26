@@ -20,12 +20,6 @@
  */
 package org.apache.cactus.eclipse.runner.launcher;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Vector;
-
 import org.apache.cactus.eclipse.runner.common.JarFilenameFilter;
 import org.apache.cactus.eclipse.runner.common.LibraryHelper;
 import org.apache.cactus.eclipse.runner.containers.jetty.JettyContainerManager;
@@ -35,12 +29,17 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILibrary;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Vector;
 
 /**
  * Provides a launcher to start Cactus tests. This is done by extending

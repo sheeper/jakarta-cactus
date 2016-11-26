@@ -20,19 +20,18 @@
  */
 package org.apache.cactus.integration.api.deployable;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.cactus.integration.api.exceptions.CactusRuntimeException;
 import org.codehaus.cargo.module.webapp.DefaultWarArchive;
 import org.codehaus.cargo.module.webapp.WarArchive;
 import org.codehaus.cargo.module.webapp.WebXmlUtils;
 import org.jdom.JDOMException;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Parse an WAR descriptor to extract meaninful information for Cactus,

@@ -20,11 +20,8 @@
  */
 package org.apache.cactus.server;
 
-import java.io.IOException;
-
-import java.lang.reflect.Constructor;
-
-import java.util.Enumeration;
+import org.apache.cactus.ServletURL;
+import org.apache.cactus.util.ChainedRuntimeException;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -37,9 +34,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
-
-import org.apache.cactus.ServletURL;
-import org.apache.cactus.util.ChainedRuntimeException;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.Enumeration;
 
 
 /**

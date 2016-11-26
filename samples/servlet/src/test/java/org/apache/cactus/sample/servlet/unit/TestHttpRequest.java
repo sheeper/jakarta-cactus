@@ -20,6 +20,9 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
+import org.apache.cactus.ServletTestCase;
+import org.apache.cactus.WebRequest;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,9 +30,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import org.apache.cactus.ServletTestCase;
-import org.apache.cactus.WebRequest;
 
 /**
  * Tests that exercise the HTTP request.

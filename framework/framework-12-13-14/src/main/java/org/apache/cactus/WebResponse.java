@@ -20,15 +20,6 @@
  */
 package org.apache.cactus;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-
-import java.net.HttpURLConnection;
-
-import java.util.Vector;
-
 import org.apache.cactus.internal.util.CookieUtil;
 import org.apache.cactus.internal.util.IoUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
@@ -38,6 +29,13 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.util.Vector;
 
 /**
  * Default web response implementation that provides a minimal

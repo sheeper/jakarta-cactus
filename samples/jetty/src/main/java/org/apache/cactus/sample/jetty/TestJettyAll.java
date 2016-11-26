@@ -20,11 +20,10 @@
  */
 package org.apache.cactus.sample.jetty;
 
-import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 
 /**
  * Run all tests inside the Jetty container.

@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.internal.server;
 
-import java.net.URLDecoder;
-
 import org.apache.cactus.util.ChainedRuntimeException;
+
+import java.net.URLDecoder;
 
 /**
  * All prupose utility methods for manipulating the Servlet API.

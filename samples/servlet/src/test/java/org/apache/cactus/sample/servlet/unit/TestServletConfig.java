@@ -20,13 +20,12 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import java.util.Enumeration;
-import java.util.Vector;
-
-import javax.servlet.ServletContext;
-
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.server.ServletContextWrapper;
+
+import javax.servlet.ServletContext;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * Tests that exercise the Cactus Servlet Config wrapper.

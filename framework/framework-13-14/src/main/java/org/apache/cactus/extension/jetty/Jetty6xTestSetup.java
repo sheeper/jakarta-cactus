@@ -20,18 +20,10 @@
  */
 package org.apache.cactus.extension.jetty;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import junit.extensions.TestSetup;
 import junit.framework.Protectable;
 import junit.framework.Test;
 import junit.framework.TestResult;
-
 import org.apache.cactus.internal.configuration.BaseConfiguration;
 import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.internal.configuration.DefaultFilterConfiguration;
@@ -39,6 +31,13 @@ import org.apache.cactus.internal.configuration.DefaultServletConfiguration;
 import org.apache.cactus.internal.configuration.FilterConfiguration;
 import org.apache.cactus.internal.configuration.ServletConfiguration;
 import org.apache.cactus.internal.util.ClassLoaderUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Custom JUnit test setup to use to automatically start Jetty. Example:<br/>

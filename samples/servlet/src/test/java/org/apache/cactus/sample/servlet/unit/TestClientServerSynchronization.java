@@ -20,9 +20,9 @@
  */
 package org.apache.cactus.sample.servlet.unit;
 
-import javax.servlet.ServletOutputStream;
-
 import org.apache.cactus.ServletTestCase;
+
+import javax.servlet.ServletOutputStream;
 
 /**
  * Verify that the Cactus client side only reads the test result *after* the

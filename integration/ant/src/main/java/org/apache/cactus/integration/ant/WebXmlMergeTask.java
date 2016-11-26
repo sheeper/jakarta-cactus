@@ -20,9 +20,6 @@
  */
 package org.apache.cactus.integration.ant;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -32,6 +29,9 @@ import org.codehaus.cargo.module.webapp.WebXmlIo;
 import org.codehaus.cargo.module.webapp.merge.WebXmlMerger;
 import org.codehaus.cargo.util.log.AntLogger;
 import org.jdom.JDOMException;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Ant task that can merge the definitions from two web deployment descriptors

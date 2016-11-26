@@ -27,7 +27,7 @@
         <fileSet>
             <directory>src/main/java/</directory>
             <useDefaultExcludes>true</useDefaultExcludes>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory/>
         </fileSet>
     </fileSets>
 </assembly>

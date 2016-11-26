@@ -20,13 +20,12 @@
  */
 package org.apache.cactus.sample.ejb;
 
+import junit.framework.TestCase;
+import org.apache.cactus.ServletTestCase;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.rmi.PortableRemoteObject;
-
-import junit.framework.TestCase;
-
-import org.apache.cactus.ServletTestCase;
 
 /**
  * Sample Cactus test for a session bean.
