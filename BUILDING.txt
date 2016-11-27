@@ -13,11 +13,6 @@ Creating the jars
 
 mvn clean install
 
-Running tests
-=============
-
-mvn test
-
 Creating the site documentation
 ===============================
 
@@ -27,7 +22,11 @@ mvn jxr:aggregate
 mvn javadoc:javadoc
 
 cd cactus-site
-mvn site:site
+mvn site
+
+to deploy the documentation to gh-pages:
+
+mvn site-deploy
 
 Creating the distribution
 =========================

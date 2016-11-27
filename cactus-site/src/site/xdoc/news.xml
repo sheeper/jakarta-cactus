@@ -1,204 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-* ========================================================================
-* 
-* Licensed to the Apache Software Foundation (ASF) under one or more
-* contributor license agreements.  See the NOTICE file distributed with
-* this work for additional information regarding copyright ownership.
-* The ASF licenses this file to You under the Apache License, Version 2.0
-* (the "License"); you may not use this file except in compliance with
-* the License.  You may obtain a copy of the License at
-* 
-*   http://www.apache.org/licenses/LICENSE-2.0
-* 
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-* 
-* ========================================================================
--->
-<document id="news">
-    <properties>
-        <title>Jakarta Cactus News</title>
-    </properties>
-    <body>
-        <section name="Archives">
-            <ul>
-                <li>
-                    <a href="news-2003.html">2003 news
-                        archives
-                    </a>
-                </li>
-                <li>
-                    <a href="news-2002.html">2002 news
-                        archives
-                    </a>
-                </li>
-                <li>
-                    <a href="news-2001.html">2001 news
-                        archives
-                    </a>
-                </li>
-            </ul>
-        </section>
-        <section name="News and Events">
-            <a href="http://jakarta.apache.org/cactus/news.xml">
-                <img src="images/rss.png"/>
-            </a>
-            <table>
-                <tr>
-                    <th>2008-03-28</th>
-                    <td>
+            * ========================================================================
+            *
+            * Licensed to the Apache Software Foundation (ASF) under one or more
+            * contributor license agreements. See the NOTICE file distributed with
+            * this work for additional information regarding copyright ownership.
+            * The ASF licenses this file to You under the Apache License, Version 2.0
+            * (the "License"); you may not use this file except in compliance with
+            * the License. You may obtain a copy of the License at
+            *
+            * http://www.apache.org/licenses/LICENSE-2.0
+            *
+            * Unless required by applicable law or agreed to in writing, software
+            * distributed under the License is distributed on an "AS IS" BASIS,
+            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+            * See the License for the specific language governing permissions and
+            * limitations under the License.
+            *
+            * ========================================================================
+        -->
+<document id="news" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<properties>
+<title>Jakarta Cactus News</title>
+</properties>
+<body>
+<section name="Archives">
+<ul>
+<li>
+<a href="news-2003.html">2003 news
+                                archives
+                            </a>
+</li>
+<li>
+<a href="news-2002.html">2002 news
+                                archives
+                            </a>
+</li>
+<li>
+<a href="news-2001.html">2001 news
+                                archives
+                            </a>
+</li>
+</ul>
+</section>
+<section name="News and Events">
+<a href="http://jakarta.apache.org/cactus/news.xml">
+<img src="images/rss.png"/>
+</a>
+<table>
+<tr>
+<th>2008-03-28</th>
+<td>
+            
+					Cactus has a new cool web-site. You can write your comments to the
+					<a href="http://jakarta.apache.org/cactus/mail-lists.html">Cactus mailing list</a>.
+			
+        </td>
+</tr>
+<tr>
+<th>2005-07-12</th>
+<td>
+            Cactus 1.7.1 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.7.1/ANNOUNCEMENT.txt">
+release announcement</a>.
 
-                        Cactus has a new cool web-site. You can write your comments to the
-                        <a href="http://jakarta.apache.org/cactus/mail-lists.html">Cactus mailing list</a>.
+        </td>
+</tr>
+<tr>
+<th>2005-04-14</th>
+<td>
+            Cactus now has a nice
+<a href="http://jakarta.apache.org/cactus/images/cactusbanner.gif">banner</a>
+<img src="http://jakarta.apache.org/cactus/images/cactusbanner.gif"/> that you can use on your web
+site if you wish to show your support to the Cactus project. Thanks Eoghan for
+the design.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2005-07-12</th>
-                    <td>
-                        Cactus 1.7.1 has been released. Full details can be found
-                        in the <a href="http://jakarta.apache.org/cactus/1.7.1/ANNOUNCEMENT.txt">
-                        release announcement</a>.
+        </td>
+</tr>
+<tr>
+<th>2005-04-13</th>
+<td>
+            Our previous logo was nice and we thank Lyonel Thouvenot for designing it.
+However change is good and Eoghan McIlwaine has designed a 
+<a href="http://jakarta.apache.org/cactus/images/logos/eoghan2.jpg">new logo</a> for us!
+Thanks Eoghan.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2005-04-14</th>
-                    <td>
-                        Cactus now has a nice
-                        <a href="http://jakarta.apache.org/cactus/images/cactusbanner.gif">banner</a>
-                        <img src="http://jakarta.apache.org/cactus/images/cactusbanner.gif"/>
-                        that you can use on your web
-                        site if you wish to show your support to the Cactus project. Thanks Eoghan for
-                        the design.
+        </td>
+</tr>
+<tr>
+<th>2005-01-28</th>
+<td>
+            Cactus 1.7 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.7/ANNOUNCEMENT.txt">
+release announcement</a>.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2005-04-13</th>
-                    <td>
-                        Our previous logo was nice and we thank Lyonel Thouvenot for designing it.
-                        However change is good and Eoghan McIlwaine has designed a
-                        <a href="http://jakarta.apache.org/cactus/images/logos/eoghan2.jpg">new logo</a>
-                        for us!
-                        Thanks Eoghan.
+        </td>
+</tr>
+<tr>
+<th>2005-01-07</th>
+<td>
+            Christian Sell has started a new framework called
+<a href="http://appserverunit.dev.java.net/">AppServerUnit</a>. Its principle seems
+very similar to Cactus in that it also uses a server interception approach in order
+to run JUnit test cases on the server side. It focuses only on EJB and has some
+client side tools to create test-instrumented EARs.
+        </td>
+</tr>
+<tr>
+<th>2004-12-10</th>
+<td>
+            Olexiy Prohorenko has published a nice tutorial
+<a href="http://today.java.net/pub/a/today/2004/12/09/testejb.html">article</a> 
+explaining how to use Cactus to test EJBs.
+        </td>
+</tr>
+<tr>
+<th>2004-11-23</th>
+<td>
+            Piran Montford has created a Cactus extension to help
+<a href="http://www.onwhichsubject.com/DynaCactus/">use Cactus with ATG Dynamo</a>.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2005-01-28</th>
-                    <td>
-                        Cactus 1.7 has been released. Full details can be found
-                        in the <a href="http://jakarta.apache.org/cactus/1.7/ANNOUNCEMENT.txt">
-                        release announcement</a>.
+        </td>
+</tr>
+<tr>
+<th>2004-08-26</th>
+<td>
+            The <a href="http://cargo.codehaus.org">Cargo</a> project has just started.
+The goal is to extract the code to start/stop/configure containers from the Cactus Ant 
+integration and make it a standalone project.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2005-01-07</th>
-                    <td>
-                        Christian Sell has started a new framework called
-                        <a href="http://appserverunit.dev.java.net/">AppServerUnit</a>. Its principle seems
-                        very similar to Cactus in that it also uses a server interception approach in order
-                        to run JUnit test cases on the server side. It focuses only on EJB and has some
-                        client side tools to create test-instrumented EARs.
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-12-10</th>
-                    <td>
-                        Olexiy Prohorenko has published a nice tutorial
-                        <a href="http://today.java.net/pub/a/today/2004/12/09/testejb.html">article</a>
-                        explaining how to use Cactus to test EJBs.
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-11-23</th>
-                    <td>
-                        Piran Montford has created a Cactus extension to help
-                        <a href="http://www.onwhichsubject.com/DynaCactus/">use Cactus with ATG Dynamo</a>.
+        </td>
+</tr>
+<tr>
+<th>2004-08-26</th>
+<td>
+            Julien explains <a href="http://www.oracle.com/technology/pub/articles/server_side_unit_tests.html">how
+to test struts application with Cactus</a>.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-08-26</th>
-                    <td>
-                        The <a href="http://cargo.codehaus.org">Cargo</a> project has just started.
-                        The goal is to extract the code to start/stop/configure containers from the Cactus Ant
-                        integration and make it a standalone project.
+        </td>
+</tr>
+<tr>
+<th>2004-05-21</th>
+<td>
+            <a href="http://www.javagen.com/jam.jsp">JAM</a> is a modular Ant
+toolkit for developing and testing Java/J2EE applications. JAM supports EJB 
+and Servlet/JSP development using XDoclet, JUnit, Cactus, Maven, Castor and 
+MDA/UML code generation on various J2EE servers including JBoss. There is
+a tutorial showing <a href="http://www.javagen.com/autopkTutorial.jsp">how 
+to test EJBs with Cactus</a>. For more information see also the 
+<a href="http://www.theserverside.com/news/thread.tss?thread_id=26054">release 
+information</a>.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-08-26</th>
-                    <td>
-                        Julien explains <a
-                            href="http://www.oracle.com/technology/pub/articles/server_side_unit_tests.html">how
-                        to test struts application with Cactus</a>.
+        </td>
+</tr>
+<tr>
+<th>2004-05-08</th>
+<td>
+            Cactus 1.6.1 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.6.1/ANNOUNCEMENT.txt">
+release announcement</a>.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-05-21</th>
-                    <td>
-                        <a href="http://www.javagen.com/jam.jsp">JAM</a>
-                        is a modular Ant
-                        toolkit for developing and testing Java/J2EE applications. JAM supports EJB
-                        and Servlet/JSP development using XDoclet, JUnit, Cactus, Maven, Castor and
-                        MDA/UML code generation on various J2EE servers including JBoss. There is
-                        a tutorial showing <a href="http://www.javagen.com/autopkTutorial.jsp">how
-                        to test EJBs with Cactus</a>. For more information see also the
-                        <a href="http://www.theserverside.com/news/thread.tss?thread_id=26054">release
-                            information</a>.
+        </td>
+</tr>
+<tr>
+<th>2004-05-08</th>
+<td>
+            Cactus 1.6 has been released. Full details can be found
+in the <a href="http://jakarta.apache.org/cactus/1.6/ANNOUNCEMENT.txt">
+release announcement</a>.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-05-08</th>
-                    <td>
-                        Cactus 1.6.1 has been released. Full details can be found
-                        in the <a href="http://jakarta.apache.org/cactus/1.6.1/ANNOUNCEMENT.txt">
-                        release announcement</a>.
+        </td>
+</tr>
+<tr>
+<th>2004-02-13</th>
+<td>
+            Vincent is proposing a <a href="http://blogs.codehaus.org/people/vmassol/archives/000520_cactus_v2_architecture_proposal.html">new
+architecture</a> for Cactus v2. We have set up a <a href="http://wiki.apache.org/jakarta-cactus/Cactus2Proposal">wiki 
+page</a> to discuss it. There is some start at implementing it in Cactus CVS in 
+the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-cactus/scratchpad/cactus2">scratchpad</a> area.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-05-08</th>
-                    <td>
-                        Cactus 1.6 has been released. Full details can be found
-                        in the <a href="http://jakarta.apache.org/cactus/1.6/ANNOUNCEMENT.txt">
-                        release announcement</a>.
+        </td>
+</tr>
+<tr>
+<th>2004-02-13</th>
+<td>
+            There is now a new <a href="http://wiki.apache.org/jakarta-cactus/">Cactus wiki</a>.
+This new wiki is based on MoinMoin. All changes go to the cactus-dev mailing list.
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-02-13</th>
-                    <td>
-                        Vincent is proposing a <a
-                            href="http://blogs.codehaus.org/people/vmassol/archives/000520_cactus_v2_architecture_proposal.html">
-                        new
-                        architecture
-                    </a> for Cactus v2. We have set up a <a
-                            href="http://wiki.apache.org/jakarta-cactus/Cactus2Proposal">wiki
-                        page
-                    </a> to discuss it. There is some start at implementing it in Cactus CVS in
-                        the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-cactus/scratchpad/cactus2">scratchpad</a> area.
-
-                    </td>
-                </tr>
-                <tr>
-                    <th>2004-02-13</th>
-                    <td>
-                        There is now a new <a href="http://wiki.apache.org/jakarta-cactus/">Cactus wiki</a>.
-                        This new wiki is based on MoinMoin. All changes go to the cactus-dev mailing list.
-
-                    </td>
-                </tr>
-            </table>
-        </section>
-    </body>
+        </td>
+</tr>
+</table>
+</section>
+</body>
 </document>
