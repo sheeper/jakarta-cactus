@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - Jetty Integration</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../writing/howto_ejb.html">Writing tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+            
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="../integration/index.html">Running tests</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../integration/manual/index.html">Manual</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../integration/eclipse/index.html">Eclipse</a>
+          </li>
+                  
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/ant/index.html">Ant</a>
+                </li>
+                  
+    <li class="none">
+                    <a href="../integration/integration_browser.html">Browser</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../integration/howto_tomcat.html">Tomcat</a>
+          </li>
+                  
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/maven/index.html">Maven</a>
+                </li>
+                  
+                
+              
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/maven2/index.html">Maven2</a>
+                </li>
+                  
+    <li class="none">
+              <strong>Jetty</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="../integration/howto_ide.html">Various IDEs</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../integration/howto_junitee.html">JUnitEE</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../participating/index.html">Participating</a>
+                </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="Forewords_and_Requirements"></a>Forewords and Requirements</h2>
+<p>
+                This page explains how to run Cactus tests with the Jetty servlet
+                container. You will need the single
+                <a href="http://mortbay.org/jetty/" class="externalLink">Jetty</a>
+                jar, and if you are using JSPs you will also need the Jasper jars.
+            </p>
+</div>
+<div class="section"><h2><a name="Setting_up_Jetty"></a>Setting up Jetty</h2>
+<p>
+                The idea is to use the
+                <code>org.apache.cactus.extension.jetty.JettyTestSetup</code>
+                JUnit
+                TestSetup class provided by Cactus so that Jetty is started before the
+                tests are run.
+            </p>
+<p>
+                In order to use the TestSetup, you need to wrap your test suite in
+                <code>JettyTestSetup</code>:
+            </p>
+<div class="source"><pre>
+public class TestJettyAll extends TestCase
+{
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite();
+        suite.addTestSuite(MyTestClass1.class);
+        [...]
+        suite.addTestSuite(MyTestClassN.class);
+        
+        return new JettyTestSetup(suite);
+    }        
+</pre>
+</div>
+<p>
+                You can configure the Jetty TestSetup either programatically or
+                with system properties:
+            </p>
+<ul><li>
+                    The method <code>setConfigFile(File)</code> or the system property
+                    <code>cactus.jetty.config</code>
+                    sets the location of an optional
+                    jetty.xml file (see Jetty's documentation for details).
+                </li>
+<li>
+                    The method <code>setResourceDir(File)</code> or the system property
+                    <code>cactus.jetty.resourceDir</code>
+                    sets the directory containing
+                    the web-application resources (expanded WAR). If you omit this step,
+                    you'll only be able to use the Servlet Redirector.
+                </li>
+</ul>
+<p>
+                In both cases, the value set programatically takes precendence over the
+                value of the corresponding system property.
+            </p>
+<note>
+                If you're using JSPs you'll need to add the Jasper jars to your
+                runtime Classpath (in addition to the Jetty jar).
+            </note><div class="section"><h2><a name="Example_1:_Running_from_Ant"></a>Example 1: Running from Ant</h2>
+<p>
+                    Let's assume we have a JUnit task that launches the tests.
+                    We need to add the Jetty jar and optionally the Jasper jars
+                    (if we use JSPs) to the runtime classpath. Then, all we have
+                    to do is add the correct VM arguments to configure
+                    the <code>JettyTestSetup</code> behavior. For example:
+                </p>
+<div class="source"><pre>
+&lt;junit&gt;
+
+    [...]
+    
+    &lt;jvmarg value=&quot;-Dcactus.contextURL=http://localhost:${test.port}/test&quot;/&gt;
+    &lt;jvmarg value=&quot;-Dcactus.jetty.resourceDir=${src.webapp.dir}&quot;/&gt;
+    &lt;jvmarg value=&quot;-Dcactus.jetty.config=${src.webapp.dir}/test/jetty.xml&quot;/&gt;
+
+    &lt;classpath&gt;
+        [...]
+        &lt;!-- Include Jetty jar and optionally Jasper jars in the classpath --&gt;
+        &lt;pathelement location=&quot;${jetty.jar}&quot;/&gt;
+        &lt;pathelement location=&quot;${jasper-compiler.jar}&quot;/&gt;
+        &lt;pathelement location=&quot;${jasper-runtime.jar}&quot;/&gt;    
+    &lt;/classpath&gt;
+    
+    &lt;test name=&quot;org.apache.cactus.sample.TestJettyAll&quot;/&gt;
+
+&lt;/junit&gt;
+</pre>
+</div>
+</div>
+<div class="section"><h2><a name="Example_2:_Running_from_an_IDE"></a>Example 2: Running from an IDE</h2>
+<p>
+                    Again all you have to do is add the correct VM arguments, and the
+                    Jetty and Jasper jars, to the JUnit launch.
+                </p>
+<p>
+                    For example in Eclipse you would add the jars, and create a JUnit
+                    launch configuration as below:
+                </p>
+<img src="../images/jetty_eclipse.png" alt="Eclipse configuration for Jetty" /></div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

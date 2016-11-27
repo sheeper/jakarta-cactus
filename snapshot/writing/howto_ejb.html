@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - EJB Testing with Cactus Howto</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+              <strong>Writing tests</strong>
+                <ul>
+                  
+    <li class="none">
+                    <a href="../writing/howto_ejb_j2eeri.html">Howto EJB</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_ejb_3.html">Howto EJB3</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_httpunit.html">Howto HTTPUnit</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_htmlunit.html">Howto HTMLUnit</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_jsp.html">Howto JSP</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_security.html">Howto Security</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase.html">Howto TestCase</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_jsp.html">Howto TestCase-JSP</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_filter.html">Howto TestCase-Filter</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_servlet.html">Howto TestCase-Servlet</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/index.html">Running tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../participating/index.html">Participating</a>
+                </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="Introduction"></a>Introduction</h2>
+<p>
+                This document explains how to unit test EJBs with Cactus. It is
+                divided in 2 parts:
+            </p>
+<ul><li><a href="howto_ejb.html#ejb_general">General concepts</a>: explains the
+                    generic concepts behind EJB unit testing with Cactus,
+                </li>
+<li><a href="howto_ejb.html#ejb_j2eeri">J2EE RI tutorial</a>: provides a
+                    detailed tutorial, on a sample, on how to explicitely perform EJB
+                    unit testing with the
+                    <a href="http://java.sun.com/j2ee/download.html#sdk" class="externalLink">J2EE Reference
+                        Implementation
+                    </a>
+                    server from Sun.
+                </li>
+</ul>
+<note>
+                EJB unit testing works with Cactus 1.0 or later.
+            </note><note>
+                EJB3 unit testing works with Cactus 1.8.1 or later.
+            </note></div>
+<anchor id="ejb_general"><div class="section"><h2><a name="General_Concepts"></a>General Concepts</h2>
+<div class="section"><h2><a name="Why_use_Cactus_for_testing_EJBs"></a>Why use Cactus for testing EJBs?</h2>
+<p>
+                    You might be wondering why you would use Cactus to unit test your
+                    EJBs whereas you could use standard JUnit test cases. Indeed,
+                    you could write a standard JUnit test case and view your code as
+                    client side code for the EJB to test ... There are actually a few
+                    reasons to choose Cactus instead:
+                </p>
+<ul><li>
+                        If you are using local interfaces (EJB 2.0), then your beans cannot be called remotely
+                        (i.e. the caller need to be in the same jvm). However, as all Cactus redirectors run on
+                        the server side, you can unit test your local interfaces with Cactus.
+                    </li>
+<li>
+                        Very often the production code that will call the EJBs is server
+                        side code (Servlets, JSPs, Tag libs or Filters). This means that if
+                        you run the tests from a standard JUnit test case, your tests will
+                        run in a different execution environment than the production one,
+                        which can lead to different test results,
+                    </li>
+<li>
+                        An application using EJBs very often includes a front end part which
+                        is in almost all cases a web application (i.e. using Servlets,
+                        JSP, Tag libs or Filters). It means that you would also need a
+                        framework for unit testing these components. Cactus is providing
+                        a comprehensive and consistent framework for testing all server
+                        side components. This is a compelling enough reason to use it !
+                    </li>
+<li>
+                        Cactus provides automated Ant tasks to automatically start your
+                        EJB server, run the tests and stop it, thus automating your
+                        entire test process and making it easy to implement continuous
+                        build and continuous integration of your J2EE project.
+                    </li>
+</ul>
+</div>
+<div class="section"><h2><a name="The_process"></a>The process</h2>
+<p>
+                    You can unit test your EJBs from any of Cactus redirectors:
+                    <code>ServletTestCase</code>, <code>JspTestCase</code> or
+                    <code>FilterTestCase</code>.
+                </p>
+<p>
+                    This means that you would write a test case class that extends any
+                    of Cactus redirectors, get a home reference to your EJB, create an
+                    instance of it, call the method to test and perform asserts on the
+                    result.
+                </p>
+<p>
+                    It is that simple ! What is slightly more complex is the deployment
+                    of your EJBs to your EJB container but you should be familiar with
+                    this, right?
+                </p>
+</div>
+</div>
+<anchor id="ejb_j2eeri"><div class="section"><h2><a name="J2EE_RI_Tutorial"></a>J2EE RI Tutorial</h2>
+<p>
+                This
+                <a href="howto_ejb_j2eeri.html">J2EE RI tutorial</a>
+                is a step by step guide for writing Cactus EJB unit test for the
+                Sun J2EE RI server.
+            </p>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

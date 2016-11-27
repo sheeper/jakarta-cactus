@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - HttpUnit Howto</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+            
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="../writing/howto_ejb.html">Writing tests</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../writing/howto_ejb_j2eeri.html">Howto EJB</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_ejb_3.html">Howto EJB3</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Howto HTTPUnit</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_htmlunit.html">Howto HTMLUnit</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_jsp.html">Howto JSP</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_security.html">Howto Security</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase.html">Howto TestCase</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_jsp.html">Howto TestCase-JSP</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_filter.html">Howto TestCase-Filter</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_servlet.html">Howto TestCase-Servlet</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/index.html">Running tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../participating/index.html">Participating</a>
+                </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="HttpUnit_integration"></a>HttpUnit integration</h2>
+<note><strong>The HttpUnit integration is only available for Cactus v1.2 and
+                    later. It won't work with version 1.1 and earlier.
+                </strong></note><p>
+                Cactus test cases allow to assert the results of the returned server
+                output stream in an <code>endXXX()</code> method (where
+                <code>XXX</code>
+                is the name of your test case).
+            </p>
+<p>
+                Cactus proposes 2 ways of writing your <code>endXXX()</code> methods,
+            </p>
+<ul><li><strong>Method 1</strong>: it allows you to do simple check on the
+                    returned stream like checking for returned cookies, HTTP headers and
+                    to do assertions on the returned content as a String,
+                </li>
+<li><strong>Method 2</strong>: it allows you to do complex and
+                    powerful assertions on the returned content. For example, you can
+                    get an HTML DOM view of your returned HTML page and check that a given
+                    named table has the correct number of columns, ....
+                </li>
+</ul>
+<p>
+                Method 2 is supported through the integration with
+                <a href="http://httpunit.sourceforge.net" class="externalLink">HttpUnit</a>, meaning
+                you'll benefit from the full assertion power of HttpUnit in your
+                <code>endXXX()</code>
+                method. Method 1 is a class provided by Cactus.
+            </p>
+<p>
+                Depending on your need you can choose, on a per test case basis, the
+                method you want to use.
+            </p>
+</div>
+<div class="section"><h2><a name="Usage"></a>Usage</h2>
+<p>
+                The signature of an <code>endXXX()</code> method is always:
+            </p>
+<div class="source"><pre>
+public void endXXX(WebResponse theResponse)
+{
+[...]
+}
+</pre>
+</div>
+<p>
+                The <code>WebResponse</code> object is passed by the Cactus framework
+                to your <code>endXXX()</code> method. What changes between the 2
+                methods described above is the class of the
+                <code>WebResponse</code>
+                object that is passed:
+            </p>
+<ul><li><code>org.apache.cactus.WebResponse</code>
+                    for Method 1,
+                </li>
+<li><code>com.meterware.httpunit.WebResponse</code>
+                    for Method 2
+                    (HttpUnit)
+                </li>
+</ul>
+<div class="section"><h2><a name="Method_1:_Cactus_provided_WebResponse_object"></a>Method 1: Cactus provided WebResponse object</h2>
+<p>
+                    An example:
+                </p>
+<div class="source"><pre>
+public void endXXX(org.apache.cactus.WebResponse theResponse)
+{
+  // Get the returned cookies
+  Hashtable cookies = theResponse.getCookies();
+
+  // Get the returned content as a string
+  String content = theResponse.getText();
+
+  // Do some asserts
+  assertEquals(content, &quot;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello world!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot;);
+[...]
+}
+</pre>
+</div>
+<note>
+                    For the complete list of all methods available on the
+                    <code>WebResponse</code>
+                    object, see the associated Javadoc.
+                </note></div>
+<div class="section"><h2><a name="Method_2:_HttpUnit_provided_WebResponse_object"></a>Method 2: HttpUnit provided WebResponse object</h2>
+<p>
+                    An example:
+                </p>
+<div class="source"><pre>
+public void endXXX(com.meterware.httpunit.WebResponse theResponse)
+{
+  WebTable table = theResponse.getTables()[0];
+  assertEquals(&quot;rows&quot;, 4, table.getRowCount());
+  assertEquals(&quot;columns&quot;, 3, table.getColumnCount());
+  assertEquals(&quot;links&quot;, 1, table.getTableCell(0, 2).getLinks().length);
+[...]
+}
+</pre>
+</div>
+<note>
+                    For the complete list of all methods available on the
+                    HttpUnit <code>WebResponse</code> object, see the HttpUnit
+                    documentation.
+                </note></div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

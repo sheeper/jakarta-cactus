@@ -1,0 +1,925 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - Servlet Sample Walkthrough</title>
+    <style type="text/css" media="all">
+      @import url("../../css/maven-base.css");
+      @import url("../../css/maven-theme.css");
+      @import url("../../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../writing/howto_ejb.html">Writing tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+            
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="../../integration/index.html">Running tests</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../../integration/manual/index.html">Manual</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/eclipse/index.html">Eclipse</a>
+          </li>
+                  
+                
+              
+            
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="../../integration/ant/index.html">Ant</a>
+                  <ul>
+                  
+    <li class="none">
+              <strong>Howto Ant-Cactus</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/howto_ant_install.html">Howto Ant-Install</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/howto_ant_primer.html">Howto Ant-Primer</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_cactifyear.html">CactifyEar Task</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_cactifywar.html">CactifyWar Task</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_cactus.html">Cactus Task</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_cactus1.8.html">Cactus Task 1.8</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_resin.html">Resin Task</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_runservertests.html">RunServerTests Task</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/ant/task_webxmlmerge.html">WebXmlMerge Task</a>
+          </li>
+              </ul>
+        </li>
+                  
+    <li class="none">
+                    <a href="../../integration/integration_browser.html">Browser</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/howto_tomcat.html">Tomcat</a>
+          </li>
+                  
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../integration/maven/index.html">Maven</a>
+                </li>
+                  
+                
+              
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../integration/maven2/index.html">Maven2</a>
+                </li>
+                  
+    <li class="none">
+                    <a href="../../integration/integration_jetty.html">Jetty</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/howto_ide.html">Various IDEs</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/howto_junitee.html">JUnitEE</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../participating/index.html">Participating</a>
+                </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="Servlet_Sample_Walkthrough"></a>Servlet Sample Walkthrough</h2>
+<p>
+                Cactus is distributed with a small sample web application, generally
+                referred to as the <em>Servlet Sample</em>. You can find this
+                application in the directory <code>samples/servlet</code> in the
+                main distribution. While the servlet sample is intended to provide
+                insight in how to use Cactus for writing tests, it also nicely
+                demonstrates the use of the Ant integration provided by Cactus.
+            </p>
+<p>
+                In this section, we will walk through the build file of the servlet
+                sample step by step, explaining how the Cactus tests are integrated
+                into the overall build of the application. I recommended that you look
+                at the servlet sample build and play with it after or while reading
+                this.
+            </p>
+<note>
+                The actual build file of the sample might differ in a few details from
+                the snippets shown here.
+            </note><div class="section"><h2><a name="Starting_Off_with_a_Plain_Build"></a>Starting Off with a Plain Build</h2>
+<p>
+                    The servlet sample is a simple web application that contains
+                    a servlet, some JSP tags, a JSP page and a servlet filter. For the
+                    rest of this document we're going to work with the version of the
+                    servlet sample for J2EE 1.3.
+                </p>
+<p>
+                    The build file without any Cactus tests is straightforward. As usual,
+                    the first thing is that a couple of properties are set up:
+                </p>
+<div class="source"><pre>
+&lt;project name=&quot;Cactus Servlet Sample&quot; default=&quot;dist&quot; basedir=&quot;.&quot;&gt;
+
+  &lt;property file=&quot;build.properties&quot; /&gt;
+  &lt;property file=&quot;${user.home}/build.properties&quot; /&gt;
+
+  &lt;property name=&quot;project.name.text&quot; value=&quot;Cactus Servlet Sample&quot;/&gt;
+  &lt;property name=&quot;project.name.file&quot; value=&quot;sample-servlet&quot;/&gt;
+  &lt;property name=&quot;project.version&quot; value=&quot;@version@&quot;/&gt;
+
+  &lt;property name=&quot;project.prefix&quot; value=&quot;jakarta-&quot;/&gt;
+
+  &lt;property name=&quot;year&quot; value=&quot;@year@&quot;/&gt;
+  &lt;property name=&quot;debug&quot; value=&quot;on&quot;/&gt;
+  &lt;property name=&quot;optimize&quot; value=&quot;off&quot;/&gt;
+  &lt;property name=&quot;deprecation&quot; value=&quot;off&quot;/&gt;
+
+  &lt;!-- Directory layout --&gt;
+  &lt;property name=&quot;src.dir&quot; location=&quot;src&quot;/&gt;
+  &lt;property name=&quot;src.java.dir&quot; location=&quot;${src.dir}/java&quot;/&gt;
+  &lt;property name=&quot;src.webapp.dir&quot; location=&quot;${src.dir}/webapp&quot;/&gt;
+  &lt;property name=&quot;target.dir&quot; location=&quot;target&quot;/&gt;
+  &lt;property name=&quot;target.classes.dir&quot; location=&quot;${target.dir}/classes&quot;/&gt;
+  &lt;property name=&quot;target.classes.java.dir&quot;
+      location=&quot;${target.classes.dir}/java&quot;/&gt;
+  &lt;property name=&quot;dist.dir&quot; location=&quot;dist&quot;/&gt;
+
+  &lt;!-- Required libraries --&gt;
+  &lt;property name=&quot;servlet.jar&quot; location=&quot;lib/servlet.jar&quot;/&gt;
+  &lt;property name=&quot;jstl.jar&quot; location=&quot;lib/jstl.jar&quot;/&gt;
+  &lt;property name=&quot;standard.jar&quot; location=&quot;lib/standard.jar&quot;/&gt;
+  &lt;path id=&quot;project.classpath&quot;&gt;
+    &lt;pathelement location=&quot;${servlet.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${jstl.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${standard.jar}&quot;/&gt;
+  &lt;/path&gt;</pre>
+</div>
+<p>
+                    Next, we check whether the required libraries are actually available.
+                    This is done in the <em>init</em> target. In this case, we just check
+                    whether the corresponding properties point to existing files.
+                    Alternatively, we could be checking whether the JARs also contain
+                    some class we need. We also set the time stamp.
+                </p>
+<div class="source"><pre>
+  &lt;!-- Initialize the build. Must be called by all targets --&gt;
+  &lt;target name=&quot;init&quot;&gt;
+    &lt;condition property=&quot;properties.ok&quot;&gt;
+      &lt;and&gt;
+        &lt;available file=&quot;${servlet.jar}&quot;/&gt;
+        &lt;available file=&quot;${jstl.jar}&quot;/&gt;
+        &lt;available file=&quot;${standard.jar}&quot;/&gt;
+      &lt;/and&gt;
+    &lt;/condition&gt;
+    &lt;fail unless=&quot;properties.ok&quot;&gt;Missing property...&lt;/fail&gt;
+    &lt;tstamp/&gt;
+  &lt;/target&gt;</pre>
+</div>
+<p>
+                    The first <em>real</em> thing we'll do in the build is to compile
+                    the application classes.
+                </p>
+<div class="source"><pre>
+  &lt;!-- Compile the Java source --&gt;
+  &lt;target name=&quot;compile&quot; depends=&quot;init&quot;
+      description=&quot;Compile the application classes&quot;&gt;
+    &lt;mkdir dir=&quot;${target.classes.java.dir}&quot;/&gt;
+    &lt;javac destdir=&quot;${target.classes.java.dir}&quot;
+        debug=&quot;${debug}&quot; optimize=&quot;${optimize}&quot;
+        deprecation=&quot;${deprecation}&quot;&gt;
+      &lt;src path=&quot;${src.java.dir}&quot;/&gt;
+      &lt;classpath refid=&quot;project.classpath&quot;/&gt;
+    &lt;/javac&gt;
+  &lt;/target&gt;</pre>
+</div>
+<p>
+                    What's left is just the generation of the web-application archice
+                    (WAR) for deployment. We do that using the builtin
+                    <em>&lt;war&gt;</em>
+                    task.
+                </p>
+<div class="source"><pre>
+  &lt;!-- Create the war file --&gt;
+  &lt;target name=&quot;war&quot; depends=&quot;compile&quot;
+      description=&quot;Generate the runtime war&quot;&gt;
+    &lt;war warfile=&quot;${target.dir}/${project.name.file}.war&quot;
+        webxml=&quot;${src.webapp.dir}/WEB-INF/web.xml&quot;&gt;
+      &lt;fileset dir=&quot;${src.webapp.dir}&quot;/&gt;
+      &lt;classes dir=&quot;${target.classes.java.dir}&quot;/&gt;
+      &lt;lib file=&quot;${jstl.jar}&quot;&gt;
+      &lt;lib file=&quot;${standard.jar}&quot;&gt;
+    &lt;/war&gt;
+  &lt;/target&gt;</pre>
+</div>
+<p>
+                    After that, we might want to copy the generated WAR file to the
+                    distribution directory. In a somewhat more sophisticated application
+                    we'd also copy things like the API documentation or a user's
+                    guide to the distribution directory in this target. We also make
+                    the <em>dist</em> target depend on the <em>clean</em> target, so that
+                    distribution builds are always a full rebuild.
+                </p>
+<div class="source"><pre>
+  &lt;target name=&quot;dist&quot; depends=&quot;clean, war&quot;
+      description=&quot;Generate the distributable files&quot;&gt;
+    &lt;copy file=&quot;${target.dir}/${project.name.file}.war&quot;
+        todir=&quot;${dist.dir}&quot;/&gt;
+  &lt;/target&gt;
+
+  &lt;target name=&quot;clean&quot;
+      description=&quot;Remove all generated files&quot;&gt;
+    &lt;delete dir=&quot;${target.dir}&quot;/&gt;
+    &lt;delete dir=&quot;${dist.dir}&quot;/&gt;
+  &lt;/target&gt;</pre>
+</div>
+</div>
+<div class="section"><h2><a name="Defining_the_Cactus_Ant_tasks"></a>Defining the Cactus Ant tasks</h2>
+<p>
+                    Now we're ready to start integrating Cactus tests into the build.
+                    The first thing we need to do for that is to define the Cactus tasks,
+                    so that they can be used in the build file.
+                </p>
+<p>
+                    The prerequisite for defining the Cactus tasks is to make the Cactus
+                    JARs accessible to Ant. This can be done in a number of ways, but
+                    here we're going to assume that they are stored in a
+                    <em>lib</em>
+                    directory of the project. We then define properties representing the
+                    individual JARs, so that they can be overridden by the user. And we
+                    build a reusable classpath using the Ant <em>&lt;path&gt;</em> type.
+                </p>
+<div class="source"><pre>
+  &lt;!-- Libraries required for the Cactus tests --&gt;
+  &lt;property name=&quot;aspectjrt.jar&quot; location=&quot;lib/aspectjrt.jar&quot;/&gt;
+  &lt;property name=&quot;cactus.jar&quot; location=&quot;lib/cactus.jar&quot;/&gt;
+  &lt;property name=&quot;cactus.ant.jar&quot; location=&quot;lib/cactus.ant.jar&quot;/&gt;
+  &lt;property name=&quot;commons.httpclient.jar&quot;
+      location=&quot;lib/commons.httpclient.jar&quot;/&gt;
+  &lt;property name=&quot;commons.logging.jar&quot;
+      location=&quot;lib/commons.logging.jar&quot;/&gt;
+  &lt;property name=&quot;httpunit.jar&quot; location=&quot;lib/httpunit.jar&quot;/&gt;
+  &lt;property name=&quot;junit.jar&quot; location=&quot;lib/junit.jar&quot;/&gt;
+  &lt;property name=&quot;nekohtml.jar&quot; location=&quot;lib/nekohtml.jar&quot;/&gt;
+  &lt;path id=&quot;cactus.classpath&quot;&gt;
+    &lt;path refid=&quot;project.classpath&quot;/&gt;
+    &lt;pathelement location=&quot;${aspectjrt.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${cactus.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${cactus.ant.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${commons.httpclient.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${commons.logging.jar}&quot;/&gt;
+    &lt;pathelement location=&quot;${junit.jar}&quot;/&gt;
+  &lt;/path&gt;</pre>
+</div>
+<p>
+                    Once this is done, we can proceed with the actual definition of the
+                    Cactus tasks, using the Ant <em>&lt;taskdef&gt;</em> task.
+                </p>
+<div class="source"><pre>
+  &lt;taskdef resource=&quot;cactus.tasks&quot;
+      classpathref=&quot;cactus.classpath&quot;/&gt;</pre>
+</div>
+<p>
+                    By using the <em>cactus.tasks</em> property file included in the
+                    <code>cactus-ant.jar</code>
+                    library, we can define all Cactus tasks
+                    in one go, without needing to know the names of the individual task
+                    classes.
+                </p>
+</div>
+<div class="section"><h2><a name="Compiling_the_Test_Code"></a>Compiling the Test Code</h2>
+<p>
+                    Next we need to compile the test case classes. In the servlet sample,
+                    these are located in the directory <code>src/test-cactus</code>.
+                    After adding the definition of the two properties
+                    <em>src.cactus.dir</em>
+                    and <em>test.classes.cactus.dir</em> at the
+                    top of the build file, we can add a target for the test compilation:
+                </p>
+<div class="source"><pre>
+  &lt;!-- Compiles the Cactus test sources --&gt;
+  &lt;target name=&quot;compile.cactus&quot; depends=&quot;compile.java&quot;&gt;
+    &lt;mkdir dir=&quot;${target.classes.cactus.dir}&quot;/&gt;
+    &lt;javac destdir=&quot;${target.classes.cactus.dir}&quot;
+        debug=&quot;${debug}&quot; optimize=&quot;${optimize}&quot;
+        deprecation=&quot;${deprecation}&quot;&gt;
+      &lt;src path=&quot;${src.cactus.dir}&quot;/&gt;
+      &lt;classpath&gt;
+        &lt;path refid=&quot;cactus.classpath&quot;/&gt;
+        &lt;pathelement location=&quot;${httpunit.jar}&quot;/&gt;
+        &lt;pathelement location=&quot;${nekohtml.jar}&quot;/&gt;
+        &lt;pathelement location=&quot;${target.classes.java.dir}&quot;/&gt;
+      &lt;/classpath&gt;
+    &lt;/javac&gt;
+  &lt;/target&gt;
+
+  &lt;target name=&quot;compile&quot; depends=&quot;compile.java, compile.test&quot;&gt;
+  &lt;/target&gt;</pre>
+</div>
+<p>
+                    Note that we renamed the target to compile the application classes
+                    from <em>compile</em> to <em>compile.java</em>, and added a wrapper
+                    target <em>compile</em> that depends on both
+                    <em>compile.java</em>
+                    and <em>compile.test</em>.
+                </p>
+</div>
+<div class="section"><h2><a name="Cactifying_the_Web_Application"></a>Cactifying the Web Application</h2>
+<p>
+                    In order to be able to run the Cactus tests, you have to deploy a
+                    <em>cactified</em>
+                    web application to the target container. With
+                    <em>cactified</em>, we generally refer to a web-application that
+                    has been enhanced with the elements required for Cactus tests to
+                    work. The minimum requirements are as follows:
+                    <ul><li>
+                            It contains all the libraries that Cactus needs on the server
+                            side (see the
+                            <a href="../manual/howto_classpath.html">Classpath Guide</a>
+                            for
+                            details).
+                        </li>
+<li>
+                            At least one test redirector is defined in the deployment
+                            descriptor of the web-application.
+                        </li>
+<li>
+                            If you are using <code>JspTestCase</code>, the file
+                            <code>jspRedirector.jsp</code>
+                            needs to be included in the web
+                            application, and it needs to be named in the deployment
+                            descriptor.
+                        </li>
+</ul>
+
+                    Of course, the cactified web-application also needs to contain
+                    your test classes.
+                </p>
+<p>
+                    The Cactus tasks for Ant support these requirements with the tasks
+                    <strong>&lt;cactifywar&gt;</strong>
+                    and
+                    <strong>&lt;webxmlmerge&gt;</strong>. While the former is specific to
+                    Cactus and probably does all you need in most cases, the latter is
+                    more generic and lower-level. In this example, we'll use
+                    <strong>&lt;cactifywar&gt;</strong>
+                    because it's more powerful and
+                    easier to use.
+                </p>
+<p>
+                    For the cactification, we add a target called <em>test.prepare</em>,
+                    on which the <em>test</em> target will depend. This target itself
+                    depends on the application WAR being built (the <em>war</em> target),
+                    and the Cactus test cases being compiled (the
+                    <em>compile.cactus</em>
+                    target):
+                </p>
+<div class="source"><pre>
+&lt;target name=&quot;test.prepare&quot; depends=&quot;war, compile.cactus&quot;&gt;
+  
+  &lt;!-- Cactify the web-app archive --&gt;
+  &lt;cactifywar srcfile=&quot;${target.dir}/${project.name.file}.war&quot;
+      destfile=&quot;${target.dir}/test.war&quot;&gt;
+    &lt;classes dir=&quot;${target.classes.cactus.dir}&quot;/&gt;
+    &lt;lib file=&quot;${httpunit.jar}&quot;/&gt;
+  &lt;/cactifywar&gt;
+
+&lt;/target&gt;</pre>
+</div>
+<p>
+                    So what the <strong>&lt;cactifywar&gt;</strong> task does here, is to
+                    open the WAR file specified by the <em>srcfile</em> attribute, and
+                    write the cactified WAR file to the file specified by the
+                    <em>destfile</em>
+                    attribute.
+                </p>
+<p>
+                    The Cactus test redirectors are automatically injected into the
+                    deployment descriptor of the destination archive. By the way, the
+                    task will examine the version of the web-app DTD used in the source
+                    file, which determines the servlet API version in use (if no
+                    <code>DOCTYPE</code>
+                    declaration is found, it assumes servlet API
+                    2.2). The filter test redirector will only be inserted if the servlet
+                    API version is 2.3 (or later). The file
+                    <code>jspRedirector.jsp</code>
+                    will also be added automatically (to
+                    the root of the web-application).
+                </p>
+<p><strong>&lt;cactifywar&gt;</strong>
+                    will also try to add the Cactus
+                    libraries required on the server-side to the destination archive. For
+                    this to work, these libraries need to be on the classpath of the
+                    task. Because we've done that when defining the task (see above),
+                    there shouldn't be problems here. If the task has problems locating
+                    the required JARs, a warning will be logged.
+                </p>
+<p>
+                    An important fact to note about the
+                    <strong>&lt;cactifywar&gt;</strong>
+                    task is that it extends the
+                    builtin Ant task <strong>&lt;war&gt;</strong>. That's why we can add
+                    the nested <strong>&lt;classes&gt;</strong> and
+                    <strong>&lt;lib&gt;</strong>
+                    elements in the example above. We do
+                    this to add the actual test classes to the cactified WAR, as well as
+                    the <a href="../../writing/howto_httpunit.html">HttpUnit</a> JAR needed for
+                    some of the tests.
+                </p>
+</div>
+<div class="section"><h2><a name="Running_the_Cactus_Tests"></a>Running the Cactus Tests</h2>
+<p>
+                    Now to the probably most important part: running the Cactus tests.
+                    The critical point here is that a J2EE container must be running
+                    while the tests are executed, and that the web-application under
+                    test must have been successfully deployed. If that is the case,
+                    you can simply run the tests like normal JUnit tests, and provide
+                    a couple of system properties that tell Cactus how to connect to the
+                    server (see the
+                    <a href="../manual/howto_config.html">Configuration Guide</a>
+                    for
+                    details).
+                </p>
+<p>
+                    However, you will probably want to automate the deployment of the
+                    cactified WAR, and maybe also the startup and shutdown of the
+                    container. This can be done with some Ant scripting in combination
+                    with the <strong>&lt;runservertests&gt;</strong> task provided by
+                    Cactus. But Cactus also provides a higher-level abstraction for
+                    running the tests with the <strong>&lt;cactus&gt;</strong> task.
+                </p>
+<p>
+                    The <strong>&lt;cactus&gt;</strong> task extends the optional Ant
+                    task <strong>&lt;junit&gt;</strong>, adding support for in-container
+                    tests and hiding some of the details such as the system properties
+                    used for configuring Cactus:
+                </p>
+<div class="source"><pre>
+&lt;target name=&quot;test&quot; depends=&quot;test.prepare&quot;
+    description=&quot;Run the tests on the defined containers&quot;&gt;
+
+  &lt;!-- Run the tests --&gt;
+  &lt;cactus warfile=&quot;${target.dir}/test.war&quot; fork=&quot;yes&quot;
+      failureproperty=&quot;tests.failed&quot;&gt;
+    &lt;classpath&gt;
+      &lt;path refid=&quot;project.classpath&quot;/&gt;
+      &lt;pathelement location=&quot;${httpunit.jar}&quot;/&gt;
+      &lt;pathelement location=&quot;${nekohtml.jar}&quot;/&gt;
+      &lt;pathelement location=&quot;${target.classes.java.dir}&quot;/&gt;
+      &lt;pathelement location=&quot;${target.classes.cactus.dir}&quot;/&gt;
+    &lt;/classpath&gt;
+    &lt;containerset timeout=&quot;180000&quot;&gt;
+      &lt;tomcat4x if=&quot;cactus.home.tomcat4x&quot;
+          dir=&quot;${cactus.home.tomcat4x}&quot; port=&quot;${cactus.port}&quot;
+          output=&quot;${target.testreports.dir}/tomcat4x.out&quot;
+          todir=&quot;${target.testreports.dir}/tomcat4x&quot;/&gt;
+    &lt;/containerset&gt;
+    &lt;formatter type=&quot;brief&quot; usefile=&quot;false&quot;/&gt;
+    &lt;formatter type=&quot;xml&quot;/&gt;
+    &lt;batchtest&gt;
+      &lt;fileset dir=&quot;${src.cactus.dir}&quot;&gt;
+        &lt;include name=&quot;**/Test*.java&quot;/&gt;
+        &lt;exclude name=&quot;**/Test*All.java&quot;/&gt;
+      &lt;/fileset&gt;
+    &lt;/batchtest&gt;
+  &lt;/cactus&gt;
+
+&lt;/target&gt;</pre>
+</div>
+<p>
+                    In this example, we specify the <em>&quot;WAR under test&quot;</em> using the
+                    <strong>warfile</strong>
+                    attribute. This must point to an already
+                    cactified WAR. The task will extract information about the mappings
+                    of the test redirectors from the deployment descriptor of the
+                    web-application, and automically setup the corresponding system
+                    properties.
+                </p>
+<p>
+                    Next, we add a nested <strong>&lt;containerset&gt;</strong> element,
+                    which allows us to specify one or more containers against which the
+                    tests will be executed. Here we only test against Apache Tomcat 4.x.
+                    We specify the installation directory of Tomcat using the
+                    <strong>dir</strong>
+                    attribute, as well as the port to which the
+                    container should be bound using the <strong>port</strong> attribute.
+                </p>
+<p>
+                    What happens behind the scenes is this:
+                    <ol type="1"><li>
+                            Tomcat is installed to a temporary directory using a minimal
+                            configuration.
+                        </li>
+<li>
+                            The specified WAR is copied into the Tomcat
+                            <code>webapps</code>
+                            directory, so that it will be deployed when Tomcat is started up.
+                        </li>
+<li>
+                            Tomcat is started. The task assumes that the startup is complete
+                            as soon as HTTP requests to the test web-application are
+                            successful.
+                        </li>
+<li>
+                            Now the tests are executed. The required system properties such
+                            as <code>cactus.contextURL</code> and the redirector mappings are
+                            automatically passed to the test runner.
+                        </li>
+<li>
+                            After the tests have terminated (successfully or not), Tomcat is
+                            shut down.
+                        </li>
+</ol>
+
+                    If we had defined more than one container in the
+                    <strong>&lt;containerset&gt;</strong>
+                    element, this procedure would
+                    be repeated for every container in the list.
+                </p>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

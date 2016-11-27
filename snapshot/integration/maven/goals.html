@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - Maven Cactus plugin goals</title>
+    <style type="text/css" media="all">
+      @import url("../../css/maven-base.css");
+      @import url("../../css/maven-theme.css");
+      @import url("../../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../../css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Vincent Massol" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../writing/howto_ejb.html">Writing tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+            
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="../../integration/index.html">Running tests</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../../integration/manual/index.html">Manual</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/eclipse/index.html">Eclipse</a>
+          </li>
+                  
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../integration/ant/index.html">Ant</a>
+                </li>
+                  
+    <li class="none">
+                    <a href="../../integration/integration_browser.html">Browser</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/howto_tomcat.html">Tomcat</a>
+          </li>
+                  
+                
+              
+      
+            
+      
+            
+      
+            
+            
+            
+      
+              
+            <li class="expanded">
+                    <a href="../../integration/maven/index.html">Maven</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../../integration/maven/features.html">Features</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/maven/installing.html">Installing</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/maven/using.html">Using</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Goals</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="../../integration/maven/properties.html">Properties</a>
+          </li>
+              </ul>
+        </li>
+                  
+                
+              
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../integration/maven2/index.html">Maven2</a>
+                </li>
+                  
+    <li class="none">
+                    <a href="../../integration/integration_jetty.html">Jetty</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/howto_ide.html">Various IDEs</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../../integration/howto_junitee.html">JUnitEE</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../participating/index.html">Participating</a>
+                </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="Goals"></a>Goals</h2>
+<table class="bodyTable"><tr class="a"><th>Goal</th>
+<th>td</th>
+</tr>
+<tr class="b"><td>cactus:compile</td>
+<td>
+                        Compiles the Cactus tests.
+                    </td>
+</tr>
+<tr class="a"><td>cactus:cactifywar</td>
+<td>
+                        Creates a Cactus-ready WAR from the application WAR. To be used
+                        in WAR projects.
+                    </td>
+</tr>
+<tr class="b"><td>cactus:cactifyear</td>
+<td>
+                        Creates a Cactus-ready EAR to unit test EJBs. To be used in EJB
+                        projects.
+                    </td>
+</tr>
+<tr class="a"><td>cactus:test</td>
+<td>
+                        Run the Cactus tests (packaged in a WAR) on the containers for which
+                        you have defined a
+                        <code>cactus.home.[container td]</code>
+                        property.
+                    </td>
+</tr>
+<tr class="b"><td>cactus:single</td>
+<td>
+                        Run a single Cactus test (packaged in a WAR) on the containers for
+                        which you have defined a
+                        <code>cactus.home.[container td]</code>
+                        property. Pass the td of the testcase in using
+                        <code>-Dtestcase=my.single.TestCase</code>.
+                    </td>
+</tr>
+<tr class="a"><td>cactus:match</td>
+<td>
+                        Run all Cactus tests (packaged in a WAR) that match a property
+                        <code>-Dtestmatch=MyTestCase</code>
+                        on the containers for which you
+                        have defined a <code>cactus.home.[container td]</code> property.
+                    </td>
+</tr>
+<tr class="b"><td>cactus:test-ear</td>
+<td>
+                        Run the Cactus tests (packaged in an EAR) on the containers for which
+                        you have defined a
+                        <code>cactus.home.[container td]</code>
+                        property.
+                    </td>
+</tr>
+<tr class="a"><td>cactus:report</td>
+<td>
+                        Generate an HTML report for the Cactus tests that been run. In order
+                        to get this report as part of the generated web site, add the
+                        following to your <code>project.xml</code>:
+                        <div class="source"><pre>
+  &lt;reports&gt;
+    [...]
+    &lt;report&gt;maven-cactus-plugin&lt;/report&gt;
+    [...]
+  &lt;/reports&gt;
+</pre>
+</div>
+</td>
+</tr>
+<tr class="b"><td>cactus:jar</td>
+<td>
+                        Generate a jar containing the Cactus test classes.
+                    </td>
+</tr>
+<tr class="a"><td>cactus:jar-install</td>
+<td>
+                        Installs the Cactus jar in your local Maven repository. This is
+                        useful if you wish to put Cactus test classes in one Maven
+                        project and execute the Cactus tests in another Maven project.
+                    </td>
+</tr>
+</table>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

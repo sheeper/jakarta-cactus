@@ -1,0 +1,472 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - Public API/SPI vs internal classes</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../writing/howto_ejb.html">Writing tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/index.html">Running tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+            
+            
+      
+            
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="../participating/index.html">Participating</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../participating/contributors.html">About Us</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/todo.html">Roadmap</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel" class="externalLink">TODO/Open Issues</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/coding_conventions.html">Coding Conventions</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Public API/SPIs</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="http://jakarta.apache.org/site/cvsindex.html" class="externalLink">SVN</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/howto_build.html">Build From Source</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/release_checklist.html">Release Checklist</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/logos.html">Logos</a>
+          </li>
+              </ul>
+        </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="Cactus_API_design_rules"></a>Cactus API design rules</h2>
+<note>
+                Most of these rules are extracted from the excellent
+                <a href="http://www.eclipse.org/articles/Article-API%20use/eclipse-api-usage-rules.html" class="externalLink">How to Use the
+                    Eclipse API
+                </a>
+                article
+                by Jim des Rivieres.
+            </note><div class="section"><h2><a name="Public_APIsSPIs"></a>Public APIs/SPIs</h2>
+<p>
+                    To try to draw the line more starkly, the code base for the platform
+                    is separated into API/SPI and non-API/non-SPI packages, with all
+                    API/SPI elements being declared in designated API/SPI packages.
+                </p>
+<ul><li><strong>API/SPI package</strong>: a Java package that contains at
+                        least one API/SPI class or API/SPI interface. The names of API/SPI
+                        packages are advertised in the documentation for that component;
+                        where feasible, all other packages containing only implementation
+                        details have &quot;internal&quot; in the package name. The names of API/SPI
+                        packages may legitimately appear in client code. For the Cactus
+                        project, these are:
+                    </li>
+<div class="source"><pre>
+  org.apache.cactus.foo.*          - API
+  org.apache.cactus.spi.foo.*      - SPI
+  org.apache.cactus.internal.foo.* - not API; internal implementation packages 
+  org.apache.cactus.sample.*       - not API; these are examples
+</pre>
+</div>
+<li><strong>API/SPI class or interface</strong>: a public class or
+                        interface in an API package, or a public or protected class or
+                        interface member declared in, or inherited by, some other API
+                        class or interface. The names of API classes and interfaces may
+                        legitimately appear in client code.
+                    </li>
+<li><strong>API/SPI method or constructor</strong>: a public or
+                        protected method or constructor either declared in, or inherited
+                        by, an API/SPI class or interface. The names of API/SPI methods
+                        may legitimately appear in client code.
+                    </li>
+<li><strong>API/SPI field</strong>: a public or protected field either
+                        declared in, or inherited by, an API/SPI class or interface. The
+                        names of API/SPI fields may legitimately appear in client code.
+                    </li>
+</ul>
+<p>
+                    Everything else is considered internal implementation detail and off
+                    limits to all clients. Legitimate client code must never reference
+                    the names of non-API/non-SPI elements (not even using Java
+                    reflection). In some cases, the Java language's name accessibility
+                    rules are used to disallow illegal references. However, there are
+                    many cases where this is simply not possible. Observing this one
+                    simple rule avoids the problem completely:
+                </p>
+<ul><li>
+                        Stick to officially documented APIs/SPIs. Only reference packages
+                        that are documented in the published API/SPI Javadoc for the
+                        component. Never reference a package belonging to another component
+                        that has &quot;internal&quot; in its name --- these are never API/SPI. Never
+                        reference a package for which there is no published API/SPI Javadoc
+                        --- these are not API/SPI either.
+                    </li>
+</ul>
+</div>
+<div class="section"><h2><a name="No_public_methods_in_internal_packages"></a>No public methods in internal packages</h2>
+<p>
+                    In order to preserve binary compatibility, no user public API/SPI
+                    must be located in internal packages.
+                </p>
+</div>
+<div class="section"><h2><a name="No_public_class_exposed_as_much_as_possible"></a>No public class exposed as much as possible</h2>
+<p>
+                    Only interfaces should be exposed in the public API/SPI (as much as
+                    possible). This will satisfy binary compatibility and allow future
+                    extensibility. Of course, in some cases, it is not possible. For
+                    example, <code>ServletTestCase</code> has to be a class as it
+                    contains logic required to transform a JUnit test case into a Cactus
+                    test case. Same for <code>ServletTestSuite</code> as the way to use
+                    it in a JUnit <code>suite()</code> method is to create an instance
+                    of it.
+                </p>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

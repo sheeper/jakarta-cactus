@@ -1,0 +1,577 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - Release Checklist</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../writing/howto_ejb.html">Writing tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/index.html">Running tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+            
+            
+      
+              
+            <li class="expanded">
+                    <a href="../participating/index.html">Participating</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../participating/contributors.html">About Us</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/todo.html">Roadmap</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel" class="externalLink">TODO/Open Issues</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/coding_conventions.html">Coding Conventions</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/apis.html">Public API/SPIs</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="http://jakarta.apache.org/site/cvsindex.html" class="externalLink">SVN</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../participating/howto_build.html">Build From Source</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Release Checklist</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="../participating/logos.html">Logos</a>
+          </li>
+              </ul>
+        </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="Release_Checklist"></a>Release Checklist</h2>
+<note>
+                This checklist does not include how to release the Maven plugin
+                for Cactus.
+            </note><p>
+                Checklist of tasks to perform for each release:
+            </p>
+<ol type="1"><li>
+                    Ensure that all
+                    <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel" class="externalLink">
+                        open bugs
+                    </a>
+                    have
+                    been either fixed, or added in the announcement file. Note that
+                    improvements do not need to be added to the announcement file.
+                </li>
+<li>
+                    Ensure that the Cactus tests have been run on several application
+                    servers and update the
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On</a>
+                    page accordingly.
+                </li>
+<li>
+                    Ensure that Cactus works with the latest released versions of the
+                    external libraries it uses (Commons-logging, HttpClient, HttpUnit,
+                    etc) and update the <code>dependencies.xml.default</code> file to
+                    use these latest versions.
+                </li>
+<li>
+                    Ensure that the
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Todo</a>
+                    page
+                    has no more items for the current version.
+                </li>
+<li>
+                    Update the <code>ANNOUNCEMENT.txt</code> file in CVS with the release
+                    notes. A <a href="release_checklist.html#announcement_template">sample announcement
+                    template
+                </a> is provided at the bottom of this page.
+                </li>
+<li>
+                    Ensure you have added a news item for the new Cactus release on
+                    the <a href="news.html">News</a> page.
+                </li>
+<li>
+                    Edit <code>changes.xml</code> and replace &quot;<code>in CVS</code>&quot; with
+                    the date of the release.
+                </li>
+<li>
+                    Edit <code>build-common.xml</code> and
+                    modify the <code>project.version.*</code> Ant properties so that
+                    they reflect the version number for the release (no
+                    <code>dev</code>
+                    suffix should remain). Commit the changes.
+                </li>
+<li>
+                    CVS Checkout a clean copy of Cactus so that no local files are
+                    included in the distribution and to verify it really works.
+                </li>
+<li>
+                    Build the Cactus release for all Servlet APIs (<code>ant
+                    release
+                </code> at the top level).
+                    <em>Note: Make sure you are
+                        connected to the internet when building the releases as the
+                        documentation subproject needs the CVS logs for the changes
+                        page.
+                    </em></li>
+<li>
+                    Install each delivered release on your local computer and try running
+                    the Sample application tests for one application server.
+                </li>
+<li>
+                    Upload the Cactus releases (for all Servlet APIs and the source one)
+                    and the zipped Ant distribution to <code>cvs.apache.org</code>,
+                    putting them in the
+                    <code>/www/www.apache.org/dist/jakarta/cactus</code>
+                    directory (binaries go in <code>binaries/</code> and sources in
+                    <code>source/</code>). Also make sure you link the latest versions
+                    to the <code>*-current.zip</code> files.
+                </li>
+<li>
+                    Upload the Cactus website by running <code>ant upload</code> in the
+                    Cactus <code>documentation/</code> project (after you have run
+                    <code>ant release</code>
+                    from the top level).
+                </li>
+<li>
+                    Tag the CVS HEAD with a new release tag named
+                    <code>CACTUS_&lt;version&gt;_RELEASE</code>
+                    (ex:
+                    <code>CACTUS_14_RELEASE</code>).
+                </li>
+<li>
+                    Checkout the <code>jakarta-site2</code> CVS module. Modify the
+                    following files and then run <code>ant</code>. Commit the modified
+                    files. Then log on <code>cvs.apache.org</code>, go to
+                    <code>/www/jakarta.apache.org/site</code>
+                    and type
+                    <code>cvs update</code>.
+                    <ul><li><code>news.xml</code></li>
+<li><code>binindex.xml</code></li>
+<li><code>sourceindex.xml</code></li>
+<li><code>index.xml</code></li>
+</ul>
+</li>
+<li>
+                    Add a new version in JIRA so that users can enter bugs for the
+                    new version released.
+                </li>
+<li>
+                    Go to the <code>integration/maven</code> directory, copy the <code>
+                    build.properties.sample
+                </code> to <code>build.properties</code>,
+                    set the proper values on <code>build.properties</code> and run
+                    <code>maven site:deploy</code>, <code>maven plugin:deploy</code> and
+                    <code>maven jar:deploy</code>.
+                </li>
+<li>
+                    Login on <code>people.apache.org</code> and manually create the
+                    .jar and .md5 files that should go to
+                    <code>/www/www.apache.org/dist/java-repository/cactus/jars</code>
+                    (the .jar files are inside the generated .zip files; the .md5 can
+                    be generated by the command <code>md5 -q</code>.
+                </li>
+<li>
+                    Prepare the next version by editing again the
+                    <code>build-common.xml</code>
+                    file and modifying the
+                    <code>project.*.version</code>
+                    properties with the new development
+                    version (for example after releasing 1.5, the new development
+                    version is 1.6dev).
+                </li>
+<li>
+                    Announce the release on the following locations (using the
+                    <code>ANNOUNCEMENT.txt</code>
+                    as the email content):
+                    <ul><li>
+                            Cactus user mailing list: Send the announcement there with a
+                            subject of <code>[ANN] Cactus &lt;version&gt; has been
+                            released</code>.
+                        </li>
+<li>
+                            Jakarta Announcement mailing list
+                            (<code>announcements@jakarta.apache.org</code>): Send the
+                            announcement there with a subject of <code>[ANN] Cactus
+                            &lt;version&gt; has been released</code>.
+                        </li>
+</ul>
+</li>
+</ol>
+</div>
+<anchor id="announcement_template"><div class="section"><h2><a name="Announcement_template"></a>Announcement template</h2>
+<div class="source"><pre>
+The Cactus project is pleased to announce the release of version &lt;v&gt;.
+Cactus is a unit testing framework for testing server side java code.
+
+Goals
+-----
+
+[add description of main focus here]
+
+Main new features
+-----------------
+
+[add main new features here]
+
+Changes
+-------
+
+Please check the Changes page at
+http://jakarta.apache.org/cactus/changes.html for a full list of the 
+changes in version &lt;v&gt;. 
+
+Known limitations and bugs:
+---------------------------
+
+[add main limitations and known bugs here]
+
+For more information about Cactus, please visit
+http://jakarta.apache.org/cactus/.
+
+Have fun,
+-The Cactus team
+</pre>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

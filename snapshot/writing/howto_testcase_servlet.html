@@ -1,0 +1,697 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jakarta Cactus - ServletTestCase Principles</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://jakarta.apache.org/cactus/" id="bannerLeft">
+    
+                                            <img src="../images/logocactus.gif" alt="" />
+    
+            </a>
+                        <a href="http://jakarta.apache.org/" id="bannerRight">
+    
+                                            <img src="../images/jakarta-logo.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+    
+            <div class="xleft">
+        Last Published: 2016-11-27
+                          |   
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://www.jakarta.apache.org/" class="externalLink">Jakarta</a>
+                &gt;
+      
+                <a href="http://jakarta.apache.org/cactus/" class="externalLink">Cactus</a>
+                          </div>
+            <div class="xright">      
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+    
+                   <h5>About</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index.html">Overview</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../goals.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../features.html">Features</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../news.html">News</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../downloads.html">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" class="externalLink">Bug Database</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mail-lists.html">Mailing Lists</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/FrontPage" class="externalLink">Wiki</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../license.html">License</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../getting_started.html">Getting started</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../how_it_works.html">How it works</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+            
+              
+            <li class="expanded">
+                    <a href="../writing/howto_ejb.html">Writing tests</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="../writing/howto_ejb_j2eeri.html">Howto EJB</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_ejb_3.html">Howto EJB3</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_httpunit.html">Howto HTTPUnit</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_htmlunit.html">Howto HTMLUnit</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_jsp.html">Howto JSP</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_security.html">Howto Security</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase.html">Howto TestCase</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_jsp.html">Howto TestCase-JSP</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="../writing/howto_testcase_filter.html">Howto TestCase-Filter</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Howto TestCase-Servlet</strong>
+        </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../integration/index.html">Running tests</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../participating/index.html">Participating</a>
+                </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../cactusname.html">Why the name</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../mock_vs_cactus.html">Mock vs Container</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://wiki.apache.org/jakarta-cactus/TestedOn" class="externalLink">Tested On...</a>
+          </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../resources/index.html">Resources</a>
+                </li>
+          </ul>
+              <h5>Translations</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.ressources-java.net/cactus" class="externalLink">French</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://jakarta.apache-korea.org/cactus/index.html" class="externalLink">Korean</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.jajakarta.org/cactus/" class="externalLink">Japanese</a>
+          </li>
+          </ul>
+              <h5>See also</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://www.apachebookstore.com/" class="externalLink">Apache Bookstore</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://www.planetapache.org/" class="externalLink">Planet Apache</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://apache.org/foundation/thanks.html" class="externalLink">Apache Sponsors</a>
+          </li>
+          </ul>
+                                                 
+                        
+                        
+            <a href="http://jakarta.apache.org/cactus/" title="Jakarta Cactus" class="poweredBy">
+                            <img alt="Jakarta Cactus" src="../images/cactusbanner.gif" />
+            </a>
+                               
+  
+
+  
+    
+  
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="When_to_use"></a>When to use?</h2>
+<p>
+                Your test case class should extend
+                <code>ServletTestCase</code>
+                whenever you are unit testing:
+            </p>
+<ul><li>
+                    Servlets,
+                </li>
+<li>
+                    Any java code that uses Servlet API objects
+                    (<code>HttpServletRequest</code>, ...)
+                </li>
+</ul>
+</div>
+<div class="section"><h2><a name="Provided_Implicit_Objects"></a>Provided Implicit Objects</h2>
+<p>
+                Cactus automatically initializes the implicit objects for you and
+                they are made available to your <code>setUp()</code>,
+                <code>testXXX()</code>
+                and <code>tearDown()</code> methods as
+                instance variables of the <code>ServletTestCase</code> class (and thus
+                as instance variables of your test case class as it extends
+                <code>ServletTestCase</code>).
+            </p>
+<note>
+                You may ask yourself how Cactus initializes these objects. The
+                mechanism is described in the <a href="../how_it_works.html">How it
+                works
+            </a> guide.
+            </note><p>
+                The provided implicit objects are:
+            </p>
+<anchor id="servlet_request"><div class="section"><h2><a name="request"></a>request</h2>
+<table class="bodyTable"><tr class="a"><td>
+                            Instance variable name
+                        </td>
+<td><strong><code>request</code></strong></td>
+</tr>
+<tr class="b"><td>
+                            Class name
+                        </td>
+<td><code>org.apache.cactus.server.HttpServletRequestWrapper
+                            </code>, which inherits from
+                            <code>javax.servlet.http.HttpServletRequest</code></td>
+</tr>
+</table>
+<p>
+                    Cactus wraps methods of the original HTTP request in order to return
+                    the HTTP related parameters set up in the
+                    <code>beginXXX()</code>
+                    method. Thus, you will be able to pass this request object to
+                    your code to test and set the needed parameter in the
+                    <code>beginXXX()</code>
+                    method.
+                </p>
+<p>
+                    For example, if your code under test calls
+                    <code>getCookies()</code>
+                    on the request object that you have
+                    passed to it, it will return the cookies that you have added to the
+                    HTTP request in <code>beginXXX()</code> by calling the
+                    <code>WebRequest.addCookie()</code>
+                    method.
+                </p>
+<p>
+                    See the javadoc for the
+                    <code>org.apache.cactus.WebRequest</code>
+                    interface and the
+                    <code>org.apache.cactus.server.HttpServletRequestWrapper
+                    </code>
+                    class for all details. You should also look at the
+                    samples provided in the Cactus distribution.
+                </p>
+<div class="section"><h2><a name="Additional_methods"></a>Additional methods</h2>
+<p>
+                        Cactus provides some additional methods to ease writing tests
+                        (see the javadoc for full details). These methods are provided
+                        because it is not easy (if not downright impossible in some
+                        cases) to simulate them with real configuration data:
+                    </p>
+<ul><li><code>setRemoteIPAddress()</code>: sets the remote IP address
+                            that will be returned by <code>getRemoteIPAddress()</code>,
+                        </li>
+<li><code>setRemoteHostName()</code>: sets the remote Host name
+                            that will be returned by <code>getRemoteHostName()</code>,
+                        </li>
+<li><code>setRemoteUser()</code>: sets the remote user name
+                            that will be returned by <code>getRemoteUser()</code>.
+                        </li>
+</ul>
+</div>
+</div>
+<anchor id="servlet_response"><div class="section"><h2><a name="response"></a>response</h2>
+<table class="bodyTable"><tr class="a"><td>
+                            Instance variable name
+                        </td>
+<td><strong><code>response</code></strong></td>
+</tr>
+<tr class="b"><td>
+                            Class name
+                        </td>
+<td><code>javax.servlet.http.HttpServletResponse</code></td>
+</tr>
+</table>
+<note>
+                    Cactus does not wrap the response.
+                </note></div>
+<anchor id="servlet_config"><div class="section"><h2><a name="config"></a>config</h2>
+<table class="bodyTable"><tr class="a"><td>
+                            Instance variable name
+                        </td>
+<td><strong><code>config</code></strong></td>
+</tr>
+<tr class="b"><td>
+                            Class name
+                        </td>
+<td><code>org.apache.cactus.server.ServletConfigWrapper
+                            </code>, which inherits from
+                            <code>javax.servlet.ServletConfig</code></td>
+</tr>
+</table>
+<p>
+                    Cactus wraps the original Servlet Config for two reasons:
+                </p>
+<ul><li>
+                        In order to provide additional methods. For example, it is
+                        possible to initialise parameters without setting them in
+                        <code>web.xml</code>, etc...,
+                    </li>
+<li>
+                        So that it can return a wrapped Servlet Context instead of the
+                        original one. This is because the Servlet Context is used
+                        to perform forwards and includes and we need to pass to these
+                        methods the original request and response. As we have wrapped
+                        the request, we need to wrap the Servlet Context to pass the
+                        original request (and not the wrapped one).
+                    </li>
+</ul>
+<p>
+                    The <code>config</code> implicit object will contain all
+                    initialisation parameters defined in
+                    <code>web.xml</code>
+                    under the Servlet Redirector servlet definition.
+                </p>
+<p>
+                    See the javadoc for the
+                    <code>org.apache.cactus.server.ServletConfigWrapper</code>
+                    class for all details. You should also look at the
+                    samples provided in the Cactus distribution.
+                </p>
+<div class="section"><h2><a name="Additional_methods"></a>Additional methods</h2>
+<p>
+                        Additional methods provided:
+                    </p>
+<ul><li><code>setInitParameter()</code>: sets an initialisation
+                            parameter (as if it has been defined in the
+                            <code>web.xml</code>
+                            file),
+                        </li>
+<li><code>setServletName()</code>: sets the Servlet name that will be
+                            returned by <code>getServletName()</code> (if not set, the
+                            Cactus Servlet redirector name will be returned).
+                        </li>
+</ul>
+</div>
+</div>
+<anchor id="servlet_context"><div class="section"><h2><a name="ServletContextWrapper"></a>ServletContextWrapper</h2>
+<p>
+                    This is not an implicit object per see (as it is not accessible as
+                    an instance variable). It is available by calling
+                    <code>config.getServletContext()</code>.
+                </p>
+<p>
+                    However, Cactus wraps the <code>ServletContext</code> in a
+                    <code>ServletContextWrapper</code>
+                    in order to take into account
+                    simulated URLs and provide additional methods to help write tests.
+                </p>
+<p>
+                    See the javadoc for the
+                    <code>org.apache.cactus.server.ServletContextWrapper</code>
+                    class for all details. You should also look at the
+                    samples provided in the Cactus distribution.
+                </p>
+<div class="section"><h2><a name="Additional_methods"></a>Additional methods</h2>
+<p>
+                        Additional methods provided:
+                    </p>
+<ul><li><code>getLogs()</code>: returns the text that has been logged
+                            by calls to <code>ServletContext.log()</code> methods. This is
+                            a helper method that makes it easy to assert what is logged.
+                        </li>
+<li><code>setInitParameter()</code>: sets an initialisation
+                            parameter (as if it has been defined in the
+                            <code>web.xml</code>
+                            file, using the <code>&lt;context-param&gt;</code> element).
+                        </li>
+</ul>
+</div>
+</div>
+<anchor id="servlet_session"><div class="section"><h2><a name="session"></a>session</h2>
+<table class="bodyTable"><tr class="a"><td>
+                            Instance variable name
+                        </td>
+<td><strong><code>session</code></strong></td>
+</tr>
+<tr class="b"><td>
+                            Class name
+                        </td>
+<td><code>javax.servlet.http.HttpSession</code></td>
+</tr>
+</table>
+<note>
+                    Cactus does not wrap the response.
+                </note><p>
+                    By default, Cactus always creates an HTTP session for your test
+                    case. It is possible to tell it not to do so by calling the
+                    <code>WebRequest.setAutomaticSession(false)</code>
+                    method (it is
+                    <code>true</code>
+                    by default). This could be useful for cases
+                    where your code under test verifies branches when
+                    &quot;<code>request.getSession(false)</code>&quot; is <code>null</code>.
+                </p>
+</div>
+</div>
+<div class="section"><h2><a name="Tips_and_Tricks"></a>Tips and Tricks</h2>
+<div class="section"><h2><a name="Parameter_initialisation"></a>Parameter initialisation</h2>
+<p>
+                    If your code under test make use of any of the servlet methods
+                    inherited from <code>javax.servlet.GenericServlet</code> (these are
+                    the <code>log()</code>, <code>getServletConfig()</code>, ...
+                    methods), then you need to call the
+                    <code>init(ServletConfig)</code>
+                    method of your servlet to initialise its internal
+                    <code>ServletConfig</code>
+                    object.
+                </p>
+<p>
+                    For example:
+                </p>
+<div class="source"><pre>
+public void testXXX()
+{
+    MyServletToTest servlet = new MyServletToTest();
+    servlet.init(config);
+
+    // Call a method to test that uses a method inherited from Generic Servlet
+    servlet.someMethodToTest();
+
+[...]
+}
+</pre>
+</div>
+<p>
+                    See the samples provided as part of the Cactus distribution.
+                </p>
+</div>
+</div>
+<div class="section"><h2><a name="Sample"></a>Sample</h2>
+<p>
+                This is a very basic sample intended to give you a flavour of Servlet
+                unit testing. Check the distribution samples for extensive
+                examples.
+            </p>
+<note>
+                This example is for Cactus 1.2 and above as it uses the new
+                <code>WebRequest</code>
+                and <code>WebResponse</code> objects.
+            </note><div class="source"><pre>
+public void beginXXX(WebRequest theRequest)
+{
+    // Set up HTTP related parameters
+    theRequest.setURL(&quot;jakarta.apache.org&quot;, &quot;/mywebapp&quot;, &quot;/test/test.jsp&quot;,
+        null, null);
+    theRequest.addCookie(&quot;cookiename&quot;, &quot;cookievalue&quot;);
+}
+
+public void testXXX()
+{
+    MyServletToTest servlet = new MyServletToTest();
+    servlet.init(config);
+
+    // Call method to test
+    servlet.methodToTest();
+
+    // Perform some server side asserts
+    assertEquals(&quot;someValue&quot;, session.getAttribute(&quot;someAttribute&quot;));
+    assertEquals(&quot;jakarta.apache.org&quot;, request.getServerName());
+}
+
+public void endXXX(WebResponse theResponse)
+{
+    // Asserts the returned HTTP response
+
+    Cookie cookie = theResponse.getCookie(&quot;someCookie&quot;);
+    assertEquals(&quot;someValue2&quot;, cookie.getValue());
+
+    assertEquals(&quot;some content here&quot;, theResponse.getText());
+}
+</pre>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2001-2016
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+  
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>
