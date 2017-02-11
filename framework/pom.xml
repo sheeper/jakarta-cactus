@@ -93,7 +93,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mortbay.jetty</groupId>
+            <groupId>jetty</groupId>
             <artifactId>org.mortbay.jetty</artifactId>
             <scope>test</scope>
         </dependency>
