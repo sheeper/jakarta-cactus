@@ -105,11 +105,6 @@
             </dependency>
             <dependency>
                 <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo</artifactId>
-                <version>1.0-alpha-4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-core-uberjar</artifactId>
                 <version>1.0-alpha-4</version>
             </dependency>
@@ -285,6 +280,11 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.0-alpha-4</version>
                 </plugin>
                 <!-- plugins for packaging -->
                 <plugin>
