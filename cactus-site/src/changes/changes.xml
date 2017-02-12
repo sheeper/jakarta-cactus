@@ -31,919 +31,896 @@
     </properties>
 
     <body>
-        <section name="Summary of changes">
-            <ul>
-                <li>
-                    <link href="site:news">News and Events</link>
-                </li>
-                <li>
-                    <jump anchor="release_changes">Release changes</jump>
-                </li>
-            </ul>
-        </section>
 
         <!-- ================================================================= -->
         <!-- Release changes -->
         <!-- ================================================================= -->
 
-        <anchor id="release_changes"/>
-        <releases title="Release changes">
+        <release version="1.8.2" date="2017" description="Migration to GitHub">
+            <action dev="geissld" type="add">
+                Update the documentation.
+                <fixes issue="#13" />
+            </action>
+            <action dev="geissld" type="update">
+                Various changes to the build to enable it for Maven3 and automatic build with TravisCI.
+                <fixes issue="#1" />
+                <fixes issue="#4" />
+                <fixes issue="#7" />
+                <fixes issue="#8" />
+                <fixes issue="#9" />
+            </action>
+        </release>
+        <release version="1.8.1" date="18 January 2009">
+            <action dev="PTT" type="update">
+                Some issues have been fixed on the JIRA. Consult with the JIRA report on exactly which ones
+                were fixed and what was the resolution.
+            </action>
+            <action dev="PTT" type="add">
+                Added a sample application on how to test EJB3 applications.
+            </action>
+            <action dev="PTT" type="update">
+                Cactus documentation have been updated.
+            </action>
+            <action dev="PTT" type="add">
+                A cactus-maven2 plugin has been added for a better integration with Maven2. The plugin allows you to
+                cactify your WAR and EAR applications.
+            </action>
+        </release>
+        <release version="1.8" date="04 April 2008">
+            <action dev="PTT" type="update">
+                The new Cactus web-site is officially launched. We have a new skin and the site is now build with
+                the new Maven2 build system.
+            </action>
+            <action dev="PTT" type="add"><![CDATA[
+                Cactus is now integrated with Cargo.
+                So from now on <b>Cargo</b> is responsible for bringing up and shutting down the containers for
+                Cactus.]]>
+            </action>
+            <action dev="PTT" type="update">
+                Cactus's build system is now moved to Maven.
+            </action>
+            <action dev="VMA" type="update">
+                Since version 1.7.1 of Cactus all changes are now recorded using
+                Apache's JIRA. The list of changes for an unreleased version is available in the
+                JIRA roadmap report and the released version changes in the JIRA changelog report.
+            </action>
+        </release>
 
-            <p>
-                The changes below are important changes visible to the user. Small
-                scale changes that are not externally visible are available from
-                the Cactus CVS using the cvs log feature or using the ViewCVS
-                interface.
-            </p>
-            <p>
-                Older release changes are <a href="site:changes_archive">archived</a>.
-            </p>
-            <p>
-                Changes to the Maven Cactus plugin can be found on the
-                <a href="ext:integration_maven_changes">Maven integration release
-                    changes page</a>.
-            </p>
+        <release version="1.7" date="28 Jan 2005">
+            <action dev="VMA" type="update">
+                Tested with Orion 1.6.0b, Orion 2.0.4, Tomcat 4.1.31, Tomcat 5.0.29,
+                Resin 2.1.14, Resin 3.0.9, JBoss 3.2.6.
+            </action>
+            <action dev="VMA" type="update">
+                Added support for Resin 3.0.9 and above.
+            </action>
+            <action dev="VMA" type="update">
+                Upgraded following dependencies: Commons BeanUtils to 1.7.0, Commons
+                Collections to 3.1, Commons HttpClient to 2.0.2 and Commons Logging
+                to 1.0.4.
+            </action>
+            <action dev="FAL" type="add" issue="CACTUS-158" due-to="Matheus Bianconi">
+                Add attribute jvmArgs in the container tasks.
+            </action>
+            <action dev="VMA" type="fix">
+                The &lt;resin3x&gt; element of the
+                &lt;cactus&gt;> task is now correctly using the
+                user-defined port (port attribute). The port was
+                previously hardcoded to 8080.
+            </action>
+            <action dev="VMA" type="fix">
+                The Cactus Servlet Test Runner now re-initializes the Cactus
+                configuration when it is called the first time (in its
+                init() method). This allows testing several webapps
+                in the same JVM (i.e without restarting the container).
+            </action>
+            <action dev="VMA" type="add" issue="CACTUS-119">
+                The &lt;jboss3x&gt; container element now supports
+                running JBoss in a temporary directory, specified by the
+                tmpdir attribute. In addition, by using the
+                configDir attribute, you can now specify a
+                directory where you have stored a custom JBoss server configuration
+                (identified by the config attribute).
+                This configuration will be copied to the tmp directory and used
+                to configure JBoss.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-123" due-to="Maxwell Grender-Jones">
+                Cactus was failing with a NullPointerException if the
+                response was not returning any output stream (which happens if
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT) is
+                called for example).
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-122" due-to="Raphael Philipe Mendes da Silva">
+                Fixed "java.lang.NumberFormatException: For input string:
+                "localhost"" error that was happening when using the
+                &lt;cactus&gt; task with JBoss 3.0.8. It was due to the fact that
+                JBoss 3.0.8 does not support the new --server parameter
+                which works with newer versions of JBoss 3.x
+            </action>
+            <action dev="VMA" type="add">
+                Added new &lt;resin2x&gt; and
+                &lt;resin3x&gt; tasks to start/stop
+                Resin 2.x/3.x instances.
+            </action>
+            <action dev="VMA" type="update">
+                Building Cactus from the sources now requires Ant 1.6.1+ (Ant 1.6.2
+                if you're using JDK 5). The Cactus build also been simplified a lot
+                and external libraries are automatically downloaded from ibiblio.org
+                if not present on the file system.
+            </action>
+            <action dev="VMA" type="update" issue="CACTUS-120">
+                Ensure faster shutdown times with WebLogic 7.x by using the
+                FORCESHUTDOWN WebLogic command instead of the graceful
+                one.
+            </action>
+            <action dev="VMA" type="update" issue="CACTUS-118">
+                The JettyTestSetup class now checks if the Jetty server
+                is already started and only starts it if it isn't running. It also
+                does not stops it if it was running before JettyTestSetup
+                was called. This is useful when you have a master test suite and when
+                you also wish to run your tests one by one.
+            </action>
+        </release>
 
-            <release version="1.8.2">
-                <action dev="geissld" type="update" date="1 November 2016" issue="#1">
-                    Migration of the project to GitHub. Various changes to the build to enable it for Maven3
-                    and automatic build with TravisCI.
-                </action>
-            </release>
+        <release version="1.6.1" date="14 May 2004">
+            <action dev="VMA" type="fix" issue="CACTUS-107">
+                An error was introduced in the Servlet Test Runner during the
+                internal package refactoring that happened in Cactus 1.6. The
+                XMLTransformer could not be loaded and it resulted
+                in a ClassNotFoundException exception.
+            </action>
+        </release>
 
-            <release version="1.8.1" date="18 January 2009">
-                <action dev="PTT" type="update">
-                    Some issues have been fixed on the JIRA. Consult with the JIRA report on exactly which ones
-                    were fixed and what was the resolution.
-                </action>
-                <action dev="PTT" type="add">
-                    Added a sample application on how to test EJB3 applications.
-                </action>
-                <action dev="PTT" type="update">
-                    Cactus documentation have been updated.
-                </action>
-                <action dev="PTT" type="add">
-                    A cactus-maven2 plugin has been added for a better integration with Maven2. The plugin allows you to
-                    cactify your WAR and EAR applications.
-                </action>
-            </release>
-            <release version="1.8" date="04 April 2008">
-                <action dev="PTT" type="update">
-                    The new Cactus web-site is officially launched. We have a new skin and the site is now build with
-                    the new Maven2 build system.
-                </action>
-                <action dev="PTT" type="add">
-                    Cactus is now integrated with Cargo.
-                    So from now on <b>Cargo</b> is responsible for bringing up and shutting down the containers for
-                    Cactus.
-                </action>
-                <action dev="PTT" type="update">
-                    Cactus's build system is now moved to Maven.
-                </action>
-                <action dev="VMA" type="update">
-                    Since version 1.7.1 of Cactus all changes are now recorded using
-                    Apache's JIRA. The list of changes for an unreleased version is available in the
-                    JIRA roadmap report and the released version changes in the JIRA changelog report.
-                </action>
-            </release>
+        <release version="1.6" date="08 May 2004">
+            <action dev="VMA" type="update">
+                The ServletTestRunner now looks for am optional
+                cactus.properties file and reads its properties. If
+                not defined it sets default values for the context URL of the
+                Cactus redirectors and for their mappings.
+            </action>
+            <action dev="VMA" type="update">
+                Updated web site documentation for enabling Cactus logging.
+            </action>
+            <action dev="VMA" type="update">
+                Due to some internal package restructuration (all non public API were
+                moved to internal packages), the
+                jspredirector.jsp file was modified. If you have
+                installed this file manually somewhere, you'll need to remember to
+                update it.
+            </action>
+            <action dev="VMA" type="update">
+                Big internal restructuration: we have moved all the non public API
+                classes to java packages with the name internal. For
+                example the package org.apache.cactus.internal is a
+                package containing some internal implementation. You should not use
+                any internal class in your own development as these classes may
+                change at any time in the future. If you find you need access to some
+                internal class, please send an email to the Cactus mailing class
+                explaining the reason and we may open up some API/SPI.
+            </action>
+            <action dev="VMA" type="remove">
+                Removed org.apache.cactus.util.HttpURLConnection class.
+                It was a Commons HttpClient wrapper on top of the
+                java.net.HttpURLConnection class. However, this class is
+                now fully integrated in the Commons HttpClient jar.
+            </action>
+            <action dev="VMA" type="add">
+                Added new optional nested &lt;containerclasspath&gt;
+                element for the &lt;cactus&gt; task. It allows
+                specifying additional jars that will be put in the classpath used to
+                start/stop the specified containers.
+            </action>
+            <action dev="VMA" type="remove">
+                Removed ability to choose different HTTP connection helpers. The only
+                one supported now is the Commons HttpClient one provided internally
+                by Cactus. Thus the cactus.connectionHelper.classname
+                property is now removed.
+            </action>
+            <action dev="VMA" type="remove">
+                Removed deprecated classes in the
+                org.apache.cactus.ant packages as they have been
+                deprecated for a long time.
+            </action>
+            <action dev="VMA" type="fix">
+                Fixed bug in HttpServletRequestWrapper.include() where
+                the passed request was not the original request. The problem was
+                only apparent with Tomcat 3.x.
+            </action>
+            <action dev="VMA" type="add">
+                Added support for Tomcat 3.3.2 (note that this required adding the
+                commons-logging jar to the Tomcat bootstrap classpath).
+            </action>
+            <action dev="VMA" type="update" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+                In the Form authentication code, changed the response check logic
+                for the pre-authentication step to accept any status code less
+                than 400. It was previously only accepting a 302 code but different
+                servers are implementing it differently.
+            </action>
+            <action dev="VMA" type="add">
+                Added new ServletContextWrapper.setInitParameters()
+                which allows to programatically define Context init parameters (as
+                if they had been entered in web.xml using the
+                &lt;context-param&gt; element.
+            </action>
+            <action dev="VMA" type="add">
+                Added support in the Ant integration webxmlmerge task
+                for merging &lt;context-param&gt; elements.
+            </action>
+            <action dev="VMA" type="update">
+                Updated the version of Commons HttpClient in the Cactus distribution
+                to 2.0 final.
+            </action>
+            <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+                Added new
+                FormAuthentication.setExpectedAuthResponse(int)
+                that allows to set the expected HTTP response code for an
+                authentication request which should be successful. If not
+                specified, it defaults to
+                HttpURLConnection.HTTP_MOVED_TEMP.
+            </action>
+            <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+                Added new FormAuthentication.setSessionCookieName(String)
+                that allows to set the security cookie name to a name different than
+                JSESSIONID (the default).
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-37" due-to="Kazuhito Suguri"
+                    due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+                FormAuthentication no longer assumes "localhost" when
+                adding cookies.
+            </action>
+            <action dev="VMA" type="fix" due-to="Paul Green" due-to-email="Paul.Green@ons.gsi.gov.uk">
+                Fixed bug in Cactus wrapper implementation of
+                request.getPathTranslated() which was failing when there
+                was no simulated URL defined (i.e. no call to
+                WebRequest.setURL()).
+            </action>
+            <action dev="VMA" type="update">
+                Migrated to Apache license 2.0.
+            </action>
+            <action dev="VMA" type="update" issue="CACTUS-79" due-to="Daniel Rabe"
+                    due-to-email="drabe@opentext.com">
+                The &lt;cactus&gt; task now also cleans custom tmp
+                directories (passed using the tmpdir attribute).
+            </action>
+            <action dev="VMA" type="add" issue="CACTUS-85" due-to="James Carpenter"
+                    due-to-email="jacarpenter@ercot.com">
+                Added support for specifying which JNDI port to use when shutting
+                down JBoss 3.x in the Cactus Ant integration.
+                The &lt;jboss3x&gt; nested element now supports the new
+                jndiport attribute for specifying the port. If not
+                specified, it defaults to 1099.
+            </action>
+            <action dev="VMA" type="add">
+                Added new encoding HTTP parameter for the Cactus Servlet
+                TestRunner. By default the XML returned (when there is no server-side
+                XSL transformation) is using the UTF-8 encoding. This
+                encoding parameters allows using a user-specified
+                encoding.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-89" due-to="Scott Leberknight"
+                    due-to-email="scott.leberknight@nearinfinity.com">
+                Fixed request.getRequestURL() (J2EE 1.3 only) which was
+                not working properly when WebRequest.setURL() was called
+                with a null pathinfo parameter.
+            </action>
+            <action dev="VMA" type="add">
+                Added support for Resin 3.x in the Ant integration. Only Resin 3.0.5
+                and above are supported (the reason is that it seems the configuration
+                file format has changed between Resin 3.0.3 and 3.0.5). Note that
+                Servlet API 2.4/JSP 2.0 are not yet supported by Cactus.
+            </action>
+            <action dev="VMA" type="add">
+                In the Ant integration, added new contextxml attributes
+                to the &lt;tomcat4x&gt; nested elements of the
+                &lt;cactus&gt; task. This is to support the context xml
+                configuration file that appeared with Tomcat 4.1.x. Note that for
+                Tomcat 5.x you need to use the existing nested
+                &lt;conf&gt; element (see the &lt;cactus&gt;
+                task documentation for more details).
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-84" due-to="Brian Topping"
+                    due-to-email="topping@digidemic.com">
+                In the Ant integration, added support for web contexts defined in
+                JBoss's jboss-web.xml.
+            </action>
+            <action dev="VMA" type="fix">
+                Fixed the bug where a ServletException occurs, stating:
+                The request object passed to forward() must be the request
+                object you got from your Cactus test case (i.e. a Cactus request
+                wrapper object). Instead we got [...].
+            </action>
+            <action dev="VMA" type="add" issue="CACTUS-53">
+                In the Ant integration module, added new configXml
+                attribute to the &lt;weblogic7x&gt; container
+                element of the &lt;cactus&gt; task.
+            </action>
+            <action dev="VMA" type="fix" due-to="Joe Germuska" due-to-email="Joe@Germuska.com">
+                Make the &lt;cactus&gt; task work on Mac OSX by not
+                including the tools.jar file (on Mac OSX all classes
+                are found in classes.jar).
+            </action>
+            <action dev="VMA" type="fix" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
+                Prevent requiring commons-httpclient jar to be present
+                on the server-side classpath.
+            </action>
+            <action dev="VMA" type="add">
+                Added the Maven plugin. It was formerly hosted in the Maven project's
+                own CVS. It is now in the Cactus CVS and is part of the Cactus
+                distribution.
+            </action>
+        </release>
 
-            <release version="1.7" date="28 Jan 2005">
-                <action dev="VMA" type="update">
-                    Tested with Orion 1.6.0b, Orion 2.0.4, Tomcat 4.1.31, Tomcat 5.0.29,
-                    Resin 2.1.14, Resin 3.0.9, JBoss 3.2.6.
-                </action>
-                <action dev="VMA" type="update">
-                    Added support for Resin 3.0.9 and above.
-                </action>
-                <action dev="VMA" type="update">
-                    Upgraded following dependencies: Commons BeanUtils to 1.7.0, Commons
-                    Collections to 3.1, Commons HttpClient to 2.0.2 and Commons Logging
-                    to 1.0.4.
-                </action>
-                <action dev="FAL" type="add" issue="CACTUS-158" due-to="Matheus Bianconi">
-                    Add attribute jvmArgs in the container tasks.
-                </action>
-                <action dev="VMA" type="fix">
-                    The &lt;resin3x&gt; element of the
-                    &lt;cactus&gt;> task is now correctly using the
-                    user-defined port (port attribute). The port was
-                    previously hardcoded to 8080.
-                </action>
-                <action dev="VMA" type="fix">
-                    The Cactus Servlet Test Runner now re-initializes the Cactus
-                    configuration when it is called the first time (in its
-                    init() method). This allows testing several webapps
-                    in the same JVM (i.e without restarting the container).
-                </action>
-                <action dev="VMA" type="add" issue="CACTUS-119">
-                    The &lt;jboss3x&gt; container element now supports
-                    running JBoss in a temporary directory, specified by the
-                    tmpdir attribute. In addition, by using the
-                    configDir attribute, you can now specify a
-                    directory where you have stored a custom JBoss server configuration
-                    (identified by the config attribute).
-                    This configuration will be copied to the tmp directory and used
-                    to configure JBoss.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-123" due-to="Maxwell Grender-Jones">
-                    Cactus was failing with a NullPointerException if the
-                    response was not returning any output stream (which happens if
-                    response.setStatus(HttpServletResponse.SC_NO_CONTENT) is
-                    called for example).
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-122" due-to="Raphael Philipe Mendes da Silva">
-                    Fixed "java.lang.NumberFormatException: For input string:
-                    "localhost"" error that was happening when using the
-                    &lt;cactus&gt; task with JBoss 3.0.8. It was due to the fact that
-                    JBoss 3.0.8 does not support the new --server parameter
-                    which works with newer versions of JBoss 3.x
-                </action>
-                <action dev="VMA" type="add">
-                    Added new &lt;resin2x&gt; and
-                    &lt;resin3x&gt; tasks to start/stop
-                    Resin 2.x/3.x instances.
-                </action>
-                <action dev="VMA" type="update">
-                    Building Cactus from the sources now requires Ant 1.6.1+ (Ant 1.6.2
-                    if you're using JDK 5). The Cactus build also been simplified a lot
-                    and external libraries are automatically downloaded from ibiblio.org
-                    if not present on the file system.
-                </action>
-                <action dev="VMA" type="update" issue="CACTUS-120">
-                    Ensure faster shutdown times with WebLogic 7.x by using the
-                    FORCESHUTDOWN WebLogic command instead of the graceful
-                    one.
-                </action>
-                <action dev="VMA" type="update" issue="CACTUS-118">
-                    The JettyTestSetup class now checks if the Jetty server
-                    is already started and only starts it if it isn't running. It also
-                    does not stops it if it was running before JettyTestSetup
-                    was called. This is useful when you have a master test suite and when
-                    you also wish to run your tests one by one.
-                </action>
-            </release>
+        <release version="1.5" date="23 November 2003">
+            <action dev="VMA" type="fix">
+                In the Cactus/Ant integration, user-defined tomcat-users
+                and web.xml are now correctly replacing the default
+                version provided by Cactus. This is for the Tomcat 4.x and 5.x
+                containers.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-63" due-to="James Stangler"
+                    due-to-email="jastangler@yahoo.com">
+                The Jetty Test Setup was not shutting Jetty down if an error ocurred
+                during setUp.
+            </action>
+        </release>
 
-            <release version="1.6.1" date="14 May 2004">
-                <action dev="VMA" type="fix" issue="CACTUS-107">
-                    An error was introduced in the Servlet Test Runner during the
-                    internal package refactoring that happened in Cactus 1.6. The
-                    XMLTransformer could not be loaded and it resulted
-                    in a ClassNotFoundException exception.
-                </action>
-            </release>
+        <release version="1.5-rc1" date="26 October 2003">
+            <action dev="VMA" type="fix" issue="CACTUS-58" due-to="Norbert Pabis"
+                    due-to-email="npabis@astercity.net">
+                The Cactus Ant integration now reports the HTTP error code when it
+                fails to start the container and timeouts. It was previously doing
+                this but only in debug mode.
+            </action>
+            <action dev="VMA" type="update">
+                Update the version of Commons HttpClient in the Cactus distribution to
+                2.0 rc2.
+            </action>
+            <action dev="VMA" type="fix">
+                Fixed and improved logging. It now works with Log4j, JDK 1.4 logging
+                and Commons Simple log. Check the sample servlet application for an
+                example of how to set up Cactus logging.
+            </action>
+            <action dev="VMA" type="add">
+                Added new optional cactus.logging.config Cactus
+                property. If specified Cactus will load the properties file pointed
+                by this property and will set each property as a system property.
+            </action>
+            <action dev="VMA" type="update">
+                Updated to use AspectJ 1.1.1. When you upgrade to Cactus 1.5-rc1
+                make sure you update your aspectjrt.jar to version
+                1.1.1 (the jar is provided in the Cactus distribution).
+            </action>
+            <action dev="VMA" type="add">
+                Added an EJB sample application to demonstrate how to perform EJB
+                unit testing with Cactus and how to automate it with the
+                Cactus/Ant integration.
+            </action>
+            <action dev="VMA" type="fix" due-to="Alexander Ananiev" due-to-email="alexander@myarch.com">
+                When using the new ServletTestSuite wrapper around pure
+                JUnit test cases, the setUp() and
+                tearDown() methods were not called.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-52" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
+                In the Ant integration, when using the &lt;cactus&gt; task with
+                an EAR, the test webapp context was not correctly set.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-49" due-to="James Stangler"
+                    due-to-email="jastangler@yahoo.com">
+                Fixed the JettyTestSetup class so that it stops the
+                running Jetty server at the end of the test suite execution.
+            </action>
+            <action dev="VMA" type="update">
+                The Cactus distribution now packages commons-httpclient 2.0 RC1
+                (we were previously including version 2.0 beta2).
+            </action>
+            <action dev="VMA" type="fix">
+                Support for WebLogic 7.x is now working fine. Fixed bugs in the
+                WebLogic 7.x configuration: the
+                weblogic.xml file was not correctly copied
+                in the WEB-INF directory of the cactified
+                war, and an NPE happened when the bea home property was not
+                set. It now tries to guess it from the
+                cactus.home.weblogic7x property if not set.
+                In addition, the configuration has also been greatly simplified.
+            </action>
+            <action dev="VMA" type="update">
+                In the cactifywar Ant task, changed the default realm name
+                that is used when adding Cactus default configuration data.
+                It was previously Cactus test realm. It is now
+                myrealm. The reas on is that the default WebLogic
+                configuration creates a myrealm realm and thus
+                using this name makes our Cactus configuration for WebLogic
+                much simpler. It doesn't affect the other containers as they
+                do not seem to check for the realm name.
+            </action>
+            <action dev="VMA" type="add" due-to="Florin Vancea" due-to-email="fvancea@maxiq.ro">
+                Added the ability to define the JBoss port that will be used
+                in the Ant integration to poll if the JBoss server is up and
+                running. Note: This value will not modify the port of the
+                default JBoss configuration (it is still 8080). However, it
+                is useful for users who have defined their own JBoss
+                configuration and are using a port other than 8080.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-47" due-to="Christopher Marshall"
+                    due-to-email="cmarshall@infoclarus.com">
+                Fixed bug in Eclipse plugin build where the plugin version was not
+                correctly resolved.
+            </action>
+        </release>
 
-            <release version="1.6" date="08 May 2004">
-                <action dev="VMA" type="update">
-                    The ServletTestRunner now looks for am optional
-                    cactus.properties file and reads its properties. If
-                    not defined it sets default values for the context URL of the
-                    Cactus redirectors and for their mappings.
-                </action>
-                <action dev="VMA" type="update">
-                    Updated web site documentation for enabling Cactus logging.
-                </action>
-                <action dev="VMA" type="update">
-                    Due to some internal package restructuration (all non public API were
-                    moved to internal packages), the
-                    jspredirector.jsp file was modified. If you have
-                    installed this file manually somewhere, you'll need to remember to
-                    update it.
-                </action>
-                <action dev="VMA" type="update">
-                    Big internal restructuration: we have moved all the non public API
-                    classes to java packages with the name internal. For
-                    example the package org.apache.cactus.internal is a
-                    package containing some internal implementation. You should not use
-                    any internal class in your own development as these classes may
-                    change at any time in the future. If you find you need access to some
-                    internal class, please send an email to the Cactus mailing class
-                    explaining the reason and we may open up some API/SPI.
-                </action>
-                <action dev="VMA" type="remove">
-                    Removed org.apache.cactus.util.HttpURLConnection class.
-                    It was a Commons HttpClient wrapper on top of the
-                    java.net.HttpURLConnection class. However, this class is
-                    now fully integrated in the Commons HttpClient jar.
-                </action>
-                <action dev="VMA" type="add">
-                    Added new optional nested &lt;containerclasspath&gt;
-                    element for the &lt;cactus&gt; task. It allows
-                    specifying additional jars that will be put in the classpath used to
-                    start/stop the specified containers.
-                </action>
-                <action dev="VMA" type="remove">
-                    Removed ability to choose different HTTP connection helpers. The only
-                    one supported now is the Commons HttpClient one provided internally
-                    by Cactus. Thus the cactus.connectionHelper.classname
-                    property is now removed.
-                </action>
-                <action dev="VMA" type="remove">
-                    Removed deprecated classes in the
-                    org.apache.cactus.ant packages as they have been
-                    deprecated for a long time.
-                </action>
-                <action dev="VMA" type="fix">
-                    Fixed bug in HttpServletRequestWrapper.include() where
-                    the passed request was not the original request. The problem was
-                    only apparent with Tomcat 3.x.
-                </action>
-                <action dev="VMA" type="add">
-                    Added support for Tomcat 3.3.2 (note that this required adding the
-                    commons-logging jar to the Tomcat bootstrap classpath).
-                </action>
-                <action dev="VMA" type="update" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
-                    In the Form authentication code, changed the response check logic
-                    for the pre-authentication step to accept any status code less
-                    than 400. It was previously only accepting a 302 code but different
-                    servers are implementing it differently.
-                </action>
-                <action dev="VMA" type="add">
-                    Added new ServletContextWrapper.setInitParameters()
-                    which allows to programatically define Context init parameters (as
-                    if they had been entered in web.xml using the
-                    &lt;context-param&gt; element.
-                </action>
-                <action dev="VMA" type="add">
-                    Added support in the Ant integration webxmlmerge task
-                    for merging &lt;context-param&gt; elements.
-                </action>
-                <action dev="VMA" type="update">
-                    Updated the version of Commons HttpClient in the Cactus distribution
-                    to 2.0 final.
-                </action>
-                <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
-                    Added new
-                    FormAuthentication.setExpectedAuthResponse(int)
-                    that allows to set the expected HTTP response code for an
-                    authentication request which should be successful. If not
-                    specified, it defaults to
-                    HttpURLConnection.HTTP_MOVED_TEMP.
-                </action>
-                <action dev="VMA" type="add" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
-                    Added new FormAuthentication.setSessionCookieName(String)
-                    that allows to set the security cookie name to a name different than
-                    JSESSIONID (the default).
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-37" due-to="Kazuhito Suguri"
-                        due-to-email="suguri.kazuhito@lab.ntt.co.jp">
-                    FormAuthentication no longer assumes "localhost" when
-                    adding cookies.
-                </action>
-                <action dev="VMA" type="fix" due-to="Paul Green" due-to-email="Paul.Green@ons.gsi.gov.uk">
-                    Fixed bug in Cactus wrapper implementation of
-                    request.getPathTranslated() which was failing when there
-                    was no simulated URL defined (i.e. no call to
-                    WebRequest.setURL()).
-                </action>
-                <action dev="VMA" type="update">
-                    Migrated to Apache license 2.0.
-                </action>
-                <action dev="VMA" type="update" issue="CACTUS-79" due-to="Daniel Rabe"
-                        due-to-email="drabe@opentext.com">
-                    The &lt;cactus&gt; task now also cleans custom tmp
-                    directories (passed using the tmpdir attribute).
-                </action>
-                <action dev="VMA" type="add" issue="CACTUS-85" due-to="James Carpenter"
-                        due-to-email="jacarpenter@ercot.com">
-                    Added support for specifying which JNDI port to use when shutting
-                    down JBoss 3.x in the Cactus Ant integration.
-                    The &lt;jboss3x&gt; nested element now supports the new
-                    jndiport attribute for specifying the port. If not
-                    specified, it defaults to 1099.
-                </action>
-                <action dev="VMA" type="add">
-                    Added new encoding HTTP parameter for the Cactus Servlet
-                    TestRunner. By default the XML returned (when there is no server-side
-                    XSL transformation) is using the UTF-8 encoding. This
-                    encoding parameters allows using a user-specified
-                    encoding.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-89" due-to="Scott Leberknight"
-                        due-to-email="scott.leberknight@nearinfinity.com">
-                    Fixed request.getRequestURL() (J2EE 1.3 only) which was
-                    not working properly when WebRequest.setURL() was called
-                    with a null pathinfo parameter.
-                </action>
-                <action dev="VMA" type="add">
-                    Added support for Resin 3.x in the Ant integration. Only Resin 3.0.5
-                    and above are supported (the reason is that it seems the configuration
-                    file format has changed between Resin 3.0.3 and 3.0.5). Note that
-                    Servlet API 2.4/JSP 2.0 are not yet supported by Cactus.
-                </action>
-                <action dev="VMA" type="add">
-                    In the Ant integration, added new contextxml attributes
-                    to the &lt;tomcat4x&gt; nested elements of the
-                    &lt;cactus&gt; task. This is to support the context xml
-                    configuration file that appeared with Tomcat 4.1.x. Note that for
-                    Tomcat 5.x you need to use the existing nested
-                    &lt;conf&gt; element (see the &lt;cactus&gt;
-                    task documentation for more details).
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-84" due-to="Brian Topping"
-                        due-to-email="topping@digidemic.com">
-                    In the Ant integration, added support for web contexts defined in
-                    JBoss's jboss-web.xml.
-                </action>
-                <action dev="VMA" type="fix">
-                    Fixed the bug where a ServletException occurs, stating:
-                    The request object passed to forward() must be the request
-                    object you got from your Cactus test case (i.e. a Cactus request
-                    wrapper object). Instead we got [...].
-                </action>
-                <action dev="VMA" type="add" issue="CACTUS-53">
-                    In the Ant integration module, added new configXml
-                    attribute to the &lt;weblogic7x&gt; container
-                    element of the &lt;cactus&gt; task.
-                </action>
-                <action dev="VMA" type="fix" due-to="Joe Germuska" due-to-email="Joe@Germuska.com">
-                    Make the &lt;cactus&gt; task work on Mac OSX by not
-                    including the tools.jar file (on Mac OSX all classes
-                    are found in classes.jar).
-                </action>
-                <action dev="VMA" type="fix" due-to="Kazuhito Suguri" due-to-email="suguri.kazuhito@lab.ntt.co.jp">
-                    Prevent requiring commons-httpclient jar to be present
-                    on the server-side classpath.
-                </action>
-                <action dev="VMA" type="add">
-                    Added the Maven plugin. It was formerly hosted in the Maven project's
-                    own CVS. It is now in the Cactus CVS and is part of the Cactus
-                    distribution.
-                </action>
-            </release>
+        <release version="1.5-beta1" date="14 July 2003">
+            <action dev="VMA" type="update">
+                Support for WebLogic 7.x has not been tested with Cactus 1.5 and
+                may not work.
+            </action>
+            <action dev="VMA" type="update">
+                Support for WebLogic 6.x is still available in the Ant integration.
+                However, it has not been tested as it is no longer possible to
+                download WebLogic 6.x from the BEA web site. It is thus completely
+                untested.
+            </action>
+            <action dev="VMA" type="update">
+                Update of jars bundled in the Cactus distribution: Commons Logging
+                1.0.3, Log4j 1.2.8, HttpClient 2.0beta2, HttpUnit 1.5.3 and
+                JUnit 3.8.1. In addition the requirements for the jars needed to
+                build Cactus were also updated: Checkstyle 3.1 (and the dependent
+                jars: BeanUtils 1.6.1, Collections 2.1, Regexp 1.2 and Antlr 2.7.2).
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                Added a <a href="site:resources_books">Cactus books</a> section
+                for books covering the Cactus framework.]]>
+            </action>
+            <action dev="VMA" type="update">
+                Refactoring of XXXTestCase class hierarchy. Whereas
+                it was previously inheriting from AbstractWebTestCase
+                and AbstractTestCase it is now simply inheriting
+                from JUnit TestCase. Thus all non-public API are now
+                not visible from user (as they should be). This has broken binary
+                compatibility. If you had some framework compiled with Cactus 1.4.1
+                and using some methods from AbstractWebTestCase
+                or AbstractTestCase, you'll need to recompile it
+                with Cactus 1.5.
+            </action>
+            <action dev="CML" type="add">
+                Added a HttpServletRequestWrapper.setRemoteUser() method
+                to simulate a remote user. Thus, there is now 2 methods to get a
+                remote user: by simulating it as above or by using real BASIC or
+                Form-based authentication.
+            </action>
+            <action dev="CML" type="update">
+                Refactored the authentication support by introducing the interface
+                Authentication, which the class
+                AbstractAuthentication now implements.
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                Added a quick tutorial for Cactus developers who want to
+                <a href="site:integration_eclipse_dev">set up their Eclipse
+                    environment
+                </a>
+                to work on the Cactus plugins for Eclipse.]]>
+            </action>
+            <action dev="CML" type="add">
+                The WebResponse class now has a method to directly
+                retrieve the status code.
+            </action>
+            <action dev="VMA" type="fix">
+                When a simulation URL is used and null values are passed for the
+                Server name, Context Path and Servlet Path parameters, calls to
+                Cactus HttpServletRequestWrapper.getServerName(),
+                HttpServletRequestWrapper.getServerPort(),
+                HttpServletRequestWrapper.getContextPath() and
+                HttpServletRequestWrapper.getServletPath() now correctly
+                return the values from the original Request object
+                (and not the wrapped one), handled by the Servlet Redirector.
+            </action>
+            <action dev="VMA" type="update">
+                Added verification code in Cactus to verify that the parameters
+                passed to the WebRequest.setURL() method have the
+                correct format and throw an exception if not.
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                Added a <link href="site:news_rdf">RSS feed</link> for Cactus news.]]>
+            </action>
+            <action dev="CML" type="add">
+                The Cactus web site has a new style that is heavily based on CSS.
+                It should provide better printing capabilities and a more consistent
+                look.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-22" due-to="Misak Boulatian" due-to-email="misak@vantra.com">
+                Cactus was not correctly handling the ComparisonFailure
+                exception introduced by JUnit 3.8.1 and these exceptions were
+                reported as errors instead of failures.
+            </action>
+            <action dev="VMA" type="fix" due-to="Melissa White" due-to-email="mwhite@triactive.com">
+                Fixed bug in Cactus exception handling where an invalid test result
+                could result in a StringIndexOutOfBoundsException, thus
+                hiding the real problem.
+            </action>
+            <action dev="CML" type="add">
+                Added a new custom Ant task (WebXmlMerge) that merges the content of
+                two web deployment descriptors into one. That includes the
+                definitions of filters and servlets, as well as some security-related
+                elements.
+            </action>
+            <action dev="VMA" type="add">
+                Allows creating Cactus TestCase without the need for a constructor
+                that takes a String parameter (a default constructor is good enough).
+                Obviously, this feature works only with JUnit 3.8.1 (but Cactus
+                continues to support JUnit 3.7).
+            </action>
+            <action dev="VMA" type="add">
+                Added ability to add any additional HTTP parameters to the request
+                used by Cactus to the Form-based authentication security URL.
+            </action>
+            <action dev="VMA" type="add">
+                Added support for running pure JUnit TestCase on the server side
+                using Cactus. This is possible by using a new
+                ServletTestSuite Test Suite.
+            </action>
+            <action dev="VMA" type="fix" due-to="Helen Rehn" due-to-email="hrehn@us.ibm.com">
+                Fixed bug where a simulation URL would be used even when none has
+                been defined (Reminder: a simulation URL is defined by calling
+                WebRequest.setURL()).
+            </action>
+            <action dev="VMA" type="add">
+                Added a timeout for the &lt;runservertests&gt; Ant task
+                so that the verification that the container is started is stopped if
+                this timeout is reached (a build exception is raised).
+            </action>
+            <action dev="VMA" type="remove">
+                Moved some Ant tasks that were previously in the Cactus Ant tasks;
+                they are now in the Ant Integration project. They are the tasks used
+                to start/stop the containers and the runservertests
+                task. It is now recommended to use the Ant Integration.
+            </action>
+            <action dev="VMA" type="update">
+                Improved (and normalized) build system. This change should not
+                affect nor be visible by Cactus end-users. However, Cactus power
+                users building Cactus from sources will appreciate.
+            </action>
+            <action dev="VMA" type="update">
+                Improved test classe names in the Servlet Sample application.
+            </action>
+            <action dev="VMA" type="update">
+                The Servlet Sample build is now using the Cactus Ant Integration.
+            </action>
+            <action dev="CML" type="add">
+                New Cactus Ant Integration. It provides new custom Ant tasks
+                such as
+                &lt;cactifywar&gt;, &lt;cactus&gt;
+                which makes executing Cactus tests from an Ant build script
+                extremely easy.
+            </action>
+            <action dev="VMA" type="update">
+                Modified the build process to generate the Cactus web site by
+                removing the use of Stylebook and replacing it with an XSL
+                stylesheet. In addition, added several new features: support for
+                subdirectories, support for dynamic menu items and sitemap
+                generation.
+            </action>
+            <action dev="VMA" type="fix">
+                The Cactus runservertests custom Ant task has been
+                improved and it is now propagating correctly Ant references to the
+                targets you defined for starting the container, stopping it and
+                runnning the Cactus tests. Previously, it was only propagating
+                the Ant properties.
+            </action>
+            <action dev="CML" type="update">
+                Added stack trace filtering to the ServletTestRunner. Stack frames
+                in the JUnit framework classes as well as in the Cactus base test
+                case classes are filtered out.
+            </action>
+            <action dev="VMA" type="add">
+                The Cactus web site now provides online documentation for both the
+                CVS HEAD version and the last released version.
+            </action>
+            <action dev="CML" type="fix">
+                Enable the ServletTestRunner to run in an environment
+                where it is not allowed to set system properties. In such cases, the
+                cactus.properties configuration file needs to be on the
+                server classpath.
+            </action>
+            <action dev="CML" type="update">
+                Implemented server-side XSLT transformations in the
+                ServletTestRunner. The code is based on the TraX API but
+                uses reflection to avoid a direct runtime dependancy.
+            </action>
+            <action dev="VMA" type="add">
+                Added automated Ant scripts for JBoss/Jetty 3.x.
+            </action>
+            <action dev="CML" type="fix">
+                Fixed bug where users using a Locale which does not format numbers
+                with dots (".") had issues with the JUnitReport Ant XSL stylesheet.
+                The Servlet Test Runner code now forces a US Locale.
+            </action>
+            <action dev="VMA" type="add" due-to="Christopher Lenz" due-to-email="cmlenz@gmx.de">
+                Added new extension class to help unit test JSP Taglibs. See the
+                TestJspTagLifecycle test class in the sample-servlet
+                application for help on using it.
+            </action>
+            <action dev="VMA" type="update">
+                Improved error handling when dealing with invalid Cookies.
+            </action>
+            <action dev="VMA" type="fix" due-to="Roumen B. Antonov" due-to-email="rantonov@fourthgen.com">
+                Fixed a potential bug with classloaders. On the server side, Cactus
+                looks for the TestCase class by searching first the WebApp
+                Classloader and then the Context ClassLoader. However, the Context
+                ClassLoader is only searched if an Exception (subclass of
+                Exception) is raised. Thus, if a
+                NoClassDefFoundError had been raised, Cactus would
+                not have searched in the Context ClassLoader.
+            </action>
+            <action dev="VMA" type="add" due-to="Atsushi Hasegawa" due-to-email="ahasegawa@borland.com">
+                Added support for internationalization (double byte characters) for
+                sending back test results. This allows Cactus to be used with any
+                character set.
+            </action>
+            <action dev="VMA" type="fix" due-to="Pranab Dhar" due-to-email="Pranab.Dhar@dfa.state.ny.us">
+                Fixed bug where a redirector overriden by calling
+                WebRequest.setRedirectorName() was not used to fetch the
+                Cactus test result (the default redirector specified in the Cactus
+                configuration was used instead).
+            </action>
+            <action dev="VMA" type="fix" due-to="Stephan Merker" due-to-email="Stephan.Merker@cegedim.fr">
+                Fixed bug where Cactus was using the deprecated HttpClient
+                PostMethod.setRequestBody(String) which had some bug
+                related to char to byte encoding. Now using the
+                PostMethod.setRequestBody(InputStream) signature.
+            </action>
+            <action dev="VMA" type="add">
+                Added links to Japanese and Korean translations of Cactus.
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                Ability to get a real HTTP Session cookie before the start of the
+                test. This is achieved by calling the new
+                WebRequest.getSessionCookie() method which returns
+                a HttpSessionCookie object that you then add to the
+                HTTP request. Initially suggested by
+                <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
+                    Willkomm</link>.]]>
+            </action>
+            <action dev="VMA" type="add">
+                New WebResponse.getCookieIgnoreCase(cookieName) to get
+                the first cookie matching cookieName whatever the case
+                (case-insensitive).
+            </action>
+            <action dev="VMA" type="add" due-to="Jason Robertson" due-to-email="Jason.Robertson@acs-inc.com">
+                Added Form-based authentication support.
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                Added a <link href="site:howto_build">tutorial</link> that explains
+                how to build Cactus from the sources.]]>
+            </action>
+            <action dev="VMA" type="add">
+                Added a Jetty Sample application to demonstrate how to use the new
+                JettyTestSetup that automatically starts Jetty before
+                a test suite.
+            </action>
+            <action dev="JRU" type="add">
+                <![CDATA[Added a <link href="site:integration_jetty">Jetty integration
+                tutorial</link>.]]>
+            </action>
+            <action dev="VMA" type="add">
+                Added a org.apache.cactus.extension.jetty.JettyTestSetup
+                JUnit TestSetup to automatically start Jetty before a test suite
+                is executed. This is really nice to quickly run tests inside any
+                IDE or even from a simple &lt;junit&gt; Ant taks without
+                the need to package and deploy a WAR. In addition, it is real nice to
+                debug tests this way. Moreover, Jetty starts in less than 1 second,
+                making it completely seamless and transparent! We are now at the same
+                order of magnitude as pure JUnit tests in term of speed ... :-). Of
+                course, this is only for Servlet tests ... I am still waiting for an
+                embeddable EJB container that starts in less than 1 second ...
+            </action>
+            <action dev="VMA" type="add">
+                Added support for client side begin(...)
+                and end(...) methods. They are called on the
+                client side, before and after every test in the same way as the
+                JUnit setUp() and tearDown() are called
+                before and after each test, but on the server side.
+            </action>
+        </release>
 
-            <release version="1.5" date="23 November 2003">
-                <action dev="VMA" type="fix">
-                    In the Cactus/Ant integration, user-defined tomcat-users
-                    and web.xml are now correctly replacing the default
-                    version provided by Cactus. This is for the Tomcat 4.x and 5.x
-                    containers.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-63" due-to="James Stangler"
-                        due-to-email="jastangler@yahoo.com">
-                    The Jetty Test Setup was not shutting Jetty down if an error ocurred
-                    during setUp.
-                </action>
-            </release>
+        <release version="1.4.1" date="31 August 2002">
+            <action dev="VMA" type="add" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
+                Added a sample (and thus a test for Cactus) for HttpUnit integration
+                as part of the Cactus sample.
+            </action>
+            <action dev="VMA" type="fix" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
+                Fixed bug in new HttpClient wrapper in Cactus with regards to the
+                headers returned in the HTTP response (they were offset by one and
+                the status line was not returned as a header).
+            </action>
+            <action dev="VMA" type="fix" due-to="Micah Williams"
+                    due-to-email="backOffice@thirdmillenniumvisions.com">
+                Fixed bug where NullPointerException would be thrown by Cactus
+                ServletTestRunner if an exception raised in a test case had not
+                specified a message (i.e. getMessage() returning
+                null).
+            </action>
+            <action dev="VMA" type="fix" due-to="Gerhard Kreutzer" due-to-email="g.kreutzer@kreutzersoft.de">
+                Some JDK implementation return "null" when Class.getClassLoader() is
+                called to indicate that the given class has been loaded by the
+                bootstrap class loader. This was leading to
+                NullPointerException being thrown by Cactus in some
+                cases.
+            </action>
+            <action dev="VMA" type="fix" due-to="Ville Skyttä" due-to-email="ville.skytta@iki.fi">
+                Fixed import bug in sample-servlet which prevented building Cactus
+                from the sources on JDK 1.4.
+            </action>
+            <action dev="VMA" type="fix" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
+                Fixed default properties for the sample application so that it points
+                to the correct HttpClient jar which is packaged with Cactus (the one
+                built on 06/06/2002).
+            </action>
+            <action dev="VMA" type="fix" due-to="Larry Tambascio" due-to-email="ltambascio@charter.net">
+                Fixed a bug that was preventing having several POST parameters added in
+                the request in beginXXX() methods.
+            </action>
+            <action dev="VMA" type="fix" due-to="Dave Hoover" due-to-email="dave@redsquirrel.com">
+                The encoding in the sample junit-noframes XSL
+                stylesheet was set to be "US-ASCII". It is now set to "UTF-8".
+                Apparently, XSLT processors are only required to support utf-8
+                and utf-16, the rest is processor specific. For example your
+                processor might support US-ASCII-7 and others might support
+                US-ASCII. Thanks to Robert Koberg for the explanation!
+            </action>
+        </release>
 
-            <release version="1.5-rc1" date="26 October 2003">
-                <action dev="VMA" type="fix" issue="CACTUS-58" due-to="Norbert Pabis"
-                        due-to-email="npabis@astercity.net">
-                    The Cactus Ant integration now reports the HTTP error code when it
-                    fails to start the container and timeouts. It was previously doing
-                    this but only in debug mode.
-                </action>
-                <action dev="VMA" type="update">
-                    Update the version of Commons HttpClient in the Cactus distribution to
-                    2.0 rc2.
-                </action>
-                <action dev="VMA" type="fix">
-                    Fixed and improved logging. It now works with Log4j, JDK 1.4 logging
-                    and Commons Simple log. Check the sample servlet application for an
-                    example of how to set up Cactus logging.
-                </action>
-                <action dev="VMA" type="add">
-                    Added new optional cactus.logging.config Cactus
-                    property. If specified Cactus will load the properties file pointed
-                    by this property and will set each property as a system property.
-                </action>
-                <action dev="VMA" type="update">
-                    Updated to use AspectJ 1.1.1. When you upgrade to Cactus 1.5-rc1
-                    make sure you update your aspectjrt.jar to version
-                    1.1.1 (the jar is provided in the Cactus distribution).
-                </action>
-                <action dev="VMA" type="add">
-                    Added an EJB sample application to demonstrate how to perform EJB
-                    unit testing with Cactus and how to automate it with the
-                    Cactus/Ant integration.
-                </action>
-                <action dev="VMA" type="fix" due-to="Alexander Ananiev" due-to-email="alexander@myarch.com">
-                    When using the new ServletTestSuite wrapper around pure
-                    JUnit test cases, the setUp() and
-                    tearDown() methods were not called.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-52" due-to="Jonathan Kovacs" due-to-email="jdk@jdk.ca">
-                    In the Ant integration, when using the &lt;cactus&gt; task with
-                    an EAR, the test webapp context was not correctly set.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-49" due-to="James Stangler"
-                        due-to-email="jastangler@yahoo.com">
-                    Fixed the JettyTestSetup class so that it stops the
-                    running Jetty server at the end of the test suite execution.
-                </action>
-                <action dev="VMA" type="update">
-                    The Cactus distribution now packages commons-httpclient 2.0 RC1
-                    (we were previously including version 2.0 beta2).
-                </action>
-                <action dev="VMA" type="fix">
-                    Support for WebLogic 7.x is now working fine. Fixed bugs in the
-                    WebLogic 7.x configuration: the
-                    weblogic.xml file was not correctly copied
-                    in the WEB-INF directory of the cactified
-                    war, and an NPE happened when the bea home property was not
-                    set. It now tries to guess it from the
-                    cactus.home.weblogic7x property if not set.
-                    In addition, the configuration has also been greatly simplified.
-                </action>
-                <action dev="VMA" type="update">
-                    In the cactifywar Ant task, changed the default realm name
-                    that is used when adding Cactus default configuration data.
-                    It was previously Cactus test realm. It is now
-                    myrealm. The reas on is that the default WebLogic
-                    configuration creates a myrealm realm and thus
-                    using this name makes our Cactus configuration for WebLogic
-                    much simpler. It doesn't affect the other containers as they
-                    do not seem to check for the realm name.
-                </action>
-                <action dev="VMA" type="add" due-to="Florin Vancea" due-to-email="fvancea@maxiq.ro">
-                    Added the ability to define the JBoss port that will be used
-                    in the Ant integration to poll if the JBoss server is up and
-                    running. Note: This value will not modify the port of the
-                    default JBoss configuration (it is still 8080). However, it
-                    is useful for users who have defined their own JBoss
-                    configuration and are using a port other than 8080.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-47" due-to="Christopher Marshall"
-                        due-to-email="cmarshall@infoclarus.com">
-                    Fixed bug in Eclipse plugin build where the plugin version was not
-                    correctly resolved.
-                </action>
-            </release>
+        <release version="1.4" date="25 August 2002">
+            <action dev="VMA" type="add"><![CDATA[
+                Added a <link href="site:howto_jsp">tutorial</link> that explains how
+                to test JSPs with Cactus.]]>
+            </action>
+            <action dev="VMA" type="fix" due-to="David George" due-to-email="david.off@voila.fr">
+                Fixed JDK 1.2 compatibility (broken in 1.4b1).
+            </action>
+            <action dev="VMA" type="fix" due-to="Felipe Hoffa" due-to-email="felipehoffa@yahoo.com">
+                According to the XML definitions (at least the definitions Mozilla 1.0
+                got implemented), the &lt;?xml version...&gt; tag should go before the
+                &lt;?xml-stylesheet...&gt; tag. Using them in the wrong order produces
+                an error when Mozilla tries to render it.
+            </action>
+        </release>
 
-            <release version="1.5-beta1" date="14 July 2003">
-                <action dev="VMA" type="update">
-                    Support for WebLogic 7.x has not been tested with Cactus 1.5 and
-                    may not work.
-                </action>
-                <action dev="VMA" type="update">
-                    Support for WebLogic 6.x is still available in the Ant integration.
-                    However, it has not been tested as it is no longer possible to
-                    download WebLogic 6.x from the BEA web site. It is thus completely
-                    untested.
-                </action>
-                <action dev="VMA" type="update">
-                    Update of jars bundled in the Cactus distribution: Commons Logging
-                    1.0.3, Log4j 1.2.8, HttpClient 2.0beta2, HttpUnit 1.5.3 and
-                    JUnit 3.8.1. In addition the requirements for the jars needed to
-                    build Cactus were also updated: Checkstyle 3.1 (and the dependent
-                    jars: BeanUtils 1.6.1, Collections 2.1, Regexp 1.2 and Antlr 2.7.2).
-                </action>
-                <action dev="VMA" type="add">
-                    Added a <a href="site:resources_books">Cactus books</a> section
-                    for books covering the Cactus framework.
-                </action>
-                <action dev="VMA" type="update">
-                    Refactoring of XXXTestCase class hierarchy. Whereas
-                    it was previously inheriting from AbstractWebTestCase
-                    and AbstractTestCase it is now simply inheriting
-                    from JUnit TestCase. Thus all non-public API are now
-                    not visible from user (as they should be). This has broken binary
-                    compatibility. If you had some framework compiled with Cactus 1.4.1
-                    and using some methods from AbstractWebTestCase
-                    or AbstractTestCase, you'll need to recompile it
-                    with Cactus 1.5.
-                </action>
-                <action dev="CML" type="add">
-                    Added a HttpServletRequestWrapper.setRemoteUser() method
-                    to simulate a remote user. Thus, there is now 2 methods to get a
-                    remote user: by simulating it as above or by using real BASIC or
-                    Form-based authentication.
-                </action>
-                <action dev="CML" type="update">
-                    Refactored the authentication support by introducing the interface
-                    Authentication, which the class
-                    AbstractAuthentication now implements.
-                </action>
-                <action dev="VMA" type="add">
-                    Added a quick tutorial for Cactus developers who want to
-                    <a href="site:integration_eclipse_dev">set up their Eclipse
-                        environment
-                    </a>
-                    to work on the Cactus plugins for Eclipse.
-                </action>
-                <action dev="CML" type="add">
-                    The WebResponse class now has a method to directly
-                    retrieve the status code.
-                </action>
-                <action dev="VMA" type="fix">
-                    When a simulation URL is used and null values are passed for the
-                    Server name, Context Path and Servlet Path parameters, calls to
-                    Cactus HttpServletRequestWrapper.getServerName(),
-                    HttpServletRequestWrapper.getServerPort(),
-                    HttpServletRequestWrapper.getContextPath() and
-                    HttpServletRequestWrapper.getServletPath() now correctly
-                    return the values from the original Request object
-                    (and not the wrapped one), handled by the Servlet Redirector.
-                </action>
-                <action dev="VMA" type="update">
-                    Added verification code in Cactus to verify that the parameters
-                    passed to the WebRequest.setURL() method have the
-                    correct format and throw an exception if not.
-                </action>
-                <action dev="VMA" type="add">
-                    Added a <link href="site:news_rdf">RSS feed</link> for Cactus news.
-                </action>
-                <action dev="CML" type="add">
-                    The Cactus web site has a new style that is heavily based on CSS.
-                    It should provide better printing capabilities and a more consistent
-                    look.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-22" due-to="Misak Boulatian" due-to-email="misak@vantra.com">
-                    Cactus was not correctly handling the ComparisonFailure
-                    exception introduced by JUnit 3.8.1 and these exceptions were
-                    reported as errors instead of failures.
-                </action>
-                <action dev="VMA" type="fix" due-to="Melissa White" due-to-email="mwhite@triactive.com">
-                    Fixed bug in Cactus exception handling where an invalid test result
-                    could result in a StringIndexOutOfBoundsException, thus
-                    hiding the real problem.
-                </action>
-                <action dev="CML" type="add">
-                    Added a new custom Ant task (WebXmlMerge) that merges the content of
-                    two web deployment descriptors into one. That includes the
-                    definitions of filters and servlets, as well as some security-related
-                    elements.
-                </action>
-                <action dev="VMA" type="add">
-                    Allows creating Cactus TestCase without the need for a constructor
-                    that takes a String parameter (a default constructor is good enough).
-                    Obviously, this feature works only with JUnit 3.8.1 (but Cactus
-                    continues to support JUnit 3.7).
-                </action>
-                <action dev="VMA" type="add">
-                    Added ability to add any additional HTTP parameters to the request
-                    used by Cactus to the Form-based authentication security URL.
-                </action>
-                <action dev="VMA" type="add">
-                    Added support for running pure JUnit TestCase on the server side
-                    using Cactus. This is possible by using a new
-                    ServletTestSuite Test Suite.
-                </action>
-                <action dev="VMA" type="fix" due-to="Helen Rehn" due-to-email="hrehn@us.ibm.com">
-                    Fixed bug where a simulation URL would be used even when none has
-                    been defined (Reminder: a simulation URL is defined by calling
-                    WebRequest.setURL()).
-                </action>
-                <action dev="VMA" type="add">
-                    Added a timeout for the &lt;runservertests&gt; Ant task
-                    so that the verification that the container is started is stopped if
-                    this timeout is reached (a build exception is raised).
-                </action>
-                <action dev="VMA" type="remove">
-                    Moved some Ant tasks that were previously in the Cactus Ant tasks;
-                    they are now in the Ant Integration project. They are the tasks used
-                    to start/stop the containers and the runservertests
-                    task. It is now recommended to use the Ant Integration.
-                </action>
-                <action dev="VMA" type="update">
-                    Improved (and normalized) build system. This change should not
-                    affect nor be visible by Cactus end-users. However, Cactus power
-                    users building Cactus from sources will appreciate.
-                </action>
-                <action dev="VMA" type="update">
-                    Improved test classe names in the Servlet Sample application.
-                </action>
-                <action dev="VMA" type="update">
-                    The Servlet Sample build is now using the Cactus Ant Integration.
-                </action>
-                <action dev="CML" type="add">
-                    New Cactus Ant Integration. It provides new custom Ant tasks
-                    such as
-                    &lt;cactifywar&gt;, &lt;cactus&gt;
-                    which makes executing Cactus tests from an Ant build script
-                    extremely easy.
-                </action>
-                <action dev="VMA" type="update">
-                    Modified the build process to generate the Cactus web site by
-                    removing the use of Stylebook and replacing it with an XSL
-                    stylesheet. In addition, added several new features: support for
-                    subdirectories, support for dynamic menu items and sitemap
-                    generation.
-                </action>
-                <action dev="VMA" type="fix">
-                    The Cactus runservertests custom Ant task has been
-                    improved and it is now propagating correctly Ant references to the
-                    targets you defined for starting the container, stopping it and
-                    runnning the Cactus tests. Previously, it was only propagating
-                    the Ant properties.
-                </action>
-                <action dev="CML" type="update">
-                    Added stack trace filtering to the ServletTestRunner. Stack frames
-                    in the JUnit framework classes as well as in the Cactus base test
-                    case classes are filtered out.
-                </action>
-                <action dev="VMA" type="add">
-                    The Cactus web site now provides online documentation for both the
-                    CVS HEAD version and the last released version.
-                </action>
-                <action dev="CML" type="fix">
-                    Enable the ServletTestRunner to run in an environment
-                    where it is not allowed to set system properties. In such cases, the
-                    cactus.properties configuration file needs to be on the
-                    server classpath.
-                </action>
-                <action dev="CML" type="update">
-                    Implemented server-side XSLT transformations in the
-                    ServletTestRunner. The code is based on the TraX API but
-                    uses reflection to avoid a direct runtime dependancy.
-                </action>
-                <action dev="VMA" type="add">
-                    Added automated Ant scripts for JBoss/Jetty 3.x.
-                </action>
-                <action dev="CML" type="fix">
-                    Fixed bug where users using a Locale which does not format numbers
-                    with dots (".") had issues with the JUnitReport Ant XSL stylesheet.
-                    The Servlet Test Runner code now forces a US Locale.
-                </action>
-                <action dev="VMA" type="add" due-to="Christopher Lenz" due-to-email="cmlenz@gmx.de">
-                    Added new extension class to help unit test JSP Taglibs. See the
-                    TestJspTagLifecycle test class in the sample-servlet
-                    application for help on using it.
-                </action>
-                <action dev="VMA" type="update">
-                    Improved error handling when dealing with invalid Cookies.
-                </action>
-                <action dev="VMA" type="fix" due-to="Roumen B. Antonov" due-to-email="rantonov@fourthgen.com">
-                    Fixed a potential bug with classloaders. On the server side, Cactus
-                    looks for the TestCase class by searching first the WebApp
-                    Classloader and then the Context ClassLoader. However, the Context
-                    ClassLoader is only searched if an Exception (subclass of
-                    Exception) is raised. Thus, if a
-                    NoClassDefFoundError had been raised, Cactus would
-                    not have searched in the Context ClassLoader.
-                </action>
-                <action dev="VMA" type="add" due-to="Atsushi Hasegawa" due-to-email="ahasegawa@borland.com">
-                    Added support for internationalization (double byte characters) for
-                    sending back test results. This allows Cactus to be used with any
-                    character set.
-                </action>
-                <action dev="VMA" type="fix" due-to="Pranab Dhar" due-to-email="Pranab.Dhar@dfa.state.ny.us">
-                    Fixed bug where a redirector overriden by calling
-                    WebRequest.setRedirectorName() was not used to fetch the
-                    Cactus test result (the default redirector specified in the Cactus
-                    configuration was used instead).
-                </action>
-                <action dev="VMA" type="fix" due-to="Stephan Merker" due-to-email="Stephan.Merker@cegedim.fr">
-                    Fixed bug where Cactus was using the deprecated HttpClient
-                    PostMethod.setRequestBody(String) which had some bug
-                    related to char to byte encoding. Now using the
-                    PostMethod.setRequestBody(InputStream) signature.
-                </action>
-                <action dev="VMA" type="add">
-                    Added links to Japanese and Korean translations of Cactus.
-                </action>
-                <action dev="VMA" type="add">
-                    Ability to get a real HTTP Session cookie before the start of the
-                    test. This is achieved by calling the new
-                    WebRequest.getSessionCookie() method which returns
-                    a HttpSessionCookie object that you then add to the
-                    HTTP request. Initially suggested by
-                    <link href="mailto:kyle.w.willkomm@accenture.com">Kyle W.
-                        Willkomm</link>.
-                </action>
-                <action dev="VMA" type="add">
-                    New WebResponse.getCookieIgnoreCase(cookieName) to get
-                    the first cookie matching cookieName whatever the case
-                    (case-insensitive).
-                </action>
-                <action dev="VMA" type="add" due-to="Jason Robertson" due-to-email="Jason.Robertson@acs-inc.com">
-                    Added Form-based authentication support.
-                </action>
-                <action dev="VMA" type="add">
-                    Added a <link href="site:howto_build">tutorial</link> that explains
-                    how to build Cactus from the sources.
-                </action>
-                <action dev="VMA" type="add">
-                    Added a Jetty Sample application to demonstrate how to use the new
-                    JettyTestSetup that automatically starts Jetty before
-                    a test suite.
-                </action>
-                <action dev="JRU" type="add">
-                    Added a <link href="site:integration_jetty">Jetty integration
-                    tutorial</link>.
-                </action>
-                <action dev="VMA" type="add">
-                    Added a org.apache.cactus.extension.jetty.JettyTestSetup
-                    JUnit TestSetup to automatically start Jetty before a test suite
-                    is executed. This is really nice to quickly run tests inside any
-                    IDE or even from a simple &lt;junit&gt; Ant taks without
-                    the need to package and deploy a WAR. In addition, it is real nice to
-                    debug tests this way. Moreover, Jetty starts in less than 1 second,
-                    making it completely seamless and transparent! We are now at the same
-                    order of magnitude as pure JUnit tests in term of speed ... :-). Of
-                    course, this is only for Servlet tests ... I am still waiting for an
-                    embeddable EJB container that starts in less than 1 second ...
-                </action>
-                <action dev="VMA" type="add">
-                    Added support for client side begin(...)
-                    and end(...) methods. They are called on the
-                    client side, before and after every test in the same way as the
-                    JUnit setUp() and tearDown() are called
-                    before and after each test, but on the server side.
-                </action>
-            </release>
-
-            <release version="1.4.1" date="31 August 2002">
-                <action dev="VMA" type="add" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
-                    Added a sample (and thus a test for Cactus) for HttpUnit integration
-                    as part of the Cactus sample.
-                </action>
-                <action dev="VMA" type="fix" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
-                    Fixed bug in new HttpClient wrapper in Cactus with regards to the
-                    headers returned in the HTTP response (they were offset by one and
-                    the status line was not returned as a header).
-                </action>
-                <action dev="VMA" type="fix" due-to="Micah Williams"
-                        due-to-email="backOffice@thirdmillenniumvisions.com">
-                    Fixed bug where NullPointerException would be thrown by Cactus
-                    ServletTestRunner if an exception raised in a test case had not
-                    specified a message (i.e. getMessage() returning
-                    null).
-                </action>
-                <action dev="VMA" type="fix" due-to="Gerhard Kreutzer" due-to-email="g.kreutzer@kreutzersoft.de">
-                    Some JDK implementation return "null" when Class.getClassLoader() is
-                    called to indicate that the given class has been loaded by the
-                    bootstrap class loader. This was leading to
-                    NullPointerException being thrown by Cactus in some
-                    cases.
-                </action>
-                <action dev="VMA" type="fix" due-to="Ville Skyttä" due-to-email="ville.skytta@iki.fi">
-                    Fixed import bug in sample-servlet which prevented building Cactus
-                    from the sources on JDK 1.4.
-                </action>
-                <action dev="VMA" type="fix" due-to="Hirsch Richard" due-to-email="richard.hirsch@siemens.com">
-                    Fixed default properties for the sample application so that it points
-                    to the correct HttpClient jar which is packaged with Cactus (the one
-                    built on 06/06/2002).
-                </action>
-                <action dev="VMA" type="fix" due-to="Larry Tambascio" due-to-email="ltambascio@charter.net">
-                    Fixed a bug that was preventing having several POST parameters added in
-                    the request in beginXXX() methods.
-                </action>
-                <action dev="VMA" type="fix" due-to="Dave Hoover" due-to-email="dave@redsquirrel.com">
-                    The encoding in the sample junit-noframes XSL
-                    stylesheet was set to be "US-ASCII". It is now set to "UTF-8".
-                    Apparently, XSLT processors are only required to support utf-8
-                    and utf-16, the rest is processor specific. For example your
-                    processor might support US-ASCII-7 and others might support
-                    US-ASCII. Thanks to Robert Koberg for the explanation!
-                </action>
-            </release>
-
-            <release version="1.4" date="25 August 2002">
-                <action dev="VMA" type="add">
-                    Added a <link href="site:howto_jsp">tutorial</link> that explains how
-                    to test JSPs with Cactus.
-                </action>
-                <action dev="VMA" type="fix" due-to="David George" due-to-email="david.off@voila.fr">
-                    Fixed JDK 1.2 compatibility (broken in 1.4b1).
-                </action>
-                <action dev="VMA" type="fix" due-to="Felipe Hoffa" due-to-email="felipehoffa@yahoo.com">
-                    According to the XML definitions (at least the definitions Mozilla 1.0
-                    got implemented), the &lt;?xml version...&gt; tag should go before the
-                    &lt;?xml-stylesheet...&gt; tag. Using them in the wrong order produces
-                    an error when Mozilla tries to render it.
-                </action>
-            </release>
-
-            <release version="1.4b1" date="July 31 2002">
-                <action dev="VMA" type="add">
-                    It is now possible to assert response codes in
-                    endXXX(). For example, you can verify that you servlet
-                    has returned a 500 response code. See the tests provided in the Sample
-                    Servlet application which is part of the Cactus distribution. This
-                    change was possible because we moved the underlying implementation from
-                    HttpURLConnection to Jakarta
-                    <link href="ext:commons_httpclient">Commons HttpClient</link>. Note:
-                    It is still not possible to test a 401 response code (this limitation
-                    has been raised to the HttpClient team).
-                </action>
-                <action dev="VMA" type="update">
-                    Refactored internal code to be able to use different HTTP connection
-                    implementation. 2 are currently provided: one using the JDK
-                    HttpURLConnection and one using Jakarta
-                    <link href="ext:commons_httpclient">Commons HttpClient</link>
-                    (the
-                    default one). It can be modified by setting the following System
-                    property: cactus.connectionHelper.classname =
-                    org.apache.cactus.client.JdkConnectionHelper (for the JDK
-                    HttpURLConnection). Note that the Servlet Sample test
-                    that assert response code will fail with the JDK
-                    HttpURLConnection implementation.
-                </action>
-                <action dev="VMA" type="add">
-                    Cactus now requires the Commons Logging library
-                    (commons-logging.jar). It is needed as Commons HttpClient
-                    is now using Commons Logging for logging and Cactus depends on
-                    HttpClient. Cactus is also now using Commons HttpClient for all its
-                    internal logs. This lets us use any underlying logging implementation:
-                    Log4j, LogKit, JDK 1.4 Logging, No Logging or SimpleLog (provided with
-                    Commons Logging - logs to the console). Check the
-                    <link href="site:howto_config">Config Howto</link>
-                    for how
-                    to configure logging in Cactus.
-                </action>
-                <action dev="VMA" type="remove">
-                    Removed deprecated org.apache.cactus.ServletTestRequest
-                    class (was deprecated in Cactus 1.2).
-                </action>
-                <action dev="VMA" type="remove">
-                    Removed deprecated org.apache.cactus.util.ClientCookie
-                    class (was deprecated in Cactus 1.2).
-                </action>
-                <action dev="VMA" type="remove">
-                    Removed deprecated org.apache.cactus.util.AssertUtils
-                    class (was deprecated in Cactus 1.2).
-                </action>
-                <action dev="VMA" type="add">
-                    Added automatic script support for Orion 1.6.
-                </action>
-                <action dev="VMA" type="fix">
-                    Ant scripts for Resin, Orion, Tomcat 3.2.4, WebLogic 6.1 and WebLogic
-                    7.0 now correctly configured for Cactus BASIC authentication tests.
-                </action>
-                <action dev="VMA" type="add">
-                    Added automatic script support for WebLogic 7.0.
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-22" due-to="Daniel Dennison"
-                        due-to-email="dennison@mitec.net">
-                    It seems that it is possible that the test result contain an end of
-                    line character and the Cactus WebTestResultParser was
-                    choking on this and seeing the returned result as invalid. This has
-                    been fixed.
-                </action>
-                <action dev="VMA" type="add">
-                    Added Test Coverage Reports as part of the Web Site generation.
-                </action>
-                <action dev="VMA" type="update">
-                    Renamed all external jars used in Cactus by suffixing them with their
-                    versions. This is so that Cactus users will know exactly what jars
-                    Cactus is packaging. You are of course free to use your own jars and
-                    Cactus only packages these jars for your convenience. Cactus nows
-                    packages Log4j 1.2.3, AspectJ Runtime 1.0.4, JUnit 3.7,
-                    HttpClient 2.0alpha1 built on 6/6/2002, HttpUnit 1.4 and (new) the
-                    Servlet API 2.2 and 2.3 jars. The Cactus jars have also been renamed
-                    to include the version number in their names.
-                </action>
-                <action dev="VMA" type="fix">
-                    Cactus Sample can be built using Ant 1.4 (support for Ant 1.4 was
-                    broken by a line introduced in Cactus 1.3 that would only work with
-                    Ant 1.5. However, this line can easily be commented out).
-                </action>
-                <action dev="VMA" type="fix" issue="CACTUS-21" due-to="Marc Brette"
-                        due-to-email="Marc.Brette@mkms.xerox.com">
-                    Modified the jspRedirector.jsp so that
-                    it initializes an HTTP Session (session="true"). There
-                    is no way I know to make this parameter dynamic so we set it to true
-                    as this is the most used case. If one of your test must not have a
-                    session created for it, then you can always use the Redirector
-                    overriding feature (WebRequest.setRedirectorName(String
-                    redirectorName)).
-                </action>
-                <action dev="VMA" type="fix" due-to="Patrick Lightbody" due-to-email="plightbo@hotmail.com">
-                    Fixed bug where the Test Result object which is put in the Servlet
-                    Context was not serializable. This might cause some trouble with some
-                    containers.
-                </action>
-                <action dev="VMA" type="add" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
-                    Added simulation of Remote IP address and Remote Host Name, i.e. you
-                    can now control what request.getRemoteAddr() and
-                    request.getRemoteHost() will return. That is useful if
-                    your code depends on these values.
-                </action>
-                <action dev="VMA" type="update">
-                    It is now possible to specify the Cactus properties as System
-                    properties (the property names are the same as the ones in
-                    cactus.properties). Also if not specified, redirector
-                    names are set by default to "ServletRedirector", "JspRedirector" and
-                    "FilterRedirector".
-                </action>
-                <action dev="VMA" type="add">
-                    New <link href="site:howto_tomcat">Quick start tutorial</link> that
-                    explains how to run Cactus tests quickly in Tomcat.
-                </action>
-                <action dev="VMA" type="add">
-                    A cool new way to quickly execute your test cases: Cactus now has
-                    a JUnit Test Runner called ServletTestRunner (it is a servlet) that
-                    you start using your browser. See the
-                    <link href="site:howto_runner">TestRunner Howto</link>
-                    tutorial.
-                </action>
-                <action dev="VMA" type="fix">
-                    Test classes are now first looked for using the Current classloader
-                    (the webapp one for Servlets) and if not found using the context
-                    class loader. Previously the order was the revert, which was not
-                    logical and could lead to issues.
-                </action>
-                <action dev="VMA" type="update">
-                    Improved debugging of runservertests task. Simply run
-                    Ant in debug mode (ant -debug xxx) and the task will
-                    print information. Very useful to know why the
-                    runservertests task seems to hang after starting your
-                    server ...
-                </action>
-            </release>
-
-        </releases>
+        <release version="1.4b1" date="July 31 2002">
+            <action dev="VMA" type="add"><![CDATA[
+                It is now possible to assert response codes in
+                endXXX(). For example, you can verify that you servlet
+                has returned a 500 response code. See the tests provided in the Sample
+                Servlet application which is part of the Cactus distribution. This
+                change was possible because we moved the underlying implementation from
+                HttpURLConnection to Jakarta
+                <link href="ext:commons_httpclient">Commons HttpClient</link>. Note:
+                It is still not possible to test a 401 response code (this limitation
+                has been raised to the HttpClient team).]]>
+            </action>
+            <action dev="VMA" type="update"><![CDATA[
+                Refactored internal code to be able to use different HTTP connection
+                implementation. 2 are currently provided: one using the JDK
+                HttpURLConnection and one using Jakarta
+                <link href="ext:commons_httpclient">Commons HttpClient</link>
+                (the
+                default one). It can be modified by setting the following System
+                property: cactus.connectionHelper.classname =
+                org.apache.cactus.client.JdkConnectionHelper (for the JDK
+                HttpURLConnection). Note that the Servlet Sample test
+                that assert response code will fail with the JDK
+                HttpURLConnection implementation.]]>
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                Cactus now requires the Commons Logging library
+                (commons-logging.jar). It is needed as Commons HttpClient
+                is now using Commons Logging for logging and Cactus depends on
+                HttpClient. Cactus is also now using Commons HttpClient for all its
+                internal logs. This lets us use any underlying logging implementation:
+                Log4j, LogKit, JDK 1.4 Logging, No Logging or SimpleLog (provided with
+                Commons Logging - logs to the console). Check the
+                <link href="site:howto_config">Config Howto</link>
+                for how
+                to configure logging in Cactus.]]>
+            </action>
+            <action dev="VMA" type="remove">
+                Removed deprecated org.apache.cactus.ServletTestRequest
+                class (was deprecated in Cactus 1.2).
+            </action>
+            <action dev="VMA" type="remove">
+                Removed deprecated org.apache.cactus.util.ClientCookie
+                class (was deprecated in Cactus 1.2).
+            </action>
+            <action dev="VMA" type="remove">
+                Removed deprecated org.apache.cactus.util.AssertUtils
+                class (was deprecated in Cactus 1.2).
+            </action>
+            <action dev="VMA" type="add">
+                Added automatic script support for Orion 1.6.
+            </action>
+            <action dev="VMA" type="fix">
+                Ant scripts for Resin, Orion, Tomcat 3.2.4, WebLogic 6.1 and WebLogic
+                7.0 now correctly configured for Cactus BASIC authentication tests.
+            </action>
+            <action dev="VMA" type="add">
+                Added automatic script support for WebLogic 7.0.
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-22" due-to="Daniel Dennison"
+                    due-to-email="dennison@mitec.net">
+                It seems that it is possible that the test result contain an end of
+                line character and the Cactus WebTestResultParser was
+                choking on this and seeing the returned result as invalid. This has
+                been fixed.
+            </action>
+            <action dev="VMA" type="add">
+                Added Test Coverage Reports as part of the Web Site generation.
+            </action>
+            <action dev="VMA" type="update">
+                Renamed all external jars used in Cactus by suffixing them with their
+                versions. This is so that Cactus users will know exactly what jars
+                Cactus is packaging. You are of course free to use your own jars and
+                Cactus only packages these jars for your convenience. Cactus nows
+                packages Log4j 1.2.3, AspectJ Runtime 1.0.4, JUnit 3.7,
+                HttpClient 2.0alpha1 built on 6/6/2002, HttpUnit 1.4 and (new) the
+                Servlet API 2.2 and 2.3 jars. The Cactus jars have also been renamed
+                to include the version number in their names.
+            </action>
+            <action dev="VMA" type="fix">
+                Cactus Sample can be built using Ant 1.4 (support for Ant 1.4 was
+                broken by a line introduced in Cactus 1.3 that would only work with
+                Ant 1.5. However, this line can easily be commented out).
+            </action>
+            <action dev="VMA" type="fix" issue="CACTUS-21" due-to="Marc Brette"
+                    due-to-email="Marc.Brette@mkms.xerox.com">
+                Modified the jspRedirector.jsp so that
+                it initializes an HTTP Session (session="true"). There
+                is no way I know to make this parameter dynamic so we set it to true
+                as this is the most used case. If one of your test must not have a
+                session created for it, then you can always use the Redirector
+                overriding feature (WebRequest.setRedirectorName(String
+                redirectorName)).
+            </action>
+            <action dev="VMA" type="fix" due-to="Patrick Lightbody" due-to-email="plightbo@hotmail.com">
+                Fixed bug where the Test Result object which is put in the Servlet
+                Context was not serializable. This might cause some trouble with some
+                containers.
+            </action>
+            <action dev="VMA" type="add" due-to="Marc Brette" due-to-email="Marc.Brette@mkms.xerox.com">
+                Added simulation of Remote IP address and Remote Host Name, i.e. you
+                can now control what request.getRemoteAddr() and
+                request.getRemoteHost() will return. That is useful if
+                your code depends on these values.
+            </action>
+            <action dev="VMA" type="update">
+                It is now possible to specify the Cactus properties as System
+                properties (the property names are the same as the ones in
+                cactus.properties). Also if not specified, redirector
+                names are set by default to "ServletRedirector", "JspRedirector" and
+                "FilterRedirector".
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                New <link href="site:howto_tomcat">Quick start tutorial</link> that
+                explains how to run Cactus tests quickly in Tomcat.]]>
+            </action>
+            <action dev="VMA" type="add"><![CDATA[
+                A cool new way to quickly execute your test cases: Cactus now has
+                a JUnit Test Runner called ServletTestRunner (it is a servlet) that
+                you start using your browser. See the
+                <link href="site:howto_runner">TestRunner Howto</link>
+                tutorial.]]>
+            </action>
+            <action dev="VMA" type="fix">
+                Test classes are now first looked for using the Current classloader
+                (the webapp one for Servlets) and if not found using the context
+                class loader. Previously the order was the revert, which was not
+                logical and could lead to issues.
+            </action>
+            <action dev="VMA" type="update">
+                Improved debugging of runservertests task. Simply run
+                Ant in debug mode (ant -debug xxx) and the task will
+                print information. Very useful to know why the
+                runservertests task seems to hang after starting your
+                server ...
+            </action>
+        </release>
 
     </body>
 
