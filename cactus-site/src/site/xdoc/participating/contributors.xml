@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="contributors">
+<document id="contributors"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Contributors</title>
@@ -211,9 +214,7 @@
                 site from 2002 to April 2005:
             </p>
             <p>
-                <center>
-                    <img src="images/logos/lthouvenot.gif" alt="Proposition 1: Classic"/>
-                </center>
+                <img src="images/logos/lthouvenot.gif" alt="Proposition 1: Classic"/>
             </p>
             <p>
                 Special thanks also to Eoghan McIlwaine who has designed the current

@@ -15,7 +15,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Using the Maven Cactus plugin</title>
@@ -37,11 +39,12 @@
                     it the location of the container you wish to use for the tests. For
                     example, if you wish to run the Cactus tests on Tomcat 4.1.24 and on
                     Resin 2.6, you will write:
-                </li>
-                <source><![CDATA[
+                    <source><![CDATA[
 cactus.home.tomcat4x = C:/Apps/jakarta-tomcat-4.1.24
 cactus.home.resin2x = C:/Apps/resin-2.1.6
 ]]></source>
+                </li>
+
             </ol>
             <subsection name="Running tests packaged in a WAR">
                 <p>

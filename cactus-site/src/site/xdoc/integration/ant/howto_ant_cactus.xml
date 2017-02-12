@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_ant_cactus">
+<document id="howto_ant_cactus"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Servlet Sample Walkthrough</title>
@@ -46,12 +49,12 @@
                 at the servlet sample build and play with it after or while reading
                 this.
             </p>
-            <note>
+            <blockquote>
                 The actual build file of the sample might differ in a few details from
                 the snippets shown here.
-            </note>
+            </blockquote>
 
-            <section name="Starting Off with a Plain Build">
+            <subsection name="Starting Off with a Plain Build">
 
                 <p>
                     The servlet sample is a simple web application that contains
@@ -183,9 +186,9 @@
     <delete dir="${dist.dir}"/>
   </target>]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Defining the Cactus Ant tasks">
+            <subsection name="Defining the Cactus Ant tasks">
 
                 <p>
                     Now we're ready to start integrating Cactus tests into the build.
@@ -242,9 +245,9 @@
                     classes.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Compiling the Test Code">
+            <subsection name="Compiling the Test Code">
 
                 <p>
                     Next we need to compile the test case classes. In the servlet sample,
@@ -283,9 +286,9 @@
                     and <em>compile.test</em>.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Cactifying the Web Application">
+            <subsection name="Cactifying the Web Application">
 
                 <p>
                     In order to be able to run the Cactus tests, you have to deploy a
@@ -294,6 +297,7 @@
                     <em>cactified</em>, we generally refer to a web-application that
                     has been enhanced with the elements required for Cactus tests to
                     work. The minimum requirements are as follows:
+                </p>
                     <ul>
                         <li>
                             It contains all the libraries that Cactus needs on the server
@@ -314,6 +318,7 @@
                             descriptor.
                         </li>
                     </ul>
+                <p>
                     Of course, the cactified web-application also needs to contain
                     your test classes.
                 </p>
@@ -392,9 +397,9 @@
                     some of the tests.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Running the Cactus Tests">
+            <subsection name="Running the Cactus Tests">
 
                 <p>
                     Now to the probably most important part: running the Cactus tests.
@@ -475,6 +480,7 @@
                 </p>
                 <p>
                     What happens behind the scenes is this:
+                </p>
                     <ol>
                         <li>
                             Tomcat is installed to a temporary directory using a minimal
@@ -500,13 +506,14 @@
                             shut down.
                         </li>
                     </ol>
+                <p>
                     If we had defined more than one container in the
                     <strong>&lt;containerset&gt;</strong>
                     element, this procedure would
                     be repeated for every container in the list.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

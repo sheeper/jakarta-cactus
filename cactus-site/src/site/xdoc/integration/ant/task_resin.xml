@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_resin">
+<document id="task_resin"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Resin[2x|3x] Ant Tasks</title>
@@ -37,7 +40,7 @@
                 parameters.
             </p>
 
-            <section name="Parameters">
+            <subsection name="Parameters">
 
                 <table>
                     <tr>
@@ -129,9 +132,9 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <section name="Examples">
+            <subsection name="Examples">
 
                 <p>
                     Start a Resin 3.x instance, wait for it to be started and
@@ -165,7 +168,7 @@
     testurl="http://localhost:${cactus.port}"/>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 

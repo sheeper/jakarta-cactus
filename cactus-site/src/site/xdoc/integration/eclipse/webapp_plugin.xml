@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_eclipse_webapp">
+<document id="integration_eclipse_webapp"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Webapp Eclipse plug-in</title>
@@ -36,6 +39,7 @@
                 It can only be used by another plug-in, i.e. it does not provide any action
                 to users for the moment.
             </p>
+            <ol>
             <li>
                 <a href="#features">Features</a>
             </li>
@@ -45,10 +49,10 @@
             <li>
                 <a href="#using">Using</a>
             </li>
+            </ol>
         </section>
 
-        <a name="features"/>
-        <section name="Features">
+        <section name="Features" id="features">
             <ul>
                 <li>
                     Provides a project property page for web application setup.
@@ -67,32 +71,30 @@
             </ul>
         </section>
 
-        <a name="installation"/>
-        <section name="Installation">
-            <section name="Requirements">
+        <section name="Installation" id="installation">
+            <subsection name="Requirements">
                 <p>
                     The webapp plugin requires a version of the Eclipse platform later
                     than 2.1 RC2.
                 </p>
-            </section>
-            <section name="Installation">
+            </subsection>
+            <subsection name="Installation">
                 <p>
                     Uncompress the zip file and copy the
                     <code>org.apache.cactus.integration.eclipse_[version]</code>
                     folder to
                     your Eclipse <code>plugins</code> folder and restart Eclipse.
                 </p>
-            </section>
-            <section name="Configuration">
+            </subsection>
+            <subsection name="Configuration">
                 <p>
                     Select a Java project, right click and open its properties. On the page that
                     appears select the Web Application item.
                 </p>
-            </section>
+            </subsection>
         </section>
 
-        <a name="using"/>
-        <section name="Using">
+        <section name="Using" id="using">
             <p>
                 This plug-in can only be called by another plug-in. See the
                 <a href="runner_plugin.html">Cactus runner

@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_webxmlmerge">
+<document id="task_webxmlmerge"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>WebXmlMerge Ant Task</title>
@@ -39,53 +42,53 @@
                 descriptor to enable testing the application with Cactus.
             </p>
 
-            <note>
+            <blockquote>
                 This task currently merges only a subset of the definitions in a
                 descriptor, based on the most common usage scenarios:
                 <ul>
                     <li>
-                        <emphasis>Context parameters</emphasis>: Any &lt;context-param&gt;
+                        <em>Context parameters</em>: Any &lt;context-param&gt;
                         element get inserted into the resulting descriptor verbatim.
                     </li>
                     <li>
-                        <emphasis>Servlets and Filters</emphasis>: Both the actual definition
+                        <em>Servlets and Filters</em>: Both the actual definition
                         of the servlet/filter as well as the mappings to URL patterns are
                         merged. If the servlet or filter to inject is already present in the
                         source descriptor, the initialization parameters are merged.
                     </li>
                     <li>
-                        <emphasis>Resource References and Resource Environment References
-                        </emphasis>: Any &lt;resource-ref&gt; or &lt;resource-env-ref&gt;
+                        <em>Resource References and Resource Environment References
+                        </em>: Any &lt;resource-ref&gt; or &lt;resource-env-ref&gt;
                         elements get inserted into the resulting descriptor verbatim.
                     </li>
                     <li>
-                        <emphasis>Security Constraints</emphasis>: Any
+                        <em>Security Constraints</em>: Any
                         &lt;security-constraint&gt; elements get inserted into the resulting
                         descriptor verbatim.
                     </li>
                     <li>
-                        <emphasis>Login Configuration</emphasis>: If a &lt;login-config&gt;
+                        <em>Login Configuration</em>: If a &lt;login-config&gt;
                         element is present, it will replace the corresponding element in the
                         source descriptor.
                     </li>
                     <li>
-                        <emphasis>Security Roles</emphasis>: Any &lt;security-role&gt;
+                        <em>Security Roles</em>: Any &lt;security-role&gt;
                         elements that are not already defined in the source descriptor
                         are inserted into the resulting descriptor.
                     </li>
                     <li>
-                        <emphasis>Environment Entries</emphasis>: Any &lt;env-entry&gt;
+                        <em>Environment Entries</em>: Any &lt;env-entry&gt;
                         elements get inserted into the resulting descriptor verbatim.
                     </li>
                     <li>
-                        <emphasis>EJB References</emphasis>: Any &lt;ejb-ref&gt; or
+                        <em>EJB References</em>: Any &lt;ejb-ref&gt; or
                         &lt;ejb-local-ref&gt; elements get inserted into the resulting
                         descriptor verbatim.
                     </li>
                 </ul>
-            </note>
+            </blockquote>
 
-            <section name="Parameters">
+            <subsection name="Parameters">
 
                 <table>
                     <tr>
@@ -146,11 +149,11 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <section name="Nested Elements">
+            <subsection name="Nested Elements">
 
-                <section name="xmlcatalog">
+                <h4>xmlcatalog</h4>
 
                     <p>
                         The <code>xmlcatalog</code> element can be used to perform Entity and
@@ -159,20 +162,18 @@
                         for details.
                     </p>
 
-                    <note>
+                    <blockquote>
                         The <strong>webxmlmerge</strong> task resolves the DTDs of web-app
                         descriptors (version 2.2 as well as 2.3) automatically to copies
                         stored in the JAR. So normally, you shouldn't need to specify a
                         nested <code>xmlcatalog</code> element. Further, actually
                         specifying it will disable the default behaviour, and you'll need
                         to provide the web-app DTDs yourself.
-                    </note>
+                    </blockquote>
 
-                </section>
+            </subsection>
 
-            </section>
-
-            <section name="Examples">
+            <subsection name="Examples">
 
                 <p>
                     The following example demonstrates the simplest-possible use of the
@@ -231,7 +232,7 @@
 </webxmlmerge>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 

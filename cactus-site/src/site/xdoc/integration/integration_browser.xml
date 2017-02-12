@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_browser">
+<document id="integration_browser"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Running Cactus tests from a browser</title>
@@ -31,11 +34,11 @@
 
         <section name="Running Cactus tests from a browser">
 
-            <note>
+            <blockquote>
                 This section only applies for Cactus 1.4 and greater.
-            </note>
+            </blockquote>
 
-            <section name="Step 1: Setting up the classpath">
+            <subsection name="Step 1: Setting up the classpath">
 
                 <p>
                     In order to run Cactus tests from a browser you need to have a webapp
@@ -47,15 +50,15 @@
                     class loader (refer to your container documentation).
                 </p>
 
-                <note>
+                <blockquote>
                     Refer to the
                     <a href="manual/howto_classpath.html">Classpath Howto</a>
                     guide for the exact list of jars.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Step 2: Mapping the Cactus Servlet Test Runner">
+            <subsection name="Step 2: Mapping the Cactus Servlet Test Runner">
 
                 <p>
                     Then, in addition to the Cactus redirectors that you have mapped in
@@ -80,9 +83,9 @@
 [...]
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 3: Executing the tests">
+            <subsection name="Step 3: Executing the tests">
 
                 <p>
                     Open a browser and type
@@ -113,15 +116,13 @@
                 <p class="image">
                     Here is an example of what you will get:
                     <br/>
-                    <center>
-                        <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
-                    </center>
+                    <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
                 </p>
 
-                <note>
+                <blockquote>
                     If you see a blank page, click on the View source option of your
                     browser. It means your browser doesn't know how to display XML data.
-                </note>
+                </blockquote>
 
                 <p>
                     Ok, that's nice ... But what if I want HTML instead of XML? Don't
@@ -137,19 +138,17 @@
                     You should see the following:
                 </p>
                 <p class="image">
-                    <center>
-                        <img src="../images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
-                    </center>
+                    <img src="../images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
                 </p>
-                <note>
+                <blockquote>
                     This will work with Internet Explorer as the XSL transformation is
                     performed on the client side (i.e by the browser). I'm not sure
                     about other browsers.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Enabling Server-Side XSLT Transformations">
+            <subsection name="Enabling Server-Side XSLT Transformations">
 
                 <p>
                     In the previous section, the XSLT transformation was performed on the
@@ -204,13 +203,13 @@
 http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&transform=yes
 ]]></source>
 
-                <note>
+                <blockquote>
                     The stylesheet specified as initialization parameter is loaded when
                     the ServletTestRunner gets initialized. Changes to the stylesheet will
                     not get picked up until the web-application is reloaded.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
         </section>
 

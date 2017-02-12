@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_cactus">
+<document id="task_cactus"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Cactus Ant Task - version 1.8</title>
@@ -143,7 +146,7 @@
                 elements are supported:
             </p>
 
-            <section name="cactusproperty">
+            <h2>cactusproperty</h2>
 
                 <p>
                     The <strong>cactusproperty</strong> element lets you specify the
@@ -153,10 +156,10 @@
 
                 <subsection name="Parameters">
 
-                    <note>
+                    <blockquote>
                         The <strong>cactusproperty</strong> element supports the following
                         parameters:
-                    </note>
+                    </blockquote>
 
                     <table>
                         <tr>
@@ -189,7 +192,6 @@
 
                 </subsection>
 
-            </section>
         </section>
 
         <section name="containerset">
@@ -203,10 +205,10 @@
 
             <subsection name="Parameters">
 
-                <note>
+                <blockquote>
                     The <strong>containerset</strong> element supports the following
                     parameters:
-                </note>
+                </blockquote>
 
                 <table>
                     <tr>

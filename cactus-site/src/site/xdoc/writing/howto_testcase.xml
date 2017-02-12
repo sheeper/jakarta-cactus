@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_testcase">
+<document id="howto_testcase"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Writing Cactus TestCase</title>
@@ -48,23 +51,22 @@
                 </li>
             </ul>
 
-            <note>
+            <blockquote>
                 In order to help writing test case we highly suggest to have a look
                 at the examples provided as part of the Cactus distribution. Also,
                 all the best practices for JUnit also applies to Cactus test cases
                 as they are in essence JUnit test cases.
-            </note>
+            </blockquote>
 
         </section>
 
-        <anchor id="general_principles"/>
-        <section name="General principles">
+        <section name="General principles" id="general_principles">
 
             <p>
                 To write a test case, please follow the steps defined below.
             </p>
 
-            <section name="Step 1: Imports">
+            <subsection name="Step 1: Imports">
 
                 <p>
                     You need to include the following imports in your test class (
@@ -78,11 +80,11 @@ import org.apache.cactus.*;
 import junit.framework.*;
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 2: Extend a Cactus TestCase class or reuse a JUnit TestCase">
+            <subsection name="Step 2: Extend a Cactus TestCase class or reuse a JUnit TestCase">
 
-                <section name="Option A: Extend a Cactus TestCase class">
+                <h4>Option A: Extend a Cactus TestCase class</h4>
 
                     <p>
                         We need to create a class (our test class) that extends one of
@@ -145,9 +147,8 @@ public class TestSampleFilter extends FilterTestCase
                         </li>
                     </ul>
 
-                </section>
 
-                <section name="Option B: reuse a JUnit TestCase">
+                <h4>Option B: reuse a JUnit TestCase</h4>
 
                     <p>
                         Cactus is able to run pure JUnit TestCase on the server side.
@@ -171,11 +172,10 @@ public class TestJUnitTestCaseWrapper extends TestCase
 }
 ]]></source>
                     </p>
-                </section>
 
-            </section>
+            </subsection>
 
-            <section name="Step 3 (optional): setUp() and tearDown() methods">
+            <subsection name="Step 3 (optional): setUp() and tearDown() methods">
 
                 <p>
                     As in JUnit, you can define a <code>setUp()</code> and a
@@ -195,9 +195,9 @@ public class TestJUnitTestCaseWrapper extends TestCase
                     methods are optional.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Step 4 (optional): begin() and end() methods">
+            <subsection name="Step 4 (optional): begin() and end() methods">
 
                 <p>
                     <code>begin(...)</code>
@@ -213,9 +213,9 @@ public class TestJUnitTestCaseWrapper extends TestCase
                     methods are optional.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Step 5: testXXX() methods">
+            <subsection name="Step 5: testXXX() methods">
 
                 <p>
                     As in JUnit, the main method for a test is the
@@ -281,9 +281,9 @@ public void testXXX()
 }
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 6 (optional): beginXXX() methods">
+            <subsection name="Step 6 (optional): beginXXX() methods">
 
                 <p>
                     For each XXX test case, you can define a corresponding
@@ -325,10 +325,9 @@ public void beginXXX(WebRequest theRequest)
                     represent API objects (their values are <code>null</code>)
                 </p>
 
-            </section>
+            </subsection>
 
-            <anchor id="endxxx"/>
-            <section name="Step 7 (optional): endXXX() methods">
+            <subsection name="Step 7 (optional): endXXX() methods" id="endxxx">
 
                 <p>
                     For each XXX test case, you can define a corresponding
@@ -374,12 +373,11 @@ public void endXXX(HttpURLConnection theConnection)
                     represent API objects (their values are <code>null</code>)
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 
-        <anchor id="specific_details"/>
-        <section name="TestCase specific details">
+        <section name="TestCase specific details" id="specific_details">
 
             <p>
                 <strong>Before reading any of the following detailed tutorials,

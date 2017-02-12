@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="build_result">
+<document id="build_result"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Nightly Build Results</title>
@@ -43,50 +46,37 @@
 
             <ul>
                 <li>
-                    <link href="ext:gump_cactus_doc">Cactus Documentation</link>
+                    <a href="ext:gump_cactus_doc">Cactus Documentation</a>
                 </li>
                 <li>
-                    <link href="ext:gump_cactus_framework_12">Cactus Framework for
-                        J2EE 1.2
-                    </link>
+                    <a href="ext:gump_cactus_framework_12">Cactus Framework for J2EE 1.2</a>
                 </li>
                 <li>
-                    <link href="ext:gump_cactus_framework_13">Cactus Framework for
-                        J2EE 1.3
-                    </link>
+                    <a href="ext:gump_cactus_framework_13">Cactus Framework for J2EE 1.3</a>
                 </li>
                 <li>
-                    <link href="ext:gump_cactus_integration_ant_12">Cactus Ant
-                        Integration for J2EE 1.2
-                    </link>
+                    <a href="ext:gump_cactus_integration_ant_12">Cactus Ant Integration for J2EE 1.2</a>
                 </li>
                 <li>
-                    <link href="ext:gump_cactus_integration_ant_13">Cactus Ant
-                        Integration for J2EE 1.3
-                    </link>
+                    <a href="ext:gump_cactus_integration_ant_13">Cactus Ant Integration for J2EE 1.3</a>
                 </li>
                 <li>
-                    <link href="ext:gump_cactus_sample_servlet_12">Cactus Servlet
-                        Sample for J2EE 1.2 (Servlet API 2.2)
-                    </link>
+                    <a href="ext:gump_cactus_sample_servlet_12">Cactus Servlet Sample for J2EE 1.2 (Servlet API 2.2)</a>
                 </li>
                 <li>
-                    <a href="ext:gump_cactus_sample_servlet_13">Cactus Servlet
-                        Sample for J2EE 1.3 (Servlet API 2.3)
-                    </a>
+                    <a href="ext:gump_cactus_sample_servlet_13">Cactus Servlet Sample for J2EE 1.3 (Servlet API 2.3)</a>
                 </li>
                 <li>
                     <a href="http://lsd.student.utwente.nl/gump/jakarta-cactus/jakarta-cactus-sample-jetty-13/index.html">
-                        Cactus Jetty
-                        Sample for J2EE 1.3 (Servlet API 2.3)
+                        Cactus Jetty Sample for J2EE 1.3 (Servlet API 2.3)
                     </a>
                 </li>
             </ul>
 
-            <note>
+            <blockquote>
                 All Gump results are available
                 <a href="http://lsd.student.utwente.nl/gump/projects.html">here</a>.
-            </note>
+            </blockquote>
 
             <p>
                 If the nightly build is successful, Gump posts the packaged Cactus

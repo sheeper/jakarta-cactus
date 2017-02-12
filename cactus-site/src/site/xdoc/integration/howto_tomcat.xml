@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_tomcat">
+<document id="howto_tomcat"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Tomcat Quickstart</title>
@@ -31,10 +34,10 @@
 
         <section name="Tomcat Quickstart forewords">
 
-            <note>
+            <blockquote>
                 This tutorial applies to Cactus 1.4 or greater and Tomcat 4.0 or
                 greater.
-            </note>
+            </blockquote>
 
             <p>
                 This document is a step by step tutorial that explains how to set up
@@ -65,10 +68,10 @@
             </a> tutorial). We will describe the easiest one to set up in
                 this tutorial, which is by using a browser.
             </p>
-            <note>
+            <blockquote>
                 Step 1 to step 3 are a one time install steps that you need to perform
                 only once to be able to run Cactus tests within Tomcat.
-            </note>
+            </blockquote>
 
         </section>
 
@@ -108,12 +111,12 @@
                     <code>aspectjrt.jar</code>
                 </li>
             </ul>
-            <note>
+            <blockquote>
                 This is the minium set of jars needed. If later on you wish to use the
                 Cactus
                 <a href="../writing/howto_httpunit.html">HttpUnit integration</a>
                 you'll also need to copy <code>httpunit.jar</code>.
-            </note>
+            </blockquote>
         </section>
 
         <section name="Step 3: Modify Tomcat web.xml">
@@ -154,7 +157,7 @@
 </servlet-mapping>
 ]]></source>
 
-            <note>
+            <blockquote>
                 <strong>Warning</strong>: Be careful when you modify the global
                 Tomcat <code>web.xml</code> file. If later on you wish to use
                 the Cactus Ant integration and more specifically if you use the
@@ -163,7 +166,7 @@
                 The <code>&lt;cactifywar&gt;</code> task automatically adds the
                 needed Cactus redirectors (thus they'll be added twice leading to
                 an error.
-            </note>
+            </blockquote>
 
         </section>
 
@@ -203,12 +206,12 @@ public class SampleServlet extends HttpServlet
 }
 ]]></source>
 
-            <note>
+            <blockquote>
                 You'll notice that this isn't even a finished servlet ! However, this
                 shows that you can start testing your code with Cactus even before
                 you have finished writing it completely. Extreme Programmers should
                 like this :-)
-            </note>
+            </blockquote>
 
             <p>
                 We're now read to create our first Cactus test case. Create the
@@ -292,10 +295,10 @@ public class TestSampleServlet extends ServletTestCase
             <p>
                 <img src="../images/tomcat_html.jpg" alt="HTML output of ServletTestRunner"/>
             </p>
-            <note>
+            <blockquote>
                 This will work with any browser that supports client-slide XSLT
                 transformations (both Internet Explorer and Mozilla do, for example).
-            </note>
+            </blockquote>
 
         </section>
 

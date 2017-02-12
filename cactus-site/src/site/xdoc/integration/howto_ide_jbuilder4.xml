@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_ide_jbuilder4">
+<document id="howto_ide_jbuilder4"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>JBuilder 4 Integration</title>
@@ -54,15 +57,15 @@
 
             <img src="../images/jb_libraries.gif" alt="jbuilder libraries"/>
 
-            <section name="Create the JUnit library">
+            <subsection name="Create the JUnit library">
 
                 <p>
                     Create a JUnit library and include <code>junit.jar</code>.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Create the Cactus library">
+            <subsection name="Create the Cactus library">
 
                 <p>
                     Create a Cactus library containing <code>cactus.jar</code> and
@@ -71,26 +74,26 @@
                     library for AspectJ if you wish).
                 </p>
 
-                <note>
+                <blockquote>
                     You can also add the source file directories in the source tab.
                     This way, you will be able to debug inside cactus sources.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Create the tomcat library">
+            <subsection name="Create the tomcat library">
                 <p>
                     Create another library named
                     <code>tomcat</code>
                     and add all the jar files from <code>{Tomcat dir}/lib</code>.
                 </p>
 
-                <note>
+                <blockquote>
                     If you use JBuilder 4 Enterprise or JBuilder 4 Professionnal, you don't need to create
                     this library because Tomcat 3.1 is provided with those versions.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
         </section>
 
         <section name="Step 2: Set up the cactus.properties file">
@@ -112,7 +115,7 @@
 
         <section name="Step 3: Configure Tomcat Environment">
 
-            <section name="Create a cactus webapp">
+            <subsection name="Create a cactus webapp">
 
                 <p>
                     Create and edit the file
@@ -140,9 +143,9 @@
 </web-app>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <note>
+            <blockquote>
                 You can edit <code>{Tomcat dir}/conf/web.xml</code> instead if you
                 prefer.
                 <br/>
@@ -150,7 +153,7 @@
                 located the servlet(s) you want to test.
                 <br/>
                 Don't forget to modify <code>cactus.properties</code> file accordingly.
-            </note>
+            </blockquote>
         </section>
 
         <section name="Step 4: Configure your project">
@@ -178,7 +181,7 @@
 
         <section name="Step 5: Test and debug your servlet">
 
-            <section name="Test your servlet">
+            <subsection name="Test your servlet">
                 <ol>
                     <li>
                         Start Tomcat using the <code>Run/Run Project</code> menu.
@@ -189,9 +192,9 @@
                         <code>run</code>
                     </li>
                 </ol>
-            </section>
+            </subsection>
 
-            <section name="Debug your servlet and your tests">
+            <subsection name="Debug your servlet and your tests">
                 <p>
                     You can easily print the results of the methods on the server-side
                     itself.
@@ -210,7 +213,7 @@
                     or
                     <code>void beginXXX(WebRequest)</code>
                 </p>
-            </section>
+            </subsection>
         </section>
 
     </body>

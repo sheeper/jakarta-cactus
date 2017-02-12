@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_testcase_servlet">
+<document id="howto_testcase_servlet"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>ServletTestCase Principles</title>
@@ -59,19 +62,18 @@
                 as instance variables of your test case class as it extends
                 <code>ServletTestCase</code>).
             </p>
-            <note>
+            <blockquote>
                 You may ask yourself how Cactus initializes these objects. The
                 mechanism is described in the <a href="../how_it_works.html">How it
                 works
             </a> guide.
-            </note>
+            </blockquote>
 
             <p>
                 The provided implicit objects are:
             </p>
 
-            <anchor id="servlet_request"/>
-            <section name="request">
+            <subsection name="request" id="servlet_request">
 
                 <table>
                     <tr>
@@ -124,7 +126,7 @@
                     samples provided in the Cactus distribution.
                 </p>
 
-                <section name="Additional methods">
+                <h4>Additional methods</h4>
 
                     <p>
                         Cactus provides some additional methods to ease writing tests
@@ -147,12 +149,9 @@
                         </li>
                     </ul>
 
-                </section>
+            </subsection>
 
-            </section>
-
-            <anchor id="servlet_response"/>
-            <section name="response">
+            <subsection name="response" id="servlet_response">
 
                 <table>
                     <tr>
@@ -175,14 +174,13 @@
                     </tr>
                 </table>
 
-                <note>
+                <blockquote>
                     Cactus does not wrap the response.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <anchor id="servlet_config"/>
-            <section name="config">
+            <subsection name="config" id="servlet_config">
 
                 <table>
                     <tr>
@@ -238,7 +236,7 @@
                     samples provided in the Cactus distribution.
                 </p>
 
-                <section name="Additional methods">
+                <h4>Additional methods</h4>
 
                     <p>
                         Additional methods provided:
@@ -257,12 +255,9 @@
                         </li>
                     </ul>
 
-                </section>
+            </subsection>
 
-            </section>
-
-            <anchor id="servlet_context"/>
-            <section name="ServletContextWrapper">
+            <subsection name="ServletContextWrapper" id="servlet_context">
 
                 <p>
                     This is not an implicit object per see (as it is not accessible as
@@ -283,7 +278,7 @@
                     samples provided in the Cactus distribution.
                 </p>
 
-                <section name="Additional methods">
+                <h4>Additional methods</h4>
 
                     <p>
                         Additional methods provided:
@@ -302,12 +297,9 @@
                         </li>
                     </ul>
 
-                </section>
+            </subsection>
 
-            </section>
-
-            <anchor id="servlet_session"/>
-            <section name="session">
+            <subsection name="session" id="servlet_session">
 
                 <table>
                     <tr>
@@ -330,9 +322,9 @@
                     </tr>
                 </table>
 
-                <note>
+                <blockquote>
                     Cactus does not wrap the response.
-                </note>
+                </blockquote>
 
                 <p>
                     By default, Cactus always creates an HTTP session for your test
@@ -345,13 +337,13 @@
                     "<code>request.getSession(false)</code>" is <code>null</code>.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 
         <section name="Tips and Tricks">
 
-            <section name="Parameter initialisation">
+            <subsection name="Parameter initialisation">
 
                 <p>
                     If your code under test make use of any of the servlet methods
@@ -384,7 +376,7 @@ public void testXXX()
                     See the samples provided as part of the Cactus distribution.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 
@@ -396,11 +388,11 @@ public void testXXX()
                 examples.
             </p>
 
-            <note>
+            <blockquote>
                 This example is for Cactus 1.2 and above as it uses the new
                 <code>WebRequest</code>
                 and <code>WebResponse</code> objects.
-            </note>
+            </blockquote>
 
             <source><![CDATA[
 public void beginXXX(WebRequest theRequest)

@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="apis">
+<document id="apis"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Public API/SPI vs internal classes</title>
@@ -31,23 +34,28 @@
 
         <section name="Cactus API design rules">
 
-            <note>
+            <blockquote>
                 Most of these rules are extracted from the excellent
                 <a href="http://www.eclipse.org/articles/Article-API%20use/eclipse-api-usage-rules.html">How to Use the
                     Eclipse API
                 </a>
                 article
                 by Jim des Rivieres.
-            </note>
+            </blockquote>
 
-            <section name="Public APIs/SPIs">
+            <subsection name="Public APIs/SPIs">
 
                 <p>
                     To try to draw the line more starkly, the code base for the platform
                     is separated into API/SPI and non-API/non-SPI packages, with all
                     API/SPI elements being declared in designated API/SPI packages.
                 </p>
-
+                <source><![CDATA[
+  org.apache.cactus.foo.*          - API
+  org.apache.cactus.spi.foo.*      - SPI
+  org.apache.cactus.internal.foo.* - not API; internal implementation packages
+  org.apache.cactus.sample.*       - not API; these are examples
+]]></source>
                 <ul>
                     <li>
                         <strong>API/SPI package</strong>: a Java package that contains at
@@ -58,12 +66,7 @@
                         packages may legitimately appear in client code. For the Cactus
                         project, these are:
                     </li>
-                    <source><![CDATA[
-  org.apache.cactus.foo.*          - API
-  org.apache.cactus.spi.foo.*      - SPI
-  org.apache.cactus.internal.foo.* - not API; internal implementation packages 
-  org.apache.cactus.sample.*       - not API; these are examples
-]]></source>
+
                     <li>
                         <strong>API/SPI class or interface</strong>: a public class or
                         interface in an API package, or a public or protected class or
@@ -103,18 +106,18 @@
                     </li>
                 </ul>
 
-            </section>
+            </subsection>
 
-            <section name="No public methods in internal packages">
+            <subsection name="No public methods in internal packages">
 
                 <p>
                     In order to preserve binary compatibility, no user public API/SPI
                     must be located in internal packages.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="No public class exposed as much as possible">
+            <subsection name="No public class exposed as much as possible">
 
                 <p>
                     Only interfaces should be exposed in the public API/SPI (as much as
@@ -127,7 +130,7 @@
                     of it.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

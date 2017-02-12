@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="release_checklist">
+<document id="release_checklist"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Release Checklist</title>
@@ -31,10 +34,10 @@
 
         <section name="Release Checklist">
 
-            <note>
+            <blockquote>
                 This checklist does not include how to release the Maven plugin
                 for Cactus.
-            </note>
+            </blockquote>
 
             <p>
                 Checklist of tasks to perform for each release:
@@ -199,8 +202,7 @@
 
         </section>
 
-        <anchor id="announcement_template"/>
-        <section name="Announcement template">
+        <section name="Announcement template" id="announcement_template">
 
             <source><![CDATA[
 The Cactus project is pleased to announce the release of version <v>.

@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_jsp">
+<document id="howto_jsp"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Testing JSP with Cactus</title>
@@ -59,14 +62,13 @@
 
         </section>
 
-        <anchor id="jsp_type1"/>
-        <section name="Type 1: verifying JSP result">
+        <section name="Type 1: verifying JSP result" id="jsp_type1">
 
             <p>
                 This is easily done by implementing a
                 <code>endXXX(WebResponse)</code>
                 method as described in the
-                <a href="howto_testcase.html#endxxx" anchor="endxxx">TestCase tutorial</a>.
+                <a href="howto_testcase.html#endxxx">TestCase tutorial</a>.
             </p>
             <p>
                 Your test case class will also need to extend
@@ -99,8 +101,7 @@ public class MyTest extends ServletTestCase
 
         </section>
 
-        <anchor id="jsp_type2"/>
-        <section name="Type 2: testing JSP taglibs">
+        <section name="Type 2: testing JSP taglibs" id="jsp_type2">
 
             <p>
                 This is easily done by creating a test case class that extends
@@ -111,8 +112,7 @@ public class MyTest extends ServletTestCase
 
         </section>
 
-        <anchor id="jsp_type3"/>
-        <section name="Type 3: testing JSP in isolation">
+        <section name="Type 3: testing JSP in isolation" id="jsp_type3">
 
             <p>
                 This type of testing depends mostly on your architecture. The general
@@ -128,7 +128,7 @@ public class MyTest extends ServletTestCase
                 some mock code logic that you would write for your tests.
             </p>
 
-            <section name="Example1">
+            <subsection name="Example1">
 
                 <source><![CDATA[
 public class MyTestCase extends JspTestCase
@@ -185,9 +185,9 @@ public class MyTestCase extends JspTestCase
 </HTML>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Example2: Struts application">
+            <subsection name="Example2: Struts application">
 
                 <p>
                     See the
@@ -195,7 +195,7 @@ public class MyTestCase extends JspTestCase
                     project.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

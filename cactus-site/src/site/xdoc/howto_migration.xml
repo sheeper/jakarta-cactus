@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_migration">
+<document id="howto_migration"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Migration Howto</title>
@@ -94,10 +97,10 @@
                 Here are the steps to migrate from Cactus 1.2 to 1.3
             </p>
 
-            <note>
+            <blockquote>
                 This migration guide does not explain any of the new feature of
                 Cactus 1.3 but concentrates on making you move from Cactus 1.2 to 1.3.
-            </note>
+            </blockquote>
 
             <p>
                 Let's call <code>CACTUS_HOME</code> the directory where you unzipped
@@ -108,7 +111,7 @@
                 Follow these steps:
             </p>
 
-            <section name="Step 1">
+            <subsection name="Step 1">
 
                 <p>
                     Put <code>aspectjrt.jar</code> (found in
@@ -116,9 +119,9 @@
                     side classpaths.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Step 2">
+            <subsection name="Step 2">
 
                 <p>
                     Modify your <code>cactus.properties</code> to the new format. For
@@ -129,9 +132,9 @@ cactus.contextURL = http://localhost:8000/cactus
 cactus.servletRedirectorName = ServletRedirector
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 3">
+            <subsection name="Step 3">
 
                 <p>
                     Ensure that <code>cactus.servletRedirectorName</code> does not end
@@ -144,7 +147,7 @@ cactus.servletRedirectorName = ServletRedirector
     </servlet-mapping>
 ]]></source>
 
-            </section>
+            </subsection>
 
             <p>
                 The Cactus sample is supposed to work with Ant 1.4. However, we

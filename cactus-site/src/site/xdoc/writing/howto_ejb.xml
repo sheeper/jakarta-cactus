@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_ejb">
+<document id="howto_ejb"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>EJB Testing with Cactus Howto</title>
@@ -50,19 +53,18 @@
                 </li>
             </ul>
 
-            <note>
+            <blockquote>
                 EJB unit testing works with Cactus 1.0 or later.
-            </note>
+            </blockquote>
 
-            <note>
+            <blockquote>
                 EJB3 unit testing works with Cactus 1.8.1 or later.
-            </note>
+            </blockquote>
         </section>
 
-        <anchor id="ejb_general"/>
-        <section name="General Concepts">
+        <section name="General Concepts" id="ejb_general">
 
-            <section name="Why use Cactus for testing EJBs?">
+            <subsection name="Why use Cactus for testing EJBs?">
 
                 <p>
                     You might be wondering why you would use Cactus to unit test your
@@ -100,9 +102,9 @@
                     </li>
                 </ul>
 
-            </section>
+            </subsection>
 
-            <section name="The process">
+            <subsection name="The process">
 
                 <p>
                     You can unit test your EJBs from any of Cactus redirectors:
@@ -121,12 +123,11 @@
                     this, right?
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 
-        <anchor id="ejb_j2eeri"/>
-        <section name="J2EE RI Tutorial">
+        <section name="J2EE RI Tutorial" id="ejb_j2eeri">
 
             <p>
                 This

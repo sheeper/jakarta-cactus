@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_testcase_filter">
+<document id="howto_testcase_filter"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>FilterTestCase Principles</title>
@@ -46,17 +49,17 @@
                 </li>
             </ul>
 
-            <note>
+            <blockquote>
                 <strong>As filters only exist in Servlet API 2.3, you must use the
                     Cactus version for Servlet API 2.3 if you wish to write tests for
                     them.
                 </strong>
-            </note>
-            <note>
+            </blockquote>
+            <blockquote>
                 <strong>Filter unit testing is only available in Cactus 1.2 and
                     above.
                 </strong>
-            </note>
+            </blockquote>
 
         </section>
 
@@ -71,19 +74,18 @@
                 as instance variables of your test case class as it extends
                 <code>FilterTestCase</code>).
             </p>
-            <note>
+            <blockquote>
                 You may ask yourself how Cactus initializes these objects. The
                 mechanism is described in the <a href="../how_it_works.html">How it
                 works
             </a> guide.
-            </note>
+            </blockquote>
 
             <p>
                 The provided implicit objects are:
             </p>
 
-            <anchor id="filter_request"/>
-            <section name="request">
+            <subsection name="request" id="filter_request">
 
                 <p>
                     See
@@ -95,10 +97,9 @@
                     implicit object for documentation.
                 </p>
 
-            </section>
+            </subsection>
 
-            <anchor id="filter_response"/>
-            <section name="response">
+            <subsection name="response" id="filter_response">
 
                 <p>
                     See
@@ -110,10 +111,9 @@
                     implicit object for documentation.
                 </p>
 
-            </section>
+            </subsection>
 
-            <anchor id="filter_config"/>
-            <section name="config">
+            <subsection name="config" id="filter_config">
 
                 <table>
                     <tr>
@@ -169,7 +169,7 @@
                     samples provided in the Cactus distribution.
                 </p>
 
-                <section name="Additional methods">
+                <h4>Additional methods</h4>
 
                     <p>
                         Additional methods provided:
@@ -188,12 +188,10 @@
                         </li>
                     </ul>
 
-                </section>
 
-            </section>
+            </subsection>
 
-            <anchor id="filter_filterChain"/>
-            <section name="filterChain">
+            <subsection name="filterChain" id="filter_filterChain">
 
                 <table>
                     <tr>
@@ -216,17 +214,17 @@
                     </tr>
                 </table>
 
-                <note>
+                <blockquote>
                     Cactus does not wrap the filter chain.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
         </section>
 
         <section name="Tips and Tricks">
 
-            <section name="Simulating the next fitler in chain">
+            <subsection name="Simulating the next fitler in chain">
 
                 <p>
                     As you are performing unit testing of your filter, you may wish
@@ -267,7 +265,7 @@ public void testDoFilterOK() throws ServletException, IOException
                     See the samples provided as part of the Cactus distribution.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

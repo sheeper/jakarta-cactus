@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_testcase_jsp">
+<document id="howto_testcase_jsp"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>JspTestCase Principles</title>
@@ -79,7 +82,7 @@
                 </a>
                 for details.
             </p>
-            <note>
+            <blockquote>
                 To simplify the complexities of managing a tag handlers lifecycle,
                 Cactus provides the helper class <code>JspTagLifecycle</code>. It
                 is basically a stub implementation of a JSP engines tag management
@@ -90,7 +93,7 @@
                 .
                 Currently, <code>JspTagLifecycle</code> is only available for
                 JSP 1.2.
-            </note>
+            </blockquote>
         </section>
 
         <section name="Provided Implicit Objects">
@@ -103,18 +106,17 @@
                 instance variables of the <code>JspTestCase</code> class (and thus
                 as instance variables of your test case class).
             </p>
-            <note>
+            <blockquote>
                 See the <a href="../how_it_works.html">How it
                 works
             </a> guide for details on how Cactus initializes these objects.
-            </note>
+            </blockquote>
 
             <p>
                 The provided implicit objects are:
             </p>
 
-            <anchor id="jsp_request"/>
-            <section name="request">
+            <subsection name="request" id="jsp_request">
 
                 <p>
                     See
@@ -126,10 +128,9 @@
                     implicit object for documentation.
                 </p>
 
-            </section>
+            </subsection>
 
-            <anchor id="jsp_response"/>
-            <section name="response">
+            <subsection name="response" id="jsp_response">
 
                 <p>
                     See
@@ -141,10 +142,9 @@
                     implicit object for documentation.
                 </p>
 
-            </section>
+            </subsection>
 
-            <anchor id="jsp_config"/>
-            <section name="config">
+            <subsection name="config" id="jsp_config">
 
                 <p>
                     See
@@ -155,10 +155,9 @@
                     </code>
                     implicit object for documentation.
                 </p>
-            </section>
+            </subsection>
 
-            <anchor id="jsp_session"/>
-            <section name="session">
+            <subsection name="session" id="jsp_session">
 
                 <p>
                     See
@@ -169,10 +168,9 @@
                     </code>
                     implicit object for documentation.
                 </p>
-            </section>
+            </subsection>
 
-            <anchor id="jsp_out"/>
-            <section name="out">
+            <subsection name="out" id="jsp_out">
 
                 <table>
                     <tr>
@@ -195,9 +193,9 @@
                     </tr>
                 </table>
 
-                <note>
+                <blockquote>
                     Cactus does not wrap the out object.
-                </note>
+                </blockquote>
                 <p>
                     You can use this object to write data to the response, thereby
                     simulating the body of a tag (if the tag does not modify its body). If
@@ -210,10 +208,9 @@
                     for
                     details.
                 </p>
-            </section>
+            </subsection>
 
-            <anchor id="jsp_pageContext"/>
-            <section name="pageContext">
+            <subsection name="pageContext" id="jsp_pageContext">
 
                 <table>
                     <tr>
@@ -254,11 +251,9 @@
                     for more details. You should also look at the
                     samples provided in the Cactus distribution.
                 </p>
-            </section>
+            </subsection>
 
-
-            <anchor id="jsp_bodyContent"/>
-            <section name="bodyContent">
+            <subsection name="bodyContent" id="jsp_bodyContent">
 
                 <table>
                     <tr>
@@ -295,14 +290,14 @@
                     <code>pageContext.getOut()</code>). To put test content into the
                     <code>bodyContent</code>
                     object, simply use its writer methods. To
-                    quote Sun's API reference on the matter: "Note that the content of
+                    quote Sun's API reference on the matter: "blockquote that the content of
                     BodyContent is the result of evaluation, so it will not contain
                     actions and the like, but the result of their invocation."
                     See
                     <a href="howto_testcase_jsp.html#using_body_content">Body Tags</a>
                     for more information.
                 </p>
-                <note>
+                <blockquote>
                     It's important to balance
                     calls to <code>pushBody()</code> with calls to
                     <code>popBody()</code>--otherwise many servlet engines will not
@@ -310,9 +305,9 @@
                     call pushBody in <code>setUp()</code> and
                     <code>popBody()</code>
                     in <code>tearDown()</code>.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
         </section>
 
         <section name="Custom Tag Set Up">
@@ -328,23 +323,23 @@
                 to only one test in the <code>TestCase</code> and so should
                 be executed after common <code>setUp()</code> code).
             </p>
-            <section name="Step 1: Create the Tag (Required)">
+            <subsection name="Step 1: Create the Tag (Required)">
                 <p>
                     Instantiate a copy of the tag you wish to test.
                 </p>
                 <source><![CDATA[SomeTag tag = new SomeTag();]]></source>
-            </section>
+            </subsection>
 
-            <section name="Step 2: Set the pageContext (Optional)">
+            <subsection name="Step 2: Set the pageContext (Optional)">
                 <p>
                     Call the <code>setPageContext()</code> method with the implicit
                     object provided by Cactus to register the pageContext with the
                     tag.
                 </p>
                 <source><![CDATA[tag.setPageContext(pageContext);]]></source>
-            </section>
+            </subsection>
 
-            <section name="Step 3: Set the tag's attributes (Optional)">
+            <subsection name="Step 3: Set the tag's attributes (Optional)">
                 <p>
                     If your tag takes attributes, call setter methods to initialize
                     the tag's state. Setters on the tag handler class represent the
@@ -359,9 +354,9 @@ someTag.setFoo("10");
 someTag.setBar("11");
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 4: Set the parent tag (Optional)">
+            <subsection name="Step 4: Set the parent tag (Optional)">
                 <p>
                     If you would like the tag you are testing to access a parent
                     tag, you will need to call
@@ -378,10 +373,10 @@ someTag.setBar("11");
                     if you would like to simulate multiple
                     levels of nesting.
                 </p>
-            </section>
+            </subsection>
 
 
-            <section name="Step 5: Create the BodyContent Object (Optional)">
+            <subsection name="Step 5: Create the BodyContent Object (Optional)">
                 <p>
                     If your tag processes its body, call
                     <code>pageContext.pushBody()</code>
@@ -394,10 +389,10 @@ someTag.setBar("11");
                     section
                     for more details.
                 </p>
-            </section>
+            </subsection>
 
 
-            <section name="Step 6: Set up page state (Optional)">
+            <subsection name="Step 6: Set up page state (Optional)">
                 <p>
                     Set up any necessary page state by putting test objects into the
                     appropriate scopes. Tags frequently access data in the
@@ -414,7 +409,7 @@ request.setAttribute("key", new DomainObject("testValue"));
 //or
 pageContext.setAttribute("key", new DomainObject("testValue"), PageContext.REQUEST_SCOPE);
 ]]></source>
-            </section>
+            </subsection>
         </section>
 
         <section name="Running the Test">
@@ -424,7 +419,7 @@ pageContext.setAttribute("key", new DomainObject("testValue"), PageContext.REQUE
                 calling the relevant life-cycle methods and then using JUnit
                 asserts to verify the outcome.
             </p>
-            <section name="Verifying individual methods">
+            <subsection name="Verifying individual methods">
                 <p>
                     Most of the life cycle methods return <code>ints</code>,
                     which signal that
@@ -440,8 +435,8 @@ pageContext.setAttribute("key", new DomainObject("testValue"), PageContext.REQUE
 tag.setValueThatResultsInInclude("correct value");
 assertEquals(Tag.EVAL_BODY_INCLUDE, tag.doStartTag());
 ]]></source>
-            </section>
-            <section name="Checking effects on page data">
+            </subsection>
+            <subsection name="Checking effects on page data">
                 <p>
                     In addition to "listening" for the signals that your tag sends to
                     the container, you may want to verify that the tag's execution
@@ -457,19 +452,19 @@ catalogListTag.doStartTag();
 Collection catalogs = (Collection)request.getAttribute("catalogs");
 assertNotNull(catalogs);
 ]]></source>
-            </section>
+            </subsection>
 
-            <section name="Verifying tag output">
+            <subsection name="Verifying tag output">
                 <p>
                     Use the <code>endXXX</code> method to verify that your tag's
                     methods have resulted in the correct data being written
                     to the response.
                 </p>
-                <note>
+                <blockquote>
                     This example uses the
                     <code>endXXX()</code>
                     signature from Cactus 1.2 or above.
-                </note>
+                </blockquote>
                 <source><![CDATA[
 public void endSomeTagTest (WebResponse response)
 {
@@ -477,7 +472,7 @@ public void endSomeTagTest (WebResponse response)
     assertEquals("<b>expected output</b>", output);
 }
 ]]></source>
-            </section>
+            </subsection>
 
         </section>
 
@@ -486,7 +481,7 @@ public void endSomeTagTest (WebResponse response)
                 There are a few scenarios in custom tag testing that deserve extra
                 attention.
             </p>
-            <section name="Iteration Tags">
+            <subsection name="Iteration Tags">
                 <p>
                     To test a tag that repeats its body processing a number of
                     times, simply create a <code>do-while</code> loop that mimics
@@ -512,9 +507,8 @@ assertEquals(9, count);
                     in the example) to check whether the tag's body was processed
                     the expected number of times.
                 </p>
-            </section>
-            <anchor id="using_body_content"/>
-            <section name="Body Tags">
+            </subsection>
+            <subsection name="Body Tags" id="using_body_content">
                 <p>
                     Unless specified otherwise by the deployment descriptor, all
                     tags can include a body, which can in turn include other tags
@@ -595,24 +589,23 @@ this.pageContext.popBody();
                     However, in a test environment, you can make assumptions if
                     doing so simplifies the workings of the test.
                 </p>
-                <note>
+                <blockquote>
                     Again, you can check that the body of the tag was handled
                     correctly by verifying the total output in the
                     <code>endXXX()</code>
                     method.
-                </note>
-            </section>
-            <section name="TagExtraInfo classes">
+                </blockquote>
+            </subsection>
+            <subsection name="TagExtraInfo classes">
                 <p>
                     Cactus does not offer any specific services to support the
                     testing of <code>TagExtraInfo</code> classes because they do
                     not depend on any of the implicit objects.
                 </p>
-            </section>
+            </subsection>
         </section>
 
-        <anchor id="further_integration"/>
-        <section name="Further Integration Testing">
+        <section name="Further Integration Testing" id="further_integration">
             <p>
                 You can use Cactus to test how your tag will react when put into a
                 real JSP. This allows you to verify that there are no problems with
@@ -628,7 +621,7 @@ this.pageContext.popBody();
                 the more traditional methods described earlier to ensure
                 total coverage.
             </p>
-            <section name="The test JSP">
+            <subsection name="The test JSP">
                 <p>
                     All the JSP needs to do is include the tag library that
                     describes the tag you are testing and makes use of it in
@@ -663,9 +656,9 @@ Assert.assertEquals("bar", foo);
                     <code>pageContext.include()</code>
                     (See below for an example.)
                 </p>
-            </section>
+            </subsection>
 
-            <section name="The TestCase">
+            <subsection name="The TestCase">
                 <p>
                     To use the test JSP, include it from within a
                     <code>JspTestCase.</code>
@@ -691,10 +684,10 @@ public void testSomeTag () throws Exception
                     this level. If you do not catch them there they will be
                     logged by Cactus/JUnit as failures--which is just what you want.
                 </p>
-                <note>
+                <blockquote>
                     Any output that the test JSP generates can be checked normally
                     in the <code>endXXX</code> method.
-                </note>
+                </blockquote>
                 <p>
                     Of course, using this strategy means that you need to put
                     the <code>test_some_tag.jsp</code> in the specified location
@@ -702,7 +695,7 @@ public void testSomeTag () throws Exception
                     your build script should already deploy the redirector JSP, so
                     it should be easy to include another JSP in the build process.
                 </p>
-            </section>
+            </subsection>
         </section>
     </body>
 </document>

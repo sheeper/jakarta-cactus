@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="goals">
+<document id="goals"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Cactus goals</title>
@@ -96,7 +99,7 @@
 
         <section name="Long term vision">
 
-            <section name="The Future of Component Unit Testing">
+            <subsection name="The Future of Component Unit Testing">
 
                 <p>
                     We believe unit testing server side components is going to get harder
@@ -128,9 +131,9 @@
                     </li>
                 </ul>
 
-            </section>
+            </subsection>
 
-            <section name="Long term goals for Cactus">
+            <subsection name="Long term goals for Cactus">
 
                 <p>
                     Consequently to the above predictions, there are 2 long term goals
@@ -164,7 +167,7 @@
                     </li>
                 </ul>
 
-            </section>
+            </subsection>
 
         </section>
 
