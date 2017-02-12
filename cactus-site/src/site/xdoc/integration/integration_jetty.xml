@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_jetty">
+<document id="integration_jetty"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Jetty Integration</title>
@@ -90,12 +93,12 @@ public class TestJettyAll extends TestCase
                 In both cases, the value set programatically takes precendence over the
                 value of the corresponding system property.
             </p>
-            <note>
+            <blockquote>
                 If you're using JSPs you'll need to add the Jasper jars to your
                 runtime Classpath (in addition to the Jetty jar).
-            </note>
+            </blockquote>
 
-            <section name="Example 1: Running from Ant">
+            <subsection name="Example 1: Running from Ant">
 
                 <p>
                     Let's assume we have a JUnit task that launches the tests.
@@ -126,9 +129,9 @@ public class TestJettyAll extends TestCase
 </junit>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Example 2: Running from an IDE">
+            <subsection name="Example 2: Running from an IDE">
 
                 <p>
                     Again all you have to do is add the correct VM arguments, and the
@@ -141,7 +144,7 @@ public class TestJettyAll extends TestCase
                 <img src="../images/jetty_eclipse.png"
                      alt="Eclipse configuration for Jetty"/>
 
-            </section>
+            </subsection>
 
         </section>
     </body>

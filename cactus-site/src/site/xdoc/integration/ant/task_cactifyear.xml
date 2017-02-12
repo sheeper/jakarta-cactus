@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_cactifyear">
+<document id="task_cactifyear"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>CactifyEar Ant Task</title>
@@ -44,7 +47,7 @@
                 elements that <strong>ear</strong> supports.
             </p>
 
-            <section name="Parameters">
+            <subsection name="Parameters">
 
                 <table>
                     <tr>
@@ -70,12 +73,11 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <section name="Nested Elements">
+            <subsection name="Nested Elements">
 
-
-                <section name="cactuswar">
+                <h4>cactuswar</h4>
 
                     <p>
                         The <strong>cactuswar</strong> element configures everything that
@@ -87,7 +89,7 @@
                         always be named cactus.war and be placed in the root of the ear.
                     </p>
 
-                    <section name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -106,13 +108,9 @@
                             </tr>
                         </table>
 
-                    </section>
+            </subsection>
 
-                </section>
-
-            </section>
-
-            <section name="Examples">
+            <subsection name="Examples">
 
                 <p>
                     The following example demonstrates the simplest-possible use of the
@@ -166,7 +164,7 @@
 </cactifyear>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 

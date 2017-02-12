@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_config">
+<document id="howto_config"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Configuration Howto</title>
@@ -75,15 +78,14 @@
                 </li>
             </ul>
 
-            <note>
+            <blockquote>
                 Please note that the different options for configuring Cactus works
                 both for Cactus client side (i.e. from where you start the JUnit Test
                 Runner) and for the Cactus server side (i.e. from where you start your
                 application server).
-            </note>
+            </blockquote>
 
-            <anchor id="clientside"/>
-            <section name="Client side configuration">
+            <subsection name="Client side configuration" id="clientside">
 
                 <p>
                     The following table lists the properties that can be defined on
@@ -229,10 +231,9 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <anchor id="serverside"/>
-            <section name="Server side configuration">
+            <subsection name="Server side configuration" id="serverside">
 
                 <p>
                     On Cactus server side, you only need to properly configure your
@@ -304,7 +305,7 @@
 </web-app>
 ]]></source>
 
-                <note>
+                <blockquote>
                     If you are using the JSP Redirector (i.e. you have test classes
                     that extend <code>JspTestCase</code>), you
                     <strong>must</strong>
@@ -314,7 +315,7 @@
                     Cactus distribution) in a directory in your webapp and you need to
                     put its relative path in the mapping defined above (here we
                     have put it in the webapp root.
-                </note>
+                </blockquote>
 
                 <p>
                     If you want to provide some initialisation parameters that will
@@ -340,7 +341,7 @@
 [...]
 ]]></source>
 
-                <note>
+                <blockquote>
                     Within your <code>testXXX()</code> code, you can also call the
                     <code>config.setInitParameter()</code>
                     method (
@@ -348,7 +349,7 @@
                     being the implicit object of type <code>ServletConfig</code>) to
                     simulate initialisation parameters as if they had been defined in
                     your <code>web.xml</code>.
-                </note>
+                </blockquote>
 
                 <p>
                     Last, if you need to unit test code that uses the Servlet
@@ -356,10 +357,9 @@
                     <a href="../../writing/howto_security.html">Security Howto</a>.
                 </p>
 
-            </section>
+            </subsection>
 
-            <anchor id="logging"/>
-            <section name="Cactus logging configuration">
+            <subsection name="Cactus logging configuration" id="logging">
 
                 <p>
                     Since Cactus 1.4, we have switched to using the
@@ -385,7 +385,7 @@
                     a Cactus logging configuration.
                 </p>
 
-                <section name="'cactus.logging.config' property">
+                <h4>'cactus.logging.config' property</h4>
 
                     <p>
                         Cactus provides an optional
@@ -396,16 +396,14 @@
                         properties into a single place, as demonstrated below.
                     </p>
 
-                    <note>
+                    <blockquote>
                         If you're using the Ant <code>&lt;cactus&gt;</code> task, please
                         refer to the <a href="../../integration/ant/task_cactus.html">documentation for that
                         task
                     </a> to set up Cactus logging.
-                    </note>
+                    </blockquote>
 
-                </section>
-
-                <section name="Sample logging configuration files">
+                <h4>Sample logging configuration files</h4>
 
                     <p>
                         As Cactus is running in 2 JVMs (client side and server side),
@@ -414,15 +412,15 @@
                         files.
                     </p>
 
-                    <section name="Client side configuration sample">
+                <h5>Client side configuration sample</h5>
 
-                        <note>
+                        <blockquote>
                             Notice that for JDK 1.4 logging and for Log4J logging you have
                             to specify that path to this file as these 2 logging systems also
                             use a configuration file to configure themselves. Alternatively
                             you can put configuration data in other files. However, it's
                             convenient to group everything in a single file.
-                        </note>
+                        </blockquote>
 
                         <source><![CDATA[
 # -----------------------------------------------------------------------------
@@ -498,17 +496,15 @@ org.apache.commons.logging.simplelog.log.org.apache.cactus = trace
 org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
 ]]></source>
 
-                    </section>
+                <h5>Server side configuration sample</h5>
 
-                    <section name="Server side configuration sample">
-
-                        <note>
+                        <blockquote>
                             Notice that for JDK 1.4 logging and for Log4J logging you have
                             to specify that path to this file as these 2 logging systems also
                             use a configuration file to configure themselves. Alternatively
                             you can put configuration data in other files. However, it's
                             convenient to group everything in a single file.
-                        </note>
+                        </blockquote>
 
                         <source><![CDATA[
 # -----------------------------------------------------------------------------
@@ -581,11 +577,8 @@ org.apache.commons.logging.simplelog.log.org.apache.cactus = trace
 org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
 ]]></source>
 
-                    </section>
 
-                </section>
-
-                <section name="Tips">
+                <h4>Tips</h4>
 
                     <p>
                         JUnit uses a different classloader to load each test of a TestCase
@@ -599,9 +592,7 @@ org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
                         thus not appending is usually a good choice.
                     </p>
 
-                </section>
-
-            </section>
+            </subsection>
 
         </section>
 

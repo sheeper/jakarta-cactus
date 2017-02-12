@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="mojo_cactifywar">
+<document id="mojo_cactifywar"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>CactifyWar Maven2 MOJO</title>
@@ -41,7 +44,7 @@
                 for details).
             </p>
 
-            <note>
+            <blockquote>
                 If you want to use the
                 <a href="../../writing/howto_httpunit.html">HttpUnit integration</a>
                 in your
@@ -49,9 +52,9 @@
                 the cactified WAR. You can easily do this by specifying it as a
                 <code>&lt;libDependencies&gt;</code>
                 element.
-            </note>
+            </blockquote>
 
-            <section name="Parameters">
+            <subsection name="Parameters">
 
                 <p>
                     Here is a list of all the parameters that can be specified to the
@@ -114,9 +117,9 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <section name="Nested Elements">
+            <subsection name="Nested Elements">
 
                 <p>
                     Here is a list of all the nested elements that you can use
@@ -157,8 +160,8 @@
                         <td>No</td>
                     </tr>
                 </table>
-            </section>
-            <section name="Examples">
+            </subsection>
+            <subsection name="Examples">
 
                 <p>
                     The following example demonstrates the simplest-possible use of the
@@ -264,7 +267,7 @@
    </configuration>
 </plugin>     
 ]]></source>
-            </section>
+            </subsection>
         </section>
     </body>
 </document>

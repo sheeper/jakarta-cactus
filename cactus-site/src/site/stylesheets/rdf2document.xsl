@@ -70,19 +70,13 @@
                 <section name="Archives">
                     <ul>
                         <li>
-                            <a href="news-2003.html">2003 news
-                                archives
-                            </a>
+                            <a href="news-2003.html">2003 news archives</a>
                         </li>
                         <li>
-                            <a href="news-2002.html">2002 news
-                                archives
-                            </a>
+                            <a href="news-2002.html">2002 news archives</a>
                         </li>
                         <li>
-                            <a href="news-2001.html">2001 news
-                                archives
-                            </a>
+                            <a href="news-2001.html">2001 news archives</a>
                         </li>
                     </ul>
                 </section>

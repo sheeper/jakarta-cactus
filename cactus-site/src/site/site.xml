@@ -16,7 +16,8 @@
    limitations under the License.
 -->
 
-<project name="Jakarta Cactus">
+<project name="Jakarta Cactus" xmlns="http://maven.apache.org/DECORATION/1.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd">
     <bannerRight>
         <name>Apache</name>
         <src>images/jakarta-logo.gif</src>

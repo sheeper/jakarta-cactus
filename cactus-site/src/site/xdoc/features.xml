@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="features">
+<document id="features"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Features</title>
@@ -38,19 +41,19 @@
             <p class="image">
                 <img src="images/scope.jpg" alt="Scope and Status"/>
             </p>
-            <note>
+            <blockquote>
                 Support for testing the View layer is done through integration
                 with <a href="http://httpunit.sourceforge.net/">HttpUnit</a>.
                 This is functional unit testing (see the
                 <a href="index.html#unittest_types">What is Cactus</a>
                 page, for a description of the different kinds of unit tests).
-            </note>
-            <note>
+            </blockquote>
+            <blockquote>
                 EJB unit testing is currently done by calling the EJB to unit test as
                 you would if you were writing code to call an EJB from a servlet (See
                 the <a href="writing/howto_ejb.html">EJB Howto</a> page for more details).
                 We are working on providing an EJB Redirector.
-            </note>
+            </blockquote>
 
         </section>
 

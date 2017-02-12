@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="webalizer">
+<document id="webalizer"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Webalizer</title>
@@ -36,7 +39,7 @@
                 uses to track website traffic.
             </p>
 
-            <section name="Webalizer Definitions">
+            <subsection name="Webalizer Definitions">
 
                 <p>
                     From the
@@ -124,7 +127,7 @@
                     Note: A kilobyte is 1024 bytes, not 1000 :)
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

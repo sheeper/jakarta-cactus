@@ -43,7 +43,7 @@
         <dependency org="javax.servlet" name="jstl" rev="1.1.2"/>
         <dependency org="taglibs" name="standard" rev="1.1.2"/>
 
-        <dependency org="org.mortbay.jetty" name="org.mortbay.jetty" rev="5.1.9"/>
+        <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.9"/>
         <dependency org="tomcat" name="jasper-compiler" rev="5.5.9"/>
         <dependency org="tomcat" name="jasper-runtime" rev="5.5.9"/>
 

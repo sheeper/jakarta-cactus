@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="resources_cactus">
+<document id="resources_cactus"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Cactus books</title>
@@ -31,9 +34,9 @@
 
         <section name="Books covering Cactus">
 
-            <note>
+            <blockquote>
                 Recent entries comes first in the table.
-            </note>
+            </blockquote>
 
             <table>
                 <tr>
@@ -44,7 +47,8 @@
                 <tr>
                     <td>
                         <p>
-                            <img src="http://images.amazon.com/images/P/1930110995.01._PE30_PI_SCMZZZZZZZ_.jpg"/>
+                            <img src="http://images.amazon.com/images/P/1930110995.01._PE30_PI_SCMZZZZZZZ_.jpg"
+                                 alt="JUnit in Action: cover"/>
                         </p>
                     </td>
                     <td>
@@ -57,7 +61,8 @@
                 <tr>
                     <td>
                         <p>
-                            <img src="http://images.amazon.com/images/P/0471449156.01._PE30_PI_SCMZZZZZZZ_.jpg"/>
+                            <img src="http://images.amazon.com/images/P/0471449156.01._PE30_PI_SCMZZZZZZZ_.jpg"
+                                 alt="Jakarta Pitfalls: cover"/>
                         </p>
                     </td>
                     <td>
@@ -71,7 +76,7 @@
                 <tr>
                     <td>
                         <p>
-                            <img src="http://g-images.amazon.com/images/G/01/books/icons/books-no-image.gif"/>
+                            <img src="http://g-images.amazon.com/images/G/01/books/icons/books-no-image.gif" alt="books-no-image"/>
                         </p>
                     </td>
                     <td>
@@ -85,7 +90,8 @@
                 <tr>
                     <td>
                         <p>
-                            <img src="http://images.amazon.com/images/P/047120708X.01._PE30_PIdp-schmoo2,TopRight,7,-26_SCMZZZZZZZ_.jpg"/>
+                            <img
+                                    src="http://images.amazon.com/images/P/047120708X.01._PE30_PIdp-schmoo2,TopRight,7,-26_SCMZZZZZZZ_.jpg" alt="Java Tools for Extreme Programming: cover"/>
                         </p>
                     </td>
                     <td>

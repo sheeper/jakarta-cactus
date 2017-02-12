@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="mock_vs_cactus">
+<document id="mock_vs_cactus"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Mock Objects vs In-Container testing</title>
@@ -30,18 +33,18 @@
     <body>
 
         <section name="Mock Objects vs In-Container testing">
-            <note>
+            <blockquote>
                 <strong>
                     This article was written about 2 years ago and is starting to
                     be a bit old. The general content is still valid but several
                     details are no longer true as the frameworks (be it Cactus or
                     the mock objects frameworks) have evolved since then.
                 </strong>
-            </note>
-            <note>
+            </blockquote>
+            <blockquote>
                 Throughout this article, we'll use the abbreviations MO for Mock
                 Objects and IC for In-Container strategy.
-            </note>
+            </blockquote>
             <ul>
                 <li>
                     <a href="mock_vs_cactus.html#mo_serverside">MO and Server-side tests</a>
@@ -61,8 +64,7 @@
             </ul>
         </section>
 
-        <anchor id="mo_serverside"/>
-        <section name="MO and Server-side tests">
+        <section name="MO and Server-side tests" id="mo_serverside">
 
             <p>
                 MO is a strategy to unit test java classes in general. As such
@@ -109,8 +111,7 @@
 
         </section>
 
-        <anchor id="mo_example"/>
-        <section name="An example">
+        <section name="An example" id="mo_example">
 
             <p>
                 Simple test case using Cactus:
@@ -173,22 +174,21 @@ public void testXXX()
 
         </section>
 
-        <anchor id="mo_differences"/>
-        <section name="Differences between MO and IC">
+        <section name="Differences between MO and IC" id="mo_differences">
 
             <p>
                 Comparison of pros and cons of MO versus IC.
             </p>
-            <note>
+            <blockquote>
                 This table is not meant to be comprehensive in
                 term of benefits/inconvenients of using MO. It is more focused on
                 pros and cons of MO when used for unit testing server side code (i.e.
                 what Cactus is focusing on).
-            </note>
-            <note>
+            </blockquote>
+            <blockquote>
                 A '+' indicates a positive point.For example
                 a '+' in the MO column shows that it has an advantage over IC.
-            </note>
+            </blockquote>
 
             <table>
                 <tr>
@@ -373,8 +373,7 @@ public void testXXX()
 
         </section>
 
-        <anchor id="mo_conclusion"/>
-        <section name="Conclusion">
+        <section name="Conclusion" id="mo_conclusion">
 
             <p>
                 Mock Objects are a very interesting way of doing unit testing which
@@ -408,6 +407,7 @@ public void testXXX()
             </p>
             <p>
                 Finally, we believe that MO and Cactus are complementary in 2 areas:
+            </p>
                 <ul>
                     <li>
                         During the development phase, MO could be used to unit test the
@@ -425,7 +425,6 @@ public void testXXX()
                         LDAP connection, ... for example. There are no restrictions.
                     </li>
                 </ul>
-            </p>
             <p>
                 We would very much like to have your feedback on MO vs IC. Please post
                 your feedback on the
@@ -437,13 +436,11 @@ public void testXXX()
 
         </section>
 
-        <anchor id="mo_resources"/>
-        <section name="Resources on MO">
+        <section name="Resources on MO" id="mo_resources">
 
             <p>
                 Some links:
             </p>
-            <p>
                 <ul>
                     <li>
                         <a href="http://www.mockobjects.com/wiki/MocksObjectsPaper?action=AttachFile&amp;do=get&amp;target=mockobjects.pdf">
@@ -474,7 +471,6 @@ public void testXXX()
                         writing the mock implementations.
                     </li>
                 </ul>
-            </p>
 
         </section>
 

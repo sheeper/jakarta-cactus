@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_httpunit">
+<document id="howto_httpunit"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>HttpUnit Howto</title>
@@ -31,11 +34,11 @@
 
         <section name="HttpUnit integration">
 
-            <note>
+            <blockquote>
                 <strong>The HttpUnit integration is only available for Cactus v1.2 and
                     later. It won't work with version 1.1 and earlier.
                 </strong>
-            </note>
+            </blockquote>
 
             <p>
                 Cactus test cases allow to assert the results of the returned server
@@ -104,7 +107,7 @@ public void endXXX(WebResponse theResponse)
                 </li>
             </ul>
 
-            <section name="Method 1: Cactus provided WebResponse object">
+            <subsection name="Method 1: Cactus provided WebResponse object">
 
                 <p>
                     An example:
@@ -125,15 +128,15 @@ public void endXXX(org.apache.cactus.WebResponse theResponse)
 }
 ]]></source>
 
-                <note>
+                <blockquote>
                     For the complete list of all methods available on the
                     <code>WebResponse</code>
                     object, see the associated Javadoc.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Method 2: HttpUnit provided WebResponse object">
+            <subsection name="Method 2: HttpUnit provided WebResponse object">
 
                 <p>
                     An example:
@@ -150,13 +153,13 @@ public void endXXX(com.meterware.httpunit.WebResponse theResponse)
 }
 ]]></source>
 
-                <note>
+                <blockquote>
                     For the complete list of all methods available on the
                     HttpUnit <code>WebResponse</code> object, see the HttpUnit
                     documentation.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
         </section>
 

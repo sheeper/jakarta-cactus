@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="how_it_works">
+<document id="how_it_works"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Cactus Architecture</title>
@@ -38,21 +41,21 @@
             <p class="image">
                 <img src="images/archi.jpg" alt="Cactus Architecture"/>
             </p>
-            <note>
+            <blockquote>
                 Cactus provides several <code>TestCase</code> classes that extends the
                 JUnit <code>Testcase</code> and it also provides several kind of
                 redirectors (Servlet Redirector, JSP Redirector, ...). The diagram
                 above is a generic diagram which serves to explain the principles.
                 You'll find details for a specific redirector proxy in the next
                 section.
-            </note>
-            <note>
+            </blockquote>
+            <source>
                 YYYTestCase = ( ServletTestCase | FilterTestCase | JspTestCase )
-            </note>
-            <note>
+            </source>
+            <blockquote>
                 XXX is the name of the test case. Each YYYTestCase class contains
                 several test cases.
-            </note>
+            </blockquote>
 
             <p>
                 Let's go through the different steps to understand how it works. Here
@@ -167,7 +170,7 @@
                 </li>
             </ol>
 
-            <section name="Redirector Proxies">
+            <subsection name="Redirector Proxies">
 
                 <p>
                     Cactus provides 3 implementations of Redirector Proxies
@@ -194,65 +197,61 @@
                     </li>
                 </ul>
 
-                <subsection name="Servlet Redirector Proxy">
-                    <center>
-                        <p class="image">
-                            <img src="images/archi_servlet.jpg"
-                                 alt="Servlet Redirector Architecture"/>
-                        </p>
-                    </center>
-                    <p>
-                        The client side opens 2 HTTP connections to the Servlet redirector.
-                        Once to execute the tests and retrieve the servlet output stream and
-                        a second time to get the test result. This is to be able to get
-                        the exception data (message, stack trace, ...) if the test failed.
-                        The test results are stored in a variable which is put in the
-                        <code>ServletContext</code>
-                        and then retrieved on the second HTTP
-                        connection.
+                <h4>Servlet Redirector Proxy</h4>
+                <center>
+                    <p class="image">
+                        <img src="images/archi_servlet.jpg"
+                             alt="Servlet Redirector Architecture"/>
                     </p>
+                </center>
+                <p>
+                    The client side opens 2 HTTP connections to the Servlet redirector.
+                    Once to execute the tests and retrieve the servlet output stream and
+                    a second time to get the test result. This is to be able to get
+                    the exception data (message, stack trace, ...) if the test failed.
+                    The test results are stored in a variable which is put in the
+                    <code>ServletContext</code>
+                    and then retrieved on the second HTTP
+                    connection.
+                </p>
 
-                </subsection>
 
-                <subsection name="JSP Redirector Proxy">
-                    <center>
-                        <p class="image">
-                            <img src="images/archi_jsp.jpg" alt="JSP Redirector Architecture"/>
-                        </p>
-                    </center>
-                    <p>
-                        The client side opens 2 HTTP connections to the JSP redirector.
-                        Once to execute the tests and retrieve the servlet output stream and
-                        a second time to get the test result. This is to be able to get
-                        the exception data (message, stack trace, ...) if the test failed.
-                        The test results are stored in a variable which is put in the
-                        <code>ServletContext</code>
-                        and then retrieved on the second HTTP
-                        connection.
+                <h4>JSP Redirector Proxy</h4>
+                <center>
+                    <p class="image">
+                        <img src="images/archi_jsp.jpg" alt="JSP Redirector Architecture"/>
                     </p>
+                </center>
+                <p>
+                    The client side opens 2 HTTP connections to the JSP redirector.
+                    Once to execute the tests and retrieve the servlet output stream and
+                    a second time to get the test result. This is to be able to get
+                    the exception data (message, stack trace, ...) if the test failed.
+                    The test results are stored in a variable which is put in the
+                    <code>ServletContext</code>
+                    and then retrieved on the second HTTP
+                    connection.
+                </p>
 
-                </subsection>
 
-                <subsection name="Filter Redirector Proxy">
-                    <center>
-                        <p class="image">
-                            <img src="images/archi_filter.jpg" alt="Filter Redirector Architecture"/>
-                        </p>
-                    </center>
-                    <p>
-                        The client side opens 2 HTTP connections to the Filter redirector.
-                        Once to execute the tests and retrieve the servlet output stream and
-                        a second time to get the test result. This is to be able to get
-                        the exception data (message, stack trace, ...) if the test failed.
-                        The test results are stored in a variable which is put in the
-                        <code>ServletContext</code>
-                        and then retrieved on the second HTTP
-                        connection.
+                <h4>Filter Redirector Proxy</h4>
+                <center>
+                    <p class="image">
+                        <img src="images/archi_filter.jpg" alt="Filter Redirector Architecture"/>
                     </p>
+                </center>
+                <p>
+                    The client side opens 2 HTTP connections to the Filter redirector.
+                    Once to execute the tests and retrieve the servlet output stream and
+                    a second time to get the test result. This is to be able to get
+                    the exception data (message, stack trace, ...) if the test failed.
+                    The test results are stored in a variable which is put in the
+                    <code>ServletContext</code>
+                    and then retrieved on the second HTTP
+                    connection.
+                </p>
 
-                </subsection>
-
-            </section>
+            </subsection>
 
         </section>
 

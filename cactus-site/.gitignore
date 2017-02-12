@@ -2,3 +2,5 @@
 src/site/resources/xref/
 # Javadoc
 src/site/resources/apidocs/
+# rdf xml transformation
+src/site/xdoc/news.xml

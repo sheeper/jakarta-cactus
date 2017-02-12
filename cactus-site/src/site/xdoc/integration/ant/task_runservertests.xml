@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_runservertests">
+<document id="task_runservertests"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>RunServerTests Ant Task</title>
@@ -83,16 +86,16 @@
                 right time.
             </p>
 
-            <note>
+            <blockquote>
                 Since Ant 1.5, the effects of this task can also be achieved by using a
                 combination of the built-in Ant tasks <code>waitfor</code> (with the
                 <code>http</code>
                 condition), <code>parallel</code>,
                 <code>sequential</code>
                 and <code>antcall</code>.
-            </note>
+            </blockquote>
 
-            <section name="Parameters">
+            <subsection name="Parameters">
 
                 <table>
                     <tr>
@@ -140,9 +143,9 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <section name="Examples">
+            <subsection name="Examples">
 
                 <p>
                     In the following example, the target <code>start.tomcat.40</code> will
@@ -164,7 +167,7 @@
     testtarget="test"/>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 

@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_eclipse_dev">
+<document id="integration_eclipse_dev"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Development Environment</title>
@@ -33,9 +36,9 @@
                 This section describes how to set up a development environment in
                 Eclipse for working on the Cactus plugins for Eclipse.
             </p>
-            <note>
+            <blockquote>
                 The instructions below are for Eclipse 2.1 or greater.
-            </note>
+            </blockquote>
             <p>
                 Let's assume you have a clean workspace and that you have checked out
                 the Cactus source code from CVS in a

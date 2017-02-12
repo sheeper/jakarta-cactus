@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_ejb_j2eeri">
+<document id="howto_ejb_j2eeri"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>EJB Testing with J2EE RI</title>
@@ -48,23 +51,23 @@
                 your ejb. You need to match the JNDI name in the ejb jar and the war.
             </p>
 
-            <note>
+            <blockquote>
                 This is an EJB 1.1 example but the same principles are valid for
                 EJB 2.0
-            </note>
+            </blockquote>
 
         </section>
 
         <section name="EJB Jar">
 
-            <section name="Step 1: Prepare the Sample EJB">
+            <subsection name="Step 1: Prepare the Sample EJB">
 
                 <p>
                     The EJB used in this tutorial is a simple Session Bean with a method
                     for converting Yen to Dollar.
                 </p>
 
-                <section name="EJB Remote">
+                <h4>EJB Remote</h4>
 
                     <source><![CDATA[
 package org.apache.cactus.sample.ejb;
@@ -78,9 +81,7 @@ public interface Converter extends EJBObject
 }
 ]]></source>
 
-                </section>
-
-                <section name="EJB Home">
+                <h4>EJB Home</h4>
 
                     <source><![CDATA[
 package org.apache.cactus.sample.ejb;
@@ -94,9 +95,7 @@ public interface ConverterHome extends EJBHome
 }
 ]]></source>
 
-                </section>
-
-                <section name="EJB Bean">
+                <h4>EJB Bean</h4>
 
                     <source><![CDATA[
 package org.apache.cactus.sample.ejb;
@@ -139,11 +138,9 @@ public class ConverterEJB implements SessionBean
 }
 ]]></source>
 
-                </section>
+            </subsection>
 
-            </section>
-
-            <section name="Step 2: Prepare EJB Deployment Descriptor (ejb-jar.xml)">
+            <subsection name="Step 2: Prepare EJB Deployment Descriptor (ejb-jar.xml)">
 
                 <p>
                     Prepare the standard EJB Deployment Descriptor for the Session EJB:
@@ -183,9 +180,9 @@ public class ConverterEJB implements SessionBean
 </ejb-jar>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 3: Prepare EJB Runtime (only valid for J2EE RI)">
+            <subsection name="Step 3: Prepare EJB Runtime (only valid for J2EE RI)">
 
                 <source><![CDATA[
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -204,13 +201,13 @@ public class ConverterEJB implements SessionBean
 </j2ee-ri-specific-information>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 
         <section name="Cactus Web Application">
 
-            <section name="Step 1: Prepare test code">
+            <subsection name="Step 1: Prepare test code">
 
                 <source><![CDATA[
 package org.apache.cactus.sample.ejb;
@@ -252,9 +249,9 @@ public class ConverterTest extends ServletTestCase
 }
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 2: Prepare Web Application Deployment Descriptor (web.xml)">
+            <subsection name="Step 2: Prepare Web Application Deployment Descriptor (web.xml)">
 
                 <source><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -287,9 +284,9 @@ public class ConverterTest extends ServletTestCase
 </web-app>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 3: Package Web Application">
+            <subsection name="Step 3: Package Web Application">
 
                 <p>
                     Package the web application into a war and then deploy it. Please
@@ -297,9 +294,9 @@ public class ConverterTest extends ServletTestCase
                     need to match with the JNDI name of the test EJB.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Step 4: (Only valid to J2EE RI 1.2.1): War Runtime">
+            <subsection name="Step 4: (Only valid to J2EE RI 1.2.1): War Runtime">
 
                 <source><![CDATA[
 <j2ee-ri-specific-information>
@@ -319,9 +316,9 @@ public class ConverterTest extends ServletTestCase
 </j2ee-ri-specific-information>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Step 5: Deploy">
+            <subsection name="Step 5: Deploy">
 
                 <p>
                     You need to deploy the war and the <code>ejb-jar.xml</code> based on
@@ -329,7 +326,7 @@ public class ConverterTest extends ServletTestCase
                     container.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

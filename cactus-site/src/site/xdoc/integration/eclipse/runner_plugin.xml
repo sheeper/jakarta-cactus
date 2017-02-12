@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_eclipse_runner">
+<document id="integration_eclipse_runner"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Eclipse plug-in for Cactus</title>
@@ -37,6 +40,7 @@
                 running Cactus tests. It supports a variety of commercial and
                 open-source application servers (better called containers).
             </p>
+            <ol>
             <li>
                 <a href="#features">Features</a>
             </li>
@@ -52,10 +56,10 @@
             <li>
                 <a href="#developer">Developer's corner</a>
             </li>
+            </ol>
         </section>
 
-        <a name="features"/>
-        <section name="Features">
+        <section name="Features" id="features">
             <ul>
                 <li>
                     Adds a shortcut for Cactus tests launching.
@@ -167,45 +171,40 @@
             </ul>
         </section>
 
-        <a name="installation"/>
-        <section name="Installation">
-            <section name="Requirements">
+        <section name="Installation" id="installation">
+            <subsection name="Requirements">
                 <p>
                     The Cactus plugin requires a version of the Eclipse platform later
                     than 2.1.
                 </p>
-            </section>
-            <section name="Installation">
+            </subsection>
+            <subsection name="Installation">
                 <p>
                     Uncompress the zip file and copy the
                     <code>org.apache.cactus.integration.eclipse_[version]</code>
                     folder
                     to your Eclipse <code>plugins</code> folder and restart Eclipse.
                 </p>
-            </section>
-            <section name="Configuration">
+            </subsection>
+            <subsection name="Configuration">
                 <p>
                     Go to Window -> Preferences -> Cactus and set your preferences.
                 </p>
-            </section>
+            </subsection>
 
         </section>
 
-        <a name="using"/>
-        <section name="Using">
+        <section name="Using" id="using">
             <p>
                 Select any Cactus test class and from the toolbar do :
                 Run As -> Cactus Test
                 <br/>
-                <p>
                     <img src="../../images/eclipse/runner/launchshortcut.png"
                          alt="Cactus launch shortcut"/>
-                </p>
             </p>
         </section>
 
-        <a name="next"/>
-        <section name="What's next">
+        <section name="What's next" id="next">
             <p>
                 In order to release a production-quality tool some features are needed.
             </p>
@@ -215,9 +214,8 @@
             </p>
         </section>
 
-        <a name="developer"/>
-        <section name="Developer's corner">
-            <section name="Overview of the plug-in">
+        <section name="Developer's corner" id="developer">
+            <subsection name="Overview of the plug-in">
                 <p>
                     The Cactus framework extends JUnit. The Cactus
                     plugin for Eclipse extends in a certain manner the existing JUnit
@@ -240,10 +238,10 @@
                     container management.
                 </p>
 
-            </section>
-            <section name="How it works">
+            </subsection>
+            <subsection name="How it works">
 
-                <section name="Extension points">
+                <h4>Extension points</h4>
                     <ul>
                         <li>
                             <em>
@@ -266,8 +264,7 @@
                             adds the Cactus preference page to the preferences.
                         </li>
                     </ul>
-                </section>
-                <section name="GUI: preference page">
+                <h4>GUI: preference page"</h4>
                     <p>
                         A preference page is contributed to the Eclipse preferences. It
                         shows the following entries:
@@ -280,9 +277,8 @@
                         </li>
                         <li>setting of the container homes</li>
                     </ul>
-                </section>
 
-                <section name="IContainerProvider">
+                <h4>IContainerProvider</h4>
                     <p>
                         To enable different ways to setup, start, and stop containers the
                         idea of container providers has been introduced in the plugin.
@@ -302,8 +298,7 @@
                         and may be used to execute tests on all the containers supported
                         by the Ant integration subproject.
                     </p>
-                </section>
-                <section name="What happens when a test is launched">
+                <h4>What happens when a test is launched</h4>
                     <p>
                         The
                         <code>launch(IType theType, String theMode)</code>
@@ -389,15 +384,14 @@
                             </p>
                         </li>
                     </ul>
-                </section>
-            </section>
-            <section name="Contributing">
+            </subsection>
+            <subsection name="Contributing">
                 <p>
                     Read the <a href="development.html">Eclipse
                     development evironment setup
                 </a> tutorial.
                 </p>
-            </section>
+            </subsection>
         </section>
 
     </body>

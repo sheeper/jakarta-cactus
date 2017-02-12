@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_maven2">
+<document id="integration_maven2"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Maven2 Integration</title>
@@ -30,24 +33,22 @@
     <body>
 
         <section name="Maven2 Integration">
-
             <p>
                 Cactus provides a way to execute your tests with <a href="http://maven.apache.org/">Maven2</a>.
                 To execute the tests you can follow one of the approaches:
-                <ul>
-                    <li>
-                        either write a <code>build.xml</code>, and use the <a href="../ant/index.html">Ant
-                        integration</a>.
-                        After that you call the <code>build.xml</code> through the <code>maven-antrun-plugin</code>.
-                    </li>
-                    <li>
-                        The second approach would be to directly call the
-                        <code>cargo-maven2-plugin</code>
-                        in order to start and stop the container.
-                    </li>
-                </ul>
             </p>
-
+            <ul>
+                <li>
+                    either write a <code>build.xml</code>, and use the <a href="../ant/index.html">Ant
+                    integration</a>.
+                    After that you call the <code>build.xml</code> through the <code>maven-antrun-plugin</code>.
+                </li>
+                <li>
+                    The second approach would be to directly call the
+                    <code>cargo-maven2-plugin</code>
+                    in order to start and stop the container.
+                </li>
+            </ul>
         </section>
 
         <section name="Using the first approach">
@@ -104,14 +105,14 @@
             </p>
             <p>
                 Here is a sample configuration of the build section of you <code>pom.xml</code>that would:
-                <ul>
-                    <li>Cactify your war.</li>
-                    <li>Start a container.</li>
-                    <li>Deploy the cactified archive.</li>
-                    <li>Execute the cactus-tests.</li>
-                    <li>Stop the container.</li>
-                </ul>
             </p>
+            <ul>
+                <li>Cactify your war.</li>
+                <li>Start a container.</li>
+                <li>Deploy the cactified archive.</li>
+                <li>Execute the cactus-tests.</li>
+                <li>Stop the container.</li>
+            </ul>
             <p>
                 <source>
                     <![CDATA[<build>
@@ -218,30 +219,29 @@
                 <code>maven-surefire-plugin</code>
                 from the <code>test</code> phase and bind it with the <code>integration-test</code> phase.
                 There are a few things to notice here:
-                <ul>
-                    <li>First of all notice that since there is no <code>post-package</code> we are bound to attach
-                        the <code>cactifywar</code> goal to the <code>pre-integration-test</code> phase. In
-                        order to make it execute before the <code>start-container</code> execution we define it just
-                        before the
-                        <code>start-container</code>
-                        exection.
-                    </li>
-                    <li>Cargo needs a deployable to deploy in the container. This deployable is resolved from the
-                        local maven repository (the one in <code>[USER_HOME]/.m2/repository/</code>). The cactifywar
-                        mojo will install the cactified archive in the local maven repository only if the maven
-                        <code>installInLocalRepo</code>
-                        parameter is set to <code>true</code>.
-                    </li>
-                    <li>For the <code>maven-surefire-plugin</code> to execute cactus tests, there need to be a few
-                        system properties set.
-                        <b>The <code>cactus.contextURL</code> property needs to be set!
-                        </b>
-                        The value
-                        you have to set it, corresponds to the install url that you install your archives.
-                    </li>
-                    <li></li>
-                </ul>
             </p>
+            <ul>
+                <li>First of all notice that since there is no <code>post-package</code> we are bound to attach
+                    the <code>cactifywar</code> goal to the <code>pre-integration-test</code> phase. In
+                    order to make it execute before the <code>start-container</code> execution we define it just
+                    before the
+                    <code>start-container</code>
+                    exection.
+                </li>
+                <li>Cargo needs a deployable to deploy in the container. This deployable is resolved from the
+                    local maven repository (the one in <code>[USER_HOME]/.m2/repository/</code>). The cactifywar
+                    mojo will install the cactified archive in the local maven repository only if the maven
+                    <code>installInLocalRepo</code>
+                    parameter is set to <code>true</code>.
+                </li>
+                <li>For the <code>maven-surefire-plugin</code> to execute cactus tests, there need to be a few
+                    system properties set.
+                    <b>The <code>cactus.contextURL</code> property needs to be set!
+                    </b>
+                    The value
+                    you have to set it, corresponds to the install url that you install your archives.
+                </li>
+            </ul>
         </section>
     </body>
 </document>

@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_cactus">
+<document id="task_cactus"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Cactus Ant Task</title>
@@ -65,6 +68,7 @@
 
             <p>
                 Currently the following containers are supported out of the box:
+            </p>
                 <ul>
                     <li>
                         <a href="#tomcat3x">Apache Tomcat 3.x</a>
@@ -94,7 +98,6 @@
                         <a href="#weblogic7x">WebLogic 7.x</a>
                     </li>
                 </ul>
-            </p>
             <p>
                 In addition if your favorite container is not in the above list, you
                 can use the <a href="#generic">Generic</a> container.
@@ -149,8 +152,8 @@
                 </table>
 
             </subsection>
-
-            <section name="Nested Elements">
+            
+            <subsection name="Nested Elements">
 
                 <p>
                     As this task is an extension of the <strong>junit</strong> task, it
@@ -160,7 +163,7 @@
                     elements are supported:
                 </p>
 
-                <section name="cactusproperty">
+                <h4>cactusproperty</h4>
 
                     <p>
                         The <strong>cactusproperty</strong> element lets you specify the
@@ -168,12 +171,12 @@
                         will be read and set as System properties.
                     </p>
 
-                    <subsection name="Parameters">
+                <h5>Parameters</h5>
 
-                        <note>
+                        <blockquote>
                             The <strong>cactusproperty</strong> element supports the following
                             parameters:
-                        </note>
+                        </blockquote>
 
                         <table>
                             <tr>
@@ -204,25 +207,22 @@
     propertiesFile="${target.dir}/logging_server.properties"/>
 ]]></source>
 
-                    </subsection>
+                <h4>containerset</h4>
 
-                </section>
 
-                <section name="containerset">
-
-                    <p>
+                <p>
                         The <strong>containerset</strong> element lets you specify which
                         containers the tests should run against. Every element nested inside
                         this element corresponds to a container. See below for a list of
                         container elements supported in this element.
                     </p>
 
-                    <subsection name="Parameters">
+                    <h5>Parameters</h5>
 
-                        <note>
+                        <blockquote>
                             The <strong>containerset</strong> element supports the following
                             parameters:
-                        </note>
+                        </blockquote>
 
                         <table>
                             <tr>
@@ -256,11 +256,7 @@
                             </tr>
                         </table>
 
-                    </subsection>
-
-                </section>
-
-                <section name="containerclasspath">
+                <h4>containerclasspath</h4>
                     <p>
                         The optional <strong>containerclasspath</strong> element lets you
                         specify additional jars that will be added to the container
@@ -273,11 +269,11 @@
                         <code>classpath</code>
                         element. In most cases you will not need to use this element.
                     </p>
-                </section>
+                
 
-            </section>
+            </subsection>
 
-            <section name="Supported Containers">
+            <subsection name="Supported Containers">
 
                 <p>
                     All elements nested in the <strong>containerset</strong> element
@@ -289,7 +285,7 @@
                     as appropriate.
                 </p>
 
-                <section name="Common Parameters">
+                <h4>Common Parameters</h4>
 
                     <p>
                         Here is a list of parameters that are common to all containers.
@@ -327,10 +323,7 @@
                         </tr>
                     </table>
 
-                </section>
-
-                <anchor id="generic"/>
-                <section name="generic">
+                <h4 id="generic">generic</h4>
 
                     <p>
                         The <strong>generic</strong> container supports custom containers by
@@ -344,7 +337,7 @@
                         by the <code>&lt;generic&gt;</code> element.
                     </p>
 
-                    <subsection name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -405,16 +398,14 @@
                             </tr>
                         </table>
 
-                    </subsection>
-
-                    <section name="Nested Elements">
+                <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>generic</strong> container supports the following nested
                             elements:
                         </p>
 
-                        <subsection name="exclude">
+                <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -422,9 +413,7 @@
                                 exclude specific tests from running in the container.
                             </p>
 
-                        </subsection>
-
-                        <subsection name="startup">
+                <h6>startup</h6>
 
                             <p>
                                 A single <strong>startup</strong> element can be nested inside a
@@ -437,9 +426,8 @@
                                 element.
                             </p>
 
-                        </subsection>
 
-                        <subsection name="shutdown">
+                <h6>shutdown</h6>
 
                             <p>
                                 A single <strong>shutdown</strong> element can be nested inside a
@@ -452,21 +440,14 @@
                                 element.
                             </p>
 
-                        </subsection>
-
-                    </section>
-
-                </section>
-
-                <anchor id="jboss3x"/>
-                <section name="jboss3x">
+                <h4 id="jboss3x">jboss3x</h4>
 
                     <p>
                         The nested element <strong>jboss3x</strong> allows running the tests
                         against the JBoss 3.x application server.
                     </p>
 
-                    <subsection name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -571,16 +552,14 @@
                             </tr>
                         </table>
 
-                    </subsection>
-
-                    <subsection name="Nested Elements">
+                <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>jboss3x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <subsection name="exclude">
+                <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -588,21 +567,15 @@
                                 from running in the container.
                             </p>
 
-                        </subsection>
 
-                    </subsection>
-
-                </section>
-
-                <anchor id="orion1x"/>
-                <section name="orion1x">
+                <h4 id="orion1x">orion1x</h4>
 
                     <p>
                         The nested element <strong>orion1x</strong> allows running the tests
                         against the Orion Application Server 1.x.
                     </p>
 
-                    <section name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -678,16 +651,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>orion1x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="exclude">
+                <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -695,21 +666,14 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="orion2x"/>
-                <section name="orion2x">
+                <h4 id="orion2x">orion2x</h4>
 
                     <p>
                         The nested element <strong>orion1x</strong> allows running the tests
                         against the Orion Application Server 2.x.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -785,16 +749,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>orion2x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -802,21 +764,14 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="resin2x"/>
-                <section name="resin2x">
+                <h4 id="resin2x">resin2x</h4>
 
                     <p>
                         The nested element <strong>resin2x</strong> allows running the tests
                         against the Resin Server 2.x.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -899,16 +854,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>resin2x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -916,21 +869,14 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="resin3x"/>
-                <section name="resin3x">
+                <h4 id="resin3x">resin3x</h4>
 
                     <p>
                         The nested element <strong>resin3x</strong> allows running the tests
                         against the Resin Server 3.x.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -1013,16 +959,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>resin3x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -1030,21 +974,14 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="tomcat3x"/>
-                <section name="tomcat3x">
+                <h4 id="tomcat3x">tomcat3x</h4>
 
                     <p>
                         The nested element <strong>tomcat3x</strong> allows running the tests
                         against the Apache Tomcat 3.x servlet container.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -1127,16 +1064,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>tomcat3x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="conf">
+                        <h6>conf</h6>
 
                             <p>
                                 An Ant Fileset that can be used to specify the set of files that
@@ -1148,9 +1083,7 @@
                                 custom version of it.
                             </p>
 
-                        </section>
-
-                        <section name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -1158,21 +1091,14 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="tomcat4x"/>
-                <section name="tomcat4x">
+                <h4 id="tomcat4x">tomcat4x</h4>
 
                     <p>
                         The nested element <strong>tomcat4x</strong> allows running the tests
                         against the Apache Tomcat 4.x servlet container.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -1267,16 +1193,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>tomcat4x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="conf">
+                        <h6>conf</h6>
 
                             <p>
                                 An Ant Fileset that can be used to specify the set of files that
@@ -1288,9 +1212,7 @@
                                 custom version of it.
                             </p>
 
-                        </section>
-
-                        <section name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -1298,14 +1220,7 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="tomcat5x"/>
-                <section name="tomcat5x">
+                <h4 id="tomcat5x">tomcat5x</h4>
 
                     <p>
                         The nested element <strong>tomcat5x</strong> allows running the tests
@@ -1324,7 +1239,7 @@
                         file in <code>META-INF/context.xml</code>.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -1407,16 +1322,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>tomcat5x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <section name="conf">
+                        <h6>conf</h6>
 
                             <p>
                                 An Ant Fileset that can be used to specify the set of files that
@@ -1428,9 +1341,7 @@
                                 custom version of it.
                             </p>
 
-                        </section>
-
-                        <section name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
@@ -1438,21 +1349,14 @@
                                 from running in the container.
                             </p>
 
-                        </section>
-
-                    </section>
-
-                </section>
-
-                <anchor id="weblogic7x"/>
-                <section name="weblogic7x">
+                <h4 id="weblogic7x">weblogic7x</h4>
 
                     <p>
                         The nested element <strong>weblogic7x</strong> allows running the
                         tests against the WebLogic 7.x J2EE container.
                     </p>
 
-                    <section name="Parameters">
+                    <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -1552,16 +1456,14 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <section name="Nested Elements">
+                    <h5>Nested Elements</h5>
 
                         <p>
                             The <strong>tomcat4x</strong> container supports the following
                             nested elements:
                         </p>
 
-                        <subsection name="conf">
+                        <h6>conf</h6>
 
                             <p>
                                 A fileset that can be used to specify the set of files that
@@ -1571,25 +1473,15 @@
                                 file.
                             </p>
 
-                        </subsection>
-
-                        <subsection name="exclude">
+                        <h6>exclude</h6>
 
                             <p>
                                 Multiple <strong>exclude</strong> elements can be used as in
                                 standard Ant PatternSets or FileSets to exclude specific tests
                                 from running in the container.
                             </p>
-
-                        </subsection>
-
-                    </section>
-
-                </section>
-
-            </section>
-
-            <section name="Examples">
+            </subsection>
+            <subsection name="Examples">
 
                 <p>
                     The following example demonstrates how to run a suite of Cactus tests
@@ -1660,7 +1552,7 @@
 </cactus>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 

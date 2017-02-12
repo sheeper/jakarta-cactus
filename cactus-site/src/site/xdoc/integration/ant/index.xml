@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="integration_ant">
+<document id="integration_ant"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Ant Integration</title>
@@ -37,7 +40,7 @@
                 of tasks that support the running of tests from an Ant build file.
             </p>
 
-            <section name="Background">
+            <subsection name="Background">
 
                 <p>
                     A strong principle of <em>eXtreme Programming</em> (XP) is the
@@ -71,14 +74,15 @@
                     available, and it is quite easy to extend Ant with custom tasks.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Ant Resources">
+            <subsection name="Ant Resources">
 
                 <p>
                     This documentation assumes good knowledge of the basic concepts of
                     Ant. Here are several resources that can help you get up to speed
                     if you haven't been using Ant yet:
+                </p>
                     <ul>
                         <li>
                             The <a href="http://ant.apache.org/manual/index.html">Ant Manual</a> is the
@@ -113,11 +117,10 @@
                             http://ant.apache.org/resources.html
                         </a>
                     </p>
-                </p>
 
-            </section>
+            </subsection>
 
-            <section name="Installing the Cactus Ant Tasks">
+            <subsection name="Installing the Cactus Ant Tasks">
 
                 <p>
                     The Ant tasks provided by Cactus are distributed together with the
@@ -205,17 +208,17 @@
                     installed in the <code>lib</code> directory of your Ant installation
                     (see the Ant FAQ for details).
                 </p>
-                <note>
+                <blockquote>
                     If you get an error at this point, make absolutely sure that you've
                     correctly set up the classpath for the task definition. Run Ant with
                     the <code>-verbose</code> or the <code>-debug</code> options to find
                     out which libraries or classes could not be found, or what else may
                     be going wrong.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Using the Cactus Ant Tasks">
+            <subsection name="Using the Cactus Ant Tasks">
 
                 <p>
                     After you have defined the Cactus tasks you'll need to actually use
@@ -224,6 +227,7 @@
                     build. Each of the tasks is independant or complementary to the
                     others. You'll need to decide on what tasks to used depending on your
                     requirements.
+                </p>
                     <table>
                         <caption>Ant tasks provided by Cactus</caption>
                         <tr>
@@ -274,10 +278,10 @@
                             </td>
                         </tr>
                     </table>
-                </p>
                 <p>
                     Typically, the sequence for executing Cactus tests from an Ant build
                     will be the following:
+                </p>
                     <ol>
                         <li>
                             Compile the test classes (using the standard tasks like
@@ -298,9 +302,8 @@
                             <code>&lt;runservertests&gt;</code>)
                         </li>
                     </ol>
-                </p>
 
-            </section>
+            </subsection>
 
         </section>
 

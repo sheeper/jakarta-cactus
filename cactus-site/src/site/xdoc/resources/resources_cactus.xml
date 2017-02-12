@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="resources_cactus">
+<document id="resources_cactus"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Cactus links</title>
@@ -31,9 +34,9 @@
 
         <section name="External resources related to Cactus">
 
-            <note>
+            <blockquote>
                 Recent entries comes first in the table.
-            </note>
+            </blockquote>
 
             <table>
                 <tr>
@@ -303,9 +306,7 @@
                     </td>
                     <td>
                         Co-authored by
-                        <a href="../participating/contributors.html#nick_bio" anchor="nick_bio">Nicholas
-                            Lesiecki
-                        </a>
+                        <a href="../participating/contributors.html#nick_bio">Nicholas Lesiecki</a>
                         (a Cactus commiter) and Richard Hightower, this
                         book covers key open source testing and integration tools that work
                         well in agile processes such as XP. The book features a Cactus API

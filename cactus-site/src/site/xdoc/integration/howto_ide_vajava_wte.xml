@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_ide_vajava_wte">
+<document id="howto_ide_vajava_wte"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>VAJava and WebSphere Test Environment</title>
@@ -31,11 +34,11 @@
 
         <section name="Forewords and Requirements">
 
-            <note>
+            <blockquote>
                 <strong>This tutorial is written for Cactus 1.2 only. It will need
                     to adapted if you're using Cactus 1.3
                 </strong>
-            </note>
+            </blockquote>
 
             <p>
                 This tutorial explains how to run Cactus tests within VisualAge for
@@ -80,7 +83,7 @@
                 but you can safely ignore them as they won't be executed.
             </p>
 
-            <note>
+            <blockquote>
                 You can either import the source files or the compiled classes as you
                 wish. If you import the source file, you should import the following
                 directories: <code>{Cactus dir}/src/framework/servlet22</code> and
@@ -94,7 +97,7 @@
                 <code>{Cactus dir}/sample/conf/test</code>. If you have imported from
                 the Cactus jar file, and you have selected to import resources files
                 then they have been automatically imported for you.
-            </note>
+            </blockquote>
 
         </section>
 
@@ -107,7 +110,7 @@
                 <code>{VAJava dir}/ide/project_resources/Cactus</code>.
             </p>
 
-            <note>
+            <blockquote>
                 As WebSphere does not support the <code>jsp-file</code> tag in
                 <code>web.xml</code>, we cannot map the redirector JSP to a name, so
                 instead of writing
@@ -118,13 +121,13 @@
                 "<code>cactus.jspRedirectorURL =
                 http://localhost:8080/test/jspRedirector.jsp</code>". This is only needed
                 if you have test cases that extend <code>JspTestCase</code>.
-            </note>
+            </blockquote>
 
         </section>
 
         <section name="Step 3: Modify WebSphere Test Environment">
 
-            <section name="Edit default.servlet_engine">
+            <subsection name="Edit default.servlet_engine">
 
                 <p>
                     Edit <code>{WTE dir}/properties/default.servlet_engine</code> and
@@ -142,7 +145,7 @@
     </websphere-webgroup>
 ]]></source>
 
-                <note>
+                <blockquote>
                     The <code>init-parameter</code> is only needed if you wish to run
                     sample application provided in the Cactus distribution. Also, in
                     order to run this sample application you'll need to copy the
@@ -151,11 +154,11 @@
                     <code>{WTE dir}/hosts/default_host/test/web/test</code>
                     as it is
                     used by a test case.
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Create a test directory">
+            <subsection name="Create a test directory">
 
                 <p>
                     Create a directory called <code>test</code> under
@@ -165,9 +168,9 @@
                     <code>web</code>.
                 </p>
 
-            </section>
+            </subsection>
 
-            <section name="Create a test.webapp file">
+            <subsection name="Create a test.webapp file">
 
                 <p>
                     Create a test.webapp file in
@@ -256,9 +259,9 @@
 </webapp>
 ]]></source>
 
-            </section>
+            </subsection>
 
-            <section name="Copy the Cactus JSP Redirector file">
+            <subsection name="Copy the Cactus JSP Redirector file">
 
                 <p>
                     Copy the
@@ -266,7 +269,7 @@
                     file to <code>{WTE dir}/hosts/default_host/test/web</code>.
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 
@@ -299,7 +302,7 @@
 
         <section name="Final note">
 
-            <note>
+            <blockquote>
                 With this configuration, you'll find
                 <code>cactus_client.log</code>
                 under <code>{VAJava dir}/ide/project_resources/{project being
@@ -307,14 +310,14 @@
             </code> and <code>cactus_server.log</code> under
                 <code>{VAJava dir}/ide/tools/com-ibm-ivj-ui-webcontrolcenter</code>
                 when you run your tests.
-            </note>
+            </blockquote>
 
-            <note>
+            <blockquote>
                 If you get a "Failed to invoke suite():
                 java.lang.NoClassDefFoundError" error message, you msy get around that
                 problem by explicitly adding the test cases to the TestSuite that's
                 returned in suite(), for your test case.
-            </note>
+            </blockquote>
 
         </section>
 

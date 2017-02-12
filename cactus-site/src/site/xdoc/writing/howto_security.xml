@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_security">
+<document id="howto_security"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Testing secure code Howto</title>
@@ -43,10 +46,10 @@
                 in your <code>beginXXX()</code>, as defined below.
             </p>
 
-            <note>
+            <blockquote>
                 The Cactus sample application demonstrates how to unit test everything
                 that is explained here.
-            </note>
+            </blockquote>
 
         </section>
 
@@ -111,14 +114,14 @@ public void testBasicAuthentication()
 
         <section name="Step 2: Securing the Cactus Redirector">
 
-            <note>
+            <blockquote>
                 If you're using the Cactus Ant tasks to execute your Cactus
                 tests, please check the <a href="../integration/ant/task_cactifywar.html">Cactifywar
                 task
             </a> page as the configuration below is only required
                 for manual configuration and is handled automatically by the
                 Cactifywar task.
-            </note>
+            </blockquote>
             <p>
                 All calls to the server side go through the Cactus Servlet Redirector
                 and thus it is that servlet that needs to be secured in

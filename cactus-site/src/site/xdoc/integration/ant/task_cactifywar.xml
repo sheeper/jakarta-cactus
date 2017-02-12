@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="task_cactifywar">
+<document id="task_cactifywar"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>CactifyWar Ant Task</title>
@@ -41,7 +44,7 @@
                 for details).
             </p>
 
-            <note>
+            <blockquote>
                 If you want to use the
                 <a href="../../writing/howto_httpunit.html">HttpUnit integration</a>
                 in your
@@ -49,7 +52,7 @@
                 the cactified WAR. You can easily do this by using a nested
                 <code>&lt;lib&gt;</code>
                 element.
-            </note>
+            </blockquote>
 
             <p>
                 The <strong>cactifywar</strong> task extends the built-in Ant task
@@ -57,7 +60,7 @@
                 elements that <strong>war</strong> supports.
             </p>
 
-            <section name="Parameters">
+            <subsection name="Parameters">
 
                 <p>
                     As this task is an extension of the <strong>war</strong> task, it
@@ -122,9 +125,9 @@
                     </tr>
                 </table>
 
-            </section>
+            </subsection>
 
-            <section name="Nested Elements">
+            <subsection name="Nested Elements">
 
                 <p>
                     As this task is an extension of the <strong>war</strong> task, it
@@ -137,7 +140,7 @@
                     URL-pattern.
                 </p>
 
-                <section name="filterredirector">
+                <h4>filterredirector</h4>
 
                     <p>
                         The <strong>filterredirector</strong> element lets you specify the
@@ -145,7 +148,7 @@
                         the web application.
                     </p>
 
-                    <section name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -186,15 +189,12 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                    <note>
+                    <blockquote>
                         This element will be ignored for Servlet 2.2 web applications.
-                    </note>
+                    </blockquote>
 
-                </section>
 
-                <section name="jspredirector">
+                <h4>jspredirector</h4>
 
                     <p>
                         The <strong>jspredirector</strong> element lets you specify the
@@ -202,7 +202,7 @@
                         the web application.
                     </p>
 
-                    <section name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -243,11 +243,8 @@
                             </tr>
                         </table>
 
-                    </section>
 
-                </section>
-
-                <section name="servletredirector">
+                <h4>servletredirector</h4>
 
                     <p>
                         The <strong>servletredirector</strong> element lets you specify the
@@ -255,7 +252,7 @@
                         the web application.
                     </p>
 
-                    <section name="Parameters">
+                <h5>Parameters</h5>
 
                         <table>
                             <tr>
@@ -297,11 +294,7 @@
                             </tr>
                         </table>
 
-                    </section>
-
-                </section>
-
-                <section name="xmlcatalog">
+                <h4>xmlcatalog</h4>
 
                     <p>
                         The <code>xmlcatalog</code> element can be used to perform Entity
@@ -310,20 +303,20 @@
                         for details.
                     </p>
 
-                    <note>
+                    <blockquote>
                         The <strong>cactifywar</strong> task resolves the DTDs of web-app
                         descriptors (version 2.2 as well as 2.3) automatically to copies
                         stored in the JAR. So normally, you shouldn't need to specify a
                         nested <code>xmlcatalog</code> element. Further, actually
                         specifying it will disable the default behaviour, and you'll need
                         to provide the web-app DTDs yourself.
-                    </note>
+                    </blockquote>
 
-                </section>
 
-            </section>
 
-            <section name="Examples">
+            </subsection>
+
+            <subsection name="Examples">
 
                 <p>
                     The following example demonstrates the simplest-possible use of the
@@ -382,7 +375,7 @@
 </cactifywar>
 ]]></source>
 
-            </section>
+            </subsection>
 
         </section>
 

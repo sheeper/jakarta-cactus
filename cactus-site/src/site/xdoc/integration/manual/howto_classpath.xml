@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="howto_classpath">
+<document id="howto_classpath"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Setting the Cactus CLASSPATH</title>
@@ -48,16 +51,16 @@
                 start a JUnit Test Runner.
             </p>
 
-            <note>
+            <blockquote>
                 <strong>It is very important that you understand what files you need
                     to put in the client and server classpaths, as 99% of Cactus
                     errors come from an incorrect classpath !
                 </strong>
-            </note>
+            </blockquote>
             <p>
                 <img src="../../images/classpath.jpg" alt="Classpaths"/>
             </p>
-            <section name="Client side classpath">
+            <subsection name="Client side classpath">
 
                 <p>
                     The Cactus tests are started by running a JUnit Test Runner (For
@@ -170,13 +173,13 @@
                     </li>
                 </ul>
 
-                <note>
+                <blockquote>
                     If you have the habit of using class variables for the classes
                     to test (as opposed to declaring them within the
                     <code>testXXX()</code>
                     method), you'll also need to put your classes
                     under test in the client side classpath.
-                </note>
+                </blockquote>
 
                 <p>
                     In addition to the above mentioned jars and classes, you may have
@@ -190,17 +193,17 @@
                     tutorial).
                 </p>
 
-                <note>
+                <blockquote>
                     If you are using Log4J as the logging framework, you will also
                     need to put a <code>log4j.properties</code> Log4j configuration
                     file in your client side classpath (See the
                     <a href="../../integration/manual/howto_config.html">Config Howto</a>
                     tutorial).
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
-            <section name="Server side classpath">
+            <subsection name="Server side classpath">
 
                 <p>
                     The server side part is a webapp. It can be packaged as a .war file
@@ -268,22 +271,22 @@
                     </li>
                 </ul>
 
-                <note>
+                <blockquote>
                     If you have several webapps that use cactus you can put all Cactus
                     jars in a place loaded by your container System classloader (provided
                     your container correctly sets the Context classloader). The location
                     is container-dependent; for example for Tomcat 4.x, you can put the
                     jars in <code>TOMCAT_HOME/common/lib</code>.
-                </note>
+                </blockquote>
 
-                <note>
+                <blockquote>
                     If you are using Log4J as the logging framework, you will also
                     need to put a <code>log4j.properties</code> Log4j configuration
                     file in your server side classpath (usually in
                     <code>WEB-INF/classes</code>).
-                </note>
+                </blockquote>
 
-            </section>
+            </subsection>
 
         </section>
 

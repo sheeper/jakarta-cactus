@@ -21,7 +21,10 @@
  * ========================================================================
 -->
 
-<document id="downloads">
+<document id="downloads"
+          xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
         <title>Downloads</title>
@@ -35,7 +38,7 @@
                 The following files are available for download:
             </p>
 
-            <section name="Core Distribution">
+            <subsection name="Core Distribution">
 
                 <p>
                     The core distribution consists of the actual Cactus framework for
@@ -84,13 +87,13 @@ maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion=<vers
                     Cactus plugin installation page</a>.
                 </p>
 
-            </section>
+            </subsection>
 
-            <note>
+            <blockquote>
                 <code>&lt;version&gt;</code>
                 represents the version number for releases
                 and the date stamp for nightly builds.
-            </note>
+            </blockquote>
 
         </section>
 
