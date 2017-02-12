@@ -37,17 +37,17 @@
         <!-- ================================================================= -->
 
         <release version="1.8.2" date="2017" description="Migration to GitHub">
-            <action dev="geissld" type="add">
+            <action dev="geissld" type="update">
                 Update the documentation.
-                <fixes issue="#13" />
+                <fixes issue="issues/13" />
             </action>
             <action dev="geissld" type="update">
                 Various changes to the build to enable it for Maven3 and automatic build with TravisCI.
-                <fixes issue="#1" />
-                <fixes issue="#4" />
-                <fixes issue="#7" />
-                <fixes issue="#8" />
-                <fixes issue="#9" />
+                <fixes issue="issues/1" />
+                <fixes issue="issues/4" />
+                <fixes issue="issues/7" />
+                <fixes issue="issues/8" />
+                <fixes issue="issues/9" />
             </action>
         </release>
         <release version="1.8.1" date="18 January 2009">
