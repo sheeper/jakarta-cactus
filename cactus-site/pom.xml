@@ -280,6 +280,7 @@
                 <configuration>
                     <!-- github site-maven-plugin is going to upload the files -->
                     <skipDeploy>true</skipDeploy>
+                    <generateSitemap>true</generateSitemap>
                 </configuration>
             </plugin>
             <plugin>
