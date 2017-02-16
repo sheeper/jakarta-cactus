@@ -33,7 +33,7 @@
     <description>The intent of Cactus is to lower the cost of writing tests for server-side code. It uses JUnit and extends it.
 
 Cactus implements an in-container strategy, meaning that tests are executed inside the container. </description>
-    <bug-database rdf:resource="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" />
+    <bug-database rdf:resource="https://github.com/sheeper/jakarta-cactus/issues" />
     <mailing-list rdf:resource="https://sheeper.github.io/jakarta-cactus/mailinglist.html" />
     <download-page rdf:resource="https://sheeper.github.io/jakarta-cactus/downloads.html" />
     <programming-language>Java</programming-language>

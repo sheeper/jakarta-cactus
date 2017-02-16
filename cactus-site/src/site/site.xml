@@ -48,7 +48,7 @@
             <item name="Features" href="features.html"/>
             <item name="News" href="news.html"/>
             <item name="Downloads" href="downloads.html"/>
-            <item name="Bug Database" href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471"
+            <item name="Bug Database" href="https://github.com/sheeper/jakarta-cactus/issues"
                   target="_blank"/>
             <item name="Mailing Lists" href="mail-lists.html"/>
             <item name="FAQ" href="faq.html"/>
@@ -107,7 +107,7 @@
                 <item name="About Us" href="/participating/contributors.html"/>
                 <item name="Roadmap" href="/participating/todo.html"/>
                 <item name="TODO/Open Issues"
-                      href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel"/>
+                      href="https://github.com/sheeper/jakarta-cactus/issues"/>
                 <item name="Coding Conventions" href="/participating/coding_conventions.html"/>
                 <item name="Public API/SPIs" href="/participating/apis.html"/>
                 <item name="SVN" href="http://jakarta.apache.org/site/cvsindex.html"/>

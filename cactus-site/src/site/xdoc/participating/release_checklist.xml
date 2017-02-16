@@ -45,7 +45,7 @@
             <ol>
                 <li>
                     Ensure that all
-                    <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">
+                    <a href="https://github.com/sheeper/jakarta-cactus/issues">
                         open bugs
                     </a>
                     have
@@ -66,7 +66,7 @@
                 </li>
                 <li>
                     Ensure that the
-                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">Todo</a>
+                    <a href="https://github.com/sheeper/jakarta-cactus/issues">Todo</a>
                     page
                     has no more items for the current version.
                 </li>
@@ -153,7 +153,7 @@
                     </ul>
                 </li>
                 <li>
-                    Add a new version in JIRA so that users can enter bugs for the
+                    Add a new version in GitHub so that users can enter bugs for the
                     new version released.
                 </li>
                 <li>
