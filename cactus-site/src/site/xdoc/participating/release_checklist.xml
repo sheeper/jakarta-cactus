@@ -222,7 +222,7 @@ Changes
 -------
 
 Please check the Changes page at
-http://jakarta.apache.org/cactus/changes.html for a full list of the 
+https://sheeper.github.io/jakarta-cactus/changes.html for a full list of the
 changes in version <v>. 
 
 Known limitations and bugs:
@@ -231,7 +231,7 @@ Known limitations and bugs:
 [add main limitations and known bugs here]
 
 For more information about Cactus, please visit
-http://jakarta.apache.org/cactus/.
+https://sheeper.github.io/jakarta-cactus/.
 
 Have fun,
 -The Cactus team

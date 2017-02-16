@@ -23,19 +23,19 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
          xmlns:asfext="http://projects.apache.org/ns/asfext#"
          xmlns:foaf="http://xmlns.com/foaf/0.1/">
-  <Project rdf:about="http://jakarta.apache.org/cactus">
+  <Project rdf:about="https://sheeper.github.io/jakarta-cactus">
     <created>2007-07-09</created>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
     <name>Apache Jakarta Cactus</name>
-    <homepage rdf:resource="http://jakarta.apache.org/cactus" />
+    <homepage rdf:resource="https://sheeper.github.io/jakarta-cactus" />
     <asfext:pmc rdf:resource="http://attic.apache.org" />
     <shortdesc>Cactus is a simple test framework for unit testing server-side java code (Servlets, EJBs, Tag Libs, Filters, ...).</shortdesc>
     <description>The intent of Cactus is to lower the cost of writing tests for server-side code. It uses JUnit and extends it.
 
 Cactus implements an in-container strategy, meaning that tests are executed inside the container. </description>
     <bug-database rdf:resource="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471" />
-    <mailing-list rdf:resource="http://jakarta.apache.org/cactus/mailinglist.html" />
-    <download-page rdf:resource="http://jakarta.apache.org/cactus/downloads.html" />
+    <mailing-list rdf:resource="https://sheeper.github.io/jakarta-cactus/mailinglist.html" />
+    <download-page rdf:resource="https://sheeper.github.io/jakarta-cactus/downloads.html" />
     <programming-language>Java</programming-language>
     <category rdf:resource="http://projects.apache.org/category/testing" />
     <category rdf:resource="http://projects.apache.org/category/retired" />

@@ -27,7 +27,7 @@
     <packaging>pom</packaging>
 
     <name>Cactus Parent</name>
-    <url>http://jakarta.apache.org/cactus/</url>
+    <url>https://sheeper.github.io/jakarta-cactus/</url>
     <inceptionYear>2001</inceptionYear>
 
     <organization>

@@ -26,7 +26,7 @@
     <bannerLeft>
         <name>Cactus</name>
         <src>images/logocactus.gif</src>
-        <href>http://jakarta.apache.org/cactus/</href>
+        <href>https://sheeper.github.io/jakarta-cactus/</href>
     </bannerLeft>
     <skin>
         <groupId>org.apache.cactus</groupId>
@@ -37,7 +37,7 @@
         <breadcrumbs>
             <item name="Apache" href="http://www.apache.org/"/>
             <item name="Jakarta" href="http://www.jakarta.apache.org/"/>
-            <item name="Cactus" href="http://jakarta.apache.org/cactus/"/>
+            <item name="Cactus" href="https://sheeper.github.io/jakarta-cactus/"/>
         </breadcrumbs>
 
         <menu ref="modules"/>
@@ -142,7 +142,7 @@
         </menu>
     </body>
     <poweredBy>
-        <logo name="Jakarta Cactus" href="http://jakarta.apache.org/cactus/" img="images/cactusbanner.gif"/>
+        <logo name="Jakarta Cactus" href="https://sheeper.github.io/jakarta-cactus/" img="images/cactusbanner.gif"/>
     </poweredBy>
 
 </project>
