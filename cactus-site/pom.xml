@@ -33,29 +33,10 @@
     <name>Cactus Site</name>
     <description>Cactus framework for testing your server-side code</description>
 
-    <properties>
-        <!-- path for the maven site to be uploaded in gh-pages branch -->
-        <site.path>snapshot</site.path>
-    </properties>
-
-    <profiles>
-        <profile>
-            <!-- 
-                a release profile to customize the path for the release documentation
-                on another path than the current working copy
-            -->
-            <id>release</id>
-            <properties>
-                <site.path>release</site.path>
-            </properties>
-        </profile>
-    </profiles>
-
     <distributionManagement>
         <site>
             <id>github-pages-site</id>
             <name>Deployment through GitHub's site deployment plugin</name>
-            <url>file://${java.io.tmpdir}/jakarta-cactus/site/${site.path}</url>
         </site>
     </distributionManagement>
 
@@ -302,8 +283,6 @@
                             <repositoryName>jakarta-cactus</repositoryName>
                             <!-- The commit message -->
                             <message>Updating site for ${project.artifactId}, ${project.version}</message>
-                            <!-- Destination directory -->
-                            <path>${site.path}</path>
                             <!-- Use merge or override the content -->
                             <merge>true</merge>
                         </configuration>
