@@ -103,6 +103,7 @@ local.properties
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/encodings.xml
 .idea/copyright/profiles_settings.xml
 
 # Java project settings
