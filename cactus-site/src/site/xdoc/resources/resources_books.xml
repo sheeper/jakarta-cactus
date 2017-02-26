@@ -34,7 +34,7 @@
 
         <section name="Books covering Cactus">
 
-            <blockquote>
+            <blockquote class="info infomark">
                 Recent entries comes first in the table.
             </blockquote>
 

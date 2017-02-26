@@ -26,11 +26,11 @@
 
     <name>Maven Cactus plugin</name>
     <package>org.apache.cactus.integration.maven</package>
-    <description>Maven plugin for Cactus (http://jakarta.apache.org/cactus) that allows to automatically start
+    <description>Maven plugin for Cactus (https://sheeper.github.io/jakarta-cactus) that allows to automatically start
         containers, run Cactus tests and stop the containers.
     </description>
     <shortDescription>Maven plugin for Cactus</shortDescription>
-    <url>http://jakarta.apache.org/cactus/integration/maven/</url>
+    <url>https://sheeper.github.io/jakarta-cactus/integration/maven/</url>
     <siteAddress>cvs.apache.org</siteAddress>
     <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
     <repository>

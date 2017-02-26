@@ -34,9 +34,8 @@
 
         <section name="Release Checklist">
 
-            <blockquote>
-                This checklist does not include how to release the Maven plugin
-                for Cactus.
+            <blockquote class="info infomark">
+                This checklist does not include how to release the Maven plugin for Cactus.
             </blockquote>
 
             <p>
@@ -45,7 +44,7 @@
             <ol>
                 <li>
                     Ensure that all
-                    <a href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">
+                    <a href="https://github.com/sheeper/jakarta-cactus/issues">
                         open bugs
                     </a>
                     have
@@ -66,7 +65,7 @@
                 </li>
                 <li>
                     Ensure that the
-                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">Todo</a>
+                    <a href="https://github.com/sheeper/jakarta-cactus/issues">Todo</a>
                     page
                     has no more items for the current version.
                 </li>
@@ -153,7 +152,7 @@
                     </ul>
                 </li>
                 <li>
-                    Add a new version in JIRA so that users can enter bugs for the
+                    Add a new version in GitHub so that users can enter bugs for the
                     new version released.
                 </li>
                 <li>
@@ -222,7 +221,7 @@ Changes
 -------
 
 Please check the Changes page at
-http://jakarta.apache.org/cactus/changes.html for a full list of the 
+https://sheeper.github.io/jakarta-cactus/changes.html for a full list of the
 changes in version <v>. 
 
 Known limitations and bugs:
@@ -231,7 +230,7 @@ Known limitations and bugs:
 [add main limitations and known bugs here]
 
 For more information about Cactus, please visit
-http://jakarta.apache.org/cactus/.
+https://sheeper.github.io/jakarta-cactus/.
 
 Have fun,
 -The Cactus team

@@ -34,7 +34,7 @@
 
         <section name="HttpUnit integration">
 
-            <blockquote>
+            <blockquote class="info infomark">
                 <strong>The HttpUnit integration is only available for Cactus v1.2 and
                     later. It won't work with version 1.1 and earlier.
                 </strong>
@@ -128,7 +128,7 @@ public void endXXX(org.apache.cactus.WebResponse theResponse)
 }
 ]]></source>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     For the complete list of all methods available on the
                     <code>WebResponse</code>
                     object, see the associated Javadoc.
@@ -153,7 +153,7 @@ public void endXXX(com.meterware.httpunit.WebResponse theResponse)
 }
 ]]></source>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     For the complete list of all methods available on the
                     HttpUnit <code>WebResponse</code> object, see the HttpUnit
                     documentation.

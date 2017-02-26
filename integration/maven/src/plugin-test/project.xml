@@ -32,7 +32,7 @@
         <url>http://www.apache.org/</url>
     </organization>
     <inceptionYear>2004</inceptionYear>
-    <url>http://jakarta.apache.org/cactus/integration/maven/</url>
+    <url>https://sheeper.github.io/jakarta-cactus/integration/maven/</url>
     <siteAddress>cvs.apache.org</siteAddress>
     <siteDirectory>/www/jakarta.apache.org/cactus/integration/maven/</siteDirectory>
     <repository>

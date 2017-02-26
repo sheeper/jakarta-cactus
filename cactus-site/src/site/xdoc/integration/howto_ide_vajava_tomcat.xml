@@ -34,7 +34,7 @@
 
         <section name="Forewords and Requirements">
 
-            <blockquote>
+            <blockquote class="warn warningmark">
                 <strong>This tutorial is written for Cactus 1.2 only. It will need
                     to adapted if you're using Cactus 1.3
                 </strong>

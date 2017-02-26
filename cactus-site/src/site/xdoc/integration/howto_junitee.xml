@@ -34,7 +34,7 @@
 
         <section name="JUnitEE, a TestRunner inside the Container">
 
-            <blockquote>
+            <blockquote class="info infomark">
                 Since Version 1.4 Cactus contains a new Servlet Test Runner that
                 enables the same features than the JUnitEE was providing, but in an
                 even easier way. Please check the
@@ -119,10 +119,8 @@
                 already done that.
             </p>
 
-            <blockquote>
-                add
-                <code>junitee.jar</code>
-                in the same way as cactus.jar is added.
+            <blockquote class="info infomark">
+                add <code>junitee.jar</code> in the same way as cactus.jar is added.
             </blockquote>
 
             <p>

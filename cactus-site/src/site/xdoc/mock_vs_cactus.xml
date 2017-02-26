@@ -33,7 +33,7 @@
     <body>
 
         <section name="Mock Objects vs In-Container testing">
-            <blockquote>
+            <blockquote class="warn warningmark">
                 <strong>
                     This article was written about 2 years ago and is starting to
                     be a bit old. The general content is still valid but several
@@ -41,7 +41,7 @@
                     the mock objects frameworks) have evolved since then.
                 </strong>
             </blockquote>
-            <blockquote>
+            <blockquote class="info infomark">
                 Throughout this article, we'll use the abbreviations MO for Mock
                 Objects and IC for In-Container strategy.
             </blockquote>
@@ -179,13 +179,13 @@ public void testXXX()
             <p>
                 Comparison of pros and cons of MO versus IC.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 This table is not meant to be comprehensive in
                 term of benefits/inconvenients of using MO. It is more focused on
                 pros and cons of MO when used for unit testing server side code (i.e.
                 what Cactus is focusing on).
             </blockquote>
-            <blockquote>
+            <blockquote class="info infomark">
                 A '+' indicates a positive point.For example
                 a '+' in the MO column shows that it has an advantage over IC.
             </blockquote>

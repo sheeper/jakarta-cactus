@@ -82,7 +82,7 @@
                 </a>
                 for details.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 To simplify the complexities of managing a tag handlers lifecycle,
                 Cactus provides the helper class <code>JspTagLifecycle</code>. It
                 is basically a stub implementation of a JSP engines tag management
@@ -106,7 +106,7 @@
                 instance variables of the <code>JspTestCase</code> class (and thus
                 as instance variables of your test case class).
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 See the <a href="../how_it_works.html">How it
                 works
             </a> guide for details on how Cactus initializes these objects.
@@ -193,7 +193,7 @@
                     </tr>
                 </table>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     Cactus does not wrap the out object.
                 </blockquote>
                 <p>
@@ -297,7 +297,7 @@
                     <a href="howto_testcase_jsp.html#using_body_content">Body Tags</a>
                     for more information.
                 </p>
-                <blockquote>
+                <blockquote class="info infomark">
                     It's important to balance
                     calls to <code>pushBody()</code> with calls to
                     <code>popBody()</code>--otherwise many servlet engines will not
@@ -460,7 +460,7 @@ assertNotNull(catalogs);
                     methods have resulted in the correct data being written
                     to the response.
                 </p>
-                <blockquote>
+                <blockquote class="info infomark">
                     This example uses the
                     <code>endXXX()</code>
                     signature from Cactus 1.2 or above.
@@ -589,7 +589,7 @@ this.pageContext.popBody();
                     However, in a test environment, you can make assumptions if
                     doing so simplifies the workings of the test.
                 </p>
-                <blockquote>
+                <blockquote class="info infomark">
                     Again, you can check that the body of the tag was handled
                     correctly by verifying the total output in the
                     <code>endXXX()</code>
@@ -684,7 +684,7 @@ public void testSomeTag () throws Exception
                     this level. If you do not catch them there they will be
                     logged by Cactus/JUnit as failures--which is just what you want.
                 </p>
-                <blockquote>
+                <blockquote class="info infomark">
                     Any output that the test JSP generates can be checked normally
                     in the <code>endXXX</code> method.
                 </blockquote>

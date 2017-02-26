@@ -34,7 +34,7 @@
 
         <section name="Cactus API design rules">
 
-            <blockquote>
+             <blockquote class="info infomark">
                 Most of these rules are extracted from the excellent
                 <a href="http://www.eclipse.org/articles/Article-API%20use/eclipse-api-usage-rules.html">How to Use the
                     Eclipse API

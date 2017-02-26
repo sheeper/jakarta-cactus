@@ -49,13 +49,13 @@
                 </li>
             </ul>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 <strong>As filters only exist in Servlet API 2.3, you must use the
                     Cactus version for Servlet API 2.3 if you wish to write tests for
                     them.
                 </strong>
             </blockquote>
-            <blockquote>
+            <blockquote class="info infomark">
                 <strong>Filter unit testing is only available in Cactus 1.2 and
                     above.
                 </strong>
@@ -74,7 +74,7 @@
                 as instance variables of your test case class as it extends
                 <code>FilterTestCase</code>).
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 You may ask yourself how Cactus initializes these objects. The
                 mechanism is described in the <a href="../how_it_works.html">How it
                 works
@@ -214,7 +214,7 @@
                     </tr>
                 </table>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     Cactus does not wrap the filter chain.
                 </blockquote>
 

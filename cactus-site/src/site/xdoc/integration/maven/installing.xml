@@ -52,7 +52,7 @@
                     directory.
                 </li>
             </ul>
-            <blockquote>
+             <blockquote class="info infomark">
                 It is probable that your version of Maven already includes the Cactus
                 plugin (it was bundled with Maven not long ago). If this is the case
                 and if you want to install the new plugin, you need to remove the
@@ -63,7 +63,7 @@
                 <code>{USER_HOME}/.maven/plugins</code>
                 directory.
             </blockquote>
-            <blockquote>
+             <blockquote class="info infomark">
                 Older versions of the Cactus plugin can still be found
                 <a href="http://www.ibiblio.org/maven/maven/plugins/">here</a>.
             </blockquote>

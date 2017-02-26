@@ -53,11 +53,11 @@
                 </li>
             </ul>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 EJB unit testing works with Cactus 1.0 or later.
             </blockquote>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 EJB3 unit testing works with Cactus 1.8.1 or later.
             </blockquote>
         </section>

@@ -1,34 +1,15 @@
 The Cactus project is pleased to announce the release of version 1.8.
 Cactus is a unit testing framework for testing server side java code.
 
-Apart from the issues listed down, we have also added a Maven2 plugin
-and also a sample EJB3 application. 
-
-Release Notes - Cactus - Version 1.8.1
-
-Bug
-
-    * [CACTUS-124] - Cannot run the Servlet Example
-    * [CACTUS-259] - Mailing list subscription is no-op
-
-Improvement
-
-    * [CACTUS-166] - Improve the documentation CheckSitemap Ant task to check external URLs
-    * [CACTUS-194] - Flag to allow Weblogic deployment from non domain directory
-    * [CACTUS-258] - Improve performance of CactifyWarTask
-
-Test
-
-    * [CACTUS-241] - login page
-
+Functional this Release is basicaly the same as Version 1.8.1, but transfered to GitHub.
 
 Known limitations and bugs
 --------------------------
 
-See http://issues.apache.org/jira/browse/CACTUS .
+See https://github.com/sheeper/jakarta-cactus/issues .
 
 For more information about Cactus, please visit
-http://jakarta.apache.org/cactus/.
+https://sheeper.github.io/jakarta-cactus/.
 
 Have fun,
 -The Cactus team

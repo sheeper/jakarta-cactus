@@ -62,7 +62,7 @@
                 as instance variables of your test case class as it extends
                 <code>ServletTestCase</code>).
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 You may ask yourself how Cactus initializes these objects. The
                 mechanism is described in the <a href="../how_it_works.html">How it
                 works
@@ -174,7 +174,7 @@
                     </tr>
                 </table>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     Cactus does not wrap the response.
                 </blockquote>
 
@@ -322,7 +322,7 @@
                     </tr>
                 </table>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     Cactus does not wrap the response.
                 </blockquote>
 
@@ -388,7 +388,7 @@ public void testXXX()
                 examples.
             </p>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 This example is for Cactus 1.2 and above as it uses the new
                 <code>WebRequest</code>
                 and <code>WebResponse</code> objects.

@@ -51,7 +51,7 @@
                 </li>
             </ul>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 In order to help writing test case we highly suggest to have a look
                 at the examples provided as part of the Cactus distribution. Also,
                 all the best practices for JUnit also applies to Cactus test cases

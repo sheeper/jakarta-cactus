@@ -57,7 +57,7 @@
             </p>
             <p>
                 Last, you can check the <a
-                    href="http://issues.apache.org/jira/browse/CACTUS?report=com.atlassian.jira.plugin.system.project:openissues-panel">
+                    href="https://github.com/sheeper/jakarta-cactus/issues">
                 todo list
             </a> and
                 jump in.
@@ -86,7 +86,7 @@
                 <li>
                     Debugging - producing reproducable test cases and/or finding causes of
                     bugs (bugs can be found in the
-                    <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">bug database</a>).
+                    <a href="https://github.com/sheeper/jakarta-cactus/issues?q=is%3Aissue+is%3Aopen+label%3Abug">bug database</a>).
                 </li>
                 <li>
                     Specifying/analysing/designing new features for Cactus (If you wish to
@@ -135,13 +135,11 @@
                 (code or documentation), then it counts as a <strong>patch</strong>. If
                 you have a patch and would like to see it incorporated into the Cactus
                 distribution, take note of the Licensing Requirements listed below, and
-                then create a <a href="http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10471">JIRA issue</a> and
-                attach
-                to it a unified diff (<code>svn patch</code>) of your changes against
-                the latest SVN version of the code (SVN HEAD).
+                then create a <a href="https://github.com/sheeper/jakarta-cactus/issues">GitHub
+                issue</a> and possibly provide a pull request.
             </p>
 
-            <section name="Licensing Requirements for the Cactus Distribution">
+            <subsection name="Licensing Requirements for the Cactus Distribution">
 
                 <p>
                     To avoid legal problems, the Apache Project Management Committee (PMC)
@@ -169,7 +167,7 @@
                     statements from all contributors!
                 </p>
 
-            </section>
+            </subsection>
 
         </section>
 

@@ -32,7 +32,7 @@
             <ul>
                 <li>
                     Uses the
-                    <a href="http://jakarta.apache.org/cactus/integration/ant/">Cactus
+                    <a href="https://sheeper.github.io/jakarta-cactus/integration/ant/">Cactus
                         Ant integration</a>.
                 </li>
                 <li>

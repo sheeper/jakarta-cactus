@@ -51,7 +51,7 @@
                 start a JUnit Test Runner.
             </p>
 
-            <blockquote>
+            <blockquote class="warn warningmark">
                 <strong>It is very important that you understand what files you need
                     to put in the client and server classpaths, as 99% of Cactus
                     errors come from an incorrect classpath !
@@ -173,7 +173,7 @@
                     </li>
                 </ul>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     If you have the habit of using class variables for the classes
                     to test (as opposed to declaring them within the
                     <code>testXXX()</code>
@@ -193,7 +193,7 @@
                     tutorial).
                 </p>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     If you are using Log4J as the logging framework, you will also
                     need to put a <code>log4j.properties</code> Log4j configuration
                     file in your client side classpath (See the
@@ -271,7 +271,7 @@
                     </li>
                 </ul>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     If you have several webapps that use cactus you can put all Cactus
                     jars in a place loaded by your container System classloader (provided
                     your container correctly sets the Context classloader). The location
@@ -279,7 +279,7 @@
                     jars in <code>TOMCAT_HOME/common/lib</code>.
                 </blockquote>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     If you are using Log4J as the logging framework, you will also
                     need to put a <code>log4j.properties</code> Log4j configuration
                     file in your server side classpath (usually in

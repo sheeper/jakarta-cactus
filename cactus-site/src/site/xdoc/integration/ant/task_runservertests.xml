@@ -86,7 +86,7 @@
                 right time.
             </p>
 
-            <blockquote>
+             <blockquote class="info infomark">
                 Since Ant 1.5, the effects of this task can also be achieved by using a
                 combination of the built-in Ant tasks <code>waitfor</code> (with the
                 <code>http</code>

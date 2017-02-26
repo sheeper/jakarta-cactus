@@ -34,7 +34,7 @@
 
         <section name="Running Cactus tests from a browser">
 
-            <blockquote>
+            <blockquote class="info infomark">
                 This section only applies for Cactus 1.4 and greater.
             </blockquote>
 
@@ -50,7 +50,7 @@
                     class loader (refer to your container documentation).
                 </p>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     Refer to the
                     <a href="manual/howto_classpath.html">Classpath Howto</a>
                     guide for the exact list of jars.
@@ -119,7 +119,7 @@
                     <img src="../images/servlettestrunner_xml.jpg" alt="XML output of ServletTestRunner"/>
                 </p>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     If you see a blank page, click on the View source option of your
                     browser. It means your browser doesn't know how to display XML data.
                 </blockquote>
@@ -140,7 +140,7 @@
                 <p class="image">
                     <img src="../images/servlettestrunner_html.jpg" alt="HTML output of ServletTestRunner"/>
                 </p>
-                <blockquote>
+                <blockquote class="info infomark">
                     This will work with Internet Explorer as the XSL transformation is
                     performed on the client side (i.e by the browser). I'm not sure
                     about other browsers.
@@ -203,7 +203,7 @@
 http://server:port/mywebapp/ServletTestRunner?suite=mytestcase&transform=yes
 ]]></source>
 
-                <blockquote>
+                <blockquote class="info infomark">
                     The stylesheet specified as initialization parameter is loaded when
                     the ServletTestRunner gets initialized. Changes to the stylesheet will
                     not get picked up until the web-application is reloaded.

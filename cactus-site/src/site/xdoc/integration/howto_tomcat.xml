@@ -34,7 +34,7 @@
 
         <section name="Tomcat Quickstart forewords">
 
-            <blockquote>
+            <blockquote class="info infomark">
                 This tutorial applies to Cactus 1.4 or greater and Tomcat 4.0 or
                 greater.
             </blockquote>
@@ -68,7 +68,7 @@
             </a> tutorial). We will describe the easiest one to set up in
                 this tutorial, which is by using a browser.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 Step 1 to step 3 are a one time install steps that you need to perform
                 only once to be able to run Cactus tests within Tomcat.
             </blockquote>
@@ -111,8 +111,8 @@
                     <code>aspectjrt.jar</code>
                 </li>
             </ul>
-            <blockquote>
-                This is the minium set of jars needed. If later on you wish to use the
+            <blockquote class="info infomark">
+                This is the minimum set of jars needed. If later on you wish to use the
                 Cactus
                 <a href="../writing/howto_httpunit.html">HttpUnit integration</a>
                 you'll also need to copy <code>httpunit.jar</code>.
@@ -157,7 +157,7 @@
 </servlet-mapping>
 ]]></source>
 
-            <blockquote>
+            <blockquote class="warn warningmark">
                 <strong>Warning</strong>: Be careful when you modify the global
                 Tomcat <code>web.xml</code> file. If later on you wish to use
                 the Cactus Ant integration and more specifically if you use the
@@ -206,7 +206,7 @@ public class SampleServlet extends HttpServlet
 }
 ]]></source>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 You'll notice that this isn't even a finished servlet ! However, this
                 shows that you can start testing your code with Cactus even before
                 you have finished writing it completely. Extreme Programmers should
@@ -295,7 +295,7 @@ public class TestSampleServlet extends ServletTestCase
             <p>
                 <img src="../images/tomcat_html.jpg" alt="HTML output of ServletTestRunner"/>
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 This will work with any browser that supports client-slide XSLT
                 transformations (both Internet Explorer and Mozilla do, for example).
             </blockquote>
