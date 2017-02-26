@@ -97,7 +97,7 @@
                 Here are the steps to migrate from Cactus 1.2 to 1.3
             </p>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 This migration guide does not explain any of the new feature of
                 Cactus 1.3 but concentrates on making you move from Cactus 1.2 to 1.3.
             </blockquote>

@@ -208,7 +208,7 @@
                     installed in the <code>lib</code> directory of your Ant installation
                     (see the Ant FAQ for details).
                 </p>
-                <blockquote>
+                 <blockquote class="info infomark">
                     If you get an error at this point, make absolutely sure that you've
                     correctly set up the classpath for the task definition. Run Ant with
                     the <code>-verbose</code> or the <code>-debug</code> options to find

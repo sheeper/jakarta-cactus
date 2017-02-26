@@ -156,7 +156,7 @@
 
                 <subsection name="Parameters">
 
-                    <blockquote>
+                     <blockquote class="info infomark">
                         The <strong>cactusproperty</strong> element supports the following
                         parameters:
                     </blockquote>
@@ -205,7 +205,7 @@
 
             <subsection name="Parameters">
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     The <strong>containerset</strong> element supports the following
                     parameters:
                 </blockquote>

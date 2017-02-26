@@ -33,7 +33,7 @@
     <body>
         <section name="Overview">
 
-            <blockquote>
+            <blockquote class="warn warningmark">
                 <strong>
                     The Eclipse plugin is a work in progress. In the past it was working, but
                     since we moved to the new Ant integration it has been broken. This

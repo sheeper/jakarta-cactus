@@ -44,7 +44,7 @@
                 for details).
             </p>
 
-            <blockquote>
+             <blockquote class="info infomark">
                 If you want to use the
                 <a href="../../writing/howto_httpunit.html">HttpUnit integration</a>
                 in your

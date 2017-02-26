@@ -78,7 +78,7 @@
                 </li>
             </ul>
 
-            <blockquote>
+             <blockquote class="info infomark">
                 Please note that the different options for configuring Cactus works
                 both for Cactus client side (i.e. from where you start the JUnit Test
                 Runner) and for the Cactus server side (i.e. from where you start your
@@ -305,7 +305,7 @@
 </web-app>
 ]]></source>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     If you are using the JSP Redirector (i.e. you have test classes
                     that extend <code>JspTestCase</code>), you
                     <strong>must</strong>
@@ -341,7 +341,7 @@
 [...]
 ]]></source>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     Within your <code>testXXX()</code> code, you can also call the
                     <code>config.setInitParameter()</code>
                     method (
@@ -396,7 +396,7 @@
                         properties into a single place, as demonstrated below.
                     </p>
 
-                    <blockquote>
+                     <blockquote class="info infomark">
                         If you're using the Ant <code>&lt;cactus&gt;</code> task, please
                         refer to the <a href="../../integration/ant/task_cactus.html">documentation for that
                         task
@@ -414,7 +414,7 @@
 
                 <h5>Client side configuration sample</h5>
 
-                        <blockquote>
+                         <blockquote class="info infomark">
                             Notice that for JDK 1.4 logging and for Log4J logging you have
                             to specify that path to this file as these 2 logging systems also
                             use a configuration file to configure themselves. Alternatively
@@ -498,7 +498,7 @@ org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient = trace
 
                 <h5>Server side configuration sample</h5>
 
-                        <blockquote>
+                         <blockquote class="info infomark">
                             Notice that for JDK 1.4 logging and for Log4J logging you have
                             to specify that path to this file as these 2 logging systems also
                             use a configuration file to configure themselves. Alternatively

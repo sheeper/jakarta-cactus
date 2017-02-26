@@ -41,14 +41,14 @@
             <p class="image">
                 <img src="images/scope.jpg" alt="Scope and Status"/>
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 Support for testing the View layer is done through integration
                 with <a href="http://httpunit.sourceforge.net/">HttpUnit</a>.
                 This is functional unit testing (see the
                 <a href="index.html#unittest_types">What is Cactus</a>
                 page, for a description of the different kinds of unit tests).
             </blockquote>
-            <blockquote>
+            <blockquote class="info infomark">
                 EJB unit testing is currently done by calling the EJB to unit test as
                 you would if you were writing code to call an EJB from a servlet (See
                 the <a href="writing/howto_ejb.html">EJB Howto</a> page for more details).

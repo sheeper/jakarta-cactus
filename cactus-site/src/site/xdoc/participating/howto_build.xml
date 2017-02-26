@@ -37,7 +37,7 @@
                 This tutorial explains how to build Cactus from SVN or from a source
                 download.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 If you just want to use Cactus, it will be easier to simply download
                 a <a href="../downloads.html">nightly build</a> (if you need the
                 latest and greatest), or the latest
@@ -505,7 +505,7 @@
             <p>
                 The build result will be located in the <code>[USER_HOME]/.m2/repository/org/apache/cactus/</code> directory.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 Some projects depend on others and thus you may need to run the build
                 for those projects first. For example, the servlet sample depends on
                 the framework and the Ant integration, so these will need to be built

@@ -93,7 +93,7 @@ public class TestJettyAll extends TestCase
                 In both cases, the value set programatically takes precendence over the
                 value of the corresponding system property.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 If you're using JSPs you'll need to add the Jasper jars to your
                 runtime Classpath (in addition to the Jetty jar).
             </blockquote>

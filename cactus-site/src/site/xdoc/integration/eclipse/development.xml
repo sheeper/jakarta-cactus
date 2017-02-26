@@ -36,7 +36,7 @@
                 This section describes how to set up a development environment in
                 Eclipse for working on the Cactus plugins for Eclipse.
             </p>
-            <blockquote>
+             <blockquote class="info infomark">
                 The instructions below are for Eclipse 2.1 or greater.
             </blockquote>
             <p>

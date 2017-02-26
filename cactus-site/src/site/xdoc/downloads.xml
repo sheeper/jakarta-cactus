@@ -89,7 +89,7 @@ maven plugin:download -DgroupId=cactus -DartifactId=cactus-maven -Dversion=<vers
 
             </subsection>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 <code>&lt;version&gt;</code>
                 represents the version number for releases
                 and the date stamp for nightly builds.

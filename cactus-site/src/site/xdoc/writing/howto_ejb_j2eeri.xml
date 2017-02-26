@@ -51,7 +51,7 @@
                 your ejb. You need to match the JNDI name in the ejb jar and the war.
             </p>
 
-            <blockquote>
+            <blockquote class="info infomark">
                 This is an EJB 1.1 example but the same principles are valid for
                 EJB 2.0
             </blockquote>

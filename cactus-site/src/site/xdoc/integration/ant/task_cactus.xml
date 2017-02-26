@@ -173,7 +173,7 @@
 
                 <h5>Parameters</h5>
 
-                        <blockquote>
+                         <blockquote class="info infomark">
                             The <strong>cactusproperty</strong> element supports the following
                             parameters:
                         </blockquote>
@@ -219,7 +219,7 @@
 
                     <h5>Parameters</h5>
 
-                        <blockquote>
+                         <blockquote class="info infomark">
                             The <strong>containerset</strong> element supports the following
                             parameters:
                         </blockquote>

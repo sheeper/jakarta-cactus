@@ -34,9 +34,8 @@
 
         <section name="Release Checklist">
 
-            <blockquote>
-                This checklist does not include how to release the Maven plugin
-                for Cactus.
+            <blockquote class="info infomark">
+                This checklist does not include how to release the Maven plugin for Cactus.
             </blockquote>
 
             <p>

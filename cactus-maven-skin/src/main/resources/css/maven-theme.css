@@ -265,6 +265,7 @@ DIV#banner {
 .info,.warn {
     display: block;
     clear: right;
+    padding-left: 16px;
     margin-bottom: 0.8em;
     margin-right: 10px;
     margin-top: 8px;
@@ -272,7 +273,6 @@ DIV#banner {
 	border-top: 1px solid #efefef;
 	border-bottom: 1px solid #aaa;
 	border-right: 1px solid #aaa;
-    -moz-border-radius: 0.7em;;
 }
 
 .info p, .warn p {
@@ -315,4 +315,9 @@ code {
 
 #leftColumn,#navcolumn {
     background-color: #F8F8F8;
+}
+
+.center {
+    margin: auto; // for block elements with a specified width
+    text-align: center; // for the content of a block
 }

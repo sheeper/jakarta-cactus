@@ -49,7 +49,7 @@
                 at the servlet sample build and play with it after or while reading
                 this.
             </p>
-            <blockquote>
+            <blockquote class="info infomark">
                 The actual build file of the sample might differ in a few details from
                 the snippets shown here.
             </blockquote>

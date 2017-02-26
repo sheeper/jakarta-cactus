@@ -34,7 +34,7 @@
 
         <section name="Continuous integration">
 
-            <blockquote>
+             <blockquote class="info infomark">
                 <strong>This tutorial was written when I wrote Cactus 1.2. Since then
                     I have improved my command of Ant. However this tutorial has not yet
                     been updated. I believe it still provides some very good
@@ -118,7 +118,7 @@
                 project.
             </p>
 
-            <blockquote>
+             <blockquote class="info infomark">
                 This section is both a tutorial for automating builds and unit testing
                 with Ant and Cactus and also a best practice and methodology guide
                 for using Ant in general (independent of Cactus). This is an Ant
@@ -220,14 +220,14 @@
                     </tr>
                 </table>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     An <code>out</code> directory will be created by the Ant build. All
                     build-generated files will be put in that directory (compiled classes,
                     generated javadoc documentation, test configuration files for running
                     an application server, ...).
                 </blockquote>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     We don't have any <code>lib</code> directory because it is always
                     better not to include dependent jars in your project whenever
                     possible for the following reasons: better continuous integration
@@ -248,7 +248,7 @@
                     Define the following targets in your <code>build.xml</code>.
                 </p>
 
-                <blockquote>
+                 <blockquote class="info infomark">
                     The <em>Type</em> column specify whether the target is an external
                     target that can be called by the user of the build file or if it is
                     an internal target, intended to be called internally by another

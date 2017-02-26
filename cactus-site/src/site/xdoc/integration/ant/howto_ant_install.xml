@@ -34,7 +34,7 @@
 
         <section name="Forewords">
 
-            <blockquote>
+            <blockquote class="warn warningmark">
                 <strong>You need to have a good understanding of Ant before
                     reading this tutorial. If you don't, I suggest you read the
                     <a href="http://ant.apache.org/manual/">Ant User Manual</a>
