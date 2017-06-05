@@ -21,10 +21,10 @@
     <info organisation="apache" module="cactus-samples-jetty-ivy"/>
 
     <dependencies>
-        <dependency org="org.apache.cactus" name="cactus.core.framework.uberjar.javaEE.14" rev="${cactus.version}"/>
-        <dependency org="org.apache.cactus" name="cactus.integration.ant" rev="${cactus.version}"/>
-        <dependency org="org.apache.cactus" name="cactus.integration.shared.api" rev="${cactus.version}"/>
-        <dependency org="org.apache.cactus" name="cactus.samples.servlet" rev="${cactus.version}">
+        <dependency org="io.github.dgeissl.cactus" name="cactus.core.framework.uberjar.javaEE.14" rev="${cactus.version}"/>
+        <dependency org="io.github.dgeissl.cactus" name="cactus.integration.ant" rev="${cactus.version}"/>
+        <dependency org="io.github.dgeissl.cactus" name="cactus.integration.shared.api" rev="${cactus.version}"/>
+        <dependency org="io.github.dgeissl.cactus" name="cactus.samples.servlet" rev="${cactus.version}">
             <artifact name="cactus.samples.servlet" type="war"/>
         </dependency>
 

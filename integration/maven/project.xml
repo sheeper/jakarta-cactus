@@ -17,7 +17,7 @@
 -->
 
 <project>
-    <id>org.apache.cactus</id>
+    <id>io.github.dgeissl.cactus</id>
 
     <!-- Note: Although we inherit from default-project.xml, we still cannot
            remove the <currentVersion> tag as this project.xml is parsed at
@@ -25,7 +25,7 @@
     <currentVersion>1.8.2-SNAPSHOT</currentVersion>
 
     <name>Maven Cactus plugin</name>
-    <package>org.apache.cactus.integration.maven</package>
+    <package>io.github.dgeissl.cactus.integration.maven</package>
     <description>Maven plugin for Cactus (https://dgeissl.github.io/jakarta-cactus) that allows to automatically start
         containers, run Cactus tests and stop the containers.
     </description>
@@ -46,17 +46,17 @@
     </contributors>
     <dependencies>
         <dependency>
-            <groupId>org.apache.cactus</groupId>
+            <groupId>io.github.dgeissl.cactus</groupId>
             <artifactId>cactus.integration.ant</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.cactus</groupId>
+            <groupId>io.github.dgeissl.cactus</groupId>
             <artifactId>cactus.core.framework.uberjar.javaEE.14</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.cactus</groupId>
+            <groupId>io.github.dgeissl.cactus</groupId>
             <artifactId>cactus.integration.shared.api</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>

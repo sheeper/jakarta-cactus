@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.cactus</groupId>
+        <groupId>io.github.dgeissl.cactus</groupId>
         <artifactId>cactus.core.framework.wrappers</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
@@ -34,14 +34,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.cactus</groupId>
+            <groupId>io.github.dgeissl.cactus</groupId>
             <artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>
         <dependency>
-            <groupId>org.apache.cactus</groupId>
+            <groupId>io.github.dgeissl.cactus</groupId>
             <artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
             <version>${project.version}</version>
         </dependency>

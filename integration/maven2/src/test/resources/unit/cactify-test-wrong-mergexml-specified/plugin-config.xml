@@ -21,7 +21,7 @@ under the License.
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.cactus</groupId>
+                <groupId>io.github.dgeissl.cactus</groupId>
                 <artifactId>cactus.integration.maven2</artifactId>
                 <configuration>
                     <version>2.2</version>

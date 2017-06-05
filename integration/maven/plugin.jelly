@@ -39,7 +39,7 @@
   xmlns:test="test"
   xmlns:ear="ear"
   xmlns:cactustag="cactus"
-  xmlns:cactus="jelly:org.apache.cactus.integration.maven.CactusTagLibrary">
+  xmlns:cactus="jelly:io.github.dgeissl.cactus.integration.maven.CactusTagLibrary">
   
 
   <!--
@@ -109,9 +109,9 @@
     <test:dependency-handle/>
     
     <ant:path id="cactus.classpath">
-      <ant:pathelement location="${plugin.getDependencyPath('org.apache.cactus:cactus.core.framework.uberjar.javaEE.14')}"/>
-      <ant:pathelement location="${plugin.getDependencyPath('org.apache.cactus:cactus.integration.ant')}"/>
-      <ant:pathelement location="${plugin.getDependencyPath('org.apache.cactus:cactus.integration.shared.api')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('io.github.dgeissl.cactus:cactus.core.framework.uberjar.javaEE.14')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('io.github.dgeissl.cactus:cactus.integration.ant')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('io.github.dgeissl.cactus:cactus.integration.shared.api')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('commons-logging:commons-logging')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('junit:junit')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('commons-httpclient:commons-httpclient')}"/>

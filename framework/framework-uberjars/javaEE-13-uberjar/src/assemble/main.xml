@@ -27,9 +27,9 @@
             <outputDirectory/>
             <outputFileNameMapping/>
             <includes>
-                <include>org.apache.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
-                <include>org.apache.cactus:cactus.core.framework.javaEE.13-14</include>
-                <include>org.apache.cactus:cactus.core.framework.wrapper.javaEE.13</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.javaEE.13-14</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.wrapper.javaEE.13</include>
             </includes>
             <unpackOptions>
                 <excludes>

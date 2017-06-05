@@ -30,7 +30,7 @@
             <outputDirectory/>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
             <includes>
-                <include>org.apache.cactus:cactus.samples.ejb:jar</include>
+                <include>io.github.dgeissl.cactus:cactus.samples.ejb:jar</include>
             </includes>
         </dependencySet>
     </dependencySets>

@@ -503,7 +503,7 @@
                 </li>
             </ul>
             <p>
-                The build result will be located in the <code>[USER_HOME]/.m2/repository/org/apache/cactus/</code> directory.
+                The build result will be located in the <code>[USER_HOME]/.m2/repository/io/github/dgeissl/cactus/</code> directory.
             </p>
             <blockquote class="info infomark">
                 Some projects depend on others and thus you may need to run the build

@@ -26,8 +26,8 @@
     <moduleSets>
         <moduleSet>
             <includes>
-                <include>org.apache.cactus:org.apache.cactus.eclipse.webapp:jar</include>
-                <include>org.apache.cactus:org.apache.cactus.eclipse.webapp:jar</include>
+                <include>io.github.dgeissl.cactus:org.apache.cactus.eclipse.webapp:jar</include>
+                <include>io.github.dgeissl.cactus:org.apache.cactus.eclipse.webapp:jar</include>
             </includes>
             <binaries>
                 <outputDirectory></outputDirectory>

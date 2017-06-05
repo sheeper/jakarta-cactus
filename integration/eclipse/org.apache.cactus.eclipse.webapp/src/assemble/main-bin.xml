@@ -27,7 +27,7 @@
         <dependencySet>
             <outputDirectory/>
             <includes>
-                <include>org.apache.cactus:org.apache.cactus.eclipse.webapp:jar</include>
+                <include>io.github.dgeissl.cactus:org.apache.cactus.eclipse.webapp:jar</include>
             </includes>
             <unpack>false</unpack>
         </dependencySet>

@@ -29,7 +29,7 @@
         <href>https://dgeissl.github.io/jakarta-cactus/</href>
     </bannerLeft>
     <skin>
-        <groupId>org.apache.cactus</groupId>
+        <groupId>io.github.dgeissl.cactus</groupId>
         <artifactId>cactus.maven.skin</artifactId>
         <version>${project.version}</version>
     </skin>

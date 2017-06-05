@@ -174,7 +174,7 @@
                 </p>
                 <source><![CDATA[
 <plugin>
-   <groupId>org.apache.cactus</groupId>
+   <groupId>io.github.dgeissl.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
    <version>1.8.1-SNAPSHOT</version>
    <configuration>
@@ -190,7 +190,7 @@
 
                 <source><![CDATA[
 <plugin>
-   <groupId>org.apache.cactus</groupId>
+   <groupId>io.github.dgeissl.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
    <version>1.8.1-SNAPSHOT</version>
    <configuration>
@@ -221,7 +221,7 @@
 
                 <source><![CDATA[
 <plugin>
-   <groupId>org.apache.cactus</groupId>
+   <groupId>io.github.dgeissl.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
    <version>1.8.1-SNAPSHOT</version>
    <configuration>
@@ -250,7 +250,7 @@
 
                 <source><![CDATA[
 <plugin>
-   <groupId>org.apache.cactus</groupId>
+   <groupId>io.github.dgeissl.cactus</groupId>
    <artifactId>cactus.integration.maven2</artifactId>
    <version>1.8.1-SNAPSHOT</version>
    <configuration>

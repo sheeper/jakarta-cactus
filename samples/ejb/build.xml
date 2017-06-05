@@ -182,7 +182,7 @@
                        mergewebxml="${src.webapp.dir}/WEB-INF/cactus-web.xml"
                        context="/">
                 <classes dir="${build.dir}">
-                    <include name="org/apache/cactus/sample/ejb/Test*.class"/>
+                    <include name="io/github/dgeissl/cactus/sample/ejb/Test*.class"/>
                 </classes>
             </cactuswar>
         </cactifyear>

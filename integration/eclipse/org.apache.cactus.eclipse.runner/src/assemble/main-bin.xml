@@ -27,7 +27,7 @@
         <dependencySet>
             <outputDirectory/>
             <includes>
-                <include>org.apache.cactus:org.apache.cactus.eclipse.runner:jar</include>
+                <include>io.github.dgeissl.cactus:org.apache.cactus.eclipse.runner:jar</include>
             </includes>
             <unpack>false</unpack>
         </dependencySet>
@@ -42,7 +42,7 @@
             <outputDirectory>lib/common</outputDirectory>
             <includes>
                 <include>aspectj:aspectjrt:jar</include>
-                <include>org.apache.cactus:cactus.core.framework.uberjar.javaEE.14:jar</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.uberjar.javaEE.14:jar</include>
                 <include>commons-logging:commons-logging:jar</include>
                 <include>httpunit:httpunit:jar</include>
                 <include>junit:junit:jar</include>
@@ -56,7 +56,7 @@
         <dependencySet>
             <outputDirectory>lib/client</outputDirectory>
             <includes>
-                <include>org.apache.cactus:cactus.integration.ant:jar</include>
+                <include>io.github.dgeissl.cactus:cactus.integration.ant:jar</include>
                 <include>commons-httpclient:commons-httpclient:jar</include>
                 <include>javax.servlet:servlet-api:jar</include>
                 <include>nekohtml:nekohtml:jar</include>

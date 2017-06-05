@@ -21,7 +21,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.apache.cactus</groupId>
+        <groupId>io.github.dgeissl.cactus</groupId>
         <artifactId>cactus-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>

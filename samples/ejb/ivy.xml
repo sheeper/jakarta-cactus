@@ -21,9 +21,9 @@
     <info organisation="apache" module="hello-ivy"/>
 
     <dependencies>
-        <dependency org="org.apache.cactus" name="cactus.core.framework.uberjar.javaEE.14" rev="${cactus.version}"/>
-        <dependency org="org.apache.cactus" name="cactus.integration.ant" rev="${cactus.version}"/>
-        <dependency org="org.apache.cactus" name="cactus.integration.shared.api" rev="${cactus.version}"/>
+        <dependency org="io.github.dgeissl.cactus" name="cactus.core.framework.uberjar.javaEE.14" rev="${cactus.version}"/>
+        <dependency org="io.github.dgeissl.cactus" name="cactus.integration.ant" rev="${cactus.version}"/>
+        <dependency org="io.github.dgeissl.cactus" name="cactus.integration.shared.api" rev="${cactus.version}"/>
 
         <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1"/>
         <dependency org="commons-logging" name="commons-logging" rev="1.1"/>
