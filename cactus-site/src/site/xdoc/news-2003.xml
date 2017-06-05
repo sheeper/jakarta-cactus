@@ -49,7 +49,7 @@
                     <th>2003-11-23</th>
                     <td>
                         Cactus 1.5 has been released. Full details can be found
-                        in the <a href="https://sheeper.github.io/jakarta-cactus/1.5/ANNOUNCEMENT.txt">
+                        in the <a href="https://dgeissl.github.io/jakarta-cactus/1.5/ANNOUNCEMENT.txt">
                         release announcement</a>.
                     </td>
                 </tr>
@@ -143,7 +143,7 @@
                     <th>2003-05-15</th>
                     <td>
                         Cactus news are now available as RSS feeds! Point your RSS feed
-                        reader to <a href="https://sheeper.github.io/jakarta-cactus/news.rdf">here</a>.
+                        reader to <a href="https://dgeissl.github.io/jakarta-cactus/news.rdf">here</a>.
                     </td>
                 </tr>
 

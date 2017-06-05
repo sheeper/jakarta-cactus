@@ -6,10 +6,10 @@ Functional this Release is basicaly the same as Version 1.8.1, but transfered to
 Known limitations and bugs
 --------------------------
 
-See https://github.com/sheeper/jakarta-cactus/issues .
+See https://github.com/dgeissl/jakarta-cactus/issues .
 
 For more information about Cactus, please visit
-https://sheeper.github.io/jakarta-cactus/.
+https://dgeissl.github.io/jakarta-cactus/.
 
 Have fun,
 -The Cactus team

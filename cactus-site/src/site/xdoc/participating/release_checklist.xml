@@ -44,7 +44,7 @@
             <ol>
                 <li>
                     Ensure that all
-                    <a href="https://github.com/sheeper/jakarta-cactus/issues">
+                    <a href="https://github.com/dgeissl/jakarta-cactus/issues">
                         open bugs
                     </a>
                     have
@@ -65,7 +65,7 @@
                 </li>
                 <li>
                     Ensure that the
-                    <a href="https://github.com/sheeper/jakarta-cactus/issues">Todo</a>
+                    <a href="https://github.com/dgeissl/jakarta-cactus/issues">Todo</a>
                     page
                     has no more items for the current version.
                 </li>
@@ -221,7 +221,7 @@ Changes
 -------
 
 Please check the Changes page at
-https://sheeper.github.io/jakarta-cactus/changes.html for a full list of the
+https://dgeissl.github.io/jakarta-cactus/changes.html for a full list of the
 changes in version <v>. 
 
 Known limitations and bugs:
@@ -230,7 +230,7 @@ Known limitations and bugs:
 [add main limitations and known bugs here]
 
 For more information about Cactus, please visit
-https://sheeper.github.io/jakarta-cactus/.
+https://dgeissl.github.io/jakarta-cactus/.
 
 Have fun,
 -The Cactus team

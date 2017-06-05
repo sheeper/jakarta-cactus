@@ -100,7 +100,7 @@
       <td align="left"></td>
       <td align="right">
         Designed for use with 
-        <a href='https://sheeper.github.io/jakarta-cactus/'>Cactus</a>.
+        <a href='https://dgeissl.github.io/jakarta-cactus/'>Cactus</a>.
       </td>
     </tr>
     </table>

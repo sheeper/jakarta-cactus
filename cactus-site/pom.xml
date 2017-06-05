@@ -279,7 +279,7 @@
                             <!-- credentials id in settings.xml -->
                             <server>github</server>
                             <!-- repository identification -->
-                            <repositoryOwner>sheeper</repositoryOwner>
+                            <repositoryOwner>dgeissl</repositoryOwner>
                             <repositoryName>jakarta-cactus</repositoryName>
                             <!-- The commit message -->
                             <message>Updating site for ${project.artifactId}, ${project.version}</message>

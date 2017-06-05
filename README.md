@@ -1,7 +1,7 @@
 # CACTUS
 ###### The throrn in your bug's side
 
-[![Build Status](https://travis-ci.org/sheeper/jakarta-cactus.svg?branch=master)](https://travis-ci.org/sheeper/jakarta-cactus)
+[![Build Status](https://travis-ci.org/dgeissl/jakarta-cactus.svg?branch=master)](https://travis-ci.org/dgeissl/jakarta-cactus)
 
 ## Introduction
 
@@ -35,7 +35,7 @@ There are currently no plans to revive cactus to a full blown - state of the art
 
 ## Participating
 
-As this project is hosted on github you may use the usual instruments provided (as there are [reporting bugs](https://github.com/sheeper/jakarta-cactus/issues) providing [pull requests](https://github.com/sheeper/jakarta-cactus/pulls)).
+As this project is hosted on github you may use the usual instruments provided (as there are [reporting bugs](https://github.com/dgeissl/jakarta-cactus/issues) providing [pull requests](https://github.com/dgeissl/jakarta-cactus/pulls)).
 The [JIRA](https://issues.apache.org/jira/browse/cactus/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel) tickets will not be migrated.
 
 To build Cactus from source, please refer to the [building instructions](BUILDING.txt).

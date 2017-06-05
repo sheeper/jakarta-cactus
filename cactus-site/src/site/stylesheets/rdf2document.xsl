@@ -81,7 +81,7 @@
                     </ul>
                 </section>
                 <section name="News and Events">
-                    <a href="https://sheeper.github.io/jakarta-cactus/news.xml">
+                    <a href="https://dgeissl.github.io/jakarta-cactus/news.xml">
                         <img src="images/rss.png"/>
                     </a>
                     <table>

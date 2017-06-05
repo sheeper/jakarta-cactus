@@ -57,7 +57,7 @@
             </p>
             <p>
                 Last, you can check the <a
-                    href="https://github.com/sheeper/jakarta-cactus/issues">
+                    href="https://github.com/dgeissl/jakarta-cactus/issues">
                 todo list
             </a> and
                 jump in.
@@ -86,7 +86,7 @@
                 <li>
                     Debugging - producing reproducable test cases and/or finding causes of
                     bugs (bugs can be found in the
-                    <a href="https://github.com/sheeper/jakarta-cactus/issues?q=is%3Aissue+is%3Aopen+label%3Abug">bug database</a>).
+                    <a href="https://github.com/dgeissl/jakarta-cactus/issues?q=is%3Aissue+is%3Aopen+label%3Abug">bug database</a>).
                 </li>
                 <li>
                     Specifying/analysing/designing new features for Cactus (If you wish to
@@ -135,7 +135,7 @@
                 (code or documentation), then it counts as a <strong>patch</strong>. If
                 you have a patch and would like to see it incorporated into the Cactus
                 distribution, take note of the Licensing Requirements listed below, and
-                then create a <a href="https://github.com/sheeper/jakarta-cactus/issues">GitHub
+                then create a <a href="https://github.com/dgeissl/jakarta-cactus/issues">GitHub
                 issue</a> and possibly provide a pull request.
             </p>
 

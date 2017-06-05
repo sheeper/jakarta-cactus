@@ -27,7 +27,7 @@
     <packaging>pom</packaging>
 
     <name>Cactus Parent</name>
-    <url>https://sheeper.github.io/jakarta-cactus/</url>
+    <url>https://dgeissl.github.io/jakarta-cactus/</url>
     <inceptionYear>2001</inceptionYear>
 
     <organization>
@@ -44,19 +44,19 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/sheeper/jakarta-cactus</url>
-        <connection>scm:git:https://github.com/sheeper/jakarta-cactus.git</connection>
-        <developerConnection>scm:git:git@github.com:sheeper/jakarta-cactus.git</developerConnection>
+        <url>https://github.com/dgeissl/jakarta-cactus</url>
+        <connection>scm:git:https://github.com/dgeissl/jakarta-cactus.git</connection>
+        <developerConnection>scm:git:git@github.com:dgeissl/jakarta-cactus.git</developerConnection>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/sheeper/jakarta-cactus/issues</url>
+        <url>https://github.com/dgeissl/jakarta-cactus/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/sheeper/jakarta-cactus</url>
+        <url>https://travis-ci.org/dgeissl/jakarta-cactus</url>
         <notifiers/>
     </ciManagement>
 
