@@ -27,6 +27,7 @@ import org.apache.cactus.WebResponse;
 import org.apache.cactus.internal.client.ClientException;
 import org.apache.cactus.internal.client.WebResponseObjectFactory;
 import org.apache.cactus.internal.client.connector.http.HttpClientConnectionHelper;
+import org.apache.cactus.internal.configuration.Configuration;
 import org.apache.cactus.internal.configuration.WebConfiguration;
 import org.apache.cactus.util.ChainedRuntimeException;
 
