@@ -73,7 +73,6 @@
             </item>
             <item name="Running tests" href="/integration/index.html" collapse="true">
                 <item name="Manual" href="integration/manual/index.html"/>
-                <item name="Eclipse" href="integration/eclipse/index.html"/>
                 <item name="Ant" href="integration/ant/index.html" collapse="true">
                     <item name="Howto Ant-Cactus" href="integration/ant/howto_ant_cactus.html"/>
                     <item name="Howto Ant-Install" href="integration/ant/howto_ant_install.html"/>

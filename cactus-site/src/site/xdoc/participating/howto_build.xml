@@ -439,11 +439,6 @@
                             tasks and support classes
                             provided by Cactus.
                         </dd>
-                        <dt>eclipse/</dt>
-                        <dd>
-                            Plugins for integration with the open-source IDE
-                            <a href="http://www.eclipse.org/">Eclipse</a>.
-                        </dd>
                         <dt>maven/</dt>
                         <dd>
                             <a href="http://maven.apache.org/">Maven</a>
