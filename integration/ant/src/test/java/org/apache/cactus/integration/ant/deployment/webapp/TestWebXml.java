@@ -147,7 +147,7 @@ public final class TestWebXml extends TestCase
 
         webXml = WebXmlIo.parseWebXml(new ByteArrayInputStream(
             xml.getBytes()), null);
-        assertNull(webXml);
+        assertNull(webXml.getVersion());
     }
     
     /**
