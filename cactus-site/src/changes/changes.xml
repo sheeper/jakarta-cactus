@@ -43,10 +43,10 @@
                 <fixes issue="issues/20" />
             </action>
             <action dev="geissld" type="update">
-                Update source and target version to 1.5, to be able to use generics.
+                Update source and target version to 1.7, to be able to use generics.
             </action>
             <action dev="geissld" type="update">
-                Update build environment to java 8, as travis-ci does not support older versions anymore.
+                Update build environment to java 7 and github actions instead of travis-ci.
             </action>
             <action dev="geissld" type="remove">
                 Drop eclipse integration. The eclipse plugin was outdated and was not buildable
