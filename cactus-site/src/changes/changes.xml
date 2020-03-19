@@ -35,6 +35,18 @@
         <!-- ================================================================= -->
         <!-- Release changes -->
         <!-- ================================================================= -->
+        <release version="1.8.3" date="2020" description="Stacktrace in Gradle">
+            <action dev="geissld" type="update">
+                Update source and target version to 1.5, to be able to use generics.
+            </action>
+            <action dev="geissld" type="update">
+                Update build environment to java 8, as travis-ci does not support older versions anymore.
+            </action>
+            <action dev="geissld" type="remove">
+                Drop eclipse integration. The eclipse plugin was outdated and was not buildable
+                anymore, that's why all code and documentation was deleted.
+            </action>
+        </release>
         <release version="1.8.2" date="2017" description="Migration to GitHub (no official release)">
             <action dev="geissld" type="update">
                 Update the documentation.
