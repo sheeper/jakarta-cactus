@@ -38,7 +38,7 @@
         <dependency org="httpunit" name="httpunit" rev="1.6"/>
         <dependency org="htmlunit" name="htmlunit" rev="1.10"/>
 
-        <dependency org="aspectj" name="aspectjrt" rev="1.5.3"/>
+        <dependency org="org.aspectj" name="aspectjrt" rev="1.7.4"/>
         <dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="1.0-alpha-4"/>
         <dependency org="org.codehaus.cargo" name="cargo-ant" rev="1.0-alpha-4"/>
 
