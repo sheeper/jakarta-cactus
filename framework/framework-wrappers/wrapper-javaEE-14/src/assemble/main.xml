@@ -29,9 +29,9 @@
         <dependencySet>
             <outputDirectory/>
             <includes>
-                <include>io.github.dgeissl.cactus:framework-12-13-14:jar</include>
-                <include>io.github.dgeissl.cactus:framework-13-14</include>
-                <include>io.github.dgeissl.cactus:framework-wrapper-javaEE-14</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.javaEE.13-14</include>
+                <include>io.github.dgeissl.cactus:cactus.core.framework.wrapper.javaEE.14</include>
             </includes>
             <unpack>true</unpack>
             <scope>test</scope>
