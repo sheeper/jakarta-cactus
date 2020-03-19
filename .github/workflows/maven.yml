@@ -28,4 +28,6 @@ jobs:
       with:
         java-version: 7
     - name: Build and test with Maven
-      run: mvn -B install --file pom.xml
+      run: |
+        mvn -B install --file pom.xml
+        mvn -B assembly:single --file cactus-assembly/pom.xml
