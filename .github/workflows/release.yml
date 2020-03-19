@@ -18,7 +18,7 @@ jobs:
         # The GITHUB_REF tag comes in the format 'refs/tags/vxxx'.
         # So if we remove everything before the last '/v', we can get the release version.
         run: |
-          NEW_VERSION=$(echo "${GITHUB_REF}" | | sed -r 's/.*\/v//')
+          NEW_VERSION=$(echo "${GITHUB_REF}" | sed -r 's/.*\/v//')
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
           mvn -B versions:set -DnewVersion=${NEW_VERSION}
