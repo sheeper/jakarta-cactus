@@ -27,7 +27,6 @@
     </parent>
 
     <artifactId>cactus.maven.skin</artifactId>
-    <version>1.8.3-SNAPSHOT</version>
 
     <name>Cactus Site - Skin</name>
     <description>Cactus Maven2 Site Skin</description>
