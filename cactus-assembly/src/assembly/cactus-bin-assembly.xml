@@ -30,13 +30,12 @@
     <includeBaseDirectory>true</includeBaseDirectory>
     <baseDirectory>${project.artifactId}-${project.version}-bin</baseDirectory>
 
-    <scope>runtime</scope>
-
     <dependencySets>
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>/lib</outputDirectory>
             <unpack>false</unpack>
+            <scope>runtime</scope>
         </dependencySet>
     </dependencySets>
 
