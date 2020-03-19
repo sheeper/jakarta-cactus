@@ -35,8 +35,7 @@
         <!-- ================================================================= -->
         <!-- Release changes -->
         <!-- ================================================================= -->
-
-        <release version="1.8.2" date="2017" description="Migration to GitHub">
+        <release version="1.8.2" date="2017" description="Migration to GitHub (no official release)">
             <action dev="geissld" type="update">
                 Update the documentation.
                 <fixes issue="issues/13" />
@@ -494,10 +493,8 @@
             </action>
             <action dev="VMA" type="add"><![CDATA[
                 Added a quick tutorial for Cactus developers who want to
-                <a href="site:integration_eclipse_dev">set up their Eclipse
-                    environment
-                </a>
-                to work on the Cactus plugins for Eclipse.]]>
+                set up their Eclipse environment to work on the Cactus
+                plugins for Eclipse.]]>
             </action>
             <action dev="CML" type="add">
                 The WebResponse class now has a method to directly
