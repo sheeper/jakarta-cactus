@@ -91,34 +91,8 @@ local.properties
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/misc.xml
-
-# Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-.idea/encodings.xml
-.idea/copyright/profiles_settings.xml
-
-# Java project settings
-.idea/compiler.xml
-.idea/modules.xml
-
-# SCM settings
-.idea/vcs.xml
-
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
-
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
+## Directory-based project format:
+.idea/
 
 ## File-based project format:
 *.iws

@@ -197,7 +197,7 @@
                         <td>
                             <a href="http://www.eclipse.org/aspectj/">aspectjrt.jar</a>
                         </td>
-                        <td>1.1.1 +</td>
+                        <td>1.7.4 +</td>
                         <td>
                             The AspectJ runtime.
                         </td>
@@ -206,7 +206,7 @@
                         <td>
                             <a href="http://www.eclipse.org/aspectj/">aspectjtools.jar</a>
                         </td>
-                        <td>1.1.1 +</td>
+                        <td>1.7.4 +</td>
                         <td>
                             The AspectJ compiler and other tools.
                         </td>
@@ -438,11 +438,6 @@
                             <a href="http://ant.apache.org/">Ant</a>
                             tasks and support classes
                             provided by Cactus.
-                        </dd>
-                        <dt>eclipse/</dt>
-                        <dd>
-                            Plugins for integration with the open-source IDE
-                            <a href="http://www.eclipse.org/">Eclipse</a>.
                         </dd>
                         <dt>maven/</dt>
                         <dd>

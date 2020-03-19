@@ -115,7 +115,7 @@
       <ant:pathelement location="${plugin.getDependencyPath('commons-logging:commons-logging')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('junit:junit')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('commons-httpclient:commons-httpclient')}"/>
-      <ant:pathelement location="${plugin.getDependencyPath('aspectj:aspectjrt')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('org.aspectj:aspectjrt')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('httpunit:httpunit')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('htmlunit:htmlunit')}"/>
       <ant:pathelement location="${plugin.getDependencyPath('nekohtml:nekohtml')}"/>

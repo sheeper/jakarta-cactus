@@ -33,7 +33,7 @@
         <dependency org="commons-el" name="commons-el" rev="1.0"/>
         <dependency org="commons-codec" name="commons-codec" rev="1.3"/>
 
-        <dependency org="aspectj" name="aspectjrt" rev="1.5.3"/>
+        <dependency org="org.aspectj" name="aspectjrt" rev="1.7.4"/>
 
         <dependency org="org.codehaus.cargo" name="cargo-core-uberjar" rev="1.0-alpha-4"/>
         <dependency org="org.codehaus.cargo" name="cargo-ant" rev="1.0-alpha-4"/>

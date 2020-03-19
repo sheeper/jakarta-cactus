@@ -35,8 +35,25 @@
         <!-- ================================================================= -->
         <!-- Release changes -->
         <!-- ================================================================= -->
-
-        <release version="1.8.2" date="2017" description="Migration to GitHub">
+        <release version="1.8.3" date="2020" description="Stacktrace in Gradle">
+            <action dev="geissld" type="fix">
+                Restoring the serverside stacktrace in StackTraceElements and Exceptions with causes.
+                This should fix the problem that gradle shows the client ExceptionWrapper stacktrace
+                in the testreport.
+                <fixes issue="issues/20" />
+            </action>
+            <action dev="geissld" type="update">
+                Update source and target version to 1.7, to be able to use generics.
+            </action>
+            <action dev="geissld" type="update">
+                Update build environment to java 7 and github actions instead of travis-ci.
+            </action>
+            <action dev="geissld" type="remove">
+                Drop eclipse integration. The eclipse plugin was outdated and was not buildable
+                anymore, that's why all code and documentation was deleted.
+            </action>
+        </release>
+        <release version="1.8.2" date="2017" description="Migration to GitHub (no official release)">
             <action dev="geissld" type="update">
                 Update the documentation.
                 <fixes issue="issues/13" />
@@ -494,10 +511,8 @@
             </action>
             <action dev="VMA" type="add"><![CDATA[
                 Added a quick tutorial for Cactus developers who want to
-                <a href="site:integration_eclipse_dev">set up their Eclipse
-                    environment
-                </a>
-                to work on the Cactus plugins for Eclipse.]]>
+                set up their Eclipse environment to work on the Cactus
+                plugins for Eclipse.]]>
             </action>
             <action dev="CML" type="add">
                 The WebResponse class now has a method to directly
