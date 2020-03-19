@@ -1,7 +1,7 @@
 # CACTUS
 ###### The throrn in your bug's side
 
-[![Build Status](https://travis-ci.org/dgeissl/jakarta-cactus.svg?branch=master)](https://travis-ci.org/dgeissl/jakarta-cactus)
+![Java CI with Maven](https://github.com/dgeissl/jakarta-cactus/workflows/Java%20CI%20with%20Maven/badge.svg)
 
 ## Introduction
 

@@ -32,6 +32,7 @@ import org.apache.cactus.internal.client.ServletExceptionWrapper;
 import org.apache.cactus.internal.client.WebTestResultParser;
 import org.apache.cactus.internal.configuration.WebConfiguration;
 import org.apache.cactus.internal.util.IoUtil;
+import org.apache.cactus.internal.util.StringUtil;
 import org.apache.cactus.util.ChainedRuntimeException;
 
 import java.net.HttpURLConnection;
@@ -100,8 +101,8 @@ public class DefaultHttpClient
         if (result.hasException())
         {
             // Wrap the exception message and stack trace into a fake
-            // exception class with overloaded <code>printStackTrace()</code>
-            // methods so that when JUnit calls this method it will print the
+            // exception class with reconstructed <code>getStackTrace</code>
+            // method so that when JUnit calls this method it will print the
             // stack trace that was set on the server side.
             // If the error was an AssertionFailedError or ComparisonFailure
             // then we use an instance of AssertionFailedErrorWrapper (so that 
@@ -111,7 +112,7 @@ public class DefaultHttpClient
 
             // Note: We have to test the exceptions by string name as the JUnit
             // AssertionFailedError class is unfortunately not serializable...
-
+            Class<? extends Throwable> exceptionClazz;
             if ((result.getExceptionClassName().equals(
                 "junit.framework.AssertionFailedError"))
                 || (result.getExceptionClassName().equals(
@@ -119,18 +120,17 @@ public class DefaultHttpClient
                 || (result.getExceptionClassName().equals(
                 "java.lang.AssertionError")))
             {
-                throw new AssertionFailedErrorWrapper(
-                    result.getExceptionMessage(), 
-                    result.getExceptionClassName(), 
-                    result.getExceptionStackTrace());
+                exceptionClazz = AssertionFailedErrorWrapper.class;
             }
             else
             {
-                throw new ServletExceptionWrapper(
-                    result.getExceptionMessage(), 
-                    result.getExceptionClassName(), 
-                    result.getExceptionStackTrace());
+                exceptionClazz = ServletExceptionWrapper.class;
             }
+            throw StringUtil.stringToException(
+                    exceptionClazz,
+                    result.getExceptionClassName(),
+                    result.getExceptionMessage(),
+                    result.getExceptionStackTrace());
         }
 
         return connection;

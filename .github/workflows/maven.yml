@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout latest code
+      uses: actions/checkout@v2
     - uses: actions/cache@v1
       with:
         path: ~/.m2/repository
@@ -26,5 +27,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 7
-    - name: Build with Maven
+    - name: Build and test with Maven
       run: mvn -B verify --file pom.xml

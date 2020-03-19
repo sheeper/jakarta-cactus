@@ -447,17 +447,7 @@
         </p>
       </answer> 
     </faq> 
-    <faq id="faq_eclipse_version"> 
-      <question> What version of Eclipse do I need for the 
-          Eclipse plugin? </question> 
-      <answer> 
-      <p>
-        The Cactus plugin for Eclipse requires Eclipse 2.1 RC2 or greater.
-        It has not yet been tested with Eclipse 3.0.
-      </p>      	
-      </answer> 
-    </faq> 
-    <faq id="faq_httpclient_nosuchmethoderror"> 
+    <faq id="faq_httpclient_nosuchmethoderror">
       <question>Why do I get an HttpClient 
           NoSuchMethodError when running Cactus tests with JBoss 3.x?</question> 
       <answer> 

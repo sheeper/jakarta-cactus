@@ -92,7 +92,7 @@ public class XMLFormatter implements XMLConstants, TestListener
     /**
      * XML string containing executed test case results.
      */
-    private StringBuffer currentTestCaseResults = new StringBuffer();
+    private StringBuilder currentTestCaseResults = new StringBuilder();
 
     /**
      * Current test failure (XML string) : failure or error.
@@ -182,30 +182,37 @@ public class XMLFormatter implements XMLConstants, TestListener
      */
     public String toXML(TestResult theResult)
     {
-        StringBuffer xml = new StringBuffer();
+        StringBuilder xml = new StringBuilder();
 
-        xml.append("<?xml version=\"1.0\" encoding=\"" + getEncoding()
-            + "\"?>");
+        xml.append("<?xml version=\"1.0\" encoding=\"")
+                .append(getEncoding())
+                .append("\"?>");
 
         if (this.xslFileName != null)
         {
-            xml.append("<?xml-stylesheet type=\"text/xsl\" " + "href=\""
-                + this.xslFileName + "\"?>");
+            xml.append("<?xml-stylesheet type=\"text/xsl\" href=\"")
+                    .append(this.xslFileName)
+                    .append("\"?>");
         }
 
-        xml.append("<" + TESTSUITES + ">");
+        xml.append("<").append(TESTSUITES).append(">");
 
-        xml.append("<" + TESTSUITE + " " + ATTR_NAME + "=\""
-            + getSuiteClassName() + "\" " + ATTR_TESTS + "=\""
-            + theResult.runCount() + "\" " + ATTR_FAILURES + "=\""
-            + theResult.failureCount() + "\" " + ATTR_ERRORS + "=\""
-            + theResult.errorCount() + "\" " + ATTR_TIME + "=\""
-            + getTotalDurationAsString() + "\">");
+        xml.append("<").append(TESTSUITE).append(" ")
+                .append(ATTR_NAME).append("=\"")
+                .append(getSuiteClassName()).append("\" ")
+                .append(ATTR_TESTS).append("=\"")
+                .append(theResult.runCount()).append("\" ")
+                .append(ATTR_FAILURES).append("=\"")
+                .append(theResult.failureCount()).append("\" ")
+                .append(ATTR_ERRORS).append("=\"")
+                .append(theResult.errorCount()).append("\" ")
+                .append(ATTR_TIME).append("=\"")
+                .append(getTotalDurationAsString()).append("\">");
 
-        xml.append(this.currentTestCaseResults.toString());
+        xml.append(this.currentTestCaseResults);
 
-        xml.append("</" + TESTSUITE + ">");
-        xml.append("</" + TESTSUITES + ">");
+        xml.append("</").append(TESTSUITE).append(">");
+        xml.append("</").append(TESTSUITES).append(">");
 
         return xml.toString();
     }
@@ -230,15 +237,19 @@ public class XMLFormatter implements XMLConstants, TestListener
     public void addError(Test theTest, Throwable theThrowable)
     {
         TestFailure failure = new TestFailure(theTest, theThrowable);
-        StringBuffer xml = new StringBuffer();
+        StringBuilder xml = new StringBuilder();
 
-        xml.append("<" + ERROR + " " + ATTR_MESSAGE + "=\""
-            + xmlEncode(failure.thrownException().getMessage()) + "\" "
-            + ATTR_TYPE + "=\""
-            + failure.thrownException().getClass().getName() + "\">");
+        xml.append("<").append(ERROR).append(" ")
+                .append(ATTR_MESSAGE).append("=\"")
+                .append(xmlEncode(failure.thrownException().getMessage()))
+                .append("\" ")
+                .append(ATTR_TYPE).append("=\"")
+                .append(failure.thrownException().getClass().getName())
+                .append("\">");
+        // stacktrace serialization
         xml.append(xmlEncode(StringUtil.exceptionToString(
             failure.thrownException(), DEFAULT_STACK_FILTER_PATTERNS)));
-        xml.append("</" + ERROR + ">");
+        xml.append("</").append(ERROR).append(">");
 
         this.currentTestFailure = xml.toString();
     }
@@ -252,15 +263,19 @@ public class XMLFormatter implements XMLConstants, TestListener
     public void addFailure(Test theTest, AssertionFailedError theError)
     {
         TestFailure failure = new TestFailure(theTest, theError);
-        StringBuffer xml = new StringBuffer();
+        StringBuilder xml = new StringBuilder();
 
-        xml.append("<" + FAILURE + " " + ATTR_MESSAGE + "=\""
-            + xmlEncode(failure.thrownException().getMessage()) + "\" "
-            + ATTR_TYPE + "=\""
-            + failure.thrownException().getClass().getName() + "\">");
+        xml.append("<").append(FAILURE).append(" ")
+                .append(ATTR_MESSAGE).append("=\"")
+                .append(xmlEncode(failure.thrownException().getMessage()))
+                .append("\" ")
+                .append(ATTR_TYPE).append("=\"")
+                .append(failure.thrownException().getClass().getName())
+                .append("\">");
+        // stacktrace
         xml.append(xmlEncode(StringUtil.exceptionToString(
             failure.thrownException(), DEFAULT_STACK_FILTER_PATTERNS)));
-        xml.append("</" + FAILURE + ">");
+        xml.append("</").append(FAILURE).append(">");
 
         this.currentTestFailure = xml.toString();
     }
@@ -272,20 +287,21 @@ public class XMLFormatter implements XMLConstants, TestListener
      */
     public void endTest(Test theTest)
     {
-        StringBuffer xml = new StringBuffer();
+        StringBuilder xml = new StringBuilder();
         String duration = getDurationAsString(System.currentTimeMillis()
             - this.currentTestStartTime);
 
-        xml.append("<" + TESTCASE + " " + ATTR_NAME + "=\""
-            + JUnitVersionHelper.getTestCaseName(theTest) + "\" "
-            + ATTR_TIME + "=\"" + duration + "\">");
+        xml.append("<").append(TESTCASE).append(" ")
+                .append(ATTR_NAME).append("=\"")
+                .append(JUnitVersionHelper.getTestCaseName(theTest)).append("\" ")
+                .append(ATTR_TIME).append("=\"").append(duration).append("\">");
 
         if (this.currentTestFailure != null)
         {
             xml.append(this.currentTestFailure);
         }
 
-        xml.append("</" + TESTCASE + ">");
+        xml.append("</").append(TESTCASE).append(">");
 
         this.currentTestCaseResults.append(xml.toString());
     }

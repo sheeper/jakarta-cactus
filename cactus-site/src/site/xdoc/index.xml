@@ -81,9 +81,6 @@
                               coords="225,99,217,110,217,126,227,140,240,146,250,147,260,145,282,136,287,123,288,109,280,100,266,90,248,91,234,92"
                               alt="Maven Plugin" href="integration/maven/index.html"/>
                         <area shape="poly"
-                              coords="136,103,136,127,149,140,171,146,187,142,202,132,206,123,206,111,198,103,192,94,178,90,166,89,151,94"
-                              alt="Eclipse Plugin" href="integration/eclipse/index.html"/>
-                        <area shape="poly"
                               coords="203,139,187,146,177,153,169,163,169,178,174,195,186,203,205,207,221,207,244,197,253,181,253,163,244,152,235,145,221,139,210,141,198,141"
                               alt="Cactus Framework" href="index.html"/>
                         <area shape="poly"
