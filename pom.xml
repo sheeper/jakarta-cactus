@@ -93,14 +93,14 @@
                 <version>2.7.2</version>
             </dependency>
             <dependency>
-                <groupId>aspectj</groupId>
+                <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
-                <version>1.5.3</version>
+                <version>1.7.4</version>
             </dependency>
             <dependency>
-                <groupId>aspectj</groupId>
+                <groupId>org.aspectj</groupId>
                 <artifactId>aspectjtools</artifactId>
-                <version>1.5.3</version>
+                <version>1.7.4</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.cargo</groupId>
@@ -248,7 +248,12 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>aspectj-maven-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>1.5</version>
+                    <configuration>
+                        <complianceLevel>${maven.compile.target}</complianceLevel>
+                        <source>${maven.compile.source}</source>
+                        <target>${maven.compile.target}</target>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

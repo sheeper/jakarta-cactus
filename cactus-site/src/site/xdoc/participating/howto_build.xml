@@ -197,7 +197,7 @@
                         <td>
                             <a href="http://www.eclipse.org/aspectj/">aspectjrt.jar</a>
                         </td>
-                        <td>1.1.1 +</td>
+                        <td>1.7.4 +</td>
                         <td>
                             The AspectJ runtime.
                         </td>
@@ -206,7 +206,7 @@
                         <td>
                             <a href="http://www.eclipse.org/aspectj/">aspectjtools.jar</a>
                         </td>
-                        <td>1.1.1 +</td>
+                        <td>1.7.4 +</td>
                         <td>
                             The AspectJ compiler and other tools.
                         </td>
