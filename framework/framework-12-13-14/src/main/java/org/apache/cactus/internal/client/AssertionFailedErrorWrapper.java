@@ -35,15 +35,9 @@ import java.io.PrintWriter;
 public class AssertionFailedErrorWrapper extends AssertionFailedError
 {
     /**
-     * The stack trace that was sent back from the servlet redirector as a
-     * string.
-     */
-    private String stackTrace;
-
-    /**
      * The class name of the exception that was raised on the server side.
      */
-    private String className;
+    private final String className;
 
     /**
      * Standard throwable constructor.
@@ -53,6 +47,7 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
     public AssertionFailedErrorWrapper(String theMessage)
     {
         super(theMessage);
+        this.className = getClass().getName();
     }
 
     /**
@@ -61,6 +56,7 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
     public AssertionFailedErrorWrapper()
     {
         super();
+        this.className = getClass().getName();
     }
 
     /**
@@ -71,45 +67,12 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
      * @param theStackTrace the server exception stack trace
      */
     public AssertionFailedErrorWrapper(String theMessage, String theClassName, 
-        String theStackTrace)
+        StackTraceElement[] theStackTrace, Throwable cause)
     {
         super(theMessage);
+        initCause(cause);
+        setStackTrace(theStackTrace);
         this.className = theClassName;
-        this.stackTrace = theStackTrace;
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace.
-     *
-     * @param thePs the stream to which to output the stack trace
-     */
-    public void printStackTrace(PrintStream thePs)
-    {
-        if (this.stackTrace == null)
-        {
-            thePs.print(getMessage());
-        }
-        else
-        {
-            thePs.print(this.stackTrace);
-        }
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace.
-     *
-     * @param thePw the writer to which to output the stack trace
-     */
-    public void printStackTrace(PrintWriter thePw)
-    {
-        if (this.stackTrace == null)
-        {
-            thePw.print(getMessage());
-        }
-        else
-        {
-            thePw.print(this.stackTrace);
-        }
     }
 
     /**
@@ -118,5 +81,11 @@ public class AssertionFailedErrorWrapper extends AssertionFailedError
     public String getWrappedClassName()
     {
         return this.className;
+    }
+
+    public String toString() {
+        String s = getWrappedClassName();
+        String message = getLocalizedMessage();
+        return (message != null) ? (s + ": " + message) : s;
     }
 }
