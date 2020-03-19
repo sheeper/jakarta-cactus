@@ -23,4 +23,6 @@ jobs:
           echo "Github username: ${GITHUB_ACTOR}"
           mvn -B versions:set -DnewVersion=${NEW_VERSION}
           mvn -B versions:commit
+          mvn -B install --file pom.xml
+          mvn -B assembly:single --file cactus-assembly pom.xml
           mvn -B deploy --file pom.xml
