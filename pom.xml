@@ -84,6 +84,14 @@
         <module>cactus-assembly</module>
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/dgeissl/jakarta-cactus</url>
+        </repository>
+    </distributionManagement>
+
     <dependencyManagement>
         <dependencies>
             <!-- build time only - might want to use plugins for this? -->
