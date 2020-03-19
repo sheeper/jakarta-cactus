@@ -39,16 +39,11 @@ import java.io.PrintWriter;
  */
 public class ServletExceptionWrapper extends Throwable
 {
-    /**
-     * The stack trace that was sent back from the servlet redirector as a
-     * string.
-     */
-    private String stackTrace;
 
     /**
      * The class name of the exception that was raised on the server side.
      */
-    private String className;
+    private final String className;
 
     /**
      * Standard throwable constructor.
@@ -58,6 +53,7 @@ public class ServletExceptionWrapper extends Throwable
     public ServletExceptionWrapper(String theMessage)
     {
         super(theMessage);
+        this.className = getClass().getName();
     }
 
     /**
@@ -66,6 +62,7 @@ public class ServletExceptionWrapper extends Throwable
     public ServletExceptionWrapper()
     {
         super();
+        this.className = getClass().getName();
     }
 
     /**
@@ -75,46 +72,12 @@ public class ServletExceptionWrapper extends Throwable
      * @param theClassName the server exception class name
      * @param theStackTrace the server exception stack trace
      */
-    public ServletExceptionWrapper(String theMessage, String theClassName, 
-        String theStackTrace)
+    public ServletExceptionWrapper(String theMessage, String theClassName,
+        StackTraceElement[] theStackTrace, Throwable cause)
     {
-        super(theMessage);
+        super(theMessage, cause);
         this.className = theClassName;
-        this.stackTrace = theStackTrace;
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace.
-     *
-     * @param thePs the stream to which to output the stack trace
-     */
-    public void printStackTrace(PrintStream thePs)
-    {
-        if (this.stackTrace == null)
-        {
-            thePs.print(getMessage());
-        }
-        else
-        {
-            thePs.print(this.stackTrace);
-        }
-    }
-
-    /**
-     * Simulates a printing of a stack trace by printing the string stack trace.
-     *
-     * @param thePw the writer to which to output the stack trace
-     */
-    public void printStackTrace(PrintWriter thePw)
-    {
-        if (this.stackTrace == null)
-        {
-            thePw.print(getMessage());
-        }
-        else
-        {
-            thePw.print(this.stackTrace);
-        }
+        this.setStackTrace(theStackTrace);
     }
 
     /**
@@ -123,5 +86,11 @@ public class ServletExceptionWrapper extends Throwable
     public String getWrappedClassName()
     {
         return this.className;
+    }
+
+    public String toString() {
+        String s = getWrappedClassName();
+        String message = getLocalizedMessage();
+        return (message != null) ? (s + ": " + message) : s;
     }
 }
