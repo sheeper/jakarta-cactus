@@ -72,6 +72,8 @@
         <!-- source versions -->
         <maven.compile.source>1.7</maven.compile.source>
         <maven.compile.target>1.7</maven.compile.target>
+        <!-- library versions -->
+        <aspectj.version>1.7.4</aspectj.version>
     </properties>
 
     <modules>
@@ -103,12 +105,7 @@
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
-                <version>1.7.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjtools</artifactId>
-                <version>1.7.4</version>
+                <version>${aspectj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.cargo</groupId>
@@ -265,6 +262,13 @@
                         <source>${maven.compile.source}</source>
                         <target>${maven.compile.target}</target>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjtools</artifactId>
+                            <version>${aspectj.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -319,6 +323,10 @@
                                 <X-Compile-Target-JDK>${maven.compile.target}</X-Compile-Target-JDK>
                             </manifestEntries>
                         </archive>
+                        <excludes>
+                            <!-- aspecj argument file with absolute paths of the building environment -->
+                            <exclude>builddef.lst</exclude>
+                        </excludes>
                     </configuration>
                 </plugin>
                 <plugin>
