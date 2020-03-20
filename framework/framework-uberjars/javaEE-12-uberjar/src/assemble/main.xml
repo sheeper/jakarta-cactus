@@ -27,8 +27,8 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory/>
-            <outputFileNameMapping/>
             <includes>
                 <include>io.github.dgeissl.cactus:cactus.core.framework.javaEE.12-13-14:jar</include>
                 <include>io.github.dgeissl.cactus:cactus.core.framework.wrapper.javaEE.12:jar</include>
